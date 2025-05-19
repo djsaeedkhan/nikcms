@@ -1,0 +1,2155 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2023-10-26 23:12+0330\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Plugin.php:18
+#: Template/Dashboard/index.php:10
+msgid "نوشته"
+msgstr ""
+
+#: Plugin.php:19
+msgid "مدیریت نوشته"
+msgstr ""
+
+#: Plugin.php:20
+#: Plugin.php:42
+msgid "ثبت جدید"
+msgstr ""
+
+#: Plugin.php:21
+msgid "ثبت نوشته جدید"
+msgstr ""
+
+#: Plugin.php:22
+msgid "ویرایش نوشته"
+msgstr ""
+
+#: Plugin.php:23
+#: Plugin.php:45
+#: Plugin.php:221
+#: Template/Categories/add.php:1
+#: Template/Medias/add.php:29
+#: Template/Medias/index.php:34
+#: Template/Medias/view.php:27
+#: Template/Posts/add.php:479
+#: Template/Posts/index.php:53
+msgid "دسته بندی"
+msgstr ""
+
+#: Plugin.php:24
+msgid "ثبت دسته جدید"
+msgstr ""
+
+#: Plugin.php:25
+#: Plugin.php:47
+#: Template/Posts/add.php:531
+#: Template/Posts/index.php:59
+msgid "برچسب"
+msgstr ""
+
+#: Plugin.php:40
+#: Plugin.php:62
+msgid "برگه"
+msgstr ""
+
+#: Plugin.php:41
+msgid "مدیریت برگه"
+msgstr ""
+
+#: Plugin.php:43
+#: Plugin.php:46
+#: Plugin.php:68
+msgid "ثبت برگه جدید"
+msgstr ""
+
+#: Plugin.php:44
+msgid "ویرایش برگه"
+msgstr ""
+
+#: Plugin.php:67
+msgid "دسته بندی رسانه"
+msgstr ""
+
+#: Plugin.php:99
+#: Plugin.php:167
+#: Template/Element/dashboard_top.php:6
+msgid "صفحه نخست"
+msgstr ""
+
+#: Plugin.php:157
+#: Template/Element/dashboard_top.php:5
+msgid "داشبورد"
+msgstr ""
+
+#: Plugin.php:175
+#: Template/Posts/add.php:246
+msgid "بروز رسانی"
+msgstr ""
+
+#: Plugin.php:185
+msgid "درباره ما"
+msgstr ""
+
+#: Plugin.php:195
+msgid "رسانه ها"
+msgstr ""
+
+#: Plugin.php:205
+msgid "همه رسانه ها"
+msgstr ""
+
+#: Plugin.php:213
+#: Template/Medias/gallery.php:67
+#: Template/Medias/index.php:12
+#: Template/Medias/view.php:16
+msgid "افزودن رسانه"
+msgstr ""
+
+#: Plugin.php:232
+msgid "دیدگاه ها"
+msgstr ""
+
+#: Plugin.php:242
+#: Template/Comments/index.php:6
+msgid "مدیریت دیدگاه ها"
+msgstr ""
+
+#: Plugin.php:252
+msgid "افزونه ها"
+msgstr ""
+
+#: Plugin.php:262
+#: Template/Plugins/index.php:7
+msgid "مدیریت افزونه ها"
+msgstr ""
+
+#: Plugin.php:272
+#: Template/Medias/index.php:173
+#: Template/Posts/index.php:94
+#: Template/Tags/index.php:70
+#: Template/Themes/menu.php:31
+msgid "نمایش"
+msgstr ""
+
+#: Plugin.php:282
+#: Template/Themes/index.php:6
+msgid "پوسته ها"
+msgstr ""
+
+#: Plugin.php:289
+#: Template/Themes/template.php:7
+msgid "تنظیمات پوسته"
+msgstr ""
+
+#: Plugin.php:296
+msgid "فهرست ها "
+msgstr ""
+
+#: Plugin.php:303
+msgid "ابزارک ها"
+msgstr ""
+
+#: Plugin.php:313
+msgid "کاربران"
+msgstr ""
+
+#: Plugin.php:323
+msgid "لیست کاربران"
+msgstr ""
+
+#: Plugin.php:330
+#: Template/Users/add.php:9
+msgid "افزودن کاربر"
+msgstr ""
+
+#: Plugin.php:339
+msgid "مدیریت دسترسی"
+msgstr ""
+
+#: Plugin.php:348
+msgid "پروفایل شما"
+msgstr ""
+
+#: Plugin.php:358
+#: Template/Categories/add.php:59
+#: Template/Element/dashboard_top.php:11
+#: Template/Plugins/index.php:55
+msgid "تنظیمات"
+msgstr ""
+
+#: Plugin.php:369
+#: View/Helper/FuncHelper.php:88
+msgid "عمومی"
+msgstr ""
+
+#: Plugin.php:376
+msgid "خواندن"
+msgstr ""
+
+#: Plugin.php:391
+msgid "زبان"
+msgstr ""
+
+#: Plugin.php:398
+#: Template/Dashboard/index.php:55
+msgid "رسانه"
+msgstr ""
+
+#: Plugin.php:405
+msgid "ورود / ثبت نام"
+msgstr ""
+
+#: Controller/CategoriesController.php:65
+msgid "ثبت دسته بندی با موفقیت انجام شد"
+msgstr ""
+
+#: Controller/CategoriesController.php:73
+msgid "متاسفانه ثبت دسته بندی انجام نشد"
+msgstr ""
+
+#: Controller/CategoriesController.php:92
+msgid "حذف دسته بندی با موفقیت انجام شد"
+msgstr ""
+
+#: Controller/CategoriesController.php:94
+msgid "متاسفانه حذف دسته بندی انجام نشد"
+msgstr ""
+
+#: Controller/CommentsController.php:41
+#: Controller/CommentsController.php:57
+#: Controller/CommentsController.php:72
+msgid "The comment has been saved."
+msgstr ""
+
+#: Controller/CommentsController.php:44
+#: Controller/CommentsController.php:60
+#: Controller/CommentsController.php:74
+msgid "The comment could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CommentsController.php:83
+msgid "The comment has been deleted."
+msgstr ""
+
+#: Controller/CommentsController.php:86
+msgid "The comment could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/CommentsController.php:108
+msgid "ثبت نظر شما با موفقیت انجام شد"
+msgstr ""
+
+#: Controller/CommentsController.php:110
+msgid "متاسفانه نظرشما ثبت نشد"
+msgstr ""
+
+#: Controller/MediasController.php:67
+msgid "File has been updated successfully."
+msgstr ""
+
+#: Controller/MediasController.php:69
+msgid "Unable to updated file, please try again."
+msgstr ""
+
+#: Controller/MediasController.php:120
+msgid "فایل با موفقیت آپلود شد"
+msgstr ""
+
+#: Controller/MediasController.php:124
+#: Controller/MediasController.php:127
+msgid "Unable to upload file, please try again."
+msgstr ""
+
+#: Controller/MediasController.php:130
+msgid "Please choose a file to upload."
+msgstr ""
+
+#: Controller/MediasController.php:169
+msgid "آپلود فایل امکان پذیر نمی باشد. لطفا دوباره تلاش کنید (1)"
+msgstr ""
+
+#: Controller/MediasController.php:172
+msgid "آپلود فایل امکان پذیر نمی باشد. لطفا دوباره تلاش کنید (2)"
+msgstr ""
+
+#: Controller/MediasController.php:175
+msgid "لطفا یک فایل برای آپلود انتخاب کنید."
+msgstr ""
+
+#: Controller/MediasController.php:222
+msgid "The media has been saved."
+msgstr ""
+
+#: Controller/MediasController.php:225
+msgid "The media could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/MediasController.php:251
+msgid "The media has been deleted."
+msgstr ""
+
+#: Controller/MediasController.php:254
+msgid "The media could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/OptionsController.php:82
+#: Controller/OptionsController.php:121
+msgid "اطلاعات بصورت موفقیت آمیز ذخیره شدند"
+msgstr ""
+
+#: Controller/OptionsController.php:138
+#: Controller/PostsController.php:383
+msgid "The post has been deleted."
+msgstr ""
+
+#: Controller/OptionsController.php:142
+#: Controller/PostsController.php:385
+msgid "The post could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PluginsController.php:53
+msgid "افزودن به علاقه مندی انجام شد"
+msgstr ""
+
+#: Controller/PluginsController.php:55
+msgid "حذف از علاقه مندی انجام شد"
+msgstr ""
+
+#: Controller/PluginsController.php:59
+msgid "متاسفانه درخواست شما انجام نشد"
+msgstr ""
+
+#: Controller/PluginsController.php:84
+msgid "تغییرات با موفقیت اعمال شد"
+msgstr ""
+
+#: Controller/PluginsController.php:86
+msgid "متاسفانه تغییرات اعمال نشد. دوباره تلاش کنید"
+msgstr ""
+
+#: Controller/PluginsController.php:106
+msgid "تغییرات ساختاری دیتابیس با موفقیت بروزرسانی شد"
+msgstr ""
+
+#: Controller/PostsController.php:128
+#: Controller/PostsController.php:312
+msgid "The post has been saved."
+msgstr ""
+
+#: Controller/PostsController.php:135
+#: Controller/PostsController.php:317
+msgid "The post could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/PostsController.php:165
+msgid "زبان انتخاب شده معتبر نمی باشد"
+msgstr ""
+
+#: Controller/TagsController.php:37
+msgid "The tag has been saved."
+msgstr ""
+
+#: Controller/TagsController.php:40
+msgid "The tag could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:50
+msgid "The tag has been deleted."
+msgstr ""
+
+#: Controller/TagsController.php:52
+msgid "The tag could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:19
+msgid "The Template has been saved."
+msgstr ""
+
+#: Controller/ThemesController.php:21
+msgid "The Template could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:42
+#: Template/Comments/index.php:18
+#: Template/Dashboard/index.php:40
+#: Template/Users/index.php:84
+msgid "کاربر"
+msgstr ""
+
+#: Controller/ThemesController.php:44
+msgid "در 10 دقیقه اخیر دراین صفحه فعالیت داشته و ممکن است همچنان در حال تغییر در این صفحه باشد.<br>\n             توجه داشته باشید که اعمال تغییرات شما ممکن است با تغییرات کاربر دیگر ایجاد تداخل کند."
+msgstr ""
+
+#: Controller/ThemesController.php:71
+msgid "The menu has been deleted."
+msgstr ""
+
+#: Controller/ThemesController.php:73
+msgid "The menu could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:91
+#: Controller/ThemesController.php:129
+msgid "The theme has been saved."
+msgstr ""
+
+#: Controller/ThemesController.php:97
+#: Controller/ThemesController.php:132
+msgid "The theme could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:96
+#: Controller/UsersController.php:112
+#: Controller/UsersController.php:207
+msgid "کاربر پیدا نشد"
+msgstr ""
+
+#: Controller/UsersController.php:178
+msgid "خوشبختانه"
+msgstr ""
+
+#: Controller/UsersController.php:178
+msgid "ذخیره شد"
+msgstr ""
+
+#: Controller/UsersController.php:181
+msgid "X متاسفانه"
+msgstr ""
+
+#: Controller/UsersController.php:181
+msgid "ذخیره نشد"
+msgstr ""
+
+#: Controller/UsersController.php:189
+msgid "The user has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:192
+#: Controller/UsersController.php:246
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:243
+msgid "کاربر با موفقیت بروزرسانی شد"
+msgstr ""
+
+#: Controller/UsersController.php:267
+msgid "The user has been deleted."
+msgstr ""
+
+#: Controller/UsersController.php:269
+msgid "The user could not be deleted. Please, try again."
+msgstr ""
+
+#: Template/Categories/add.php:2
+msgid "ویرایش دسته بندی"
+msgstr ""
+
+#: Template/Categories/add.php:2
+msgid "افزودن دسته بندی"
+msgstr ""
+
+#: Template/Categories/add.php:13
+#: Template/Categories/index.php:35
+#: Template/Categories/index.php:65
+#: Template/Categories/view.php:19
+#: Template/Cell/WgtHtml/admin.php:5
+#: Template/Element/menu_builder.php:5
+#: Template/Element/menu_builder.php:15
+#: Template/Medias/view.php:58
+#: Template/Posts/add.php:94
+#: Template/Posts/index.php:48
+#: Template/Tags/index.php:31
+#: Template/Themes/menu.php:226
+#: Template/Themes/menu.php:231
+msgid "عنوان"
+msgstr ""
+
+#: Template/Categories/add.php:18
+#: Template/Categories/index.php:40
+#: Template/Categories/index.php:66
+#: Template/Categories/view.php:23
+#: Template/Medias/view.php:67
+#: Template/Posts/add.php:101
+#: Template/Tags/index.php:36
+msgid "نامک"
+msgstr ""
+
+#: Template/Categories/add.php:23
+#: Template/Categories/index.php:47
+#: Template/Categories/view.php:11
+msgid "والد"
+msgstr ""
+
+#: Template/Categories/add.php:30
+msgid "تصویر شاخص"
+msgstr ""
+
+#: Template/Categories/add.php:36
+#: Template/Medias/gallery.php:254
+msgid "انتخاب فایل"
+msgstr ""
+
+#: Template/Categories/add.php:47
+#: Template/Categories/index.php:53
+#: Template/Categories/view.php:27
+#: Template/Medias/view.php:79
+#: Template/Options/language.php:76
+#: Template/Tags/index.php:41
+msgid "توضیحات"
+msgstr ""
+
+#: Template/Categories/add.php:54
+#: Template/Categories/add.php:75
+#: Template/Categories/index.php:55
+#: Template/Comments/add.php:88
+#: Template/Comments/reply.php:72
+#: Template/Options/_all.php:28
+#: Template/Options/_users.php:73
+#: Template/Options/index.php:118
+#: Template/Options/index.php:130
+#: Template/Options/language.php:88
+#: Template/Options/media.php:93
+#: Template/Options/reading.php:141
+#: Template/Options/register.php:281
+#: Template/Tags/add.php:21
+#: Template/Tags/index.php:45
+#: Template/Themes/template.php:66
+#: Template/Themes/template_ver1.php:15
+#: Template/Themes/template_ver1.php:19
+#: Template/Themes/template_ver2.php:13
+#: Template/Themes/template_ver2.php:20
+#: Template/Users/add.php:89
+#: Template/Users/profile.php:65
+msgid "ثبت اطلاعات"
+msgstr ""
+
+#: Template/Categories/index.php:46
+msgid "-- انتخاب کنید --"
+msgstr ""
+
+#: Template/Categories/index.php:67
+msgid "تعداد نوشته"
+msgstr ""
+
+#: Template/Categories/index.php:81
+msgid "نمایش پست"
+msgstr ""
+
+#: Template/Categories/index.php:86
+msgid "نمایش دسته بندی"
+msgstr ""
+
+#: Template/Categories/index.php:95
+#: Template/Comments/index.php:42
+#: Template/Medias/index.php:222
+#: Template/Posts/index.php:97
+#: Template/Tags/index.php:71
+#: Template/Users/index.php:67
+msgid "ویرایش"
+msgstr ""
+
+#: Template/Categories/index.php:96
+#: Template/Comments/index.php:43
+#: Template/Medias/index.php:17
+#: Template/Posts/index.php:1
+#: Template/Posts/index.php:14
+#: Template/Posts/index.php:101
+#: Template/Posts/index.php:105
+#: Template/Posts/index.php:110
+#: Template/Tags/index.php:72
+msgid "حذف"
+msgstr ""
+
+#: Template/Categories/index.php:96
+msgid "آیا برای حذف مطمین هستید؟?"
+msgstr ""
+
+#: Template/Categories/index.php:107
+msgid "نمایش پست های این دسته بندی"
+msgstr ""
+
+#: Template/Categories/index.php:118
+#: Template/Element/paginate.php:3
+#: Template/Medias/index.php:125
+#: Template/Posts/index.php:163
+#: Template/Tags/index.php:95
+msgid "صفحه {{page}} از {{pages}} / درحال نمایش {{current}} رکورد از {{count}} "
+msgstr ""
+
+#: Template/Categories/index.php:124
+#: Template/Categories/index.php:125
+#: Template/Categories/index.php:135
+#: Template/Element/paginate.php:18
+#: Template/Medias/index.php:142
+#: Template/Posts/index.php:180
+#: Template/Tags/index.php:112
+msgid "قبلی"
+msgstr ""
+
+#: Template/Categories/index.php:126
+#: Template/Categories/index.php:127
+#: Template/Categories/index.php:137
+#: Template/Element/paginate.php:20
+#: Template/Medias/index.php:144
+#: Template/Posts/index.php:182
+#: Template/Tags/index.php:114
+msgid "بعدی"
+msgstr ""
+
+#: Template/Categories/index.php:128
+#: Template/Categories/index.php:134
+#: Template/Element/paginate.php:17
+#: Template/Medias/index.php:141
+#: Template/Posts/index.php:179
+#: Template/Tags/index.php:111
+msgid "اولین"
+msgstr ""
+
+#: Template/Categories/index.php:129
+#: Template/Categories/index.php:138
+#: Template/Element/paginate.php:21
+#: Template/Medias/index.php:145
+#: Template/Posts/index.php:183
+#: Template/Tags/index.php:115
+msgid "آخرین"
+msgstr ""
+
+#: Template/Categories/view.php:1
+msgid "مدیریت دسته بندی"
+msgstr ""
+
+#: Template/Categories/view.php:6
+msgid "پست تایپ"
+msgstr ""
+
+#: Template/Categories/view.php:15
+#: Template/Comments/index.php:21
+#: Template/Posts/add.php:321
+#: Template/Posts/index.php:68
+#: Template/Users/index.php:55
+msgid "تاریخ ثبت"
+msgstr ""
+
+#: Template/Cell/Comments/display.php:36
+msgid "در تاریخ"
+msgstr ""
+
+#: Template/Cell/Comments/display.php:69
+msgid "بنویسید..."
+msgstr ""
+
+#: Template/Cell/Comments/display.php:70
+msgid "دیدگاه خود را بنویسید."
+msgstr ""
+
+#: Template/Cell/Comments/display.php:78
+#: Template/Users/add.php:34
+#: Template/Users/index.php:51
+#: Template/Users/profile.php:23
+msgid "نام و نام خانوادگی"
+msgstr ""
+
+#: Template/Cell/Comments/display.php:88
+msgid "پست الکترونیک"
+msgstr ""
+
+#: Template/Cell/Comments/display.php:98
+msgid "آدرس وب‌سایت"
+msgstr ""
+
+#: Template/Cell/Comments/display.php:107
+msgid "ارسال دیدگاه"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:10
+#: Template/Cell/Favorite/upload.php:7
+msgid "مدیریت گالری"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:29
+#: Template/Cell/Favorite/upload.php:27
+msgid "در حال دریافت اطلاعات"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:33
+#: Template/Cell/Favorite/upload.php:31
+msgid "گذاشتن در متن"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:36
+#: Template/Cell/Favorite/upload.php:34
+msgid "انتخاب به عنوان تصویر شاخص"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:39
+#: Template/Cell/Favorite/upload.php:37
+#: Template/Cell/Formplus/display_menu.php:146
+#: Template/Medias/gallery.php:264
+#: Template/Themes/template_ver1.php:61
+#: Template/Themes/template_ver2.php:99
+#: Template/Themes/template_ver2.php:156
+#: View/Helper/FuncHelper.php:849
+msgid "انتخاب تصویر"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:51
+#: Template/Cell/Favorite/upload.php:49
+msgid "متاسفانه امکان دریافت اطلاعات وجود ندارد"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:60
+msgid "تصویری انتخاب نشده است"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:77
+msgid "[تغییر تصویر شاخص]"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:78
+msgid "[حذف تصویر]"
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:83
+#: Template/Cell/Favorite/upload.php:83
+#: Template/Cell/Favorite/upload.php:101
+msgid "درحال انجام ..."
+msgstr ""
+
+#: Template/Cell/Favorite/display.php:88
+#: Template/Cell/Favorite/upload.php:88
+#: Template/Cell/Favorite/upload.php:106
+msgid "انجام شد"
+msgstr ""
+
+#: Template/Cell/Favorite/upload.php:57
+msgid "تصویری انتخاب نشده است - "
+msgstr ""
+
+#: Template/Cell/Favorite/upload.php:73
+msgid "تغییر تصویر شاخص"
+msgstr ""
+
+#: Template/Cell/Favorite/upload.php:74
+#: Template/Posts/add.php:592
+msgid "حذف تصویر"
+msgstr ""
+
+#: Template/Cell/Formplus/display.php:81
+#: Template/Themes/template_ver2.php:250
+msgid "برای حذف این سطر مطمئن هستید؟"
+msgstr ""
+
+#: Template/Cell/Formplus/display_menu.php:109
+#: Template/Themes/template_ver2.php:118
+msgid "افزودن سطر جدید"
+msgstr ""
+
+#: Template/Cell/Formplus/display_menu.php:110
+#: Template/Themes/template_ver2.php:119
+msgid "حذف آخرین سطر"
+msgstr ""
+
+#: Template/Cell/Lastpost/display.php:5
+#: Template/Cell/Published/display.php:5
+msgid "نامشخص"
+msgstr ""
+
+#: Template/Cell/Lastpost/display.php:14
+#: View/Helper/FuncHelper.php:81
+msgid "پیش نویس"
+msgstr ""
+
+#: Template/Cell/Menu/category.php:17
+#: Template/Cell/Menu/post.php:17
+#: Template/Themes/menu.php:96
+msgid "افزودن به لیست"
+msgstr ""
+
+#: Template/Cell/Published/display.php:16
+msgid "عنوان نوشته"
+msgstr ""
+
+#: Template/Cell/Published/display.php:21
+msgid "متن"
+msgstr ""
+
+#: Template/Cell/Published/display.php:27
+msgid "ثبت پیش نویس"
+msgstr ""
+
+#: Template/Cell/WgtMenu/admin.php:5
+msgid "عنوان تب"
+msgstr ""
+
+#: Template/Cell/WgtMenu/admin.php:13
+#: Template/Options/register.php:64
+#: Template/Options/register.php:182
+#: Template/Options/register.php:191
+#: Template/Options/register.php:201
+#: Template/Options/register.php:210
+#: Template/Options/register.php:244
+#: View/Helper/FuncHelper.php:837
+msgid "انتخاب کنید"
+msgstr ""
+
+#: Template/Cell/WgtMenu/admin.php:14
+msgid "انتخاب منو"
+msgstr ""
+
+#: Template/Comments/add.php:1
+msgid "ویرایش دیدگاه"
+msgstr ""
+
+#: Template/Comments/add.php:1
+msgid "ثبت دیدگاه"
+msgstr ""
+
+#: Template/Comments/add.php:49
+msgid "نمایش پست: "
+msgstr ""
+
+#: Template/Comments/add.php:65
+msgid "پذیرفته نشده"
+msgstr ""
+
+#: Template/Comments/add.php:66
+msgid "پذیرفته شده"
+msgstr ""
+
+#: Template/Comments/index.php:19
+#: Template/Posts/add.php:129
+msgid "محتوا"
+msgstr ""
+
+#: Template/Comments/index.php:20
+msgid "مطلب مرتبط"
+msgstr ""
+
+#: Template/Comments/index.php:35
+msgid "در پاسخ به "
+msgstr ""
+
+#: Template/Comments/index.php:41
+msgid "پاسخ"
+msgstr ""
+
+#: Template/Comments/index.php:43
+msgid "همه کامنت های فرزند حذف خواهند شد"
+msgstr ""
+
+#: Template/Comments/index.php:45
+msgid "تایید شود"
+msgstr ""
+
+#: Template/Comments/index.php:45
+msgid "تایید نشود"
+msgstr ""
+
+#: Template/Dashboard/about.php:3
+msgid "درباره سامانه"
+msgstr ""
+
+#: Template/Dashboard/index.php:25
+msgid "دیدگاه"
+msgstr ""
+
+#: Template/Dashboard/index.php:128
+msgid "اخبار و رویداد"
+msgstr ""
+
+#: Template/Dashboard/index.php:129
+msgid "نسخه آلفا"
+msgstr ""
+
+#: Template/Dashboard/index.php:139
+msgid "متاسفانه خبری برای نمایش وجود ندارد"
+msgstr ""
+
+#: Template/Dashboard/update.php:6
+msgid "بروز رسانی سامانه"
+msgstr ""
+
+#: Template/Dashboard/update.php:28
+msgid "دریافت فایل آپدیت از سرور"
+msgstr ""
+
+#: Template/Dashboard/update.php:29
+#: Template/Dashboard/update.php:48
+#: Template/Dashboard/update.php:68
+#: Template/Dashboard/update.php:89
+msgid "همین الان"
+msgstr ""
+
+#: Template/Dashboard/update.php:31
+msgid "دریافت فایل آپدیت با موفقیت انجام شد"
+msgstr ""
+
+#: Template/Dashboard/update.php:47
+msgid "اکستراکت فایل آپدیت"
+msgstr ""
+
+#: Template/Dashboard/update.php:54
+msgid "فایل آپدیت با موفقیت  اکستراکت شد"
+msgstr ""
+
+#: Template/Dashboard/update.php:57
+msgid "فایل اکستراکت نشد"
+msgstr ""
+
+#: Template/Dashboard/update.php:67
+msgid "حذف فایل های موقت ایجاد شده"
+msgstr ""
+
+#: Template/Dashboard/update.php:72
+msgid "فایل های اضافه حذف نشدند"
+msgstr ""
+
+#: Template/Dashboard/update.php:75
+msgid "فایل های اضافه حذف شدند"
+msgstr ""
+
+#: Template/Dashboard/update.php:78
+msgid "به دلیل عدم امکان اکستراکت، فایل آپدیت روی سرور نگهداری شد"
+msgstr ""
+
+#: Template/Dashboard/update.php:88
+msgid "فرایند بروزرسانی به پایان رسید"
+msgstr ""
+
+#: Template/Dashboard/update.php:96
+msgid "برای شروع بروزرسانی روی کلید زیر کلیک کنید"
+msgstr ""
+
+#: Template/Dashboard/update.php:97
+msgid "تغییرات انجام شده امکان بازیابی و یا لغو نخواهند داشت"
+msgstr ""
+
+#: Template/Dashboard/update.php:98
+msgid "برای جلوگیری از مشکلات سامانه، در حین انجام بروزرسانی صفحه را رفرش نکنید"
+msgstr ""
+
+#: Template/Dashboard/update.php:99
+msgid "این فرایند ممکن است مدت زمان طولانی به طول بکشد. لطفا تا پایان فرایند صبر کنید"
+msgstr ""
+
+#: Template/Dashboard/update.php:104
+msgid "انتقال فایل بروزرسانی روی سرور"
+msgstr ""
+
+#: Template/Dashboard/update.php:109
+msgid "شروع بروزرسانی"
+msgstr ""
+
+#: Template/Element/dashboard_top.php:10
+msgid "میزکار"
+msgstr ""
+
+#: Template/Element/menu_builder.php:26
+#: Template/Themes/menu.php:235
+msgid "آدرس پیوند (لینک)"
+msgstr ""
+
+#: Template/Layout/default.php:117
+msgid "ایمیل"
+msgstr ""
+
+#: Template/Layout/default.php:118
+msgid "چت"
+msgstr ""
+
+#: Template/Layout/default.php:119
+msgid "تقویم"
+msgstr ""
+
+#: Template/Layout/default.php:120
+msgid "لیست اقدام"
+msgstr ""
+
+#: Template/Layout/default.php:130
+msgid "نمایش سایت"
+msgstr ""
+
+#: Template/Layout/default.php:180
+msgid "اطلاع رسانی"
+msgstr ""
+
+#: Template/Layout/default.php:181
+msgid "جدید"
+msgstr ""
+
+#: Template/Layout/default.php:206
+msgid "برای نمایش پیام کلیک کنید"
+msgstr ""
+
+#: Template/Layout/default.php:212
+msgid "پیامی برای نمایش وجود ندارد"
+msgstr ""
+
+#: Template/Layout/default.php:253
+msgid "برای خروج از پنل کاربری مطمئن هستید؟"
+msgstr ""
+
+#: Template/Layout/default.php:366
+msgid "در حال جستجو"
+msgstr ""
+
+#: Template/Layout/default.php:367
+#: Template/Medias/index.php:46
+#: Template/Posts/index.php:37
+#: Template/Users/index.php:37
+msgid "جستجو"
+msgstr ""
+
+#: Template/Layout/default.php:368
+msgid "چیزی پیدا نشد"
+msgstr ""
+
+#: Template/Layout/default.php:370
+msgid "پرینت"
+msgstr ""
+
+#: Template/Layout/default.php:371
+msgid "کپی"
+msgstr ""
+
+#: Template/Layout/default.php:373
+msgid "اکسل"
+msgstr ""
+
+#: Template/Layout/error.ctp:3
+msgid "خطا"
+msgstr ""
+
+#: Template/Layout/error.ctp:11
+msgid "برگشت"
+msgstr ""
+
+#: Template/Medias/add.php:11
+#: Template/Medias/add2.php:11
+#: Template/Medias/add2_ajax.php:11
+#: Template/Medias/view.php:16
+msgid "ویرایش رسانه"
+msgstr ""
+
+#: Template/Medias/add.php:11
+#: Template/Medias/add2_ajax.php:11
+msgid "آپلود رسانه"
+msgstr ""
+
+#: Template/Medias/add.php:16
+msgid "آپلود دستی"
+msgstr ""
+
+#: Template/Medias/add.php:35
+msgid "آپلود در این دسته"
+msgstr ""
+
+#: Template/Medias/add.php:58
+msgid "پرونده (فایل) ها را اینجا رها کنید<br> یا برای بارگذاری کلیک کنید."
+msgstr ""
+
+#: Template/Medias/add2.php:11
+msgid "آپلود دستی رسانه"
+msgstr ""
+
+#: Template/Medias/add2.php:28
+#: Template/Medias/add2_ajax.php:29
+#: Template/Medias/add2_ajax.php:84
+#: Template/Medias/add2_ajax.php:108
+#: Template/Medias/gallery.php:130
+#: Template/Medias/gallery.php:244
+#: Template/Medias/gallery.php:248
+msgid "شروع آپلود"
+msgstr ""
+
+#: Template/Medias/add2.php:42
+#: Template/Medias/add2_ajax.php:88
+msgid "مشاهده فایل"
+msgstr ""
+
+#: Template/Medias/add2.php:53
+msgid "فایل آپلودی دارای پسوند غیرمجاز می باشد و آپلود نخواهد شد"
+msgstr ""
+
+#: Template/Medias/add2_ajax.php:78
+msgid "متاسفانه آپلود انجام نشد"
+msgstr ""
+
+#: Template/Medias/add2_ajax.php:98
+msgid "مشاهده تصویر"
+msgstr ""
+
+#: Template/Medias/add2_ajax.php:107
+#: Template/Medias/gallery.php:245
+#: Template/Medias/gallery.php:272
+msgid "متاسفانه اپلود انجام نشد"
+msgstr ""
+
+#: Template/Medias/gallery.php:55
+msgid "جستجو نام فایل"
+msgstr ""
+
+#: Template/Medias/gallery.php:63
+msgid "گالری رسانه"
+msgstr ""
+
+#: Template/Medias/gallery.php:101
+#: Template/Medias/index.php:113
+msgid "فایل پیدا نشد"
+msgstr ""
+
+#: Template/Medias/gallery.php:174
+#: Template/Medias/gallery.php:191
+msgid "در دریافت اطلاعات مشکلی پیش آمده است"
+msgstr ""
+
+#: Template/Medias/gallery.php:222
+msgid "در حال ارسال"
+msgstr ""
+
+#: Template/Medias/index.php:8
+msgid "مدیریت رسانه"
+msgstr ""
+
+#: Template/Medias/index.php:20
+#: Template/Posts/index.php:17
+msgid "حذف انتخاب شده ها"
+msgstr ""
+
+#: Template/Medias/index.php:43
+#: Template/Users/index.php:32
+msgid "عنوان را وارد کنید"
+msgstr ""
+
+#: Template/Medias/index.php:155
+msgid "پیام جدید"
+msgstr ""
+
+#: Template/Medias/index.php:165
+msgid "حذف برای همیشه"
+msgstr ""
+
+#: Template/Medias/index.php:168
+#: Template/Posts/index.php:2
+#: Template/Posts/index.php:103
+msgid "برای حذف مطمئن هستید؟"
+msgstr ""
+
+#: Template/Medias/index.php:178
+msgid "ادیتور"
+msgstr ""
+
+#: Template/Medias/index.php:221
+msgid "نام پرونده"
+msgstr ""
+
+#: Template/Medias/index.php:224
+msgid "نوع پرونده"
+msgstr ""
+
+#: Template/Medias/index.php:225
+msgid "حجم پرونده"
+msgstr ""
+
+#: Template/Medias/index.php:226
+msgid "تاریخ بارگذاری"
+msgstr ""
+
+#: Template/Medias/index.php:230
+msgid "لینک فایل"
+msgstr ""
+
+#: Template/Medias/index.php:231
+msgid "سایزهای دیگر"
+msgstr ""
+
+#: Template/Medias/index.php:235
+msgid "دسترسی سریع"
+msgstr ""
+
+#: Template/Medias/view.php:28
+#: Template/Plugins/index.php:50
+#: Template/Posts/add.php:481
+msgid "مدیریت"
+msgstr ""
+
+#: Template/Medias/view.php:88
+msgid "تاریخ ایجاد"
+msgstr ""
+
+#: Template/Medias/view.php:98
+#: Template/Posts/add.php:246
+msgid "انتشار"
+msgstr ""
+
+#: Template/Options/_all.php:1
+msgid "همه تنظیمات"
+msgstr ""
+
+#: Template/Options/_users.php:21
+#: Template/Options/register.php:30
+msgid "ورود کاربران"
+msgstr ""
+
+#: Template/Options/_users.php:25
+#: Template/Options/register.php:34
+msgid "ثبت نام کاربران"
+msgstr ""
+
+#: Template/Options/_users.php:66
+msgid "Submit"
+msgstr ""
+
+#: Template/Options/index.php:6
+msgid "تنظیمات "
+msgstr ""
+
+#: Template/Options/index.php:25
+msgid "تنظیمات عمومی"
+msgstr ""
+
+#: Template/Options/index.php:29
+msgid "پنل مدیریت"
+msgstr ""
+
+#: Template/Options/index.php:33
+msgid "امنیت"
+msgstr ""
+
+#: Template/Options/index.php:47
+#: Template/Options/index.php:55
+#: Template/Themes/index.php:89
+msgid "فعال سازی"
+msgstr ""
+
+#: Template/Options/index.php:50
+#: Template/Options/media.php:12
+#: Template/Options/register.php:67
+#: Template/Options/register.php:247
+#: Template/Users/index.php:64
+#: View/Helper/FuncHelper.php:74
+msgid "غیرفعال"
+msgstr ""
+
+#: Template/Options/index.php:51
+#: Template/Options/media.php:14
+#: Template/Options/register.php:66
+#: Template/Options/register.php:246
+#: View/Helper/FuncHelper.php:75
+msgid "فعال"
+msgstr ""
+
+#: Template/Options/index.php:66
+msgid "نوع تقویم"
+msgstr ""
+
+#: Template/Options/index.php:71
+msgid "تقویم شمسی"
+msgstr ""
+
+#: Template/Options/index.php:72
+msgid "تقویم میلادی"
+msgstr ""
+
+#: Template/Options/index.php:80
+msgid "عنوان کلید هدر"
+msgstr ""
+
+#: Template/Options/index.php:84
+msgid "در صورتی که خالی باشد، \"نمایش سایت\" نشان داده خواهد شد"
+msgstr ""
+
+#: Template/Options/index.php:86
+msgid "در صورتی که خط تیره - قرار بگیرد، کلا نمایش داده نخواهد شد"
+msgstr ""
+
+#: Template/Options/index.php:92
+#: Template/Options/index.php:125
+msgid "آدرس لینک کلید هدر"
+msgstr ""
+
+#: Template/Options/index.php:98
+msgid "در صورتی که آدرس لینک خالی باشد، لینک سایت قرار داده خواهد شد"
+msgstr ""
+
+#: Template/Options/index.php:104
+msgid "استایل اضافه مدیریت"
+msgstr ""
+
+#: Template/Options/language.php:6
+msgid "مدیریت زبان و ترجمه"
+msgstr ""
+
+#: Template/Options/language.php:10
+msgid "زبان فعلی سایت"
+msgstr ""
+
+#: Template/Options/language.php:29
+msgid "زبان پیش فرض"
+msgstr ""
+
+#: Template/Options/language.php:37
+msgid "زبان جایگزین"
+msgstr ""
+
+#: Template/Options/language.php:37
+msgid "اختیاری"
+msgstr ""
+
+#: Template/Options/language.php:54
+msgid "در ادامه مطلب، در صورت عدم وجود ترجمه به صفحه نخست هدایت شود"
+msgstr ""
+
+#: Template/Options/language.php:66
+msgid "فعال سازی حالت چند زبانه (ذخیره تنظیمات جداگانه)"
+msgstr ""
+
+#: Template/Options/language.php:78
+msgid "زبان پیش فرض برای سایت \"فارسی\" می باشد"
+msgstr ""
+
+#: Template/Options/language.php:79
+msgid "با تغییر زبان باید برای اطلاعات قبلی ثبت شده (درسایت) معادل زبان انتخابی تان را وارد کنید"
+msgstr ""
+
+#: Template/Options/language.php:80
+msgid "در صورت عدم تکمیل معادل فارسی، اطلاعات در زبان انتخابی \"خالی\" نمایش داده خواهد شد"
+msgstr ""
+
+#: Template/Options/language.php:81
+msgid "پیشنهاد میشود قبل از درج اطلاعات نسبت به انتخاب زبان سایت اقدام کنید"
+msgstr ""
+
+#: Template/Options/media.php:6
+msgid "چندرسانه ای"
+msgstr ""
+
+#: Template/Options/media.php:27
+msgid "تنظیمات  بارگذاری پرونده‌ها"
+msgstr ""
+
+#: Template/Options/media.php:34
+msgid "پرونده‌ها را ماهانه و سالانه سازماندهی کن"
+msgstr ""
+
+#: Template/Options/media.php:43
+msgid "نام فایل آپلود شده به اسمی بی مسما تغییر نام پیدا کند"
+msgstr ""
+
+#: Template/Options/media.php:45
+msgid "مثلا"
+msgstr ""
+
+#: Template/Options/media.php:54
+msgid "اندازه‌های تصویر"
+msgstr ""
+
+#: Template/Options/media.php:88
+msgid "در صورتی برای این صفحه تنظیماتی ثبت نشود، برای همه سایز ها (ابعاد) تصاویر برش خواهند خورد"
+msgstr ""
+
+#: Template/Options/reading.php:6
+#: Template/Options/reading.php:25
+msgid "تنظیمات خواندن"
+msgstr ""
+
+#: Template/Options/reading.php:29
+msgid "پست تایپ ها"
+msgstr ""
+
+#: Template/Options/reading.php:38
+msgid "تعداد نوشته در هر صفحه"
+msgstr ""
+
+#: Template/Options/reading.php:45
+msgid "فراخوانی چکیده از متن اصلی "
+msgstr ""
+
+#: Template/Options/reading.php:47
+#: View/Helper/FuncHelper.php:61
+msgid "بله"
+msgstr ""
+
+#: Template/Options/reading.php:48
+#: View/Helper/FuncHelper.php:60
+msgid "خیر"
+msgstr ""
+
+#: Template/Options/reading.php:55
+msgid "در صورتی که چکیده خالی باشد، از متن اصلی فراخوانی شود"
+msgstr ""
+
+#: Template/Options/reading.php:61
+msgid "تیک: پست تایپ پیش فرض در صفحه ایندکس"
+msgstr ""
+
+#: Template/Options/reading.php:62
+msgid "تکست باکس: عنوان نمایشی پست تایپ در سایت"
+msgstr ""
+
+#: Template/Options/reading.php:69
+msgid "نمایش پیشفرض"
+msgstr ""
+
+#: Template/Options/reading.php:70
+msgid "عدم نمایش در داشبورد"
+msgstr ""
+
+#: Template/Options/reading.php:71
+msgid "تغییر عنوان پست تایپ"
+msgstr ""
+
+#: Template/Options/reading.php:125
+msgid "عنوان جایگزین"
+msgstr ""
+
+#: Template/Options/register.php:6
+msgid "تنظیمات ورود"
+msgstr ""
+
+#: Template/Options/register.php:8
+msgid "ثبت نام"
+msgstr ""
+
+#: Template/Options/register.php:38
+msgid "یادآوری پسورد"
+msgstr ""
+
+#: Template/Options/register.php:42
+msgid "خروج از سایت"
+msgstr ""
+
+#: Template/Options/register.php:46
+msgid "تنظیمات کلی"
+msgstr ""
+
+#: Template/Options/register.php:55
+msgid "تکمیل پروفایل"
+msgstr ""
+
+#: Template/Options/register.php:58
+msgid "در صورتی که مشخصات کاربر ناقص باشد، به صفحه پروفایل هدایت شده تا نسبت به تکمیل اقدام نماید"
+msgstr ""
+
+#: Template/Options/register.php:62
+msgid "وضعیت ورود کاربران"
+msgstr ""
+
+#: Template/Options/register.php:66
+msgid "امکان ورود"
+msgstr ""
+
+#: Template/Options/register.php:67
+msgid "عدم امکان ورود"
+msgstr ""
+
+#: Template/Options/register.php:73
+msgid "پیغام عدم امکان ورود"
+msgstr ""
+
+#: Template/Options/register.php:79
+msgid "لینک اختصاصی ورود کاربران"
+msgstr ""
+
+#: Template/Options/register.php:85
+msgid "صفحه لاگین: در صورتی که خالی باشد، لینک پیش فرض سامانه قرار داده می شود"
+msgstr ""
+
+#: Template/Options/register.php:90
+msgid "آدرس پس از لاگین"
+msgstr ""
+
+#: Template/Options/register.php:96
+msgid "صفحه لاگین: پس از ورود به چه آدرسی هدایت شود"
+msgstr ""
+
+#: Template/Options/register.php:108
+msgid "آدرس تصویر لاگین"
+msgstr ""
+
+#: Template/Options/register.php:115
+msgid "استایل اختصاصی لاگین"
+msgstr ""
+
+#: Template/Options/register.php:121
+msgid "کلید ورود"
+msgstr ""
+
+#: Template/Options/register.php:126
+msgid "با این تنظیم در صورتی که وضعیت ورود: غیرفعال باشد میتوانید  وارد سایت شوید"
+msgstr ""
+
+#: Template/Options/register.php:128
+msgid "لینک ورود به سایت"
+msgstr ""
+
+#: Template/Options/register.php:141
+msgid "بررسی تاریخ انقضای کاربر هنگام ورود"
+msgstr ""
+
+#: Template/Options/register.php:148
+msgid "متن خطای نمایشی به کاربر"
+msgstr ""
+
+#: Template/Options/register.php:156
+msgid "آدرس پس از خروج از سایت"
+msgstr ""
+
+#: Template/Options/register.php:163
+msgid "پیام پس از خروج از سایت"
+msgstr ""
+
+#: Template/Options/register.php:180
+#: Template/Options/register.php:189
+msgid "نمایش در قالب سایت"
+msgstr ""
+
+#: Template/Options/register.php:208
+msgid "استفاده از \"ثبت نام\" اختصاصی قالب"
+msgstr ""
+
+#: Template/Options/register.php:218
+msgid "استایل نمایش در قالب سایت"
+msgstr ""
+
+#: Template/Options/register.php:223
+#: Template/Options/register.php:234
+msgid "بدون نیاز به"
+msgstr ""
+
+#: Template/Options/register.php:228
+msgid "اسکریپت نمایش در قالب سایت"
+msgstr ""
+
+#: Template/Options/register.php:242
+msgid "وضعیت یادآوری پسورد"
+msgstr ""
+
+#: Template/Options/register.php:253
+msgid "پیغام بالای صفحه"
+msgstr ""
+
+#: Template/Options/register.php:259
+msgid "آدرس تصویر"
+msgstr ""
+
+#: Template/Options/register.php:266
+msgid "استایل اختصاصی"
+msgstr ""
+
+#: Template/Plugins/index.php:11
+msgid "بروزرسانی دیتابیس"
+msgstr ""
+
+#: Template/Plugins/index.php:45
+msgid "صفحه افزونه"
+msgstr ""
+
+#: Template/Plugins/index.php:66
+msgid "مایلید این پلاگین را غیرفعال کنید؟"
+msgstr ""
+
+#: Template/Plugins/index.php:68
+msgid "در صورت حذف، اطلاعات و جداول نیز حذف خواهند شد."
+msgstr ""
+
+#: Template/Plugins/index.php:71
+msgid "فعال شود"
+msgstr ""
+
+#: Template/Plugins/index.php:87
+msgid "حذف از علاقه مندی ها"
+msgstr ""
+
+#: Template/Plugins/index.php:93
+msgid "افزودن به علاقه مندی ها"
+msgstr ""
+
+#: Template/Plugins/index.php:97
+msgid "افزونه"
+msgstr ""
+
+#: Template/Plugins/index.php:108
+msgid "توسط"
+msgstr ""
+
+#: Template/Plugins/index.php:110
+msgid "نگارش"
+msgstr ""
+
+#: Template/Posts/add.php:20
+msgid "المنتور"
+msgstr ""
+
+#: Template/Posts/add.php:21
+msgid "برای افزودن المان به ادیتور کلیک کنید"
+msgstr ""
+
+#: Template/Posts/add.php:27
+msgid "المان های پیشفرض"
+msgstr ""
+
+#: Template/Posts/add.php:57
+msgid "درحال نمایش زبان"
+msgstr ""
+
+#: Template/Posts/add.php:58
+#: Template/Posts/add.php:507
+msgid "پیش فرض"
+msgstr ""
+
+#: Template/Posts/add.php:81
+msgid "تاریخ وارد شده صحیح نمی باشد"
+msgstr ""
+
+#: Template/Posts/add.php:112
+msgid "لطفا ابتدا پست را منتشر کرده تا از المنتور بتوانید استفاده کنید"
+msgstr ""
+
+#: Template/Posts/add.php:119
+msgid "افزودن پرونده چندرسانه ای"
+msgstr ""
+
+#: Template/Posts/add.php:209
+msgid "توضیحات کوتاه"
+msgstr ""
+
+#: Template/Posts/add.php:251
+msgid "وضعیت"
+msgstr ""
+
+#: Template/Posts/add.php:259
+msgid "نمایانی"
+msgstr ""
+
+#: Template/Posts/add.php:267
+msgid "پسورد"
+msgstr ""
+
+#: Template/Posts/add.php:276
+msgid "نحوه نمایش"
+msgstr ""
+
+#: Template/Posts/add.php:279
+msgid "عدم نمایش متن نوشته"
+msgstr ""
+
+#: Template/Posts/add.php:280
+msgid "عدم نمایش کل صفحه"
+msgstr ""
+
+#: Template/Posts/add.php:374
+#: Template/Posts/add.php:390
+msgid "جابجایی"
+msgstr ""
+
+#: Template/Posts/add.php:388
+msgid "قبل از"
+msgstr ""
+
+#: Template/Posts/add.php:389
+msgid "بعداز"
+msgstr ""
+
+#: Template/Posts/add.php:391
+msgid "هم تاریخ"
+msgstr ""
+
+#: Template/Posts/add.php:413
+#: Template/Users/add_group.php:33
+msgid "توجه"
+msgstr ""
+
+#: Template/Posts/add.php:414
+msgid "جابجایی به روش تغییر تاریخ ثبت پست بصورت اتوماتیک انجام می شود"
+msgstr ""
+
+#: Template/Posts/add.php:431
+msgid "سنجاق"
+msgstr ""
+
+#: Template/Posts/add.php:448
+#: Template/Posts/add.php:452
+msgid "حذف نوشته"
+msgstr ""
+
+#: Template/Posts/add.php:458
+#: Template/Posts/add.php:460
+msgid "نمایش مطلب"
+msgstr ""
+
+#: Template/Posts/add.php:468
+msgid "لینک کوتاه مطلب"
+msgstr ""
+
+#: Template/Posts/add.php:506
+msgid "Template"
+msgstr ""
+
+#: Template/Posts/add.php:529
+msgid "بنویسید و اینتر بزنید"
+msgstr ""
+
+#: Template/Posts/add.php:536
+msgid "برچسب‌ها را با ویرگول لاتین (,) جدا کنید"
+msgstr ""
+
+#: Template/Posts/add.php:575
+#: Template/Posts/index.php:49
+msgid "نویسنده"
+msgstr ""
+
+#: Template/Posts/add.php:596
+#: Template/Posts/add.php:604
+msgid "انتخاب تصویر شاخص"
+msgstr ""
+
+#: Template/Posts/index.php:33
+msgid "جستجو در عنوان و محتوا"
+msgstr ""
+
+#: Template/Posts/index.php:63
+msgid "ترجمه"
+msgstr ""
+
+#: Template/Posts/index.php:66
+msgid "تعداد نمایش"
+msgstr ""
+
+#: Template/Posts/index.php:86
+msgid "پین شده"
+msgstr ""
+
+#: Template/Tags/add.php:1
+msgid "ویرایش برچسب"
+msgstr ""
+
+#: Template/Tags/add.php:1
+msgid "ثبت برچسب جدید"
+msgstr ""
+
+#: Template/Tags/index.php:73
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: Template/Tags/index.php:83
+msgid "نمایش پست های این تگ"
+msgstr ""
+
+#: Template/Themes/index.php:33
+#: Template/Themes/index.php:79
+msgid "نام قالب"
+msgstr ""
+
+#: Template/Themes/index.php:40
+msgid "ورژن"
+msgstr ""
+
+#: Template/Themes/index.php:44
+msgid "سازنده"
+msgstr ""
+
+#: Template/Themes/index.php:50
+#: Template/Themes/menu.php:6
+msgid "مدیریت فهرست ها"
+msgstr ""
+
+#: Template/Themes/index.php:56
+msgid "تنظیمات قالب"
+msgstr ""
+
+#: Template/Themes/index.php:63
+msgid "هنوز قالبی انتخاب نشده است"
+msgstr ""
+
+#: Template/Themes/index.php:85
+msgid "فعال است"
+msgstr ""
+
+#: Template/Themes/index.php:92
+msgid "موافق هستید؟"
+msgstr ""
+
+#: Template/Themes/menu.php:24
+msgid "انتخاب فهرست برای نمایش"
+msgstr ""
+
+#: Template/Themes/menu.php:41
+msgid "یا فهرست جدیدی بسازید"
+msgstr ""
+
+#: Template/Themes/menu.php:65
+msgid "پیوند دلخواه"
+msgstr ""
+
+#: Template/Themes/menu.php:77
+msgid "نشانی"
+msgstr ""
+
+#: Template/Themes/menu.php:84
+msgid "متن پیوند"
+msgstr ""
+
+#: Template/Themes/menu.php:120
+msgid "نام فهرست"
+msgstr ""
+
+#: Template/Themes/menu.php:196
+msgid "حذف فهرست"
+msgstr ""
+
+#: Template/Themes/menu.php:199
+msgid "Are U sure to delete ?"
+msgstr ""
+
+#: Template/Themes/menu.php:208
+msgid "لطفا عنوان فهرست را وارد کرده و سپس کلید \"ساخت فهرست\" را بزنید"
+msgstr ""
+
+#: Template/Themes/menu.php:270
+msgid "متن پیوند نمیتواند خالی باشد"
+msgstr ""
+
+#: Template/Themes/menu.php:295
+msgid "همه منو و زیر منوها حذف خواهند شد. برای حذف مطمئن هستید؟"
+msgstr ""
+
+#: Template/Themes/template.php:37
+msgid "متاسفانه فایل تنظیمات پیدا نشد"
+msgstr ""
+
+#: Template/Themes/template.php:52
+msgid "درحال ثبت اطلاعات"
+msgstr ""
+
+#: Template/Themes/template.php:58
+msgid "ثبت اطلاعات با موفقیت انجام شد"
+msgstr ""
+
+#: Template/Themes/template.php:60
+msgid "متاسفانه ثبت اطلاعات با موفقیت انجام نشد"
+msgstr ""
+
+#: Template/Themes/template.php:63
+msgid "متاسفانه ثبت اطلاعات انجام نشد"
+msgstr ""
+
+#: Template/Users/add.php:9
+msgid "ویرایش کاربر"
+msgstr ""
+
+#: Template/Users/add.php:14
+msgid "افزودن از فایل (ثبت دسته جمعی)"
+msgstr ""
+
+#: Template/Users/add.php:42
+#: Template/Users/index.php:52
+#: Template/Users/profile.php:18
+msgid "نام کاربری"
+msgstr ""
+
+#: Template/Users/add.php:60
+msgid "اگر نمیخواهید رمزعبور  تغییر کند چیزی ننویسید"
+msgstr ""
+
+#: Template/Users/add.php:65
+msgid "آدرس ایمیل"
+msgstr ""
+
+#: Template/Users/add.php:71
+msgid "تاریخ انقضای ورود"
+msgstr ""
+
+#: Template/Users/add.php:76
+msgid "انتخاب"
+msgstr ""
+
+#: Template/Users/add.php:78
+msgid "وضعیت لاگین (ورود) به مدیریت"
+msgstr ""
+
+#: Template/Users/add_group.php:7
+msgid "افزودن گروهی کاربر"
+msgstr ""
+
+#: Template/Users/add_group.php:23
+msgid "فایل CSV را انتخاب کنید"
+msgstr ""
+
+#: Template/Users/add_group.php:26
+msgid "پیشنهاد می شود ابتدا فایل را با یک کاربر ایجاد و تست کنید و پس از درست بودن فرایند نسبت به ثبت لیست کاربران خود اقدام کنید"
+msgstr ""
+
+#: Template/Users/add_group.php:28
+msgid "شروع عملیات"
+msgstr ""
+
+#: Template/Users/add_group.php:35
+msgid "دانلود فایل نمونه"
+msgstr ""
+
+#: Template/Users/add_group.php:37
+msgid "کلیک کنید"
+msgstr ""
+
+#: Template/Users/add_group.php:40
+msgid "اولین ستون همیشه نام کاربری باشد"
+msgstr ""
+
+#: Template/Users/add_group.php:41
+msgid "تاریخ انقضا کاربر ، تاریخ میلادی باشد و میتواند همچنین خالی باشد"
+msgstr ""
+
+#: Template/Users/add_group.php:42
+msgid "نام کاربری کمتر از 8 کاراکتر نباشد و اطلاعاتی از قبیل نام کاربری یا آدرس ایمیل تکراری نباشند"
+msgstr ""
+
+#: Template/Users/add_group.php:43
+msgid "Encoding فایل  میبایست UTF-8 باشد . در غیر این صورت ممکن است متن های فارسی درست ذخیره نشوند"
+msgstr ""
+
+#: Template/Users/add_group.php:44
+msgid "باتوجه به عنوان ستون ها، اطلاعات را وارد کنید"
+msgstr ""
+
+#: Template/Users/add_group.php:45
+msgid "در صورتی که نام کاربری تکراری باشد و یا پسورد کوتاه باشد، سطر ذخیره نخواهد شد"
+msgstr ""
+
+#: Template/Users/add_group.php:46
+msgid "برای تغییر فایل میتوانید از نوتپد استفاده نمایید"
+msgstr ""
+
+#: Template/Users/add_group.php:47
+msgid "پسوند فایل میبایست CSV باشد. پسوند Xls یا Xlsx قابل استفاده نمی باشد"
+msgstr ""
+
+#: Template/Users/add_group.php:48
+msgid "از قرار دادن کاراکتر های غیرمجاز یا ... اجتناب کنید"
+msgstr ""
+
+#: Template/Users/add_group.php:49
+msgid "در اطلاعات وارد شده از کاراکتر نقطه ویرگول \"<b>;</b>\" استفاده نکنید"
+msgstr ""
+
+#: Template/Users/index.php:6
+msgid "مدیریت کاربران"
+msgstr ""
+
+#: Template/Users/index.php:11
+msgid "ثبت کاربر جدید"
+msgstr ""
+
+#: Template/Users/index.php:16
+msgid "خروجی Excel"
+msgstr ""
+
+#: Template/Users/index.php:53
+msgid "لاگین فعال"
+msgstr ""
+
+#: Template/Users/index.php:54
+msgid "حق دسترسی"
+msgstr ""
+
+#: Template/Users/index.php:66
+msgid "مشاهده"
+msgstr ""
+
+#: Template/Users/index.php:69
+msgid "گزارشات"
+msgstr ""
+
+#: Template/Users/index.php:71
+msgid "گزارش فعالیت های کاربر"
+msgstr ""
+
+#: Template/Users/index.php:94
+msgid "ورود موفق"
+msgstr ""
+
+#: Template/Users/index.php:95
+msgid "ورود ناموفق"
+msgstr ""
+
+#: Template/Users/logs.php:1
+msgid "مشاهده گزارش لاگ کاربران"
+msgstr ""
+
+#: Template/Users/profile.php:7
+msgid "پروفایل کاربری"
+msgstr ""
+
+#: Template/Users/profile.php:16
+msgid "مشخصات کاربری"
+msgstr ""
+
+#: Template/Users/profile.php:28
+msgid "برای اعمال تغییرات می بایست یکبار از سامانه خارج و دوباره وارد شوید"
+msgstr ""
+
+#: Template/Users/profile.php:38
+msgid "تغییر رمز عبور"
+msgstr ""
+
+#: Template/Users/profile.php:40
+msgid "رمز عبور"
+msgstr ""
+
+#: Template/Users/profile.php:43
+msgid "اگر نمیخواهید رمز را عوض کنید چیزی وارد نکنید"
+msgstr ""
+
+#: Template/Users/profile.php:44
+msgid "خالی باشد"
+msgstr ""
+
+#: Template/Users/profile.php:55
+msgid "مشخصات فنی"
+msgstr ""
+
+#: Template/Users/view.php:1
+msgid "Manage User"
+msgstr ""
+
+#: Template/Users/view.php:5
+msgid "Id"
+msgstr ""
+
+#: Template/Users/view.php:9
+msgid "Username"
+msgstr ""
+
+#: Template/Users/view.php:13
+msgid "Family"
+msgstr ""
+
+#: Template/Users/view.php:17
+msgid "Email"
+msgstr ""
+
+#: Template/Users/view.php:21
+msgid "Phone"
+msgstr ""
+
+#: Template/Users/view.php:25
+msgid "Role"
+msgstr ""
+
+#: Template/Users/view.php:29
+msgid "Created"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:66
+msgid "کاربر ادمین"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:67
+msgid "کاربر همکار"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:68
+msgid "کاربر عضو"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:82
+msgid "منتشر شده"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:89
+msgid "خصوصی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:90
+msgid "رمزدار"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:532
+msgid "فارسی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:533
+msgid "انگلیسی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:534
+msgid "عربی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:535
+msgid "روسی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:536
+msgid "چینی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:537
+msgid "ترکیه"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:538
+msgid "اسپانیایی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:539
+msgid "فرانسوی"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:897
+msgid "تاریخ نامعتبر"
+msgstr ""
+
+#: View/Helper/FuncHelper.php:1135
+msgid "پیام جدید ثبت شده است"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:273
+msgid "برچسب ها"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:884
+msgid "این نوشته توسط رمز محافظت شده است"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:891
+msgid "لطفا رمز را وارد کنید"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:895
+msgid "رمز وارد شده اشتباه است"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:898
+msgid "ارسال"
+msgstr ""
+
+#: View/Helper/QueryHelper.php:1001
+msgid "منوی مورد نظر پیدا نشد"
+msgstr ""
+
+#: Template/Comments/reply.php:1
+msgid "پاسخ به دیدگاه"
+msgstr ""
+
+#: Template/Dashboard/index.php:3
+msgid "saeeds"
+msgstr ""
+
+#: Template/Dashboard/index.php:2
+msgid "saeed"
+msgstr ""
+

@@ -1,0 +1,36 @@
+<?php
+namespace Elementor\View\Cell;
+
+use Cake\View\Cell;
+
+/**
+ * Home cell
+ */
+class HomeCell extends Cell
+{
+    /**
+     * List of valid options that can be passed into this
+     * cell's constructor.
+     *
+     * @var array
+     */
+    protected $_validCellOptions = [];
+
+    /**
+     * Initialization logic run at the end of object construction.
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+    }
+
+    /**
+     * Default display method.
+     *
+     * @return void
+     */
+    public function display($post_meta_list = []){
+        $this->set(['post_meta_list'=>$post_meta_list]);
+    }
+}

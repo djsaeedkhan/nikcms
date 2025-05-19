@@ -1,0 +1,230 @@
+2025-05-19 21:37:43 error: [Cake\Core\Exception\MissingPluginException] Plugin Predata could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Core\PluginCollection.php on line 146
+Exception Attributes: array (
+  'plugin' => 'Predata',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Core\PluginCollection.php:264
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:130
+- C:\xampp\htdocs\cms\src\Application.php:48
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:118
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:80
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+2025-05-19 22:08:02 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:17:25 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:19:14 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:19:15 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:19:16 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:19:17 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/
+2025-05-19 22:19:18 error: [Cake\Http\Exception\MissingControllerException] Controller class Pages could not be found. in C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Pages',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Pages',
+)
+Stack Trace:
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:75
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:86
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:176
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:157
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:189
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:149
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:82
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Runner.php:67
+- C:\xampp\htdocs\cms\vendor\cakephp\cakephp\src\Http\Server.php:99
+- C:\xampp\htdocs\cms\webroot\index.php:40
+- [main]:
+
+Request URL: /
+Referer URL: http://localhost/

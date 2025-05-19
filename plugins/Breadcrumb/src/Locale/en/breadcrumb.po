@@ -1,0 +1,105 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2024-04-19 05:00+0430\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Plugin.php:14
+msgid "تنظیمات"
+msgstr "Setting"
+
+#: Plugin.php:16
+msgid "صفحه اصلی"
+msgstr "Home"
+
+#: Plugin.php:30
+msgid "مکان نما"
+msgstr "Navigation"
+
+#: Plugin.php:32
+msgid "مدیریت مکان نما"
+msgstr "Manage Navigation"
+
+#: Template/Cell/View/display.php:18
+#: Template/Cell/View/display.php:56
+#: Template/Cell/View/display.php:71
+#: Template/Cell/View/display.php:86
+#: Template/Cell/View/display.php:118
+msgid "صفحه نخست"
+msgstr "Home"
+
+#: Template/Cell/View/display.php:61
+msgid "جستجو"
+msgstr "Search"
+
+#: Template/Cell/View/display.php:76
+msgid "برچسب"
+msgstr "Tags"
+
+#: Template/Cell/View/display.php:94
+#: Template/Cell/View/display.php:125
+msgid "دسته بندی"
+msgstr "Category"
+
+#: Template/Home/index.php:16
+msgid "مدیریت افزونه مکان نما"
+msgstr "BreadCrumb Plugin Manager"
+
+#: Template/Home/index.php:29
+msgid "لیست عنوان ها"
+msgstr "List Of Titles"
+
+#: Template/Home/index.php:33
+msgid "مستثنی کردن"
+msgstr "Exclude"
+
+#: Template/Home/index.php:39
+msgid "در صورتی که عنوانی خالی باشد، مقدار پیش فرش نمایش داده می شود"
+msgstr "If a title is empty, the default value is displayed"
+
+#: Template/Home/index.php:44
+msgid "عنوان صفحه نخست"
+msgstr "Home Page Title"
+
+#: Template/Home/index.php:45
+msgid "عنوان ادامه مطلب"
+msgstr "Title of Continue page"
+
+#: Template/Home/index.php:46
+msgid "عنوان جستجو"
+msgstr "Search title"
+
+#: Template/Home/index.php:47
+msgid "عنوان برچسب"
+msgstr "Tags title"
+
+#: Template/Home/index.php:48
+msgid "عنوان دسته بندی"
+msgstr "Category title"
+
+#: Template/Home/index.php:59
+msgid "پست تایپ هایی که نمیخواهید در آن مکان نما نمایش داده شوند را مشخص کنید"
+msgstr "Specify the types of posts that you do not want to be displayed in that cursor"
+
+#: Template/Home/index.php:66
+msgid "تنظیمات صفحه ایندکس"
+msgstr "Index Page Settings"
+
+#: Template/Home/index.php:77
+msgid "تنظیمات صفحه ادامه مطلب"
+msgstr "Setting of Continue page"
+
+#: Template/Home/index.php:90
+msgid "ثبت اطلاعات"
+msgstr "Save"
+

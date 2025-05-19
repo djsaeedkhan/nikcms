@@ -1,0 +1,657 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2021-09-22 18:47+0330\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/CategoriesController.php:63
+msgid "The category has been saved."
+msgstr ""
+
+#: Controller/CategoriesController.php:71
+msgid "The category could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CategoriesController.php:90
+msgid "The category has been deleted."
+msgstr ""
+
+#: Controller/CategoriesController.php:92
+msgid "The category could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/CommentsController.php:41
+#: Controller/CommentsController.php:57
+#: Controller/CommentsController.php:72
+msgid "The comment has been saved."
+msgstr ""
+
+#: Controller/CommentsController.php:44
+#: Controller/CommentsController.php:60
+#: Controller/CommentsController.php:74
+msgid "The comment could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CommentsController.php:83
+msgid "The comment has been deleted."
+msgstr ""
+
+#: Controller/CommentsController.php:86
+msgid "The comment could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/CommentsController.php:108
+msgid "ثبت نظر شما با موفقیت انجام شد"
+msgstr ""
+
+#: Controller/CommentsController.php:110
+msgid "متاسفانه نظرشما ثبت نشد"
+msgstr ""
+
+#: Controller/MediasController.php:57
+msgid "File has been updated successfully."
+msgstr ""
+
+#: Controller/MediasController.php:59
+msgid "Unable to updated file, please try again."
+msgstr ""
+
+#: Controller/MediasController.php:85
+msgid "فایل با موفقیت آپلود شد"
+msgstr ""
+
+#: Controller/MediasController.php:89
+#: Controller/MediasController.php:92
+msgid "Unable to upload file, please try again."
+msgstr ""
+
+#: Controller/MediasController.php:95
+msgid "Please choose a file to upload."
+msgstr ""
+
+#: Controller/MediasController.php:134
+msgid "آپلود فایل امکان پذیر نمی باشد. لطفا دوباره تلاش کنید (1)"
+msgstr ""
+
+#: Controller/MediasController.php:137
+msgid "آپلود فایل امکان پذیر نمی باشد. لطفا دوباره تلاش کنید (2)"
+msgstr ""
+
+#: Controller/MediasController.php:140
+msgid "لطفا یک فایل برای آپلود انتخاب کنید."
+msgstr ""
+
+#: Controller/MediasController.php:185
+msgid "The media has been saved."
+msgstr ""
+
+#: Controller/MediasController.php:189
+msgid "The media could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/MediasController.php:216
+msgid "The media has been deleted."
+msgstr ""
+
+#: Controller/MediasController.php:219
+msgid "The media could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/OptionsController.php:57
+msgid "اطلاعات بصورت موفقیت آمیز ذخیره شدند"
+msgstr ""
+
+#: Controller/OptionsController.php:73
+#: Controller/PostsController.php:247
+msgid "The post has been deleted."
+msgstr ""
+
+#: Controller/OptionsController.php:77
+#: Controller/PostsController.php:249
+msgid "The post could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PluginsController.php:60
+#: Controller/PluginsController.php:72
+msgid "The plugin has been saved."
+msgstr ""
+
+#: Controller/PluginsController.php:62
+#: Controller/PluginsController.php:76
+msgid "The plugin could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/PluginsController.php:85
+msgid "The plugin has been deleted."
+msgstr ""
+
+#: Controller/PluginsController.php:87
+msgid "The plugin could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PostsController.php:133
+#: Controller/PostsController.php:182
+msgid "The post has been saved."
+msgstr ""
+
+#: Controller/PostsController.php:141
+#: Controller/PostsController.php:186
+msgid "The post could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:37
+msgid "The tag has been saved."
+msgstr ""
+
+#: Controller/TagsController.php:40
+msgid "The tag could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TagsController.php:50
+msgid "The tag has been deleted."
+msgstr ""
+
+#: Controller/TagsController.php:52
+msgid "The tag could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:19
+msgid "The Template has been saved."
+msgstr ""
+
+#: Controller/ThemesController.php:21
+msgid "The Template could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:44
+msgid "The menu has been deleted."
+msgstr ""
+
+#: Controller/ThemesController.php:46
+msgid "The menu could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/ThemesController.php:64
+#: Controller/ThemesController.php:102
+msgid "The theme has been saved."
+msgstr ""
+
+#: Controller/ThemesController.php:70
+#: Controller/ThemesController.php:105
+msgid "The theme could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:156
+#: Controller/UsersController.php:198
+msgid "The user has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:159
+#: Controller/UsersController.php:201
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:221
+msgid "The user has been deleted."
+msgstr ""
+
+#: Controller/UsersController.php:223
+msgid "The user could not be deleted. Please, try again."
+msgstr ""
+
+#: Template/Categories/add.php:2
+msgid "Edit Category"
+msgstr ""
+
+#: Template/Categories/add.php:2
+msgid "Add Category"
+msgstr ""
+
+#: Template/Categories/add.php:29
+#: Template/Categories/add.php:49
+#: Template/Comments/add.php:75
+#: Template/Comments/reply.php:72
+#: Template/Options/_users.php:66
+#: Template/Options/_users.php:73
+#: Template/Options/all.php:28
+#: Template/Options/index.php:60
+#: Template/Options/language.php:39
+#: Template/Options/reading.php:62
+#: Template/Posts/add.php:92
+#: Template/Tags/add.php:18
+#: Template/Users/add.php:64
+#: Template/Users/add_group.php:24
+msgid "Submit"
+msgstr ""
+
+#: Template/Categories/add.php:34
+msgid "Edit Setting"
+msgstr ""
+
+#: Template/Categories/index.php:50
+#: Template/Options/register.php:120
+#: Template/Tags/index.php:45
+#: Template/Users/profile.php:51
+msgid "ثبت اطلاعات"
+msgstr ""
+
+#: Template/Categories/index.php:85
+#: Template/Comments/index.php:42
+#: Template/Posts/index.php:67
+#: Template/Tags/index.php:67
+msgid "ویرایش"
+msgstr ""
+
+#: Template/Categories/index.php:86
+#: Template/Comments/index.php:43
+#: Template/Tags/index.php:68
+msgid "حذف"
+msgstr ""
+
+#: Template/Categories/index.php:86
+#: Template/Tags/index.php:68
+#: Template/Tags/view.php:64
+#: Template/Users/index.php:54
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: Template/Categories/index.php:108
+#: Template/Element/paginate.php:3
+#: Template/Posts/index.php:104
+msgid "صفحه {{page}} از {{pages}} / درحال نمایش {{current}} رکورد از {{count}} "
+msgstr ""
+
+#: Template/Categories/index.php:124
+#: Template/Element/paginate.php:17
+#: Template/Posts/index.php:120
+msgid "اولین"
+msgstr ""
+
+#: Template/Categories/index.php:125
+#: Template/Element/paginate.php:18
+#: Template/Posts/index.php:121
+msgid "قبلی"
+msgstr ""
+
+#: Template/Categories/index.php:127
+#: Template/Element/paginate.php:20
+#: Template/Posts/index.php:123
+msgid "بعدی"
+msgstr ""
+
+#: Template/Categories/index.php:128
+#: Template/Element/paginate.php:21
+#: Template/Posts/index.php:124
+msgid "آخرین"
+msgstr ""
+
+#: Template/Categories/view.php:1
+msgid "Manage Category"
+msgstr ""
+
+#: Template/Categories/view.php:6
+#: Template/Tags/view.php:17
+#: Template/Tags/view.php:47
+msgid "Post Type"
+msgstr ""
+
+#: Template/Categories/view.php:10
+#: Template/Tags/view.php:21
+#: Template/Tags/view.php:43
+#: Template/Users/view.php:5
+msgid "Id"
+msgstr ""
+
+#: Template/Categories/view.php:14
+msgid "Parent Id"
+msgstr ""
+
+#: Template/Categories/view.php:18
+#: Template/Medias/view.php:53
+#: Template/Tags/view.php:25
+#: Template/Tags/view.php:48
+#: Template/Users/view.php:29
+msgid "Created"
+msgstr ""
+
+#: Template/Categories/view.php:22
+#: Template/Medias/view.php:25
+#: Template/Tags/view.php:5
+#: Template/Tags/view.php:44
+msgid "Title"
+msgstr ""
+
+#: Template/Categories/view.php:26
+#: Template/Medias/view.php:34
+#: Template/Tags/view.php:9
+#: Template/Tags/view.php:45
+msgid "Slug"
+msgstr ""
+
+#: Template/Categories/view.php:30
+#: Template/Medias/view.php:44
+msgid "Description"
+msgstr ""
+
+#: Template/Comments/add.php:1
+msgid "Edit Comment"
+msgstr ""
+
+#: Template/Comments/add.php:1
+msgid "Add Comment"
+msgstr ""
+
+#: Template/Comments/index.php:6
+msgid "مدیریت دیدگاه ها"
+msgstr ""
+
+#: Template/Comments/index.php:41
+msgid "پاسخ"
+msgstr ""
+
+#: Template/Comments/index.php:43
+msgid "Are you sure you want to delete # {0}?  همه کامنت های فرزند حذف خواهند شد"
+msgstr ""
+
+#: Template/Comments/index.php:44
+msgid "تایید شود"
+msgstr ""
+
+#: Template/Comments/index.php:44
+msgid "تایید نشود"
+msgstr ""
+
+#: Template/Comments/reply.php:1
+msgid "Reply Comment"
+msgstr "Replyyyy Commment"
+
+#: Template/Dashboard/index.php:2
+msgid "saeed"
+msgstr ""
+
+#: Template/Layout/error.ctp:3
+msgid "Error"
+msgstr ""
+
+#: Template/Layout/error.ctp:11
+msgid "Back"
+msgstr ""
+
+#: Template/Medias/add.php:12
+#: Template/Medias/view.php:16
+msgid "Edit Media"
+msgstr ""
+
+#: Template/Medias/add.php:12
+#: Template/Medias/add2.php:11
+msgid "آپلود رسانه"
+msgstr ""
+
+#: Template/Medias/add.php:16
+msgid "بارگزاری رسانه جدید"
+msgstr ""
+
+#: Template/Medias/add2.php:11
+msgid "ویرایش رسانه"
+msgstr ""
+
+#: Template/Medias/gallery.php:40
+msgid "Manage Media"
+msgstr ""
+
+#: Template/Medias/gallery.php:43
+#: Template/Medias/view.php:16
+msgid "Add Media"
+msgstr ""
+
+#: Template/Medias/index.php:8
+msgid "مدیریت رسانه"
+msgstr ""
+
+#: Template/Medias/index.php:12
+msgid "افزودن رسانه"
+msgstr ""
+
+#: Template/Medias/index.php:34
+#: Template/Posts/index.php:29
+#: Template/Users/index.php:26
+msgid "جستجو"
+msgstr ""
+
+#: Template/Medias/index.php:115
+#: Template/Tags/index.php:81
+msgid "first"
+msgstr ""
+
+#: Template/Medias/index.php:116
+#: Template/Tags/index.php:82
+msgid "previous"
+msgstr ""
+
+#: Template/Medias/index.php:118
+#: Template/Tags/index.php:84
+msgid "next"
+msgstr ""
+
+#: Template/Medias/index.php:119
+#: Template/Tags/index.php:85
+msgid "last"
+msgstr ""
+
+#: Template/Medias/index.php:121
+#: Template/Tags/index.php:87
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr ""
+
+#: Template/Options/_users.php:21
+#: Template/Options/register.php:22
+msgid "ورود کاربران"
+msgstr ""
+
+#: Template/Options/_users.php:25
+#: Template/Options/register.php:26
+msgid "ثبت نام کاربران"
+msgstr ""
+
+#: Template/Options/all.php:1
+msgid "All Options"
+msgstr ""
+
+#: Template/Options/index.php:6
+msgid "تنظیمات "
+msgstr ""
+
+#: Template/Options/index.php:23
+msgid "تنظیمات عمومی"
+msgstr ""
+
+#: Template/Options/index.php:27
+msgid " پنل مدیریت"
+msgstr ""
+
+#: Template/Options/language.php:6
+msgid "language"
+msgstr ""
+
+#: Template/Options/reading.php:6
+msgid "پست تایپ ها"
+msgstr ""
+
+#: Template/Options/register.php:30
+msgid "یادآوری پسورد"
+msgstr ""
+
+#: Template/Options/register.php:34
+msgid "تنظیمات کلی"
+msgstr ""
+
+#: Template/Posts/add.php:35
+msgid "عنوان"
+msgstr ""
+
+#: Template/Posts/add.php:42
+msgid "نامک"
+msgstr ""
+
+#: Template/Posts/add.php:59
+msgid "محتوا"
+msgstr ""
+
+#: Template/Posts/add.php:184
+msgid "Template"
+msgstr ""
+
+#: Template/Posts/index.php:66
+#: Template/Tags/index.php:66
+msgid "نمایش"
+msgstr ""
+
+#: Template/Tags/add.php:1
+msgid "Edit Tag"
+msgstr ""
+
+#: Template/Tags/add.php:1
+msgid "Add Tag"
+msgstr ""
+
+#: Template/Tags/index.php:57
+msgid "post"
+msgstr ""
+
+#: Template/Tags/view.php:1
+msgid "Manage Tag"
+msgstr ""
+
+#: Template/Tags/view.php:13
+msgid "Meta Title"
+msgstr ""
+
+#: Template/Tags/view.php:29
+msgid "Meta Description"
+msgstr ""
+
+#: Template/Tags/view.php:33
+msgid "Meta Keywords"
+msgstr ""
+
+#: Template/Tags/view.php:39
+msgid "Related Posts"
+msgstr ""
+
+#: Template/Tags/view.php:46
+msgid "User Id"
+msgstr ""
+
+#: Template/Tags/view.php:49
+msgid "Modified"
+msgstr ""
+
+#: Template/Tags/view.php:50
+msgid "Actions"
+msgstr ""
+
+#: Template/Tags/view.php:62
+#: Template/Users/index.php:51
+msgid "View"
+msgstr ""
+
+#: Template/Tags/view.php:63
+#: Template/Users/index.php:52
+msgid "Edit"
+msgstr ""
+
+#: Template/Tags/view.php:64
+#: Template/Users/index.php:54
+msgid "Delete"
+msgstr ""
+
+#: Template/Themes/menu.php:6
+msgid "فهرست ها"
+msgstr ""
+
+#: Template/Users/add.php:9
+msgid "ویرایش کاربر"
+msgstr ""
+
+#: Template/Users/add.php:9
+msgid "افزودن کاربر"
+msgstr ""
+
+#: Template/Users/add_group.php:1
+msgid "Edit User"
+msgstr ""
+
+#: Template/Users/add_group.php:1
+msgid "افزودن گروهی کاربر"
+msgstr ""
+
+#: Template/Users/index.php:6
+msgid "مدیریت کاربران"
+msgstr ""
+
+#: Template/Users/index.php:53
+msgid "Logs"
+msgstr ""
+
+#: Template/Users/logs.php:1
+msgid "user log"
+msgstr ""
+
+#: Template/Users/view.php:1
+msgid "Manage User"
+msgstr ""
+
+#: Template/Users/view.php:9
+msgid "Username"
+msgstr ""
+
+#: Template/Users/view.php:13
+msgid "Family"
+msgstr ""
+
+#: Template/Users/view.php:17
+msgid "Email"
+msgstr ""
+
+#: Template/Users/view.php:21
+msgid "Phone"
+msgstr ""
+
+#: Template/Users/view.php:25
+msgid "Role"
+msgstr ""
+
+#: Template/Dashboard/index.php:3
+msgid "saeeds"
+msgstr ""
+
+#: Template/Dashboard/index.php:11
+msgid "نوشته"
+msgstr ""
+
+#: Template/Dashboard/index.php:26
+msgid "دیدگاه"
+msgstr ""
+
+#: Template/Dashboard/index.php:41
+msgid "کاربر"
+msgstr "Users"
+
+#: Template/Dashboard/index.php:56
+msgid "resane"
+msgstr "Uploads"
+
+#: Template/Dashboard/index.php:131
+msgid "اخبار و رویداد"
+msgstr ""
+
