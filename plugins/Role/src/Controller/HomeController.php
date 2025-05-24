@@ -6,17 +6,17 @@ class HomeController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     
     public function index(){
-        $this->Role = TableRegistry::get('Role.Roles');
+        $this->Role = $this->getTableLocator()->get('Role.Roles');
         $result = $this->Role->find('all')->order(['id'=>'desc']);
         $this->set('result', $result);
     }
 
     public function add($id = null){
-        $this->Role = TableRegistry::get('Role.Roles');
+        $this->Role = $this->getTableLocator()->get('Role.Roles');
         $roles = $this->Role->newEntity();
         $result= [];
         if($id != null){
@@ -75,9 +75,9 @@ class HomeController extends AppController
 
     public function delete($id = null){
         $this->request->allowMethod(['post', 'delete']);
-        $this->Role = TableRegistry::get('Role.Roles');
+        $this->Role = $this->getTableLocator()->get('Role.Roles');
 
-        $count = TableRegistry::get('Admin.Users')
+        $count = $this->getTableLocator()->get('Admin.Users')
             ->find("all")
             ->where([ 'Users.role_id'=> $id ])
             ->count();

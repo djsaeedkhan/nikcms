@@ -8,7 +8,7 @@ use Lms\Controller\AppController;
 use Lms\Model\Entity\LmsCourse;
 use Lms\VideoStream;
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\View\Exception\MissingLayoutException;
@@ -38,7 +38,7 @@ class GuestController extends AppController
     //----------------------------------------------------------
     public function beforeFilter(Event $event){
         parent::beforeFilter($event);
-        $this->Auth->allow(['index','view','detail','courses','register','subscribe']);
+        $this->Authentication->addUnauthenticatedActions(['index','view','detail','courses','register','subscribe']);
     }
     //----------------------------------------------------------------
     public function index() {
@@ -74,7 +74,7 @@ class GuestController extends AppController
                 $query = $this->LmsCoursefilecans
                     ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
                     ->select(['lms_coursefile_id','user_id'])
-                    ->where(['user_id'=> $this->Auth->user('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                    ->where(['user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
                     ->group(['lms_coursefile_id']);
                 $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
 
@@ -135,7 +135,7 @@ class GuestController extends AppController
         }
         /* $show_current = false; */
         $show_current = true;
-        /* if($checks->checkIS($id,$file_id , $this->Auth->user('id'),  $this->request->getQuery() )){
+        /* if($checks->checkIS($id,$file_id , $this->request->getAttribute('identity')->get('id'),  $this->request->getQuery() )){
             $show_current = true;
         } */
         $this->set(['show_current' => $show_current]);
@@ -173,14 +173,14 @@ class GuestController extends AppController
             return $this->redirect($this->referer());
         }
 
-        if(! $this->Auth->user('id')){
+        if(! $this->request->getAttribute('identity')->get('id')){
             $this->Flash->error('برای ثبت نام در دوره می بایست به حساب کاربری خود وارد شوید. اگر حساب کاربری ندارید، '
                 .'<a href="'.$this->Func->Urls('register').'">اینجا</a> را کلیک کنید.');
             return $this->redirect($this->referer());
         }
 
         if($this->LmsCourseusers->find('all')
-            ->where(['user_id'=>$this->Auth->user('id'),'lms_course_id'=>$id])
+            ->where(['user_id'=>$this->request->getAttribute('identity')->get('id'),'lms_course_id'=>$id])
             ->count() > 0 ){
                 $this->Flash->error('دوره "'.$lmsCourses['title'].'" قبلا برای شما ثبت شده است.');
                 return $this->redirect($this->referer());
@@ -188,7 +188,7 @@ class GuestController extends AppController
 
         if($this->LmsUserfactors->find('all')
             ->where([
-                'user_id'=>$this->Auth->user('id'),
+                'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'lms_course_id'=>$lmsCourses['id'],
                 'enable'=>0,
             ])
@@ -208,7 +208,7 @@ class GuestController extends AppController
                 ->order(['Created'=>'DESC'])
                 ->where([
                     'enable'=> true,
-                    'user_id' => $this->Auth->user('id'),
+                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'created >= '=> $time->format('Y-m-d H:i:s'),
                 ])
                 ->toarray();
@@ -243,7 +243,7 @@ class GuestController extends AppController
 
                 $relateds = $this->LmsCourseusers->find('all')
                     ->where([
-                        'user_id'=>$this->Auth->user('id'),
+                        'user_id'=>$this->request->getAttribute('identity')->get('id'),
                         'lms_course_id'=>$related['lms_course_ids']])
                     ->toarray();
 
@@ -265,7 +265,7 @@ class GuestController extends AppController
                 }
                 elseif( ($fact = $this->LmsUserfactors->find('all')
                     ->where([
-                        'user_id'=>$this->Auth->user('id'),
+                        'user_id'=>$this->request->getAttribute('identity')->get('id'),
                         'lms_course_id'=>$related['lms_course_ids'] ,
                         'enable'=>0
                     ])
@@ -288,7 +288,7 @@ class GuestController extends AppController
         if ($this->request->is('post')) {
             $lmsFactor = $this->LmsFactors->newEntity();
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
-                    'user_id'=>$this->Auth->user('id'),
+                    'user_id'=>$this->request->getAttribute('identity')->get('id'),
                     'price'=>$lmsCourses['price'],
                     'paid'=>0,
                     'status'=>0,
@@ -297,7 +297,7 @@ class GuestController extends AppController
             if ($id = $this->LmsFactors->save($lmsFactor)) {
                 $lmsuserf = $this->LmsUserfactors->newEntity();
                 $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
-                        'user_id' => $this->Auth->user('id'),
+                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_factor_id' => $lmsFactor->id,
                         'lms_course_id' => $lmsCourses['id'],
                         'enable' => 0,
@@ -308,7 +308,7 @@ class GuestController extends AppController
                     // 1401-12-01
                     /* $lmsCourseuser = $this->LmsCourseusers->newEntity();
                     $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
-                        'user_id' => $this->Auth->user('id'),
+                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_course_id' => $lmsCourses['id']
                     ]);
                     $this->LmsCourseusers->save($lmsCourseuser); */

@@ -123,7 +123,7 @@ class TicketsController extends AppController
                     mkdir($fuConfig['upload_path'], 0777, true);
                 }
                 $fuConfig['allowed_types'] = 'zip|rar|pdf|jpg|doc|mp3|mp4';
-                $fuConfig['file_name'] = 'tka'.$this->Auth->user('id').date('mdh').rand(1000, 9999);
+                $fuConfig['file_name'] = 'tka'.$this->request->getAttribute('identity')->get('id').date('mdh').rand(1000, 9999);
                 $fuConfig['max_size'] = 20000;
                 $this->Fileupload->init($fuConfig);
                 if (!$this->Fileupload->upload('file')) {
@@ -145,7 +145,7 @@ class TicketsController extends AppController
                         $ticketcomment = $this->Ticketcomments->newEntity();
                         $ticketcomment = $this->Ticketcomments->patchEntity($ticketcomment, [
                             'content'=>$ticket->content,
-                            'user_id'=>$this->Auth->user('id'),
+                            'user_id'=>$this->request->getAttribute('identity')->get('id'),
                             'ticket_id'=>$ticket->id,
                             'filename' => $this->request->getData()['file']['name'],
                             'filesrc' => $item,

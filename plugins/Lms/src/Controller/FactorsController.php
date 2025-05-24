@@ -103,7 +103,7 @@ class FactorsController extends AppController
             $lmsFactor = $this->LmsFactors->newEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->request = $this->request->withData('user_ids', $this->Auth->user('id') );
+            $this->request = $this->request->withData('user_ids', $this->request->getAttribute('identity')->get('id') );
             $this->request = $this->request->withData('status', 0);
 
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor, $this->request->getData());
@@ -114,7 +114,7 @@ class FactorsController extends AppController
                         'user_id' => $this->request->getData()['user_id'],
                         'lms_factor_id' => $lmsFactor->id,
                         'lms_course_id' => $this->request->getData()['lms_course_id'],
-                        'user_ids' => $this->Auth->user('id'), 
+                        'user_ids' => $this->request->getAttribute('identity')->get('id'), 
                         'enable' => $this->request->getData()['paid']
                     ]);
                     if ($this->LmsUserfactors->save($lmsUserfactor)){

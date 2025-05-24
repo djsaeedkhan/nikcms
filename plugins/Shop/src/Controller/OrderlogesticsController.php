@@ -15,7 +15,7 @@ class OrderlogesticsController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopOrderlogestics = TableRegistry::getTableLocator()->get('Shop.ShopOrderlogestics');
     }
 

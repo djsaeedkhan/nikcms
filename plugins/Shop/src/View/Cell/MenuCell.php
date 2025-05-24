@@ -14,7 +14,7 @@ class MenuCell extends Cell
 
     public function post($post_type = 'post', $menu = [])
     {
-        $data = TableRegistry::get('Admin.Posts')->find('list')
+        $data = $this->getTableLocator()->get('Admin.Posts')->find('list')
             ->select(['id','title'])
             ->order(['Posts.id'=>'desc'])
             ->where(['post_type'=>$post_type,'published'=> 1])
@@ -28,7 +28,7 @@ class MenuCell extends Cell
 
     public function category($post_type = null,  $menu = [])
     {
-        $data = TableRegistry::get('Admin.Categories')
+        $data = $this->getTableLocator()->get('Admin.Categories')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type'=>$post_type])
             ->order(['lft'=>'asc'])

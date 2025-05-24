@@ -35,7 +35,7 @@ class TicketcommentsController extends AppController
                     mkdir($fuConfig['upload_path'], 0777, true);
                 }
                 $fuConfig['allowed_types'] = 'zip|rar|pdf|jpg|doc|mp3|mp4';
-                $fuConfig['file_name'] = 'tk'.$this->Auth->user('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
+                $fuConfig['file_name'] = 'tk'.$this->request->getAttribute('identity')->get('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
                 $fuConfig['max_size'] = 20000;			
                 $this->Fileupload->init($fuConfig);	
                 if (!$this->Fileupload->upload('file')){
@@ -46,7 +46,7 @@ class TicketcommentsController extends AppController
                     $this->request = $this->request->withData('filesrc', $item);
                 }
             }
-            $this->request = $this->request->withData('user_id',$this->Auth->user('id') );
+            $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
             $ticketcomment = $this->Ticketcomments->patchEntity($ticketcomment, $this->request->getData());
             
             if ($this->Ticketcomments->save($ticketcomment)) {
@@ -81,7 +81,7 @@ class TicketcommentsController extends AppController
 
     public function close($id = null)
     {
-        $this->Tickets = TableRegistry::get('Ticketing.Tickets');
+        $this->Tickets = $this->getTableLocator()->get('Ticketing.Tickets');
         $this->request->allowMethod(['post']);
         $ticketcomment = $this->Tickets->get($id);
         if ($this->Tickets->query()->update()

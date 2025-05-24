@@ -9,9 +9,9 @@ class CustomersController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
-        $this->ShopAddresses = TableRegistry::get('Shop.ShopAddresses');
-        $this->ShopUserAddresses = TableRegistry::get('Shop.ShopUseraddresses');
+        $this->viewBuilder()->setLayout('Admin.default');
+        $this->ShopAddresses = $this->getTableLocator()->get('Shop.ShopAddresses');
+        $this->ShopUserAddresses = $this->getTableLocator()->get('Shop.ShopUseraddresses');
     }
     //-----------------------------------------------------------
     public function index2(){
@@ -35,7 +35,7 @@ class CustomersController extends AppController
         ]);
         /* $useaddr = [];
         if($shopAddress['user_id']){
-            $useaddr = TableRegistry::get('Shop.ShopUseraddresses')
+            $useaddr = $this->getTableLocator()->get('Shop.ShopUseraddresses')
                 ->find('all')
                 ->where(['user_id' => $shopAddress['user_id']])
                 ->toArray();

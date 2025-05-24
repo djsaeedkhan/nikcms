@@ -29,7 +29,7 @@ class Plugin extends BasePlugin
                         'type'=>'select',
                         'name'=>'register_default_role',
                         'default' => 1,
-                        'options' => \Cake\ORM\TableRegistry::get('Role.roles')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
+                        'options' => \Cake\ORM\$this->getTableLocator()->get('Role.roles')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
                         'title' => __d('Role','نقش پیش‌فرض کاربر تازه'),
                         'after' => '<small><a href="'.\Cake\Routing\Router::url('/admin/role/').'">'.
                             __d('Role','تنظیمات پلاگین') .'</a></small>',
@@ -45,7 +45,7 @@ class Plugin extends BasePlugin
                         'name' => 'role_id',
                         'type'=>'select',
                         'default' => 1,
-                        'options' => \Cake\ORM\TableRegistry::get('Role.roles')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
+                        'options' => \Cake\ORM\$this->getTableLocator()->get('Role.roles')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
                         'title' => __d('Role','نقش کاربر'),
                         'after' => '<small><a href="'.
                             \Cake\Routing\Router::url('/admin/role/').'">'.

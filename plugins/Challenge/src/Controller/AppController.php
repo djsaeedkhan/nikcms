@@ -9,7 +9,7 @@ class AppController extends BaseController
     public $setting_challenge = [];
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
 
         $setting = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
@@ -28,7 +28,7 @@ class AppController extends BaseController
             'group' => $predata->gettype('group'),
             'gender' => $predata->gettype('gender'),
             'center' => $predata->gettype('center'),
-            'user_ids'=> $this->Auth->user('id')
+            'user_ids'=> $this->request->getAttribute('identity')->get('id')
         ]);
         
     }

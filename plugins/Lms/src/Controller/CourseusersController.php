@@ -165,7 +165,7 @@ class CourseusersController extends AppController
                 if($lists and $id != 0){
                     foreach($lists as $list){
 
-                        $user = TableRegistry::get('Users')->find('all')->where(['username'=> $list])->first();
+                        $user = $this->getTableLocator()->get('Users')->find('all')->where(['username'=> $list])->first();
                         if($user){
                             $lmsCourseuser = $this->LmsCourseusers->newEntity();
                             $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [

@@ -62,15 +62,15 @@ class CartHelper extends Helper
         if(count($attrs)){
             foreach( $attrs as $k => $attr){
                 $attrlist [ 
-                    TableRegistry::get('Shop.ShopAttributes')->find('list',['keyField'=>'title','valueField'=>'title'])
+                    $this->getTableLocator()->get('Shop.ShopAttributes')->find('list',['keyField'=>'title','valueField'=>'title'])
                         ->where(['id'=> $k])->first()
                     ] =
-                    TableRegistry::get('Shop.ShopAttributelists')->find('list',['keyField'=>'title','valueField'=>'title'])
+                    $this->getTableLocator()->get('Shop.ShopAttributelists')->find('list',['keyField'=>'title','valueField'=>'title'])
                         ->where(['id'=> $attr])->first();
             }
         }
         $quantity = abs($quantity);
-        $product = TableRegistry::get('Admin.Posts')->get($id , ['contain' => ['PostMetas']]);
+        $product = $this->getTableLocator()->get('Admin.Posts')->get($id , ['contain' => ['PostMetas']]);
         $stock = ShopHelper::getStock($product->id , implode(',',$attrs));
 
         if($stock < $quantity)
@@ -329,7 +329,7 @@ class CartHelper extends Helper
     ////////////////////////////////////////////////////////////////////////////////
     public static function OrderTotalPrice($token = null) {
         $price = 0;
-        $result= TableRegistry::get('Shop.ShopOrders')->find('all')
+        $result= $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->where([ 'OR'=>['ShopOrders.trackcode'=>$token , 'ShopOrders.id'=> $token] ])
             ->contain(['ShopOrderproducts','shopOrdershippings'])
             ->first();
@@ -350,7 +350,7 @@ class CartHelper extends Helper
     }
     ////////////////////////////////////////////////////////////////////////////////
     public static function ShippingList($type = null,$options = null){
-        $result = TableRegistry::get('Admin.Options')
+        $result = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_transport'])
             ->toArray();
@@ -457,7 +457,7 @@ class CartHelper extends Helper
     }
     ////////////////////////////////////////////////////////////////////////////////
     public static function ProductScheduling($options = []){
-        $result = TableRegistry::get('Admin.Options')
+        $result = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_schedule'])
             ->toArray();
@@ -569,7 +569,7 @@ class CartHelper extends Helper
     public static function ShippingScheduleCheck($time = null , $i = null, //$day_plus = 0, 
         $current_useraddress = null,$shipping = null){
 
-        $setting_tra = TableRegistry::get('Admin.Options')
+        $setting_tra = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_transport'])
             ->toArray();
@@ -580,7 +580,7 @@ class CartHelper extends Helper
                     $cr_setting_tra = $tra;
             }
 
-        $setting_sch = TableRegistry::get('Admin.Options')
+        $setting_sch = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_schedule'])
             ->toArray();
@@ -636,7 +636,7 @@ class CartHelper extends Helper
                             $total_plus = $cr_setting_tra['province_exc'.$j.'count'];
                 }
             endfor;
-            $p = TableRegistry::get('Shop.shopOrdershippings')->find('all')
+            $p = $this->getTableLocator()->get('Shop.shopOrdershippings')->find('all')
                 ->where(['sendtime'=> $date])->count();
             if(isset($total_plus) and $p >= intval($total_plus)){
                 $enable = false;

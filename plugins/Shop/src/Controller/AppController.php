@@ -1,7 +1,7 @@
 <?php
 namespace Shop\Controller;
 use App\Controller\AppController as BaseController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\ORM\TableRegistry;
 use Shop\View\Helper\CartHelper;
 

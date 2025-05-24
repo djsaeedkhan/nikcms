@@ -357,10 +357,10 @@ class ChallengeuserformsController extends AppController
         }
         //--------------------------------------------------------------------------------
         if ($this->request->is('post') and isset($this->request->getParam('?')['userforms'])) {
-            $chlist = TableRegistry::get('Challenge.Challenges')
+            $chlist = $this->getTableLocator()->get('Challenge.Challenges')
                 ->find('list',['keyField' => 'id','valueField' => 'title'])
                 ->toarray();
-            $u = TableRegistry::get('Challenge.users')->find('all')
+            $u = $this->getTableLocator()->get('Challenge.users')->find('all')
                 ->contain(['Challengeuserforms' =>['Challenges']])
                 ->toarray();
             $list =[];
@@ -392,8 +392,8 @@ class ChallengeuserformsController extends AppController
         $challengeuserform = $this->Challengeuserforms->get($id, [
             'contain' => ['Challenges', 'Users'],
         ]);
-        $this->Challengeqanswers = TableRegistry::get('Challenge.Challengeqanswers');
-        $this->Challengequests = TableRegistry::get('Challenge.Challengequests');
+        $this->Challengeqanswers = $this->getTableLocator()->get('Challenge.Challengeqanswers');
+        $this->Challengequests = $this->getTableLocator()->get('Challenge.Challengequests');
         $chresult = $this->Challengeqanswers->find('all')
             ->where([
                 'Challengeqanswers.challenge_id'=> $challengeuserform->challenge_id , 

@@ -18,7 +18,6 @@ use Cake\View\View;
 use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\Event\EventInterface;
-use Cake\Event\Event;
 
 
 class AppController extends Controller
@@ -87,7 +86,7 @@ class AppController extends Controller
         $plg = strtolower($this->request->getParam('plugin'));
         $cont = strtolower($this->request->getParam('controller'));
         $act = strtolower($this->request->getParam('action'));
-        $role = $this->Auth->user('role_list');
+        $role = $this->request->getAttribute('identity')->get('role_list');
         if (isset($role[$plg])) {
             if (isset($role[$plg][$cont][$act]) and $role[$plg][$cont][$act] != "0")
                 return true;
@@ -195,14 +194,14 @@ class AppController extends Controller
         if($act == 'getlist')
             return $st;
         
-        $st[$this->Auth->user('session_hash')] = [
-            'id' => $this->Auth->user('id'), 
-            'username' => $this->Auth->user('username'), 
+        $st[$this->request->getAttribute('identity')->get('session_hash')] = [
+            'id' => $this->request->getAttribute('identity')->get('id'), 
+            'username' => $this->request->getAttribute('identity')->get('username'), 
             'date' => date('Y-m-d H:i:s'),
             'url' => $this->_currenturl()
         ];
         if ($act =='delete') {
-            unset($st[$this->Auth->user('session_hash')]);
+            unset($st[$this->request->getAttribute('identity')->get('session_hash')]);
         }
 
         foreach ($st as $stk => $stv) {

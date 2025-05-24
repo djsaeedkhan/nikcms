@@ -21,7 +21,7 @@ class WgtHtmlCell extends Cell
         $this->set([
             'field' => $field ,
             'value' => $value,
-            'AllMenu' => TableRegistry::get('Admin.Options')->find('list')
+            'AllMenu' => $this->getTableLocator()->get('Admin.Options')->find('list')
                 ->select(['id','name'])
                 ->contain(false)
                 ->where(['types' => 'nav_menu'])

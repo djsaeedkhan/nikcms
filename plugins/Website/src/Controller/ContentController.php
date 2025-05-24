@@ -3,7 +3,7 @@ namespace Website\Controller;
 
 use Website\Controller\AppController;
 use Cake\Controller\Controller;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Core\Plugin;
 use Cake\View\CellTrait;
 use Cake\ORM\TableRegistry;
@@ -104,7 +104,7 @@ class ContentController extends AppController
             foreach($results->toarray() as $tmp){
                 $list_id[$tmp['id']] = $tmp['id'];
             }
-            $p = TableRegistry::get('Admin.PostMetas')
+            $p = $this->getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([ "meta_key"=>'pin' ,'post_id IN '=> $list_id])
                 ->order(['meta_value' => 'desc'])
@@ -144,7 +144,7 @@ class ContentController extends AppController
                 $list_id[$tmp['id']] = $tmp['id'];
             }
 
-            $pin_list = TableRegistry::get('Admin.PostMetas')
+            $pin_list = $this->getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([
                     "meta_key"=>'pin' ,
@@ -207,7 +207,7 @@ class ContentController extends AppController
             foreach($results->toarray() as $tmp){
                 $list_id[$tmp['id']] = $tmp['id'];
             }
-            $p = TableRegistry::get('Admin.PostMetas')
+            $p = $this->getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([ "meta_key"=>'pin' ,'post_id IN '=> $list_id])
                 ->order(['meta_value' => 'desc'])

@@ -25,7 +25,7 @@ class CommentsCell extends Cell
         if(in_array('viewlist',$attr) and $id != null):
             $viewlist = true;
             $this->set([
-                'comments'=> TableRegistry::get('Admin.Comments')->find('all')
+                'comments'=> $this->getTableLocator()->get('Admin.Comments')->find('all')
                     ->where(['approved' => 1 , 'post_id' => $id])
                     ->order(['Comments.id' => 'desc'])
                     ->contain(['Users',])

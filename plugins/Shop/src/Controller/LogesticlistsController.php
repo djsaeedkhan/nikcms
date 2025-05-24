@@ -8,7 +8,7 @@ class LogesticlistsController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopLogesticlists = TableRegistry::getTableLocator()->get('Shop.ShopLogesticlists');
     }
     

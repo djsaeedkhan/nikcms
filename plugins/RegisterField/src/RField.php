@@ -9,7 +9,7 @@ class RField
     public $enable = true;
     protected $data = [];
     public function __construct(){
-        $data = TableRegistry::get('Admin.Options')
+        $data = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_registerfield'])
             ->toArray();

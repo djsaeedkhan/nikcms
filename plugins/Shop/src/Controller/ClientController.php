@@ -7,7 +7,7 @@ class ClientController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
     public function index(){
@@ -17,8 +17,8 @@ class ClientController extends AppController
     }
     //-----------------------------------------------------------
     public function orders(){
-        $results = $this->paginate(TableRegistry::get('Shop.ShopOrders'),[
-            'where'=>['user_id'=>$this->Auth->user('id')],
+        $results = $this->paginate($this->getTableLocator()->get('Shop.ShopOrders'),[
+            'where'=>['user_id'=>$this->request->getAttribute('identity')->get('id')],
             'order'=>['id'=>'desc'],
             'contain'=>['ShopOrderproducts']
         ]);

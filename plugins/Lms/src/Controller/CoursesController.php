@@ -111,7 +111,7 @@ class CoursesController extends AppController
                 json_encode($this->request->getData()['options']));
             }
 
-            $this->request = $this->request->withData('user_id', $this->Auth->user('id') );
+            $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id') );
             $lmsCourse = $this->LmsCourses->patchEntity($lmsCourse, $this->request->getData());
 
             if ($this->LmsCourses->save($lmsCourse)) {
@@ -167,7 +167,7 @@ class CoursesController extends AppController
         $temp = $this->LmsCourses->newEntity();
         $temp = $this->LmsCourses->patchEntity($temp, [
             'title'=> 'کپی شده >> '. $lmsCourse['title'],
-            'user_id'=> $this->Auth->user('id'),
+            'user_id'=> $this->request->getAttribute('identity')->get('id'),
             'text'=> $lmsCourse['text'],
             'image'=> $lmsCourse['image'],
             'date_start'=> $lmsCourse['date_start'],

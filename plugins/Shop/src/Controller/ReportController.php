@@ -8,7 +8,7 @@ class ReportController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
     public function index(){
@@ -24,12 +24,12 @@ class ReportController extends AppController
     }
     //-----------------------------------------------------------
     private function _stocks(){
-        $results = TableRegistry::get('Shop.Posts')->find('all')
+        $results = $this->getTableLocator()->get('Shop.Posts')->find('all')
             ->contain(['ShopProductstocks'])
             ->order(['Posts.id'=>'desc'])
             ->where(['post_type'=>'product'])
             ->toarray();
-        $pattern = TableRegistry::get('Shop.ShopAttributelists')
+        $pattern = $this->getTableLocator()->get('Shop.ShopAttributelists')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->toarray();
 
@@ -38,7 +38,7 @@ class ReportController extends AppController
     }
     //-----------------------------------------------------------
     private function _monthly(){
-        $query = TableRegistry::get('Shop.ShopPayments')->find();
+        $query = $this->getTableLocator()->get('Shop.ShopPayments')->find();
         $query = $query
             ->select([
                 'count' => $query->func()->count('id'), 
@@ -55,7 +55,7 @@ class ReportController extends AppController
     }
     //-----------------------------------------------------------
     private function _year(){
-        $query = TableRegistry::get('Shop.ShopPayments')->find();
+        $query = $this->getTableLocator()->get('Shop.ShopPayments')->find();
         $query = $query
             ->select([
                 'count' => $query->func()->count('id'), 
@@ -72,7 +72,7 @@ class ReportController extends AppController
     }
     //-----------------------------------------------------------
     private function _daily(){
-        $query = TableRegistry::get('Shop.ShopPayments')->find();
+        $query = $this->getTableLocator()->get('Shop.ShopPayments')->find();
         $query = $query
             ->select([
                 'count' => $query->func()->count('id'), 
@@ -90,7 +90,7 @@ class ReportController extends AppController
     //-----------------------------------------------------------
     private function _exitorder(){
         $this->set(['results'=> 
-            TableRegistry::get('Shop.ShopOrders')->find('all')
+            $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
                 ->contain([
                     'ShopAddresses'=>['ShopUseraddresses'],
                     'shopOrdershippings',
@@ -103,7 +103,7 @@ class ReportController extends AppController
     }
     //-----------------------------------------------------------
     private function _sell(){
-        $results = TableRegistry::get('Shop.ShopOrderproducts')->find();
+        $results = $this->getTableLocator()->get('Shop.ShopOrderproducts')->find();
         $results = $results
             ->select([
                 'count' => $results->func()->count('post_id'), 

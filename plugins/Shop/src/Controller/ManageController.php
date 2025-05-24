@@ -3,7 +3,7 @@ namespace Shop\Controller;
 
 use Shop\Controller\AppController;
 use Cake\Controller\Controller;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Core\Plugin;
 use Cake\ORM\TableRegistry;
 use Cake\Http\Exception\NotFoundException;
@@ -24,17 +24,18 @@ class ManageController extends AppController
     //-------------------------------------------------------------------------------
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Shop.default');
-        $this->ShopAddresses = TableRegistry::get('Shop.ShopAddresses');
-        $this->ShopOrders = TableRegistry::get('Shop.ShopOrders');
-        $this->Orderattr = TableRegistry::get('Shop.ShopOrderattributes');
-        $this->Labels = TableRegistry::get('Shop.ShopLabels');
-        $this->ShopOrderproducts = TableRegistry::get('Shop.ShopOrderproducts');
-        $this->ShopProfiles = TableRegistry::get('Shop.ShopProfiles');
+        $this->viewBuilder()->setLayout('Shop.default');
+        $this->ShopAddresses = $this->getTableLocator()->get('Shop.ShopAddresses');
+        $this->ShopOrders = $this->getTableLocator()->get('Shop.ShopOrders');
+        $this->Orderattr = $this->getTableLocator()->get('Shop.ShopOrderattributes');
+        $this->Labels = $this->getTableLocator()->get('Shop.ShopLabels');
+        $this->ShopOrderproducts = $this->getTableLocator()->get('Shop.ShopOrderproducts');
+        $this->ShopProfiles = $this->getTableLocator()->get('Shop.ShopProfiles');
     }
     //-------------------------------------------------------------------------------
     public function beforeFilter(Event $event){
-        $this->Auth->allow();
+        //$this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
     }
     //-------------------------------------------------------------------------------
     public function cart(){
@@ -92,15 +93,15 @@ class ManageController extends AppController
 
 
         $this->set([
-        'user_address' => TableRegistry::get('Shop.ShopUseraddresses')
+        'user_address' => $this->getTableLocator()->get('Shop.ShopUseraddresses')
             //->find('list',['keyField'=>'id','valueField'=>'billing_address'])
             ->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->toarray(),
 
-        'shop_profile' => TableRegistry::get('Shop.ShopProfiles')
+        'shop_profile' => $this->getTableLocator()->get('Shop.ShopProfiles')
             ->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->first(),
         ]);
         
@@ -119,7 +120,7 @@ class ManageController extends AppController
             }
         }
 
-        $profile = $this->ShopProfiles->find('all')->where(['user_id'=>$this->Auth->user('id')])->toarray();
+        $profile = $this->ShopProfiles->find('all')->where(['user_id'=>$this->request->getAttribute('identity')->get('id')])->toarray();
         if(count($profile) == 0){
             $this->Flash->error(__('لطفا مشخصات پایه اکانت خودتان را تکمیل نمایید.'));
             return $this->redirect('/shop/profile/my?redirect=factor');
@@ -145,9 +146,9 @@ class ManageController extends AppController
         $shipping = array_values(array_filter($SaveOrder['shipping']['types']));
         $user_address = array_values(array_filter($SaveOrder['shop_useraddress_id']));
         if(isset($user_address[0] )){
-            $user_address =TableRegistry::get('Shop.ShopUseraddresses')
+            $user_address =$this->getTableLocator()->get('Shop.ShopUseraddresses')
                 ->find('all')
-                ->where(['user_id'=> $this->Auth->user('id') , 'id'=> $user_address[0] ])
+                ->where(['user_id'=> $this->request->getAttribute('identity')->get('id') , 'id'=> $user_address[0] ])
                 ->first();
         }
         else 
@@ -194,13 +195,13 @@ class ManageController extends AppController
 
             //Check User Address
             $tmp = array_values( array_filter( $getData['shop_useraddress_id']) );
-            $user_address = TableRegistry::get('Shop.ShopUseraddresses')
+            $user_address = $this->getTableLocator()->get('Shop.ShopUseraddresses')
                 ->find('all')
-                ->where(['user_id' => $this->Auth->user('id') ,'id' => isset($tmp[0])?$tmp[0]:false])
+                ->where(['user_id' => $this->request->getAttribute('identity')->get('id') ,'id' => isset($tmp[0])?$tmp[0]:false])
                 ->first();
 
             $shopAddress = $this->ShopAddresses->patchEntity($shopAddress,  $getData );
-            $shopAddress->user_id = $this->Auth->user('id');
+            $shopAddress->user_id = $this->request->getAttribute('identity')->get('id');
             $shopAddress->shop_useraddress_id = isset($user_address['id'])?$user_address['id']:0;
             if(isset($this->request->getData()['another'])){
                 $another = $this->request->getData()['another'];
@@ -229,7 +230,7 @@ class ManageController extends AppController
             //$tracker = $this->get_tracker();
             $shopOrder = $this->ShopOrders->newEntity();
             $shopOrder = $this->ShopOrders->patchEntity($shopOrder, [
-                'user_id'=>  $this->Auth->user()?$this->Auth->user('id'):null,
+                'user_id'=>  $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
                 'trackcode' => "0",
                 'currency' => shop_currency_name,
                 'enable'=> 1,
@@ -279,11 +280,11 @@ class ManageController extends AppController
                         if($temp != null) $sendtime = $temp;
                     }
 
-                    $this->Shippings = TableRegistry::get('Shop.ShopOrdershippings');
+                    $this->Shippings = $this->getTableLocator()->get('Shop.ShopOrdershippings');
                     $temp = $this->Shippings->newEntity();
                     $temp = $this->Shippings->patchEntity($temp,[
                         'shop_order_id'=> $shopOrder->id,
-                        'user_id' => $this->Auth->user()?$this->Auth->user('id'):null,
+                        'user_id' => $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
                         'types'=> $types,
                         'price' => $ship_price,
                         'sendtime' => $sendtime ]);
@@ -294,11 +295,11 @@ class ManageController extends AppController
                 }
 
                 if( $this->request->getData()['billing_desc']){
-                    $this->ShopOrdertexts = TableRegistry::get('Shop.ShopOrdertexts');
+                    $this->ShopOrdertexts = $this->getTableLocator()->get('Shop.ShopOrdertexts');
                     $ShopOrdertext = $this->ShopOrdertexts->newEntity();
                     $ShopOrdertext = $this->ShopOrdertexts->patchEntity($ShopOrdertext,[
                         'shop_order_id'=> $shopOrder->id,
-                        'user_id'=> $this->Auth->user()?$this->Auth->user('id'):null,
+                        'user_id'=> $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
                         'text' =>  $this->request->getData()['billing_desc'],
                         'private' => 0,
                     ]);
@@ -324,7 +325,7 @@ class ManageController extends AppController
                                 'text' => $sms->create_text(
                                     $this->setting['admin_sendesms_order_save'],[
                                         'token'=>$tracker,
-                                        'username'=>$this->Auth->user('username'),
+                                        'username'=>$this->request->getAttribute('identity')->get('username'),
                                         'mobile'=>$mobile_number ])
                                  ]);
                         }
@@ -335,7 +336,7 @@ class ManageController extends AppController
                                 'text' => $sms->create_text(
                                     $this->setting['customer_sendesms_order_save'],[
                                         'token'=>$tracker,
-                                        'username'=>$this->Auth->user('username'),
+                                        'username'=>$this->request->getAttribute('identity')->get('username'),
                                         'mobile'=>$mobile_number ])
                                     ]);
                         }
@@ -354,15 +355,15 @@ class ManageController extends AppController
         }
 
         $this->set([
-            'user_address' => TableRegistry::get('Shop.ShopUseraddresses')
+            'user_address' => $this->getTableLocator()->get('Shop.ShopUseraddresses')
                 //->find('list',['keyField'=>'id','valueField'=>'billing_address'])
                 ->find('all')
-                ->where(['user_id'=> $this->Auth->user('id')])
+                ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
                 ->toarray(),
 
-            'shop_profile' => TableRegistry::get('Shop.ShopProfiles')
+            'shop_profile' => $this->getTableLocator()->get('Shop.ShopProfiles')
                 ->find('all')
-                ->where(['user_id'=> $this->Auth->user('id')])
+                ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
                 ->first(),
             ]);
         $this->set(compact('shopAddress'));
@@ -387,8 +388,8 @@ class ManageController extends AppController
                 ],
             ]);
 
-        if($this->Auth->user('role_id') != 1){
-            $result->where(['ShopOrders.user_id'=> $this->Auth->user('id')]);
+        if($this->request->getAttribute('identity')->get('role_id') != 1){
+            $result->where(['ShopOrders.user_id'=> $this->request->getAttribute('identity')->get('id')]);
         }
         $result = $result->first();
 
@@ -413,13 +414,13 @@ class ManageController extends AppController
                 $terminal = $terminal[0];
             }
             elseif(isset($this->request->getData()['OrderId'])){
-                $terminal = TableRegistry::get('Shop.shopPayments')->find('all')
+                $terminal = $this->getTableLocator()->get('Shop.shopPayments')->find('all')
                     ->where(['myrahid'=> $this->request->getData()['OrderId'] ])
                     ->first();
                 $terminal = $terminal['terminalid'];
             }
             elseif(isset($this->request->getData()['token'])){
-                $terminal = TableRegistry::get('Shop.shopPayments')->find('all')
+                $terminal = $this->getTableLocator()->get('Shop.shopPayments')->find('all')
                     ->where(['au'=> $this->request->getData()['token'] ])
                     ->first();
                 $terminal = $terminal['terminalid'];
@@ -460,7 +461,7 @@ class ManageController extends AppController
         $result = $this->ShopOrderproducts->find('all')
             ->where([
                 'ShopOrderproducts.id'=> $id,
-                'ShopOrders.user_id'=> $this->Auth->user('id') ])
+                'ShopOrders.user_id'=> $this->request->getAttribute('identity')->get('id') ])
             ->contain([
                 'ShopOrders',
                 'ShopOrderlogestics'=>['ShopLogestics'],
@@ -511,13 +512,13 @@ class ManageController extends AppController
         }
         
         if ($this->request->is('post')) {
-            $this->ShopOrderlogestics = TableRegistry::get('Shop.ShopOrderlogestics');
+            $this->ShopOrderlogestics = $this->getTableLocator()->get('Shop.ShopOrderlogestics');
             $orderlogestics = $this->ShopOrderlogestics->newEntity();
             $orderlogestics = $this->ShopOrderlogestics->patchEntity($orderlogestics, [
                 'shop_order_id'=>$result['shop_order']['id'],
                 'shop_orderproduct_id'=> $id,
                 'shop_logestic_id'=> $this->request->getQuery('id'),
-                'user_id'=>$this->Auth->user('id'),
+                'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'enable'=> 0,
             ]);
 
@@ -542,7 +543,7 @@ class ManageController extends AppController
     private function setPayment_z(){
         if(isset($_GET['Authority'])){
             $Authority = $_GET['Authority'];
-            $order = TableRegistry::get('Shop.ShopPayments')->find('all')
+            $order = $this->getTableLocator()->get('Shop.ShopPayments')->find('all')
                 ->where(['myrahid' => $this->request->getQuery('order_id')])
                 ->contain(['shopOrders','ShopAddresses'])
                 ->first();
@@ -582,7 +583,7 @@ class ManageController extends AppController
                         'text' => $sms->create_text(
                             $this->setting['admin_sendesms_order_paid'],[
                                 'token'=> $order['ShopOrders']['trackcode'],
-                                'username'=>$this->Auth->user('username'),
+                                'username'=>$this->request->getAttribute('identity')->get('username'),
                                 'mobile'=>$mobile_number ])
                     ]);
                 }
@@ -594,7 +595,7 @@ class ManageController extends AppController
                         'text' => $sms->create_text(
                             $this->setting['customer_sendesms_order_paid'],[
                                 'token'=> $order['ShopOrders']['trackcode'],
-                                'username'=>$this->Auth->user('username'),
+                                'username'=>$this->request->getAttribute('identity')->get('username'),
                                 'mobile'=>$mobile_number ])
                              ]);
                 }
@@ -643,7 +644,7 @@ class ManageController extends AppController
 
             if ($res->Status == 100) {
                 $au = $res->Authority; // dar database save conid b hamrahe order_id , amount
-                $model_payments = TableRegistry::get('Shop.shopPayments');
+                $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
                 $pay = $model_payments->newEntity();
                 $pay = $model_payments->patchEntity($pay,[
                     'shop_order_id'=> $result['id'],
@@ -677,7 +678,7 @@ class ManageController extends AppController
     private function setPayment_p($token = null){
         if(isset($this->request->getData()['Token']) ){
             $Authority = $this->request->getData()['Token'];
-            $order = TableRegistry::get('Shop.ShopPayments')->find('all')
+            $order = $this->getTableLocator()->get('Shop.ShopPayments')->find('all')
                 ->where(['au' => $this->request->getData()['Token']])
                 ->contain(['ShopOrders'])
                 ->first();
@@ -736,7 +737,7 @@ class ManageController extends AppController
                                 'text' => $sms->create_text(
                                     $this->setting['admin_sendesms_order_paid'],[
                                         'token'=> $order['ShopOrders']['trackcode'],
-                                        'username'=>$this->Auth->user('username'),
+                                        'username'=>$this->request->getAttribute('identity')->get('username'),
                                         'mobile'=>$mobile_number ])
                                 ]);
                         }
@@ -748,7 +749,7 @@ class ManageController extends AppController
                                 'text' => $sms->create_text(
                                     $this->setting['customer_sendesms_order_paid'],[
                                         'token'=> $order['ShopOrders']['trackcode'],
-                                        'username'=>$this->Auth->user('username'),
+                                        'username'=>$this->request->getAttribute('identity')->get('username'),
                                         'mobile'=>$mobile_number ])
                                 ]);
                         }
@@ -869,7 +870,7 @@ class ManageController extends AppController
                 
                 if ($res_pay->SalePaymentRequestResult->Token && $res_pay->SalePaymentRequestResult->Status === 0) {
 
-                    $model_payments = TableRegistry::get('Shop.shopPayments');
+                    $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
                     $pay = $model_payments->newEntity();
                     $pay = $model_payments->patchEntity($pay,[
                         'shop_order_id'=> $result['id'],
@@ -933,8 +934,8 @@ class ManageController extends AppController
                 "Amount":"'.$Amount.'",
                 "RedirectUrl":"'.$RedirectURL.'",
                 "UserId":"'.$username.'",
-                "MobileNo":"'.(is_numeric($this->Auth->user('username'))?$this->Auth->user('username'):'').'",
-                "Email":"'.$this->Auth->user('email').'"
+                "MobileNo":"'.(is_numeric($this->request->getAttribute('identity')->get('username'))?$this->request->getAttribute('identity')->get('username'):'').'",
+                "Email":"'.$this->request->getAttribute('identity')->get('email').'"
                 }'; 
 
 	        $curl = curl_init();
@@ -963,7 +964,7 @@ class ManageController extends AppController
                     $token = $response->Token;
                     $finalURL = 'https://fcp.shaparak.ir/_ipgw_/payment/?lang=fa&token=' . $token;
 
-                    $model_payments = TableRegistry::get('Shop.shopPayments');
+                    $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
                     $pay = $model_payments->newEntity();
                     $pay = $model_payments->patchEntity($pay,[
                         'shop_order_id'=> $result['id'],
@@ -1001,7 +1002,7 @@ class ManageController extends AppController
         if (isset($_POST['State'])) { // && $_POST['State'] === 'OK'
 
             //pr($_POST);
-            $order = TableRegistry::get('Shop.ShopPayments')->find('all')
+            $order = $this->getTableLocator()->get('Shop.ShopPayments')->find('all')
                 ->where(['au' => $this->request->getData()['token']])
                 ->contain(['ShopOrders'])
                 ->first();
@@ -1079,7 +1080,7 @@ class ManageController extends AppController
                         $this->decrease_stock_after_payment($order_id);
 
                         $sms = new Sms();
-                        $mobile_number = $this->Auth->user('username');
+                        $mobile_number = $this->request->getAttribute('identity')->get('username');
                         if($this->setting['admin_sendesms'] and $this->setting['default_mobile']!=''){
                             try {
                                 $sms->sendsingle([
@@ -1088,7 +1089,7 @@ class ManageController extends AppController
                                     'text' => $sms->create_text(
                                         $this->setting['admin_sendesms_order_paid'],[
                                             'token'=> $order['shop_order']['trackcode'],
-                                            'username'=>$this->Auth->user('username'),
+                                            'username'=>$this->request->getAttribute('identity')->get('username'),
                                             'mobile'=>$mobile_number ])
                                 ]);
                             }catch ( Exception $ex ) {}
@@ -1102,7 +1103,7 @@ class ManageController extends AppController
                                     'text' => $sms->create_text(
                                         $this->setting['customer_sendesms_order_paid'],[
                                             'token'=> $order['shop_order']['trackcode'],
-                                            'username'=>$this->Auth->user('username'),
+                                            'username'=>$this->request->getAttribute('identity')->get('username'),
                                             'mobile'=>$mobile_number ])
                                     ]);
                             }catch ( Exception $ex ) {}
@@ -1167,7 +1168,7 @@ class ManageController extends AppController
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                             'shop_order_id' =>  $order_id ,
-                            'user_id'=> $this->Auth->user('id'),
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=> 'موفق:  <b>'. $orderlist['quantity'] .'</b> عدد از موجودی کسر شد'
                         ]));
                     }
@@ -1175,7 +1176,7 @@ class ManageController extends AppController
                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                     TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                     'shop_order_id' =>  $order_id ,
-                    'user_id'=> $this->Auth->user('id'),
+                    'user_id'=> $this->request->getAttribute('identity')->get('id'),
                     'status'=> 'متاسفانه، پس از پرداخت، کاهش موجودی محصول با موفقیت انجام نشد'
                 ]));
             }
@@ -1186,7 +1187,7 @@ class ManageController extends AppController
         $this->Order = TableRegistry::getTableLocator()->get('Shop.ShopOrders');
         $a = true;
         while($a == true){
-            $token = $this->Auth->user('id').date('mh').rand(1000,9999);
+            $token = $this->request->getAttribute('identity')->get('id').date('mh').rand(1000,9999);
             $temp = $this->Order->find('all')->where(['trackcode'=> $token])->count();
             if($temp == 0)
                 $a = false;

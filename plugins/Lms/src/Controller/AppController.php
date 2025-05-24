@@ -32,7 +32,7 @@ class AppController extends BaseController
         
         $this->LmsUserfactors = TableRegistry::getTableLocator()->get('Lms.LmsUserfactors');
         $this->Users = TableRegistry::getTableLocator()->get('Lms.Users');
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         
 
         $this->setting = TableRegistry::getTableLocator()->get('Admin.Options')
@@ -55,7 +55,7 @@ class AppController extends BaseController
                 1 =>'یک انتخابی (Radio)',
                 //2 =>'چند انتخابی (Checkbox)',
             ],
-            'guser_id' => $this->Auth->user('id'),
+            'guser_id' => $this->request->getAttribute('identity')->get('id'),
         ]);
     }
 }

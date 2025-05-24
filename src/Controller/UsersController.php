@@ -10,7 +10,6 @@ use Cake\View\Exception\MissingTemplateException;
 
 use Cake\Auth\DefaultPasswordHasher;
 use App\Controller\AppController;
-use Cake\Event\Event;
 use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
@@ -40,12 +39,12 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function profile(){
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $id = $this->getRequest()->getSession()->read('Auth.User.id');
         $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
         $this->set(['user'=>$user]);
         if ($this->request->is(['patch', 'put'])) {
-            if($this->Auth->user('role_id') != 1) {
+            if($this->request->getAttribute('identity')->get('role_id') != 1) {
                 $data = $this->request->getData();
                 unset($data['username']);
                 unset($data['token']);
@@ -79,7 +78,7 @@ class UsersController extends AppController{
                     }
                 endif;
                 $this->Flash->success(__('بروز رسانی مشخصات با موفقیت انجام شد'));
-                $this->Auth->setUser($this->Users->get($this->Auth->user('id')));
+                $this->Auth->setUser($this->Users->get($this->request->getAttribute('identity')->get('id')));
             }
             else
                 $this->Flash->error(__('متاسفانه ثبت اطلاعات با موفقیت انجام نشد.'));
@@ -185,10 +184,9 @@ class UsersController extends AppController{
                 } 
             }
             
-            //pr($this->request->getData());
-            $user = $this->Auth->identify();
-            //var_dump($user);  
+            $user = $this->request->getAttribute('identity');
             if ($user) {
+                //->get(
 
                 if ($this->Func->OptionGet('login_expired_check') == 1 and isset($user['expired']) and $user['expired']!= null) {
                     $time = new Time($user['expired']);
@@ -815,7 +813,7 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function index(){
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //----------------------------------------------------------
     function generateRandomString($length = 10) {

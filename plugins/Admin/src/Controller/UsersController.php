@@ -103,7 +103,7 @@ class UsersController extends AppController
         if($this->request->getQuery('thumbnail')){
             $this->_Thumbnail($this->request->getQuery('thumbnail'));
         }
-        if($id == null or $this->Auth->user('role_id') != 1) 
+        if($id == null or $this->request->getAttribute('identity')->get('role_id') != 1) 
             $id = $this->getRequest()->getSession()->read('Auth.User.id');
         try{
             $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
@@ -218,7 +218,7 @@ class UsersController extends AppController
                 $this->Users = TableRegistry::getTableLocator()->get('Users');
             }
 
-            if($this->Auth->user('role_id') != 1){
+            if($this->request->getAttribute('identity')->get('role_id') != 1){
                 $data = $this->request->getData();
                 unset($data['username']);
                 unset($data['token']);

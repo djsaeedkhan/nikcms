@@ -7,7 +7,7 @@ class HomeController extends AppController{
     //-------------------------------------------------------------------
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $this->Formbuilders = TableRegistry::getTableLocator()->get('Formbuilder.Formbuilders');
 
     }
@@ -23,7 +23,7 @@ class HomeController extends AppController{
     }
     //-------------------------------------------------------------------
     public function add($id = null) {
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         if($id != null)
             $result = $this->Formbuilders
                 ->find('all')
@@ -58,8 +58,8 @@ class HomeController extends AppController{
     }
     //-------------------------------------------------------------------
     public function edit($id = null) {
-        $this->ViewBuilder()->setLayout('Admin.default');
-        $this->Formbuilders = TableRegistry::get('Formbuilder.Formbuilders');
+        $this->viewBuilder()->setLayout('Admin.default');
+        $this->Formbuilders = $this->getTableLocator()->get('Formbuilder.Formbuilders');
         $result = $this->Formbuilders
             ->find('all')
             ->where(['Formbuilders.id'=>$id])

@@ -8,6 +8,6 @@ class AppController extends BaseController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
 }

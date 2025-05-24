@@ -116,7 +116,7 @@ class FuncHelper extends Helper
     function LogSave($group_id = null, $act = null, $value = null){
         $model = TableRegistry::getTableLocator()->get('logs');
         $model->save( $model->newEntity([
-                'user_id' => $this->Auth->user('id'),
+                'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'group_id'  => $group_id,
                 'action_id' => $act,
                 'value' => ($value!=null?$value:''),

@@ -9,13 +9,13 @@ class DashboardController extends AppController {
     public function index(){
         $this->set([
             'count_post'=>
-                TableRegistry::get('Admin.Posts')->find('all')->where(['post_type !='=>'media'])->count(),
+                $this->getTableLocator()->get('Admin.Posts')->find('all')->where(['post_type !='=>'media'])->count(),
             'count_comment'=>
-                TableRegistry::get('Admin.Comments')->find('all')->where(['parent_id' => 0])->count(),
+                $this->getTableLocator()->get('Admin.Comments')->find('all')->where(['parent_id' => 0])->count(),
             'count_users'=>
-                TableRegistry::get('Users')->find('all')->count(),
+                $this->getTableLocator()->get('Users')->find('all')->count(),
             'count_media'=>
-                TableRegistry::get('Admin.Posts')->find('all')->where(['post_type'=>'media'])->count()
+                $this->getTableLocator()->get('Admin.Posts')->find('all')->where(['post_type'=>'media'])->count()
         ]);
     }
     public function Update(){

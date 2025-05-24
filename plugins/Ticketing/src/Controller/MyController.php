@@ -10,13 +10,13 @@ class MyController extends AppController
         parent::initialize();
         if (isset($this->setting['client_webview']) and $this->setting['client_webview'] == 1) {
             try {
-                $this->ViewBuilder()->setLayout('Template.default-ticket');
+                $this->viewBuilder()->setLayout('Template.default-ticket');
             } catch (\Throwable $th) {
-                $this->ViewBuilder()->setLayout('Ticketing.default');
+                $this->viewBuilder()->setLayout('Ticketing.default');
             }
         }
         else 
-            $this->ViewBuilder()->setLayout('Admin.default');
+            $this->viewBuilder()->setLayout('Admin.default');
 
         $this->Tickets =  TableRegistry::getTableLocator()->get('Ticketing.Tickets');
         $this->Ticketcomments = TableRegistry::getTableLocator()->get('Ticketing.Ticketcomments');
@@ -43,7 +43,7 @@ class MyController extends AppController
                             return $q->order(['id'=>'desc']);//->limit(10);
                         } 
                     ])
-                    ->where(['completed IS NOT NULL ','Tickets.user_id'=> $this->Auth->user('id') ])
+                    ->where(['completed IS NOT NULL ','Tickets.user_id'=> $this->request->getAttribute('identity')->get('id') ])
                     ->order(['Tickets.id'=>'desc'])
                     ->toarray();
                 $this->set(compact('tickets'));
@@ -63,7 +63,7 @@ class MyController extends AppController
                             return $q->order(['id'=>'desc']);//->limit(10);
                         } 
                     ])
-                    ->where(['completed IS NULL ','Tickets.user_id'=> $this->Auth->user('id') ])
+                    ->where(['completed IS NULL ','Tickets.user_id'=> $this->request->getAttribute('identity')->get('id') ])
                     ->order(['Tickets.id'=>'desc'])
                     ->toarray();
                 $this->set(compact('tickets'));
@@ -84,7 +84,7 @@ class MyController extends AppController
                     mkdir($fuConfig['upload_path'], 0777, true);
                 }
                 $fuConfig['allowed_types'] = 'zip|rar|pdf|jpg';
-                $fuConfig['file_name'] = 'tk'.$this->Auth->user('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
+                $fuConfig['file_name'] = 'tk'.$this->request->getAttribute('identity')->get('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
                 $fuConfig['max_size'] = 20000;
                 $this->Fileupload->init($fuConfig);
                 if (!$this->Fileupload->upload('file')) {
@@ -102,7 +102,7 @@ class MyController extends AppController
                 $this->request = $this->request->withData('content', strip_tags($this->request->getData()['content']));
                 
             $ticketcomment = $this->Ticketcomments->patchEntity($ticketcomment, $this->request->getData());
-            $ticketcomment['user_id'] = $this->Auth->user('id');
+            $ticketcomment['user_id'] = $this->request->getAttribute('identity')->get('id');
 
             if ($this->Ticketcomments->save($ticketcomment)) {
                 $this->Func->create_admin_alert('ticketing', [
@@ -141,7 +141,7 @@ class MyController extends AppController
             $this->request = $this->request->withData('subject', strip_tags($this->request->getData()['subject']));
             $this->request = $this->request->withData('content', strip_tags($this->request->getData()['content']));
             $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
-            $ticket['user_id']= $this->Auth->user('id');
+            $ticket['user_id']= $this->request->getAttribute('identity')->get('id');
             if ($this->Tickets->save($ticket)) {
 
                 if (!empty($this->request->getData()['file']['name'])) {	
@@ -150,7 +150,7 @@ class MyController extends AppController
                         mkdir($fuConfig['upload_path'], 0777, true);
                     }
                     $fuConfig['allowed_types'] = 'zip|rar|pdf|jpg';
-                    $fuConfig['file_name'] = 'tk'.$this->Auth->user('id').'_'.date('m-d-h').'_'.rand(1000,9999);
+                    $fuConfig['file_name'] = 'tk'.$this->request->getAttribute('identity')->get('id').'_'.date('m-d-h').'_'.rand(1000,9999);
                     $fuConfig['max_size'] = 20000;
                     $this->Fileupload->init($fuConfig);	
                     if (!$this->Fileupload->upload('file')) {
@@ -161,7 +161,7 @@ class MyController extends AppController
                         $this->request = $this->request->withData('filesrc', $item);
 
                         $ticketcomment = $this->Ticketcomments->patchEntity($this->Ticketcomments->newEntity(), $this->request->getData());
-                        $ticketcomment['user_id'] = $this->Auth->user('id');
+                        $ticketcomment['user_id'] = $this->request->getAttribute('identity')->get('id');
                         $ticketcomment['ticket_id'] = $ticket->id;
                         if($this->Ticketcomments->save($ticketcomment))
                             $this->Flash->success(__d('Ticketing', 'آپلود فایل ضمیمه با موفقیت انجام شد'));
@@ -193,7 +193,7 @@ class MyController extends AppController
             $ticket->post_id = $this->request->getData()['post_id'];
             $ticket->alert_type = $this->request->getData()['alert_type'];
             $ticket->post_id = $id;
-            $ticket->user_id = $this->Auth->user('id');
+            $ticket->user_id = $this->request->getAttribute('identity')->get('id');
             if ($this->Tickets->save($ticket))
                 $this->Flash->success(__d('Ticketing', 'تیکت با موفقیت ثبت گردید'));
             else

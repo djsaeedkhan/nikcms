@@ -1,6 +1,6 @@
 <?php use Cake\ORM\TableRegistry;?>
 <?php 
-$brands = TableRegistry::get('Shop.shopBrands')->find('all');
+$brands = $this->getTableLocator()->get('Shop.shopBrands')->find('all');
 if(isset($brand_list) ) 
     $brands->where(['id IN '=> $brand_list]);
 $brands->order(['title'=>'asc'])->toarray();?>

@@ -16,15 +16,10 @@ class PostsController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $user_id = $this->Auth->user('id');
+        $user_id = $this->request->getAttribute('identity')->get('id');
         $this->set(['user_ids'=> $user_id]);
         ini_set('max_input_vars', 100000);
     }
-    /* public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['edit']);
-    } */
-
     //----------------------------------------------------------------------------------
     public function index(){
         if ($this->request->getQuery('correct_thumbnail')) {
@@ -199,9 +194,9 @@ class PostsController extends AppController
 
                 $pv = TableRegistry::getTableLocator()->get('Admin.Posts')->get($this->request->getData()['move_id']);
 
-                /* $temp = TableRegistry::get('Admin.Posts')->get($pv->id);
+                /* $temp = $this->getTableLocator()->get('Admin.Posts')->get($pv->id);
                 $temp->created = $post->created;
-                TableRegistry::get('Admin.Posts')->save($temp); */
+                $this->getTableLocator()->get('Admin.Posts')->save($temp); */
                 switch ($this->request->getData()['move_status']) {
                     case 'same':
                         $this->request = $this->request->withData('created',$pv->created);

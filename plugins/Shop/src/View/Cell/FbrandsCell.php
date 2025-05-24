@@ -13,7 +13,7 @@ class FbrandsCell extends Cell{
     }
     public function display($value = null){
         global $list_id;
-        $p = TableRegistry::get('Shop.ShopProductMetas')
+        $p = $this->getTableLocator()->get('Shop.ShopProductMetas')
                 ->find('list',['keyField'=>'meta_value','valueField'=>'meta_value'])
                 ->where([ 
                     "meta_key"=>'brands',

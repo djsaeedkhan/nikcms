@@ -6,8 +6,8 @@ class ChallengeforumsController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
-        //$this->Challenges = TableRegistry::get('Challenge.Challenges');
+        $this->viewBuilder()->setLayout('Admin.default');
+        //$this->Challenges = $this->getTableLocator()->get('Challenge.Challenges');
     }
 
     public function index()

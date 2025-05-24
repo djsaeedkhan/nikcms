@@ -143,7 +143,7 @@ class ResultsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $lmsExamresult = $this->LmsExamresults->get($id);
         if ($this->LmsExamresults->delete($lmsExamresult)) {
-            TableRegistry::get('Lms.LmsExamresultlists')->deleteAll(['lms_examresult_id' => $id ]);
+            $this->getTableLocator()->get('Lms.LmsExamresultlists')->deleteAll(['lms_examresult_id' => $id ]);
             $this->Flash->success(__('The lms examresult has been deleted.'));
         } else {
             $this->Flash->error(__('The lms examresult could not be deleted. Please, try again.'));

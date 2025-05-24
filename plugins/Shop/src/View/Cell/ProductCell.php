@@ -9,14 +9,14 @@ class ProductCell extends Cell
 {
     protected $_validCellOptions = [];
     public function initialize(){
-        $this->Sparams = TableRegistry::get('Shop.ShopProductParams');
-        $this->Sattrs = TableRegistry::get('Shop.ShopAttributes');
-        $this->majors = TableRegistry::get('Shop.ShopProductmajors');
-        $this->ShopMetas = TableRegistry::get('Shop.ShopProductMetas');
-        $this->Posts = TableRegistry::get('Admin.Posts');
-        $this->PDetail = TableRegistry::get('Shop.ShopProductdetails');
-        $this->PPrice = TableRegistry::get('Shop.shopProductprices');
-        $this->Stock = TableRegistry::get('Shop.shopProductstocks');
+        $this->Sparams = $this->getTableLocator()->get('Shop.ShopProductParams');
+        $this->Sattrs = $this->getTableLocator()->get('Shop.ShopAttributes');
+        $this->majors = $this->getTableLocator()->get('Shop.ShopProductmajors');
+        $this->ShopMetas = $this->getTableLocator()->get('Shop.ShopProductMetas');
+        $this->Posts = $this->getTableLocator()->get('Admin.Posts');
+        $this->PDetail = $this->getTableLocator()->get('Shop.ShopProductdetails');
+        $this->PPrice = $this->getTableLocator()->get('Shop.shopProductprices');
+        $this->Stock = $this->getTableLocator()->get('Shop.shopProductstocks');
     }
 
     public function display() {

@@ -6,7 +6,7 @@ use Bank\Controller\AppController;
 use Cake\Controller\Controller;
 use Cake\View\View;
 use Cake\ORM\TableRegistry;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
 use Cake\I18n\Date;

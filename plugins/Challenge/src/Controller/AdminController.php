@@ -8,7 +8,7 @@ class AdminController extends AppController
     //-----------------------------------------------------
     public function initialize(){
         parent::initialize();
-        $this->Challenges = TableRegistry::get('Challenge.Challenges');
+        $this->Challenges = $this->getTableLocator()->get('Challenge.Challenges');
     }
     //-----------------------------------------------------
     public function index($id = null){
@@ -38,7 +38,7 @@ class AdminController extends AppController
     public function add() {
         $challenge = $this->Challenges->newEntity();
         if ($this->request->is('post')) {
-            $this->request = $this->request->withData('user_id',$this->Auth->user('id') );
+            $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
             $challenge = $this->Challenges->patchEntity($challenge, $this->request->getData());
             if ($this->Challenges->save($challenge)) {
                 $this->Flash->success(__('The challenge has been saved.'));
@@ -123,31 +123,31 @@ class AdminController extends AppController
     //-----------------------------------------------------
     public function report(){
         
-        $query =  TableRegistry::get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
+        $query =  $this->getTableLocator()->get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
         $view = $query->select(['count' => $query->func()->sum('views'),])->toarray();
 
-        $query =  TableRegistry::get('Challenge.challengeuserprofiles')
+        $query =  $this->getTableLocator()->get('Challenge.challengeuserprofiles')
             ->find('list',['keyField' => 'gender','valueField' => 'count'])
             ->select(['gender'])
             ->group(['gender']);
         $malefemale = $query->select(['count' => $query->func()->count('gender') ])->toarray();  
 
-        $query =  TableRegistry::get('Challenge.challengeuserprofiles')
+        $query =  $this->getTableLocator()->get('Challenge.challengeuserprofiles')
             ->find('list',['keyField' => 'eductions','valueField' => 'count'])
             ->select(['eductions'])
             ->group(['eductions']);
         $eduction = $query->select(['count' => $query->func()->count('eductions') ])->toarray();
 
         $this->set([
-            'challenge_all' => TableRegistry::get('Challenge.Challenges')->find('all')->count(),
-            'userprofile_all' => TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')->count(),
-            'userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->count(),
-            'userform_today' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
-            'user_userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
-            'follower_all' => TableRegistry::get('Challenge.Challengefollowers')->find('all')->count(),
+            'challenge_all' => $this->getTableLocator()->get('Challenge.Challenges')->find('all')->count(),
+            'userprofile_all' => $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')->count(),
+            'userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->count(),
+            'userform_today' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
+            'user_userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
+            'follower_all' => $this->getTableLocator()->get('Challenge.Challengefollowers')->find('all')->count(),
             'views_all' => isset($view[0])?$view[0]:'-',
-            'user_all' => TableRegistry::get('Users')->find('all')->count(),
-            //'challenge_all' => TableRegistry::get('Challenge.Challenges')->find('all')->toarray(),
+            'user_all' => $this->getTableLocator()->get('Users')->find('all')->count(),
+            //'challenge_all' => $this->getTableLocator()->get('Challenge.Challenges')->find('all')->toarray(),
 
             'userprofile_malefemale' => $malefemale,
             'userprofile_eduction' => $eduction,

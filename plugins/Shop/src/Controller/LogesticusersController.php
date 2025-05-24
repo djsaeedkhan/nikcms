@@ -15,7 +15,7 @@ class LogesticusersController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopLogesticusers = TableRegistry::getTableLocator()->get('Shop.ShopLogesticusers');
     }
 

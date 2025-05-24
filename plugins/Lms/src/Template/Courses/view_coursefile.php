@@ -2,7 +2,7 @@
 use Cake\ORM\TableRegistry;
 use Lms\Predata;
 $pd = new Predata();
-$this->LmsExamresults = TableRegistry::get('Lms.LmsExamresults');
+$this->LmsExamresults = $this->getTableLocator()->get('Lms.LmsExamresults');
 ?>
 
 <div class="card"><div class="card-body">

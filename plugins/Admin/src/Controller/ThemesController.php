@@ -31,7 +31,11 @@ class ThemesController extends AppController
         $visiter = false;
         if(is_array($p)){
             foreach($p as $pk => $pv){
-                if($pk != $this->Auth->user('session_hash') and $pv['url'] == $this->_currenturl()){
+                if(
+                    $pk != $this->request->getAttribute('identity')->get('session_hash') 
+                    and 
+                    $pv['url'] == $this->_currenturl()
+                    ){
                     $visit = true;
                     $visiter = isset($pv['username'])?$pv['username']:'-';
                 }
@@ -137,9 +141,9 @@ class ThemesController extends AppController
     //----------------------------------------------------------
     public function beforeFilter(Event $event){
         //parent::beforeFilter($event);
-        //$user = $this->Auth->user();
+        //$user = $this->request->getAttribute('identity');
         //pr($user['role']);
-        $this->Auth->allow('*');
+        $this->Authentication->addUnauthenticatedActions('*');
         $this->Auth->deny(['index']);
     }
 }

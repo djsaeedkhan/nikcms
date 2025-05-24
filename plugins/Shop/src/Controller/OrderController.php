@@ -6,23 +6,23 @@ use Shop\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Sms\Sms;
 use Cake\Log\Log;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Shop\View\Helper\CartHelper;
 
 class OrderController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
     public function beforeFilter(Event $event){
-        $this->Auth->allow(['checkToken']);
+        $this->Authentication->addUnauthenticatedActions(['checkToken']);
     }
     //-----------------------------------------------------------
     public function index($id = null){
 
-        $data = TableRegistry::get('Shop.ShopOrders')->find('all')
+        $data = $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->order(['ShopOrders.id'=>'desc'])
             ->contain([
                 'shopOrdershippings',
@@ -68,7 +68,7 @@ class OrderController extends AppController
     //-----------------------------------------------------------
     public function view($id = null){
         $this->set(['result'=> $p =
-            TableRegistry::get('Shop.ShopOrders')->find('all')
+            $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->contain([
                 'Users',
                 'ShopAddresses'=>['ShopUseraddresses'],
@@ -78,7 +78,7 @@ class OrderController extends AppController
                 'ShopOrderlogs'=>'Users'])
             ->where(['ShopOrders.id' => $id])
             ->first(),
-            'ShippingList' => TableRegistry::get('Shop.ShopOrders')->find('all')
+            'ShippingList' => $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
         ]);
         if ($this->request->getQuery('print') =='box') {
             $this->autoRender = false;
@@ -117,7 +117,7 @@ class OrderController extends AppController
     //-----------------------------------------------------------
     private function create_status($id = null){
 
-        $this->ShopOrders = TableRegistry::get('Shop.ShopOrders');
+        $this->ShopOrders = $this->getTableLocator()->get('Shop.ShopOrders');
         if($id != null){
             if(is_array($id))
                 $order = $this->ShopOrders->find('all')->where(['ShopOrders.trackcode IN '=> $id])->toarray();
@@ -161,7 +161,7 @@ class OrderController extends AppController
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                                 'shop_order_id' =>  $value ,
-                                'user_id'=> $this->Auth->user('id'),
+                                'user_id'=> $this->request->getAttribute('identity')->get('id'),
                                 'status'=>'ارسال پیامک صحت سنجی<br>کد: '. $order->token .'<br>شماره موبایل: '.$mobile_number
                             ]));
                         }
@@ -176,7 +176,7 @@ class OrderController extends AppController
                                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                                     TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                                     'shop_order_id' =>  $value ,
-                                    'user_id'=> $this->Auth->user('id'),
+                                    'user_id'=> $this->request->getAttribute('identity')->get('id'),
                                     'status'=>'ارسال پیامک تغییر وضعیت سفارش به شماره '.$mobile_number
                                 ]));   
                             }
@@ -185,7 +185,7 @@ class OrderController extends AppController
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                             'shop_order_id' =>  $value ,
-                            'user_id'=> $this->Auth->user('id'),
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'سفارش - تغییر وضعیت به "'. CartHelper::Predata('order_status',$this->request->getData()['status']).'"'
                         ]));
                         $this->Flash->success('سفارش '.$order->trackcode .' با موفقیت به روز شد');
@@ -214,7 +214,7 @@ class OrderController extends AppController
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                             'shop_order_id' =>  $order->id ,
-                            'user_id'=> $this->Auth->user('id'),
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'ارسال پیامک صحت سنجی<br>کد: '. $order->token .'<br>شماره موبایل: '.$mobile_number
                         ]));
                     }
@@ -229,7 +229,7 @@ class OrderController extends AppController
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                             'shop_order_id' =>   $id,
-                            'user_id'=> $this->Auth->user('id'),
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'ارسال پیامک تغییر وضعیت سفارش به شماره '.$mobile_number
                         ]));
                     }
@@ -237,7 +237,7 @@ class OrderController extends AppController
                     TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                         'shop_order_id' => $id,
-                        'user_id'=> $this->Auth->user('id'),
+                        'user_id'=> $this->request->getAttribute('identity')->get('id'),
                         'status'=>'سفارش - تغییر وضعیت به "'. CartHelper::Predata('order_status',$this->request->getData()['status']).'"'
                     ]));
                     $this->Flash->success(__('The shop status has been saved.'));
@@ -251,7 +251,7 @@ class OrderController extends AppController
     //-----------------------------------------------------------
     public function logs($id = null){
         $this->set(['result'=>
-            TableRegistry::get('Shop.ShopOrders')->find('all')
+            $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->contain([
                 'Users',
                 'ShopAddresses'=>['ShopUseraddresses'],
@@ -260,7 +260,7 @@ class OrderController extends AppController
                 'ShopPayments'])
             ->where(['ShopOrders.id' => $id])
             ->first(),
-            'ShippingList' => TableRegistry::get('Shop.ShopOrders')->find('all')
+            'ShippingList' => $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
         ]);
     }
     //-----------------------------------------------------------
@@ -271,7 +271,7 @@ class OrderController extends AppController
     }
     //-----------------------------------------------------------
     private function _delete_order($id = null , $field = null){
-        $this->ShopOrders = TableRegistry::get('Shop.ShopOrders');
+        $this->ShopOrders = $this->getTableLocator()->get('Shop.ShopOrders');
         
         if($field == null)
             $shopOrder = $this->ShopOrders->get($id);
@@ -280,14 +280,14 @@ class OrderController extends AppController
 
         if($shopOrder){
             $id = $shopOrder['id'];
-            foreach(TableRegistry::get('Shop.ShopOrderproducts')->find('all')->where(['shop_order_id' => $id])->toarray() as $tmp ){
-                TableRegistry::get('Shop.ShopOrderattributes')->deleteAll(['shop_orderproduct_id' => $tmp['id'] ]);
+            foreach($this->getTableLocator()->get('Shop.ShopOrderproducts')->find('all')->where(['shop_order_id' => $id])->toarray() as $tmp ){
+                $this->getTableLocator()->get('Shop.ShopOrderattributes')->deleteAll(['shop_orderproduct_id' => $tmp['id'] ]);
             }
-            TableRegistry::get('Shop.ShopOrderproducts')->deleteAll(['shop_order_id' => $id ]);
-            TableRegistry::get('Shop.ShopOrdertokens')->deleteAll(['shop_order_id' => $id ]);
-            TableRegistry::get('Shop.ShopOrdertexts')->deleteAll(['shop_order_id' => $id ]);
-            TableRegistry::get('Shop.ShopOrdershippings')->deleteAll(['shop_order_id' => $id ]);
-            TableRegistry::get('Shop.ShopPayments')->deleteAll(['shop_order_id' => $id ]);
+            $this->getTableLocator()->get('Shop.ShopOrderproducts')->deleteAll(['shop_order_id' => $id ]);
+            $this->getTableLocator()->get('Shop.ShopOrdertokens')->deleteAll(['shop_order_id' => $id ]);
+            $this->getTableLocator()->get('Shop.ShopOrdertexts')->deleteAll(['shop_order_id' => $id ]);
+            $this->getTableLocator()->get('Shop.ShopOrdershippings')->deleteAll(['shop_order_id' => $id ]);
+            $this->getTableLocator()->get('Shop.ShopPayments')->deleteAll(['shop_order_id' => $id ]);
         }
         if ($this->ShopOrders->delete($shopOrder)) {
             $this->Flash->success(__('حذف سفارش با موفقیت انجام شد'));
@@ -301,7 +301,7 @@ class OrderController extends AppController
         //Configure::write('debug', 0);
         //Log::write('debug', $this->request);
 
-        /* $this->opt = TableRegistry::get('Options');
+        /* $this->opt = $this->getTableLocator()->get('Options');
         $text = $this->opt->patchEntity($this->opt->newEntity(),
         [
             'name'=>'1',
@@ -312,7 +312,7 @@ class OrderController extends AppController
 
         if($this->request->getQuery('body') and $this->request->getQuery('body')!= null){
             $token = intval($this->request->getQuery('body'));
-            $this->Orders = TableRegistry::get('Shop.ShopOrders');
+            $this->Orders = $this->getTableLocator()->get('Shop.ShopOrders');
             $temp = $this->Orders->find('all')->where(['token'=> $token])->toarray();
             if(is_array($temp) and count($temp) == 1){
 

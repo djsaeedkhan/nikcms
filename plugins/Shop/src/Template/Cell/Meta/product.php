@@ -6,7 +6,7 @@ use Shop\View\Helper\CartHelper;
 $predata = new Predata;
 global $product_data;
 $setting = unserialize($this->Func->OptionGet('plugin_shop'));
-$param_list = TableRegistry::get('Shop.ShopParamlists')
+$param_list = $this->getTableLocator()->get('Shop.ShopParamlists')
     ->find('list',['keyField'=>'id','valueField'=>'title'])
     ->toarray();
 
@@ -202,7 +202,7 @@ $p_label = 'قیمت  ('.$p_label2.')';
                         
                         <div class="col-sm-81"><div class="paramlists"><?php 
                             if(isset($product_data['param_list']) and isset($shop_metas['param_id'])):
-                                $lists = TableRegistry::get('Shop.ShopParamlists')->find('all')
+                                $lists = $this->getTableLocator()->get('Shop.ShopParamlists')->find('all')
                                     ->where(['shop_param_id'=> $shop_metas['param_id'] ])
                                     ->enableHydration(false)
                                     ->order(['priority'=>'asc'])
@@ -260,7 +260,7 @@ $p_label = 'قیمت  ('.$p_label2.')';
                             $count = 0;
                             if(isset($product_data['product_detail']) and count($product_data['product_detail'])){
                                 
-                                $this->ShopAttlists = TableRegistry::get('Shop.ShopAttributelists');
+                                $this->ShopAttlists = $this->getTableLocator()->get('Shop.ShopAttributelists');
                                 $a1 = $this->ShopAttlists->find('list',['keyField'=>'id','valueField'=>'title'])->toarray();
                                 $a2 = $this->ShopAttlists->find('list',['keyField'=>'id','valueField'=>'shop_attribute_id'])->toarray();
                                 foreach($this->ShopAttlists->find('all')->contain(['ShopAttributes'])->toarray() as $temp){
@@ -412,7 +412,7 @@ $p_label = 'قیمت  ('.$p_label2.')';
                             'empty'=>'-- انتخاب کنید --',
                             'type'=>'select',
                             'label'=>'انتخاب دسته بندی نمایندگی',
-                            'options'=> TableRegistry::get('ShopLogesticlists')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
+                            'options'=> $this->getTableLocator()->get('ShopLogesticlists')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
                             'default'=>(isset($shop_metas['logesticlists'])?$shop_metas['logesticlists']:'')]);?>
 
                             <div class="alert alert-secondary">
@@ -428,7 +428,7 @@ $p_label = 'قیمت  ('.$p_label2.')';
                     <?= $this->Form->control('ShopMetas.label',[
                         'class'=>'form-control mb-2','empty'=>'-- انتخاب کنید --',
                         'type'=>'select','label'=>'انتخاب علامت',
-                        'options'=> TableRegistry::get('ShopLabels')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
+                        'options'=> $this->getTableLocator()->get('ShopLabels')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
                         'default'=>(isset($shop_metas['label'])?$shop_metas['label']:'')]);?>
                 </div>
                 <!-- ----------------------------------------------------------- -->
@@ -436,7 +436,7 @@ $p_label = 'قیمت  ('.$p_label2.')';
                     <?= $this->Form->control('ShopMetas.brands',[
                         'class'=>'form-control mb-2','empty'=>'-- انتخاب کنید --',
                         'type'=>'select','label'=>'انتخاب برند',
-                        'options'=> TableRegistry::get('ShopBrands')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
+                        'options'=> $this->getTableLocator()->get('ShopBrands')->find('list',['keyField'=>'id','valueField'=>'title'])->toarray(),
                         'default'=>(isset($shop_metas['brands'])?$shop_metas['brands']:'')]);?>
                 </div>
                 <!-- ----------------------------------------------------------- -->

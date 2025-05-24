@@ -39,7 +39,7 @@ class ClientController extends AppController
         $id = explode(',',$id);
         Log::write('debug',$this->referer());
         if(isset($id[0]) and isset($id[1]) and $this->referer() == 'https://samaneh.tadabor.ir/lms/client/courses/36?file=292&show=1'){ //
-            $src = TableRegistry::get('Lms.LmsCoursefiles')->find('all')->where(['id' => $id[0]])->first();
+            $src = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')->where(['id' => $id[0]])->first();
             if(isset($src['filesrc_'.$id[1]]) and $src['filesrc_'.$id[1]] != ''){
                 $path = $src['filesrc_'.$id[1]];   
                 $stream = new Video();
@@ -62,7 +62,7 @@ class ClientController extends AppController
             'order'=>['id'=>'desc'],
         ];
 
-        $result = $this->LmsExamresults->find('all')->where(['LmsExamresults.user_id' => $this->Auth->user('id')]);
+        $result = $this->LmsExamresults->find('all')->where(['LmsExamresults.user_id' => $this->request->getAttribute('identity')->get('id')]);
 
         if($this->request->getQuery('exam_id')){
             $result->where(['LmsExamresults.lms_exam_id' => $this->request->getQuery('exam_id')]) ;
@@ -83,7 +83,7 @@ class ClientController extends AppController
         $lmsCourseuser = $this->LmsCourseusers->find('all')
         ->where([
             'LmsCourseusers.lms_course_id'=>$id,
-            'LmsCourseusers.user_id'=> $this->Auth->user('id')])
+            'LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
         ->contain(['lmsCourses'])
         ->first();
         if(! $lmsCourseuser){
@@ -102,7 +102,7 @@ class ClientController extends AppController
 
         $history = $this->LmsCertificates->find('all')
             ->where([
-                'user_id'=> $this->Auth->user('id'),
+                'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 'lms_course_id' => $id
             ])
             ->toarray();
@@ -110,7 +110,7 @@ class ClientController extends AppController
         $lmsCertificate = $this->LmsCertificates->newEntity();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('lms_course_id', $id);
-            $this->request = $this->request->withData('user_id', $this->Auth->user('id'));
+            $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
             $this->request = $this->request->withData('input_data', json_encode($this->request->getData()['data']));
 
             $lmsCertificate = $this->LmsCertificates->patchEntity($lmsCertificate, $this->request->getData());
@@ -133,7 +133,7 @@ class ClientController extends AppController
         exit(); */
 
         $lmsCourses = $this->LmsCourseusers->find('all')
-            ->where(['LmsCourseusers.user_id'=> $this->Auth->user('id')])
+            ->where(['LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
             ->order(['LmsCourseusers.id'=>'desc'])
             ->toarray();
@@ -153,7 +153,7 @@ class ClientController extends AppController
                 $query = $this->LmsCoursefilecans
                     ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
                     ->select(['lms_coursefile_id','user_id'])
-                    ->where(['user_id'=> $this->Auth->user('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                    ->where(['user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
                     ->group(['lms_coursefile_id']);
                 $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
 
@@ -178,7 +178,7 @@ class ClientController extends AppController
         $lmsCourseuser = $this->LmsCourseusers->find('all')
             ->where([
                 'LmsCourseusers.lms_course_id'=>$id,
-                'LmsCourseusers.user_id'=> $this->Auth->user('id')])
+                'LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
             ->first();
         if(! $lmsCourseuser){
@@ -196,7 +196,7 @@ class ClientController extends AppController
 
             if($this->LmsUserfactors->find('all')
                 ->where([
-                    'user_id'=>$this->Auth->user('id'),
+                    'user_id'=>$this->request->getAttribute('identity')->get('id'),
                     'lms_course_id'=>$lmsCourses['id'],
                     'enable'=>0,
                 ])
@@ -238,7 +238,7 @@ class ClientController extends AppController
 
             $lmsFactor = $this->LmsFactors->newEntity();
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
-                    'user_id'=>$this->Auth->user('id'),
+                    'user_id'=>$this->request->getAttribute('identity')->get('id'),
                     'price'=>$lmsCourses['price_renew'],
                     'paid'=>0,
                     'status'=>0,
@@ -248,7 +248,7 @@ class ClientController extends AppController
             if ($id = $this->LmsFactors->save($lmsFactor)) {
                 $lmsuserf = $this->LmsUserfactors->newEntity();
                 $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
-                        'user_id' => $this->Auth->user('id'),
+                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_factor_id' => $lmsFactor->id,
                         'lms_course_id' => $lmsCourses['id'],
                         'enable' => 0,
@@ -282,7 +282,7 @@ class ClientController extends AppController
         $lmsCourseuser = $this->LmsCourseusers->find('all')
             ->where([
                 'LmsCourseusers.lms_course_id'=> $course_id,
-                'LmsCourseusers.user_id'=> $this->Auth->user('id')])
+                'LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
             ->first();
         if(! $lmsCourseuser){
@@ -307,7 +307,7 @@ class ClientController extends AppController
 
         if($this->LmsUserfactors->find('all')
             ->where([
-                'user_id'=>$this->Auth->user('id'),
+                'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'lms_course_id'=>$lmsCourses['id'],
                 'lms_exam_id'=>$exam_id,
                 'enable'=> 0, //استفاده نشده
@@ -327,7 +327,7 @@ class ClientController extends AppController
 
         $again = $this->LmsUserfactors->find('all')
             ->where([
-                'user_id'=>$this->Auth->user('id'),
+                'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'lms_course_id'=>$lmsCourses['id'],
                 'lms_exam_id'=>$exam_id,
                 'enable'=>1,
@@ -353,7 +353,7 @@ class ClientController extends AppController
 
         $lmsFactor = $this->LmsFactors->newEntity();
         $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
-                'user_id'=>$this->Auth->user('id'),
+                'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'price'=> $options['renew_price'],
                 'paid'=>0,
                 'status'=>0,
@@ -364,7 +364,7 @@ class ClientController extends AppController
         if ($id = $this->LmsFactors->save($lmsFactor)) {
             $lmsuserf = $this->LmsUserfactors->newEntity();
             $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
-                    'user_id' => $this->Auth->user('id'),
+                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'lms_factor_id' => $lmsFactor->id,
                     'lms_course_id' => $lmsCourses['id'],
                     'lms_exam_id' => $lmsExam['id'],
@@ -398,7 +398,7 @@ class ClientController extends AppController
         }
 
         $lmsCourses = $this->LmsCourseusers->find('all')
-            ->where(['LmsCourseusers.user_id'=> $this->Auth->user('id')])
+            ->where(['LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
             ->order(['LmsCourseusers.id'=>'desc'])
             ->toarray();
@@ -418,7 +418,7 @@ class ClientController extends AppController
                 $query = $this->LmsCoursefilecans
                     ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
                     ->select(['lms_coursefile_id','user_id'])
-                    ->where(['user_id'=> $this->Auth->user('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                    ->where(['user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
                     ->group(['lms_coursefile_id']);
                 $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
 
@@ -441,7 +441,7 @@ class ClientController extends AppController
         $checks = new Checker();
 
         $lmsCourses = $this->LmsCourseusers->find('all')
-            ->where(['LmsCourseusers.user_id'=> $this->Auth->user('id') , 'lms_course_id' =>$id ] )
+            ->where(['LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_course_id' =>$id ] )
             ->contain(['LmsCourses'])
             ->first();
 
@@ -462,7 +462,7 @@ class ClientController extends AppController
             ->where([
                 'enable'=>0,
                 'LmsUserfactors.lms_exam_id IS NULL',
-                'LmsUserfactors.user_id'=> $this->Auth->user('id') , 
+                'LmsUserfactors.user_id'=> $this->request->getAttribute('identity')->get('id') , 
                 'lms_course_id' =>$id ] )
             ->contain(['LmsFactors'])
             ->first();
@@ -521,11 +521,11 @@ class ClientController extends AppController
             ->order(['LmsCoursefiles.priority'=>'ASC' ])
             ->toarray(); //لیست فایل ها
         $tt = $this->LmsCoursefilecans->find('all')
-            ->where(['user_id' => $this->Auth->user('id') , 'lms_coursefile_id IN'=> $pp ])
+            ->where(['user_id' => $this->request->getAttribute('identity')->get('id') , 'lms_coursefile_id IN'=> $pp ])
             ->count();
         $pp = array_values($pp);
         if($tt == 0 and isset($pp[0])){
-           $checks->enablefile($this->Auth->user('id') ,$pp[0] );
+           $checks->enablefile($this->request->getAttribute('identity')->get('id') ,$pp[0] );
         }
 
         if($this->request->getQuery('qty') ){
@@ -548,7 +548,7 @@ class ClientController extends AppController
         if($lmsCourses['enable'] == 1){ //وقتی کاربر یکبار دوره را سپری میکند، مقدار فعال: یک می شود
             $show_current = true;
         }
-        elseif($checks->checkIS($id,$file_id , $this->Auth->user('id'),  $this->request->getQuery() )){
+        elseif($checks->checkIS($id,$file_id , $this->request->getAttribute('identity')->get('id'),  $this->request->getQuery() )){
             $show_current = true;
         }
         $this->set(['show_current' => $show_current]);
@@ -561,7 +561,7 @@ class ClientController extends AppController
                 $sessions = $this->LmsCoursesessions->patchEntity($this->LmsCoursesessions->newEntity(), [
                     'lms_course_id' => $id,
                     'lms_coursefile_id' => $file_id ,
-                    'user_id' => $this->Auth->user('id'),
+                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                 ]);
                 $this->LmsCoursesessions->save($sessions);
                 return $this->response->withStringBody("success-01");
@@ -575,7 +575,7 @@ class ClientController extends AppController
                     ->where(['lms_coursefile_id' => $file_id ])
                     ->first();
                 if(! $file_exam){
-                    $p = $checks->enablefile($this->Auth->user('id') ,$next);
+                    $p = $checks->enablefile($this->request->getAttribute('identity')->get('id') ,$next);
                     if($p == 1)
                         $response = $this->response->withStringBody(Router::url([$id ,'?'=>['file'=> $next ]],true));
                     else
@@ -589,7 +589,7 @@ class ClientController extends AppController
                         'enable' => 0,
                         'status'=> 1 ])
                     ->where([
-                        'user_id' => $this->Auth->user('id') ,
+                        'user_id' => $this->request->getAttribute('identity')->get('id') ,
                         'lms_course_id'=>$id
                         ])
                     ->execute();
@@ -636,7 +636,7 @@ class ClientController extends AppController
                 ->contain(['LmsFactors'])
                 ->where([
                     'LmsFactors.paid'=>1,
-                    'LmsUserfactors.user_id'=> $this->Auth->user('id'),
+                    'LmsUserfactors.user_id'=> $this->request->getAttribute('identity')->get('id'),
                     'LmsUserfactors.lms_exam_id'=> $file['lms_exam_id'],
                     'LmsUserfactors.enable'=> 0 // استفاده نشده
                     ])
@@ -646,7 +646,7 @@ class ClientController extends AppController
                 ->contain(['LmsFactors'])
                 ->where([
                     'LmsFactors.paid'=>1,
-                    'LmsUserfactors.user_id'=> $this->Auth->user('id'),
+                    'LmsUserfactors.user_id'=> $this->request->getAttribute('identity')->get('id'),
                     'LmsUserfactors.lms_exam_id'=> $file['lms_exam_id'],
                     ])
                 ->count(),
@@ -657,7 +657,7 @@ class ClientController extends AppController
 
             $temp = $this->LmsExamresults->find('all')
                 ->where([
-                    'user_id' => $this->Auth->user('id') , 
+                    'user_id' => $this->request->getAttribute('identity')->get('id') , 
                     'token' => $this->request->getQuery('starts') , 
                     'result' => 0])
                 ->first();
@@ -681,7 +681,7 @@ class ClientController extends AppController
                     ->where([
                         'token' => $this->request->getQuery('starts') ,
                         'result' => 0,
-                        'user_id' => $this->Auth->user('id') ])
+                        'user_id' => $this->request->getAttribute('identity')->get('id') ])
                     ->first();
                 if($lmsresult)
                     $lms_examresult_id = $lmsresult->id;
@@ -712,7 +712,7 @@ class ClientController extends AppController
                 
                 $lmsExamresult = $this->LmsExamresultlists->newEntity();
                 $lmsExamresult = $this->LmsExamresultlists->patchEntity($lmsExamresult,[
-                    'user_id' => $this->Auth->user('id'),
+                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'lms_examresult_id'=> $lms_examresult_id ,
                     'lms_exam_id' => $file['lms_exam_id'] ,
                     'lms_examquest_id' => $k ,
@@ -738,7 +738,7 @@ class ClientController extends AppController
                 $checks = new Checker();
                 $next = $checks->find_next($file['lms_coursefile_id'] );
                 if($next != null){ //اگر فایل بعدی وجود داشت
-                    if($checks->enablefile($this->Auth->user('id'), $next ) != 1)
+                    if($checks->enablefile($this->request->getAttribute('identity')->get('id'), $next ) != 1)
                         $this->Flash->success('سطح بعدی دوره برای شما فعال گردید');
                 }
                 else{
@@ -748,7 +748,7 @@ class ClientController extends AppController
                         'enable' => 0,
                         'status'=> 1 ])
                     ->where([
-                        'user_id' => $this->Auth->user('id') ,
+                        'user_id' => $this->request->getAttribute('identity')->get('id') ,
                         'lms_course_id'=>$course_id
                         ])
                     ->execute();
@@ -767,7 +767,7 @@ class ClientController extends AppController
                 ])
                 ->where([
                     'LmsUserfactors.lms_exam_id'=> $file['lms_exam_id'],
-                    'LmsUserfactors.user_id'=> $this->Auth->user('id'),
+                    'LmsUserfactors.user_id'=> $this->request->getAttribute('identity')->get('id'),
                 ])
                 ->execute();
            
@@ -777,7 +777,7 @@ class ClientController extends AppController
         if($this->request->getQuery('start')){
             $temp = $this->LmsExamresults->find('all')
                 ->where([
-                    'user_id' => $this->Auth->user('id') ,
+                    'user_id' => $this->request->getAttribute('identity')->get('id') ,
                     'lms_coursefile_id' => $file['lms_coursefile_id'],
                     'lms_exam_id' => $file['lms_exam_id'] , //'result !=' => 0
                     ])
@@ -799,10 +799,10 @@ class ClientController extends AppController
             
             $lmsExamresult = $this->LmsExamresults->newEntity();
             $lmsExamresult = $this->LmsExamresults->patchEntity($lmsExamresult,[
-                'user_id'=> $this->Auth->user('id'),
+                'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 'lms_exam_id'=> $file['lms_exam_id'],
                 'lms_coursefile_id' => $file['lms_coursefile_id'] , 
-                'token'=> $this->Auth->user('id').$id.rand(100,9999),
+                'token'=> $this->request->getAttribute('identity')->get('id').$id.rand(100,9999),
             ]);
             if(! ($p = $this->LmsExamresults->save($lmsExamresult))){
                 $this->Flash->error('لطفا دوباره تلاش کنید');
@@ -817,7 +817,7 @@ class ClientController extends AppController
         elseif($this->request->getQuery('starts')){
             $temp = $this->LmsExamresults->find('all')
                 ->where([
-                    'user_id' => $this->Auth->user('id') , 
+                    'user_id' => $this->request->getAttribute('identity')->get('id') , 
                     'token' => $this->request->getQuery('starts') , 
                     'result' => 0])
                 ->first();
@@ -848,7 +848,7 @@ class ClientController extends AppController
             if($this->request->getQuery('result')){
                 $lmsresult =  $this->LmsExamresults->find('all')
                     ->where([
-                        'user_id' => $this->Auth->user('id'),
+                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'result != ' => 0,
                         'token' => $this->request->getQuery('result') ])
                     ->first();
@@ -861,7 +861,7 @@ class ClientController extends AppController
             }
 
             $final = $this->LmsExamresultlists->find('list',['keyField'=>'lms_examquest_id','valueField'=>'answer'])
-                    ->where(['lms_examresult_id' => $lms_examresult_id, 'user_id'=>$this->Auth->user('id') ])
+                    ->where(['lms_examresult_id' => $lms_examresult_id, 'user_id'=>$this->request->getAttribute('identity')->get('id') ])
                     ->toarray();
 
             if(!$final){
@@ -899,7 +899,7 @@ class ClientController extends AppController
             ->contain(['LmsExamresultlists'])
             ->order(['id'=> 'desc'])
             ->where([
-                'user_id' => $this->Auth->user('id') , 
+                'user_id' => $this->request->getAttribute('identity')->get('id') , 
                 'lms_coursefile_id' => $coursefile_id,
                 'lms_exam_id' => $exam_id ])
             ->toarray();
@@ -955,7 +955,7 @@ class ClientController extends AppController
         $user_factor = $this->LmsFactors->find('all')
             ->where([
                 'LmsFactors.lms_coupon_id'=> $coupons['id'],
-                'LmsFactors.user_id'=> $this->Auth->user('id'),
+                'LmsFactors.user_id'=> $this->request->getAttribute('identity')->get('id'),
                 //'LmsFactors.paid' => 1
             ])
             ->contain(['LmsUserfactors'])
@@ -1004,7 +1004,7 @@ class ClientController extends AppController
         $factors = $this->LmsFactors->find('all')
             ->where([
                 $id != null?['LmsFactors.id'=>$id]:false,
-                'LmsFactors.user_id'=> $this->Auth->user('id')
+                'LmsFactors.user_id'=> $this->request->getAttribute('identity')->get('id')
                 ])
             ->contain(['LmsUserfactors'=>['LmsCourses'],'LmsPayments','LmsCoupons'])
             ->order(['LmsFactors.id'=>'desc'])
@@ -1047,7 +1047,7 @@ class ClientController extends AppController
                         'price' => $new_price,
                         'lms_coupon_id'=>$coupon_data['id']
                         ])
-                    ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->Auth->user('id')])
+                    ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                     ->execute();
                 if($tmp){
                     $this->Flash->success("اعمال کدتخفیف با موفقیت انجام و مبلغ فاکتور بروزرسانی شد");
@@ -1076,7 +1076,7 @@ class ClientController extends AppController
                     'price' => $factors[0]['old_price'],
                     'lms_coupon_id'=> null
                     ])
-                ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->Auth->user('id')])
+                ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                 ->execute();
             if($tmp)
                 $this->Flash->success("حذف کدتخفیف با موفقیت انجام و مبلغ فاکتور بروزرسانی شد");
@@ -1096,7 +1096,7 @@ class ClientController extends AppController
                 $userf = $this->LmsUserfactors->find('all')
                     ->where([
                         'lms_factor_id'=>$factors[0]['id'] , 
-                        'user_id'=>$this->Auth->user('id')
+                        'user_id'=>$this->request->getAttribute('identity')->get('id')
                     ])
                     ->first();
                 if($userf){
@@ -1151,7 +1151,7 @@ class ClientController extends AppController
                                 }
                                 
                                 $tmp = $this->LmsCourseusers->find('all')->where([
-                                    'user_id' => $this->Auth->user('id'),
+                                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                                     'lms_course_id' => $userf->lms_course_id
                                 ])
                                 ->first();
@@ -1185,7 +1185,7 @@ class ClientController extends AppController
                                 else{
                                     $lmsCourseuser = $this->LmsCourseusers->newEntity();
                                     $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
-                                        'user_id' => $this->Auth->user('id'),
+                                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                                         'lms_course_id' => $userf->lms_course_id
                                     ]);
                                     if($this->LmsCourseusers->save($lmsCourseuser)){
@@ -1202,7 +1202,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                             }
 
@@ -1234,7 +1234,7 @@ class ClientController extends AppController
         $factors = $factors[0];
         if(! $this->request->getQuery('order')){
             $pay = $this->LmsPayments->patchEntity($this->LmsPayments->newEntity(),[
-                'user_id'=> $this->Auth->user('id'),
+                'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 'price'=> $factors['price'],
                 'lms_factor_id'=> $factors['id'],
                 'token'=> $factors['id'].date('hi').rand(10000,99999),
@@ -1319,7 +1319,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
@@ -1327,7 +1327,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت انجام شده ولی ثبت سیستمی نشد - کد 15'));
                                 return $p->id;
@@ -1433,7 +1433,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
@@ -1441,7 +1441,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت انجام شده ولی ثبت سیستمی نشد - کد 15'));
                                 return $p->id;
@@ -1470,7 +1470,7 @@ class ClientController extends AppController
                 $Amount = $Amount * 10;
                 $Description 	= "";//strip_tags($_POST['descr']);
                 $Email 			= "";
-                $Mobile 		= $this->Auth->user('username');//strip_tags($_POST['mobile']);
+                $Mobile 		= $this->request->getAttribute('identity')->get('username');//strip_tags($_POST['mobile']);
                 $p = $this->LmsPayments->get($pay->id);
                 
                 if($this->request->is('post') and !isset($_POST['StateCode']) ){
@@ -1549,7 +1549,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
 
                                 return $p->id;
@@ -1624,7 +1624,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
@@ -1632,7 +1632,7 @@ class ClientController extends AppController
                                 $this->LmsFactors->query()
                                     ->update()
                                     ->set(['paid' => 1,'status' => 1])
-                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->Auth->user('id')])
+                                    ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت انجام شده ولی ثبت سیستمی نشد - کد 15'));
                                 return $p->id;
@@ -1661,7 +1661,7 @@ class ClientController extends AppController
     public function payments($id = null,$action = null) 
     {
         $factors = $this->LmsPayments->find('all')
-            ->where(['LmsPayments.user_id'=> $this->Auth->user('id')])
+            ->where(['LmsPayments.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['LmsFactors'])
             ->order(['LmsPayments.id'=>'desc'])
             ->toarray();

@@ -11,11 +11,11 @@ class RefundsController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
     public function index($id = null){
-        $data = TableRegistry::get('Shop.ShopOrderrefunds')->find('all')
+        $data = $this->getTableLocator()->get('Shop.ShopOrderrefunds')->find('all')
             ->order(['ShopOrderrefunds.id'=>'desc'])
             ->contain(['shopOrders','Users']);
         
@@ -27,7 +27,7 @@ class RefundsController extends AppController
     }
     //-----------------------------------------------------------
     public function edit($id = null){
-        $this->Refunds = TableRegistry::get('Shop.ShopOrderrefunds');
+        $this->Refunds = $this->getTableLocator()->get('Shop.ShopOrderrefunds');
         if($id != null)
             $refund = $this->Refunds->get($id);
         else
@@ -39,7 +39,7 @@ class RefundsController extends AppController
                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
                     TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
                     'shop_order_id' => $refund->shop_order_id,
-                    'user_id'=> $this->Auth->user('id'),
+                    'user_id'=> $this->request->getAttribute('identity')->get('id'),
                     'status'=>'مرجوعی - تغییر وضعیت به "'. CartHelper::Predata('order_refundtype',$this->request->getData()['status']).'"'
                 ]));
 

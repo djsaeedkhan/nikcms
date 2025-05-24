@@ -8,11 +8,11 @@ class Checker
     function __construct() {}
     public function checkcurrent($course_id = null, $file_id = null , $user_id = null , $query = null){
         $status = "true";
-        $coursefile = TableRegistry::get('Lms.LmsCoursefiles')->find('all')
+        $coursefile = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
             ->where(['id' => $file_id])
             ->first(); 
         
-        $courseuser = TableRegistry::get('Lms.LmsCourseusers')->find('all')
+        $courseuser = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
             ->contain(['LmsCourses'])
             ->where(['LmsCourseusers.user_id' =>  $user_id , 'lms_course_id' => $course_id])
             ->first();
@@ -22,7 +22,7 @@ class Checker
             /* pr("e1"); */
         }
         else{
-            $filecans = TableRegistry::get('Lms.LmsCoursefilecans');
+            $filecans = $this->getTableLocator()->get('Lms.LmsCoursefilecans');
             $coursefilecan = $filecans->find('all')
                 ->where(['user_id' =>  $user_id , 'lms_coursefile_id' => $file_id ])
                 ->first();
@@ -42,11 +42,11 @@ class Checker
             if(! $coursefilecan ){
 
                 if(isset($query['file']) and $query['file'] == $file_id){
-                    $exam = TableRegistry::get('Lms.LmsCourseexams')->find('all')
+                    $exam = $this->getTableLocator()->get('Lms.LmsCourseexams')->find('all')
                         ->where(['lms_coursefile_id' =>  $file_id])
                         ->first();
                     if($exam){
-                        $result = TableRegistry::get('Lms.LmsExamresults')->find('all')
+                        $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
                             ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result' => 2 ])
                             ->first();
                         if($result){
@@ -75,19 +75,19 @@ class Checker
     //-------------------------------------------------------------------------------
     public function checkIS($course_id = null, $file_id = null , $user_id = null , $query = null){
         $status = true;
-        $coursefile = TableRegistry::get('Lms.LmsCoursefiles')->find('all')
+        $coursefile = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
             ->where(['id' => $file_id])
             ->first(); 
 
         if(! $file_id)
             return false;
         
-        $courseuser = TableRegistry::get('Lms.LmsCourseusers')->find('all')
+        $courseuser = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
             ->contain(['LmsCourses'])
             ->where(['LmsCourseusers.user_id' =>  $user_id , 'lms_course_id' => $course_id])
             ->first();
 
-        $fcan = TableRegistry::get('Lms.LmsCoursefilecans')
+        $fcan = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where([
                 'LmsCoursefilecans.user_id'=>$user_id , 
@@ -113,25 +113,25 @@ class Checker
             }
             $time->addDays($coursefile['days']);
             if(isset($query['file']) and $query['file'] == $file_id){
-                $exam = TableRegistry::get('Lms.LmsCourseexams')->find('all')
+                $exam = $this->getTableLocator()->get('Lms.LmsCourseexams')->find('all')
                     ->where(['lms_coursefile_id' =>  $file_id])
                     ->first();
                 if($exam){
 
-                    if(TableRegistry::get('Lms.LmsExamresults')->find('all')
+                    if($this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
                         ->where(['user_id' =>  $user_id ,  'lms_coursefile_id'=>$file_id,'lms_exam_id' => $exam['lms_exam_id']])->count() > 0 )
                     {
-                        $result = TableRegistry::get('Lms.LmsExamresults')->find('all')
+                        $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
                             ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result !=' => 2  ])
                             ->toarray();
 
-                        $exams = TableRegistry::get('Lms.LmsExams')->get($exam['lms_exam_id']);
+                        $exams = $this->getTableLocator()->get('Lms.LmsExams')->get($exam['lms_exam_id']);
                         if( count($result) >= $exams['reexam']){
                             $status = false; 
                         }
                         else{
                             $status = true; 
-                            /* $result = TableRegistry::get('Lms.LmsExamresults')->find('all')
+                            /* $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
                                 ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result' => 2  ])
                                 ->first();
                             if($result){
@@ -165,7 +165,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     public function find_next($file_id = null){
-        $LmsCoursefiles = TableRegistry::get('Lms.LmsCoursefiles');
+        $LmsCoursefiles = $this->getTableLocator()->get('Lms.LmsCoursefiles');
         $file = $LmsCoursefiles->find('all')
             ->where(['id' => $file_id ])
             ->first();
@@ -197,7 +197,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     public function enablefile($user_id = null, $file_id = null ){
-        $course_id = TableRegistry::get('Lms.LmsCoursefiles')
+        $course_id = $this->getTableLocator()->get('Lms.LmsCoursefiles')
             ->find('all')
             ->where(['id'=>$file_id])
             ->first();
@@ -206,7 +206,7 @@ class Checker
             return 0;
         $course_id = $course_id['lms_course_id'];
 
-        $fcan = TableRegistry::get('Lms.LmsCoursefilecans')
+        $fcan = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where(['user_id'=>$user_id , 'lms_course_id'=> $course_id ])
             ->order(['id'=>'desc'])
@@ -214,7 +214,7 @@ class Checker
         if(! $fcan) 
             return $this->_enablefiles($user_id,$file_id,$course_id);
 
-        $fexist = TableRegistry::get('Lms.LmsCoursefilecans')
+        $fexist = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where(['user_id'=>$user_id , 'lms_course_id'=> $course_id , 'lms_coursefile_id'=>$file_id ])
             ->first();
@@ -231,7 +231,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     private function _enablefiles($user_id = null, $file_id = null, $course_id = null ){
-        $filecans = TableRegistry::get('Lms.LmsCoursefilecans');
+        $filecans = $this->getTableLocator()->get('Lms.LmsCoursefilecans');
         $lmsCoursefile = $filecans->newEntity();
         $lmsCoursefile = $filecans->patchEntity($lmsCoursefile, [
             'user_id' =>  $user_id,

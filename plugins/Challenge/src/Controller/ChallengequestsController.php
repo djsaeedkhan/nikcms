@@ -25,14 +25,14 @@ class ChallengequestsController extends AppController
     //-----------------------------------------------------
     public function index($ch_id = null)
     {
-        $challenge= TableRegistry::get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
+        $challenge= $this->getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
         if(! $challenge){
             $this->Flash->error('چنین '.__d('Template', 'همیاری').' پیدا نشد');
             return $this->redirect($this->referer());
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = TableRegistry::get('Challenge.Challengeqanswers');
+        $this->Challengeqanswers = $this->getTableLocator()->get('Challenge.Challengeqanswers');
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {
@@ -66,7 +66,7 @@ class ChallengequestsController extends AppController
                         mkdir($fuConfig['upload_path'], 0777, true);
                     }
                     $fuConfig['allowed_types'] = 'zip';
-                    $fuConfig['file_name'] = 'ch'.$ch_id.'_'.$this->Auth->user('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
+                    $fuConfig['file_name'] = 'ch'.$ch_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
                     $fuConfig['max_size'] = 20000;			
                     $this->Fileupload->init($fuConfig);	
                     if (!$this->Fileupload->upload($k)){
@@ -77,7 +77,7 @@ class ChallengequestsController extends AppController
                 }
                 $list[] = [
                     'challenge_id' => $ch_id,
-                    'user_id' => $this->Auth->user('id'),
+                    'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'types' => isset($temp[0])?$temp[0]:'-',
                     'challengequest_id' => isset($temp[1])?$temp[1]:'0',
                     'value' => is_array($item)?implode(',',$item):$item,
@@ -87,7 +87,7 @@ class ChallengequestsController extends AppController
             $answer = $this->Challengeqanswers->newEntity();
             $answer = $this->Challengeqanswers->patchEntities($answer,$list);
             if($this->Challengeqanswers->saveMany($answer))
-                $this->redirect('?chid='.$ch_id.','.$this->Auth->user('id'));
+                $this->redirect('?chid='.$ch_id.','.$this->request->getAttribute('identity')->get('id'));
         }
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
@@ -209,14 +209,14 @@ class ChallengequestsController extends AppController
 
     public function report($ch_id = null)
     {
-        $challenge= TableRegistry::get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
+        $challenge= $this->getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
         if(! $challenge){
             $this->Flash->error('چنین '.__d('Template', 'همیاری').' پیدا نشد');
             return $this->redirect($this->referer());
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = TableRegistry::get('Challenge.Challengeqanswers');
+        $this->Challengeqanswers = $this->getTableLocator()->get('Challenge.Challengeqanswers');
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {

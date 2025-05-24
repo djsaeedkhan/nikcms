@@ -15,7 +15,7 @@ class LastpostCell extends Cell
         $this->set([
             'setting' => $setting,
             'last_post'=>
-                TableRegistry::get('Admin.Posts')->find('all')
+                $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->contain(['PostsI18n'])
                     ->where(['post_type !='=>'media'])
                     ->order('Posts.id desc')->limit(8)->toarray()]);

@@ -9,13 +9,13 @@ class HomeController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
     public function index(){}
     //-----------------------------------------------------------
     public function customers(){
-        $results = $this->paginate(TableRegistry::get('Shop.ShopAddresses'),[
+        $results = $this->paginate($this->getTableLocator()->get('Shop.ShopAddresses'),[
             'order'=>['id'=>'desc'],
             //'contain'=>['ShopOrderproducts']
         ]);
@@ -32,7 +32,7 @@ class HomeController extends AppController
         global $post_id;
         $post_id = $id;
         
-        $post = TableRegistry::get('Admin.Posts')
+        $post = $this->getTableLocator()->get('Admin.Posts')
             ->get($id, ['contain' => ['Users', 'Categories', 'Tags', 'Comments', 'PostMetas']]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -51,7 +51,7 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function postsStock($id = null){
-        $this->ShopProductstocks = TableRegistry::get('Shop.ShopProductstocks');
+        $this->ShopProductstocks = $this->getTableLocator()->get('Shop.ShopProductstocks');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             foreach($this->request->getData()['stock'] as $kid => $value){
@@ -68,17 +68,17 @@ class HomeController extends AppController
             ->where(['post_id' => $id])
             ->toArray();
 
-        $post = TableRegistry::get('Admin.Posts')
+        $post = $this->getTableLocator()->get('Admin.Posts')
             ->get($id);
 
-        $pattern = TableRegistry::get('Shop.ShopAttributelists')
+        $pattern = $this->getTableLocator()->get('Shop.ShopAttributelists')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->toarray();
         $this->set(compact('lists','pattern','id','post'));
     }
     //-----------------------------------------------------------
     public function setting(){
-        $result = TableRegistry::get('Admin.Options')
+        $result = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_shop'])
             ->toArray();
@@ -86,7 +86,7 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function schedule(){
-        $result = TableRegistry::get('Admin.Options')
+        $result = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_schedule'])
             ->toArray();
@@ -94,7 +94,7 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function transport(){
-        $result = TableRegistry::get('Admin.Options')
+        $result = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_transport'])
             ->toArray();
@@ -102,8 +102,8 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function params($id = null){
-        $this->ShopParams = TableRegistry::get('Shop.ShopParams');
-        $this->ShopParamlists = TableRegistry::get('Shop.ShopParamlists');
+        $this->ShopParams = $this->getTableLocator()->get('Shop.ShopParams');
+        $this->ShopParamlists = $this->getTableLocator()->get('Shop.ShopParamlists');
         
         $params = $this->ShopParams->newEntity();
         $paramlists = $this->ShopParamlists->newEntity();
@@ -204,7 +204,7 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function labels($id = null){
-        $this->Labels = TableRegistry::get('Shop.ShopLabels');
+        $this->Labels = $this->getTableLocator()->get('Shop.ShopLabels');
 
         if($this->request->getQuery('edit'))
             $labels = $this->Labels->get($this->request->getQuery('edit'));
@@ -235,7 +235,7 @@ class HomeController extends AppController
     }
     //-----------------------------------------------------------
     public function brands($id = null){
-        $this->Brands = TableRegistry::get('Shop.ShopBrands');
+        $this->Brands = $this->getTableLocator()->get('Shop.ShopBrands');
 
         if($this->request->getQuery('edit'))
             $brands = $this->Brands->get($this->request->getQuery('edit'));
@@ -267,8 +267,8 @@ class HomeController extends AppController
     //-----------------------------------------------------------
     public function attributes($id = null){
         set_time_limit(10);
-        $this->ShopAttributes = TableRegistry::get('Shop.ShopAttributes');
-        $this->ShopAttlists = TableRegistry::get('Shop.ShopAttributelists');
+        $this->ShopAttributes = $this->getTableLocator()->get('Shop.ShopAttributes');
+        $this->ShopAttlists = $this->getTableLocator()->get('Shop.ShopAttributelists');
 
         if($this->request->getQuery('edit'))
             $attrs = $this->ShopAttributes->get($this->request->getQuery('edit'));

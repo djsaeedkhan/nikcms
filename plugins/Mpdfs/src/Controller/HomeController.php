@@ -9,7 +9,7 @@ class HomeController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     public function index(){
         $this->autoRender = false;

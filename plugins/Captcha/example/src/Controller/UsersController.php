@@ -17,7 +17,6 @@ class UsersController extends AppController
     }
     public function beforeFilter(\Cake\Event\Event $event)
     {
-        //if(is_object($this->Auth)) $this->Auth->allow(['add', 'captcha']);
     }
     /**
      * Add method

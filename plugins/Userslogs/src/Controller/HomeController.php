@@ -8,14 +8,14 @@ class HomeController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
         $this->loadModel('UsersLogs.UsersLogs');
         $this->loadModel('UsersLogs.Users');
     }
     public function index($user_id = null, $limit = 15){
        
-        if($user_id == null or $this->Auth->user('role_id')!= 1){
-            $user_id = $this->Auth->user('id');
+        if($user_id == null or $this->request->getAttribute('identity')->get('role_id')!= 1){
+            $user_id = $this->request->getAttribute('identity')->get('id');
         }
         if($this->request->getQuery('last')){
             $user_id = null;

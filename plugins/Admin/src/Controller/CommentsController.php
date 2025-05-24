@@ -12,10 +12,11 @@ class CommentsController extends AppController
     //-----------------------------------------------------------------------------
     public function beforeFilter(Event $event){
         if($this->request->getParam('action') == 'save'){
-            $this->Auth->allow();
+            //$this->Auth->allow();
+            $this->Authentication->addUnauthenticatedActions();
         }
         /* else{
-            $this->ViewBuilder()->setLayout('Admin.default');
+            $this->viewBuilder()->setLayout('Admin.default');
             $this->set(['code'=>1]);
         } */
     }
@@ -98,7 +99,7 @@ class CommentsController extends AppController
                 'approved' => 0 ,
                 'post_type' => $post['post_type'] ,
                 'parent_id' => 0 ,
-                'user_id' => $this->Auth->user('id'),
+                'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'author' => isset($data['name'])?$data['name']:null,
                 'author_email' =>isset($data['email'])?$data['email']:null,
                 'author_url' => isset($data['website'])?$data['website']:null,

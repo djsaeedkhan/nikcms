@@ -11,7 +11,7 @@ class ApiController extends AppController
         
         //$this->loadComponent('Admin.Fileupload');
         //$this->viewBuilder()->setLayout("login");
-        $this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
     }
     //-----------------------------------------------------
     public function index($ch_id = null){

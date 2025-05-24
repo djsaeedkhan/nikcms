@@ -85,7 +85,7 @@ class ShopProductpricesTable extends Table
 
     /* public function beforeSave($event, $entity, $options) {
         if($entity->post_id > 0)
-            TableRegistry::get('Shop.ShopProductprices')->deleteAll(['post_id'=>$entity->post_id]);
+            $this->getTableLocator()->get('Shop.ShopProductprices')->deleteAll(['post_id'=>$entity->post_id]);
     } */
 
     public function buildRules(RulesChecker $rules)

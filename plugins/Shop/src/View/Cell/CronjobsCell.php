@@ -15,7 +15,7 @@ class CronjobsCell extends Cell
         $sdate = Time::now();
         $sdate->modify('-1 hours');
         $edate = new \DateTime();
-        $this->ShopOrders = TableRegistry::get('Shop.ShopOrders');
+        $this->ShopOrders = $this->getTableLocator()->get('Shop.ShopOrders');
 
         $query = $this->ShopOrders->find()
             ->where([
@@ -32,14 +32,14 @@ class CronjobsCell extends Cell
             $shopOrder = $this->ShopOrders->get($q['id']);
             if($shopOrder){
                 $id = $shopOrder['id'];
-                foreach(TableRegistry::get('Shop.ShopOrderproducts')->find('all')->where(['shop_order_id' => $id])->toarray() as $tmp ){
-                    TableRegistry::get('Shop.ShopOrderattributes')->deleteAll(['shop_orderproduct_id' => $tmp['id'] ]);
+                foreach($this->getTableLocator()->get('Shop.ShopOrderproducts')->find('all')->where(['shop_order_id' => $id])->toarray() as $tmp ){
+                    $this->getTableLocator()->get('Shop.ShopOrderattributes')->deleteAll(['shop_orderproduct_id' => $tmp['id'] ]);
                 }
-                TableRegistry::get('Shop.ShopOrderproducts')->deleteAll(['shop_order_id' => $id ]);
-                TableRegistry::get('Shop.ShopOrdertokens')->deleteAll(['shop_order_id' => $id ]);
-                TableRegistry::get('Shop.ShopOrdertexts')->deleteAll(['shop_order_id' => $id ]);
-                TableRegistry::get('Shop.ShopOrdershippings')->deleteAll(['shop_order_id' => $id ]);
-                TableRegistry::get('Shop.ShopPayments')->deleteAll(['shop_order_id' => $id ]);
+                $this->getTableLocator()->get('Shop.ShopOrderproducts')->deleteAll(['shop_order_id' => $id ]);
+                $this->getTableLocator()->get('Shop.ShopOrdertokens')->deleteAll(['shop_order_id' => $id ]);
+                $this->getTableLocator()->get('Shop.ShopOrdertexts')->deleteAll(['shop_order_id' => $id ]);
+                $this->getTableLocator()->get('Shop.ShopOrdershippings')->deleteAll(['shop_order_id' => $id ]);
+                $this->getTableLocator()->get('Shop.ShopPayments')->deleteAll(['shop_order_id' => $id ]);
             }
             if($this->ShopOrders->delete($shopOrder))
                 echo "order ". $id ." Deleted<br>";

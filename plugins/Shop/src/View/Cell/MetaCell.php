@@ -12,7 +12,7 @@ class MetaCell extends Cell{
         //$this->Product->Save();
     }
     public function product($posttype = null, $post_meta_list = null){
-        $param = TableRegistry::get('Shop.ShopParams')->find('list',['keyfield'=>'id','keyValue'=>'title'])->toarray();
+        $param = $this->getTableLocator()->get('Shop.ShopParams')->find('list',['keyfield'=>'id','keyValue'=>'title'])->toarray();
         $this->set([
             'params'=> $param,
             'post_meta_list' =>$post_meta_list,

@@ -9,7 +9,7 @@ class HomeController extends AppController
     {
         parent::initialize();
         $this->loadModel('Tinyurl.Tinyurls');
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     
     public function index($id = null)

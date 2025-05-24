@@ -18,7 +18,7 @@ class ChallengesController extends AppController
         parent::initialize();
         $this->loadComponent('Admin.Fileupload');
         $this->viewBuilder()->setLayout("login");
-        $this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
     }
     //------------------------------------------------------------------------
     public function index(){
@@ -113,11 +113,11 @@ class ChallengesController extends AppController
         $this->set(compact('challenges'));
         
         $this->set([
-            //'topics' => TableRegistry::get('Challengetags')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'cats' => TableRegistry::get('Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'status' => TableRegistry::get('Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'topics' => TableRegistry::get('Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'fields' => TableRegistry::get('Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            //'topics' => $this->getTableLocator()->get('Challengetags')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'cats' => $this->getTableLocator()->get('Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'status' => $this->getTableLocator()->get('Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'topics' => $this->getTableLocator()->get('Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'fields' => $this->getTableLocator()->get('Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
         ]);
 
         try{
@@ -137,7 +137,7 @@ class ChallengesController extends AppController
         }
         if ( $this->request->is('post') ) {
 
-            if(! $this->Auth->user('id')){
+            if(! $this->request->getAttribute('identity')->get('id')){
                 $this->Flash->error('برای دنبال کردن '.__d('Template', 'همیاری').' باید وارد سایت شوید');
                 return $this->redirect($this->referer());
             }
@@ -148,7 +148,7 @@ class ChallengesController extends AppController
                 return $this->redirect($this->referer()); 
             }
             $follow = $this->Challenges->Challengefollowers->find('all')->where([
-                'user_id' => $this->Auth->user('id'),
+                'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'challenge_id' => $temp->first()['id']
             ]);
             if($follow->first()){
@@ -160,7 +160,7 @@ class ChallengesController extends AppController
                 $challengefollower = $this->Challenges->Challengefollowers->newEntity();
                 $challengefollower = $this->Challenges->Challengefollowers->patchEntity(
                     $challengefollower, [
-                        'user_id' => $this->Auth->user('id'),
+                        'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'challenge_id' => $temp->first()['id']
                     ]);
                 if ($this->Challenges->Challengefollowers->save($challengefollower)) {
@@ -180,7 +180,7 @@ class ChallengesController extends AppController
     public function view($id = null,$page = 'overview'){
         $list = [];
         try{
-            $this->ViewBuilder()->setLayout('Template.challenge-single');
+            $this->viewBuilder()->setLayout('Template.challenge-single');
         }
         catch (\Exception $e){
             $this->viewBuilder()->setLayout("challenge-single");
@@ -194,7 +194,7 @@ class ChallengesController extends AppController
         }       
 
         try{
-            $this->ViewBuilder()->setLayout('Template.challenge');
+            $this->viewBuilder()->setLayout('Template.challenge');
         }
         catch (\Exception $e){
             $this->viewBuilder()->setLayout("challenge");
@@ -244,7 +244,7 @@ class ChallengesController extends AppController
         $this->set(['can_password'=> $can_password]);
 
         $user = $this->Challenges->Users->find('all')
-            ->where(['Users.id' => $this->Auth->user('id')])
+            ->where(['Users.id' => $this->request->getAttribute('identity')->get('id')])
             ->contain(['Challengeuserprofiles',
             'Challengefollowers' => function ($q) use($challenge_id) {
                 return $q->where([
@@ -330,10 +330,10 @@ class ChallengesController extends AppController
                     ->toarray();
                 $this->set('forms',$forms);
 
-                $this->Challengeuserforms = TableRegistry::get('Challenge.Challengeuserforms');
+                $this->Challengeuserforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
                 /* $this->set(['forms'=> 
                     $this->Challengeuserforms->find('all')
-                        ->where(['challenge_id' => $challenge_id,'user_id'=> $this->Auth->user('id')])
+                        ->where(['challenge_id' => $challenge_id,'user_id'=> $this->request->getAttribute('identity')->get('id')])
                         ->first(),
                 ]); */
 
@@ -341,7 +341,7 @@ class ChallengesController extends AppController
                     ->find('all')
                     ->where([
                         'challenge_id' => $challenge_id , 
-                        'user_id'=> $this->Auth->user('id')]);
+                        'user_id'=> $this->request->getAttribute('identity')->get('id')]);
                 
                 $this->set(['formlist_count' => $user_formlist->count()]);
 
@@ -350,7 +350,7 @@ class ChallengesController extends AppController
                     $id = $this->Challengeqanswers
                         ->find('list',['keyField' => 'challengequest_id','valueField' => 'value'])
                         ->where([
-                            'user_id'=> $this->Auth->user('id'), 
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'), 
                             'challenge_id' => $challenge_id ])
                         ->toarray();
                     $this->set([
@@ -370,26 +370,26 @@ class ChallengesController extends AppController
                     }
                 }
 
-                if ($this->request->is(['post','put','patch']) and $this->Auth->user('id') ) {
+                if ($this->request->is(['post','put','patch']) and $this->request->getAttribute('identity')->get('id') ) {
 
                     $id_list = $this->Challengeuserforms->find('list',['keyField' => 'id','valueField' => 'id'])
                         ->where([
-                            'user_id'=> $this->Auth->user('id'), 
+                            'user_id'=> $this->request->getAttribute('identity')->get('id'), 
                             'challenge_id' => $challenge_id ])
                         ->count();
 
                     if($id_list)
                         $this->Challengeuserforms->deleteAll(['id IN'=>$id_list]);
                         
-                    $count = $this->Challengeuserforms->find('all')->where(['user_id'=> $this->Auth->user('id')])->count();
+                    $count = $this->Challengeuserforms->find('all')->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])->count();
                     $token = 
                         jdate('y','','','','en').'.'.
                         substr("000000".$challenge_id,-3).'.'.
-                        substr("000000".$this->Auth->user('id'),-6).'.'.
+                        substr("000000".$this->request->getAttribute('identity')->get('id'),-6).'.'.
                         substr("000000".($count==0?1:$count),-3);
 
                     $this->request = $this->request->withData('Challengeuserforms.token1', $token );
-                    $this->request = $this->request->withData('Challengeuserforms.user_id',$this->Auth->user('id') );
+                    $this->request = $this->request->withData('Challengeuserforms.user_id',$this->request->getAttribute('identity')->get('id') );
                     $this->request = $this->request->withData('Challengeuserforms.challenge_id', $challenge_id );
 
                     $userform = $this->Challengeuserforms->patchEntity($userform, $this->request->getData()['Challengeuserforms']);
@@ -400,13 +400,13 @@ class ChallengesController extends AppController
                         foreach( $this->request->getdata() as $k => $item){if($k != 'Challengeuserforms'):
                             $tmp = explode('_',$k );
                             if(isset($tmp[0]) and $tmp[0] == 'file' and $item != ''){
-                                $item =  'ch'.$challenge_id.'_'.$this->Auth->user('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);
+                                $item =  'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);
                                /*  $fuConfig['upload_path'] = WWW_ROOT . 'challenge/';
                                 if (!file_exists($fuConfig['upload_path'])) {
                                     mkdir($fuConfig['upload_path'], 0777, true);
                                 }
                                 $fuConfig['allowed_types'] = 'zip';
-                                $fuConfig['file_name'] = 'ch'.$challenge_id.'_'.$this->Auth->user('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
+                                $fuConfig['file_name'] = 'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
                                 $fuConfig['max_size'] = 20000;			
                                 $this->Fileupload->init($fuConfig);	
                                 if (!$this->Fileupload->upload($k)){
@@ -418,7 +418,7 @@ class ChallengesController extends AppController
                             }
                             $list[] = [
                                 'challenge_id' => $challenge_id,
-                                'user_id' => $this->Auth->user('id'),
+                                'user_id' => $this->request->getAttribute('identity')->get('id'),
                                 'types' => isset($tmp[0])?$tmp[0]:'-',
                                 'challengequest_id' => isset($tmp[1])?$tmp[1]:'0',
                                 'value' => is_array($item)?implode(',',$item):$item,
@@ -428,7 +428,7 @@ class ChallengesController extends AppController
                         
                         $id = $this->Challengeqanswers->find('list',['keyField' => 'id','valueField' => 'id'])
                             ->where([
-                                'user_id'=> $this->Auth->user('id'), 
+                                'user_id'=> $this->request->getAttribute('identity')->get('id'), 
                                 'challenge_id' => $challenge_id ])
                             ->toarray();
 
@@ -438,9 +438,9 @@ class ChallengesController extends AppController
                         $answer = $this->Challengeqanswers->newEntity();
                         $answer = $this->Challengeqanswers->patchEntities($answer,$list);
                         if($this->Challengeqanswers->saveMany($answer)){
-                            $currentuser = TableRegistry::get('Challenge.Challengeuserprofiles') 
+                            $currentuser = $this->getTableLocator()->get('Challenge.Challengeuserprofiles') 
                                 ->find('all')
-                                ->where(['user_id'=>  $this->Auth->user('id') ])
+                                ->where(['user_id'=>  $this->request->getAttribute('identity')->get('id') ])
                                 ->first();
                                
                             if($this->request->getQuery('edit')){
@@ -485,7 +485,7 @@ class ChallengesController extends AppController
                     else
                         $this->Flash->error(__('متاسفانه فرم مشارکت ثبت نشد'));
                 }
-                elseif($this->request->is('post') and !$this->Auth->user('id')){
+                elseif($this->request->is('post') and !$this->request->getAttribute('identity')->get('id')){
                     $this->Flash->error('برای ثبت مشارکت در '.__d('Template', 'همیاری').'، ابتدا در سایت وارد شوید');
                 }
                 $this->set(compact('userform','challenge_id','challenge_slug','forms'));
@@ -512,10 +512,10 @@ class ChallengesController extends AppController
                         }]);
                     $render  = 'forum_list';
 
-                    $this->Challengeforums = TableRegistry::get('Challenge.Challengeforums');
+                    $this->Challengeforums = $this->getTableLocator()->get('Challenge.Challengeforums');
                     $challengeforum = $this->Challengeforums->newEntity();
                     if ($this->request->is('post')) {
-                        $this->request = $this->request->withData('user_id',$this->Auth->user('id') );
+                        $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
                         $this->request = $this->request->withData('challenge_id', $challenge_id );
                         $this->request = $this->request->withData('challengeforumtitle_id', $section );
                         $this->request = $this->request->withData('enable', 0 );
@@ -547,7 +547,7 @@ class ChallengesController extends AppController
                 break; 
 
             case 'updates':
-                $result = TableRegistry::get('Admin.Posts')->find('all')
+                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chupdates'])
                     ->order(['created'=>'desc'])
                     ->contain(['Postmetas'])
@@ -572,7 +572,7 @@ class ChallengesController extends AppController
                     ->where(['Challenge_id'=>$challenge_id ])
                     ->toarray();
 
-                $this->Challengeuserprofiles = TableRegistry::get('Challenge.Challengeuserprofiles');
+                $this->Challengeuserprofiles = $this->getTableLocator()->get('Challenge.Challengeuserprofiles');
                 $query = $this->Challengeuserprofiles->find('list',['keyField' => 'provice','valueField' => 'count']);
                 if(count($users)){
                     $all = $query->select([
@@ -604,7 +604,7 @@ class ChallengesController extends AppController
                 break;
 
             case 'press':    
-                $result = TableRegistry::get('Admin.Posts')->find('all')
+                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chnews'])
                     ->order(['created'=>'desc'])
                     ->contain(['Postmetas'])
@@ -621,7 +621,7 @@ class ChallengesController extends AppController
                 break;
 
             case 'resources':    
-                $result = TableRegistry::get('Admin.Posts')->find('all')
+                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chresource'])
                     ->order(['created'=>'desc'])
                     ->contain(['Postmetas'])
@@ -649,7 +649,7 @@ class ChallengesController extends AppController
             'page' => $page
             ]);
             
-        $viewModel = TableRegistry::get('Challenge.Challengeviews');
+        $viewModel = $this->getTableLocator()->get('Challenge.Challengeviews');
         if(isset($challenge->challengeviews[0]['views'])){
             $views = ($challenge->challengeviews[0]['views']);
             $query = $viewModel->query();
@@ -676,7 +676,7 @@ class ChallengesController extends AppController
 
     public function profile($num = null, $num2 = null){
         try{
-            $this->ViewBuilder()->setLayout('Template.profile');
+            $this->viewBuilder()->setLayout('Template.profile');
         }
         catch (\Exception $e){
             $this->viewBuilder()->setLayout("profile");
@@ -685,8 +685,8 @@ class ChallengesController extends AppController
         if( !$this->Auth->user()){
             return $this->redirect(['plugin'=>false,'controller'=>'users','action'=>'login']);
         }
-        $user = TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics'])
             ->first();
         $predata = new Predata();
@@ -723,7 +723,7 @@ class ChallengesController extends AppController
 
             case 'password':
                 $id = $this->getRequest()->getSession()->read('Auth.User.id');
-                $this->set(['users'=> TableRegistry::get('Admin.Users')->get($id, ['contain' => ['UserMetas']])]);
+                $this->set(['users'=> $this->getTableLocator()->get('Admin.Users')->get($id, ['contain' => ['UserMetas']])]);
                 $this->set(['page'=>'profile/password']);
                 $this->render('/Challenges/profile/password');
                 break;
@@ -741,9 +741,9 @@ class ChallengesController extends AppController
         }
     }
     function _profile_challenge($id = null){
-        $this->Userforms = TableRegistry::get('Challenge.Challengeuserforms');
+        $this->Userforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
         $results = $this->Userforms->find('all')
-                ->where(['Challengeuserforms.user_id'=>$this->Auth->user('id')])
+                ->where(['Challengeuserforms.user_id'=>$this->request->getAttribute('identity')->get('id')])
                 ->order(['Challengeuserforms.id'=>'desc'])
                 ->contain([
                     'Challenges'=>[
@@ -775,8 +775,8 @@ class ChallengesController extends AppController
     }
     //####################
     function _profile_default(){
-        $user = TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics'])
             ->first();
         $public = $this->Auth->user();
@@ -784,10 +784,10 @@ class ChallengesController extends AppController
     }
     //####################
     function _profile_edit(){
-        $user = TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics']);
-        $this->userprofiles = TableRegistry::get('Challenge.Challengeuserprofiles');
+        $this->userprofiles = $this->getTableLocator()->get('Challenge.Challengeuserprofiles');
         $tmp = null;
         if($user->first()){
             $userprofiles = $user->first();
@@ -814,7 +814,7 @@ class ChallengesController extends AppController
                     mkdir($fuConfig['upload_path'], 0777, true);
                 }		
                 $fuConfig['allowed_types']  = 'jpg';
-                $fuConfig['file_name']  = 'prf'.'_'.$this->Auth->user('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
+                $fuConfig['file_name']  = 'prf'.'_'.$this->request->getAttribute('identity')->get('id').'_'.date('m-d-h').'_'.rand(1000,9999);			
                 $fuConfig['max_size'] = 20000;			
                 $this->Fileupload->init($fuConfig);				
                 if (!$this->Fileupload->upload('file')){
@@ -836,7 +836,7 @@ class ChallengesController extends AppController
                 //$this->request = $this->request->withData('image',null );
             }
 
-            $this->request = $this->request->withData('user_id',$this->Auth->user('id') );
+            $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
             if(isset($this->request->getData()['extra'])){
                 foreach($this->request->getData()['extra'] as $ext => $exv){
                     $this->request = $this->request->withData("extra.$ext",strip_tags($exv));
@@ -852,7 +852,7 @@ class ChallengesController extends AppController
             if ($this->userprofiles->save($userp)) {
                 //update profile image of site header
                 $this->request->getSession()->write('profile',
-                    TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')
+                    $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
                         ->where([ 'user_id'=> $this->request->getSession()->read('Auth.User.id') ])->first()
                 );
                 if($tmp == null){
@@ -879,7 +879,7 @@ class ChallengesController extends AppController
     //####################
     private function _challengequests($ch_id = null){
         
-        $this->Challengequests = TableRegistry::get('Challenge.Challengequests');
+        $this->Challengequests = $this->getTableLocator()->get('Challenge.Challengequests');
 
         if(! $this->request->is('ajax')){
             $response = $this->response->withType('application/json')->withStringBody(json_encode('error07'));

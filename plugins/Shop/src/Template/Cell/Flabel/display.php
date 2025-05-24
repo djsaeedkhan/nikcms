@@ -1,5 +1,5 @@
 <?php use Cake\ORM\TableRegistry;?>
-<?php $labels = TableRegistry::get('Shop.shopLabels')->find('all')
+<?php $labels = $this->getTableLocator()->get('Shop.shopLabels')->find('all')
     ->order(['title'=>'asc'])
     ->toarray();?>
 <ul class="shop-sorting pr-2">

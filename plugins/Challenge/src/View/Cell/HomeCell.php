@@ -44,7 +44,7 @@ class HomeCell extends Cell
         endif;endfor;
 
 
-        $chlist = TableRegistry::get('Challenge.Challenges')
+        $chlist = $this->getTableLocator()->get('Challenge.Challenges')
             ->find('all')
             ->where(['enable'=>1,'Challenges.id IN' => array_unique($ids) ])
             ->contain([
@@ -71,26 +71,26 @@ class HomeCell extends Cell
     
     public function dashboard(){
 
-        $query =  TableRegistry::get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
+        $query =  $this->getTableLocator()->get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
         $view = $query->select([
                 //'challenge_id',
                 'count' => $query->func()->sum('views'),
                 ])
             ->toarray();
         $this->set([
-            'challenge_all' => TableRegistry::get('Challenge.Challenges')->find('all')->count(),
-            'userprofile_all' => TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')->count(),
-            'userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->count(),
-            'userform_today' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
-            'user_userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
-            'follower_all' => TableRegistry::get('Challenge.Challengefollowers')->find('all')->count(),
+            'challenge_all' => $this->getTableLocator()->get('Challenge.Challenges')->find('all')->count(),
+            'userprofile_all' => $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')->count(),
+            'userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->count(),
+            'userform_today' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
+            'user_userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
+            'follower_all' => $this->getTableLocator()->get('Challenge.Challengefollowers')->find('all')->count(),
             'views_all' => isset($view[0])?$view[0]:'-',
-            'user_all' => TableRegistry::get('Users')->find('all')->count(),
-            //'challenge_all' => TableRegistry::get('Challenge.Challenges')->find('all')->toarray(),
+            'user_all' => $this->getTableLocator()->get('Users')->find('all')->count(),
+            //'challenge_all' => $this->getTableLocator()->get('Challenge.Challenges')->find('all')->toarray(),
         ]);
     }
     public function map(){
-        $this->Challenges = TableRegistry::get('Challenge.Challenges');
+        $this->Challenges = $this->getTableLocator()->get('Challenge.Challenges');
         /* $users = $this->Challenges->Challengeuserforms
             ->find('list',['keyField' => 'user_id','valueField' => 'user_id'])
             ->toarray(); */
@@ -100,7 +100,7 @@ class HomeCell extends Cell
             ->toarray();
         $count = count($users);
 
-        $this->Challengeuserprofiles = TableRegistry::get('Challenge.Challengeuserprofiles');
+        $this->Challengeuserprofiles = $this->getTableLocator()->get('Challenge.Challengeuserprofiles');
 
         $query = $this->Challengeuserprofiles->find('list',['keyField' => 'provice','valueField' => 'count']);
         $all = $query->select([
@@ -116,7 +116,7 @@ class HomeCell extends Cell
             'all'=> $all
         ]);
 
-        $query =  TableRegistry::get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
+        $query =  $this->getTableLocator()->get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
         $view = $query->select([
                 //'challenge_id',
                 'count' => $query->func()->sum('views'),
@@ -125,13 +125,13 @@ class HomeCell extends Cell
 
         $this->set([
             'views_all' => isset($view[0])?$view[0]:0,
-            'challenge_all' => TableRegistry::get('Challenge.Challenges')->find('all')->count(),
-            //'userprofile_all' => TableRegistry::get('Challenge.Challengeuserprofiles')->find('all')->count(),
-            'userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->count(),
-           // 'userform_today' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
-            //'user_userforms_all' => TableRegistry::get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
-            'follower_all' => TableRegistry::get('Challenge.Challengefollowers')->find('all')->count(),
-            'user_all' => TableRegistry::get('Users')->find('all')->count(),
+            'challenge_all' => $this->getTableLocator()->get('Challenge.Challenges')->find('all')->count(),
+            //'userprofile_all' => $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')->count(),
+            'userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->count(),
+           // 'userform_today' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
+            //'user_userforms_all' => $this->getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
+            'follower_all' => $this->getTableLocator()->get('Challenge.Challengefollowers')->find('all')->count(),
+            'user_all' => $this->getTableLocator()->get('Users')->find('all')->count(),
         ]);
 
     }

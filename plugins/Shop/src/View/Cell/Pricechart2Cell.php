@@ -12,7 +12,7 @@ class Pricechart2Cell extends Cell{
             
             $data = [];
             if(isset($result['id'])){
-                $temps = TableRegistry::get('Shop.ShopProductprices')->find('all')
+                $temps = $this->getTableLocator()->get('Shop.ShopProductprices')->find('all')
                     ->where(['post_id'=> $result['id'] ])
                     ->limit(30)
                     ->order(['created'=> 'asc'])

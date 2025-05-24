@@ -7,7 +7,7 @@ class HomeController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
     public function index(){
 
@@ -26,15 +26,15 @@ class HomeController extends AppController
             }
         }
 
-        $result = TableRegistry::get('Admin.Posts')
+        $result = $this->getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.jpg'])
             ->toArray();
-        $result = $result + TableRegistry::get('Admin.Posts')
+        $result = $result + $this->getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.png'])
             ->toArray();
-        $result = $result + TableRegistry::get('Admin.Posts')
+        $result = $result + $this->getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.jpeg'])
             ->toArray();

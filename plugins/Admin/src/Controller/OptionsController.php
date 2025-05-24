@@ -15,7 +15,7 @@ class OptionsController extends AppController
             $this->Options->find('list',['keyField'=>'name','valueField'=>'value'])->toArray() );
 
         $this->set('result2', 
-            TableRegistry::get('Admin.Options2')->find('list',['keyField'=>'name','valueField'=>'value'])->toArray() 
+            $this->getTableLocator()->get('Admin.Options2')->find('list',['keyField'=>'name','valueField'=>'value'])->toArray() 
         );
     }
     //-----------------------------------------------
@@ -93,7 +93,7 @@ class OptionsController extends AppController
     //-----------------------------------------------
     public function SaveSetting2($show_error = 1){
         $this->viewBuilder()->setLayout('ajax');
-        $this->Options = TableRegistry::get('Admin.Options2');
+        $this->Options = $this->getTableLocator()->get('Admin.Options2');
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
             foreach($this->request->getData() as $key=>$val):

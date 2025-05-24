@@ -13,9 +13,9 @@ class ViewController extends AppController
     public function initialize(){
         $this->loadComponent('Admin.Fileupload');
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
-        $this->ViewBuilder()->setLayout('Template.default');
+        $this->viewBuilder()->setLayout('Template.default');
         parent::initialize();
-        $this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
     }
     //----------------------------------------------------------------------
     public function index($id = null){
@@ -103,7 +103,7 @@ class ViewController extends AppController
                     $this->request = $this->request->withData('data', serialize($this->request->getData()) );
                     $this->request = $this->request->withData('field', serialize($input_list));
                     $this->request = $this->request->withData('ips', $this->get_ip() );
-                    $this->request = $this->request->withData('user_id', $this->Auth->user('id'));
+                    $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
                     $temp = $this->FormbuilderDatas->patchEntity($temp, $this->request->getData());
                     if ($this->FormbuilderDatas->save($temp)) {
 

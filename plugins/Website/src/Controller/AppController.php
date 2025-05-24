@@ -2,7 +2,7 @@
 namespace Website\Controller;
 
 use App\Controller\AppController as BaseController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 class AppController extends BaseController
 {
@@ -11,6 +11,7 @@ class AppController extends BaseController
     }
 
     public function beforeFilter(Event $event){
-        $this->Auth->allow();
+        //$this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
     }
 }

@@ -446,7 +446,7 @@ $("#myform").submit(function(){
                                 <div class="col-md-8">
                                     <?=  $this->Form->control('move_id',[
                                         'options' => 
-                                        TableRegistry::get('Admin.Posts')
+                                        $this->getTableLocator()->get('Admin.Posts')
                                             ->find('list',['keyField'=>'id','valueField'=>'title'])
                                             ->where(['post_type'=>$post_types,'Posts.id !='=>$post['id']])
                                             ->order(['created'=>'desc'])->toarray()
@@ -612,7 +612,7 @@ $("#myform").submit(function(){
                 ));?><small><?= __d('Admin', 'برچسب‌ها را با ویرگول لاتین (,) جدا کنید')?></small><br>
 
             <?php
-            $result = TableRegistry::get('Admin.Tags')
+            $result = $this->getTableLocator()->get('Admin.Tags')
                 ->find('list',['keyField'=>'id','valueField'=>'title'])
                 ->where(['post_type'=> $post_types,'title !='=>''])
                 ->limit(100)

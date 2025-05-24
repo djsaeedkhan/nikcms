@@ -42,7 +42,7 @@ class ExamsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             if($this->request->is(['post'])) {
-                $this->request = $this->request->withData('user_id', $this->Auth->user('id'));
+                $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
             }
 
             if(isset($this->request->getData()['options'])){
@@ -69,10 +69,10 @@ class ExamsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $lmsExam = $this->LmsExams->get($id);
         if ($this->LmsExams->delete($lmsExam)) {
-            TableRegistry::get('Lms.lmsExamusers')->deleteAll(['lms_exam_id' => $id ]);
-            TableRegistry::get('Lms.lmsExamquests')->deleteAll(['lms_exam_id' => $id ]);
-            TableRegistry::get('Lms.lmsExamresults')->deleteAll(['lms_exam_id' => $id ]);
-            TableRegistry::get('Lms.lmsExamresultlists')->deleteAll(['lms_exam_id' => $id ]);
+            $this->getTableLocator()->get('Lms.lmsExamusers')->deleteAll(['lms_exam_id' => $id ]);
+            $this->getTableLocator()->get('Lms.lmsExamquests')->deleteAll(['lms_exam_id' => $id ]);
+            $this->getTableLocator()->get('Lms.lmsExamresults')->deleteAll(['lms_exam_id' => $id ]);
+            $this->getTableLocator()->get('Lms.lmsExamresultlists')->deleteAll(['lms_exam_id' => $id ]);
             $this->Flash->success(__('The lms exam has been deleted.'));
         } else {
             $this->Flash->error(__('The lms exam could not be deleted. Please, try again.'));
@@ -90,7 +90,7 @@ class ExamsController extends AppController
             ->enablehydration(false)
             ->first();
         unset( $exam['id'],$exam['created'] );
-        $exam['user_id'] = $this->Auth->user('id');
+        $exam['user_id'] = $this->request->getAttribute('identity')->get('id');
         $exam['title'] = 'کپی شده >> '.$exam['title'];
         $temp = $this->LmsExams->newEntity();
         $temp = $this->LmsExams->patchEntity($temp, $exam);

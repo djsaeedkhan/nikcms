@@ -1,13 +1,13 @@
 <?php
 namespace Widget\Controller;
 use App\Controller\AppController as BaseController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 class AppController extends BaseController
 {
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Admin.default');
+        $this->viewBuilder()->setLayout('Admin.default');
     }
 
     public function beforeFilter(Event $event){

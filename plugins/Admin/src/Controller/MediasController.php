@@ -116,7 +116,7 @@ class MediasController extends AppController
             $this->request = $this->request->withData('image',$fileName['filename']);
             $this->request = $this->request->withData('published',1 );
             $this->request = $this->request->withData('post_type',$this->media_ptype );
-            $this->request = $this->request->withData('user_id',$this->Auth->user('id'));
+            $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id'));
 
             $media = $this->Medias->patchEntity($this->Medias->newEntity(),$this->request->getData());
             if ($media = $this->Medias->save($media)){
@@ -222,7 +222,7 @@ class MediasController extends AppController
                     'image'=> $fileName['filename'],
                     'published'=> 1,
                     'post_type'=>$this->media_ptype,
-                    'user_id'=> $this->Auth->user('id'),
+                    'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 ]);
                 if ($media = $this->Medias->save($media)){
 
@@ -352,7 +352,7 @@ class MediasController extends AppController
         if(! in_array($extension,$ext))
             return 0;
 
-        /* $option_media = TableRegistry::get('Admin.Options')
+        /* $option_media = $this->getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name'=>'gallery_size'])
             ->first(); */

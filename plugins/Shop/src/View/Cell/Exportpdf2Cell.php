@@ -10,7 +10,7 @@ class Exportpdf2Cell extends Cell
             $token = [ $token => $token];
         }
 
-        $order = TableRegistry::get('Shop.ShopOrders')->find('all')
+        $order = $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->where(['trackcode IN '=>$token])
             ->contain([
                 'Users','ShopOrdershippings',

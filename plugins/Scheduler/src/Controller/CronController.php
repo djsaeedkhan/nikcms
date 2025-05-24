@@ -10,9 +10,9 @@ class CronController extends AppController
     public function initialize(){
         //Configure::write('debug', 0);
         parent::initialize();
-        $this->Auth->allow();
+        $this->Authentication->addUnauthenticatedActions();
         $this->autoRender = false;
-        $this->crons = TableRegistry::get('Scheduler.Cronjobs');
+        $this->crons = $this->getTableLocator()->get('Scheduler.Cronjobs');
     }
     public function index(){
         $enable = false;

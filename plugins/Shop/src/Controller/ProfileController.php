@@ -4,7 +4,7 @@ namespace Shop\Controller;
 use Shop\Controller\AppController;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Core\Plugin;
 use Cake\ORM\TableRegistry;
 use Cake\Http\Exception\NotFoundException;
@@ -22,20 +22,20 @@ class ProfileController extends AppController
     //-------------------------------------------------------------------------------
     public function initialize(){
         parent::initialize();
-        $this->ViewBuilder()->setLayout('Shop.profile');
-        $this->ShopAddresses =  TableRegistry::get('Shop.ShopUseraddresses');
+        $this->viewBuilder()->setLayout('Shop.profile');
+        $this->ShopAddresses =  $this->getTableLocator()->get('Shop.ShopUseraddresses');
     }
     //-------------------------------------------------------------------------------
     public function beforeFilter(Event $event){
         parent::beforeFilter($event);
-        $this->Auth->allow();
-        if(!$this->Auth->user('id')){
+        $this->Authentication->addUnauthenticatedActions();
+        if(!$this->request->getAttribute('identity')->get('id')){
             return $this->redirect('/users/login');
         }
     }
     //-------------------------------------------------------------------------------
     public function index($page = null){
-        if(!$this->Auth->user('id')){
+        if(!$this->request->getAttribute('identity')->get('id')){
             $this->Flash->error(__('لطفا در سایت وارد شوید'));
             return $this->redirect('/');
         }
@@ -82,7 +82,7 @@ class ProfileController extends AppController
     {
         if($id == null){
             $logestics = TableRegistry::getTableLocator()->get('Shop.ShopLogesticusers')->find('all')
-                ->where([ 'user_id' => $this->Auth->user('id') ])
+                ->where([ 'user_id' => $this->request->getAttribute('identity')->get('id') ])
                 ->contain(['ShopLogestics'=>[
                     /* 'ShopOrderlogestics' => function ($q) {
                         return $q->order(['id'=>'desc']);
@@ -98,7 +98,7 @@ class ProfileController extends AppController
                 ->where([
                     'shop_logestic_id' => $id,
                     'ShopLogestics.id'=>$id,
-                    'user_id' => $this->Auth->user('id')
+                    'user_id' => $this->request->getAttribute('identity')->get('id')
                     ])
                 ->contain([
                     'ShopLogestics'=>[
@@ -126,7 +126,7 @@ class ProfileController extends AppController
         $logestics = TableRegistry::getTableLocator()->get('Shop.ShopLogesticusers')->find('all')
             ->where([
                 'ShopLogesticusers.shop_logestic_id' => $id,
-                'ShopLogesticusers.user_id' => $this->Auth->user('id')
+                'ShopLogesticusers.user_id' => $this->request->getAttribute('identity')->get('id')
             ])
             ->contain(['ShopLogestics'=>['ShopLogesticlists']])
             ->first();
@@ -165,7 +165,7 @@ class ProfileController extends AppController
                 'shop_logestic_id'=>$id,
                 'shop_order_id'=>$order_id,
                 'shop_orderlogestic_id'=>$order_detail['id'],
-                'user_id'=> $this->Auth->user('id'),
+                'user_id'=> $this->request->getAttribute('identity')->get('id'),
             ]);
             if ($this->ShopOrderlogesticlogs->save($shopOrderlogesticlog)) {
                 $this->Flash->success(__('ثبت وضعیت با موفقیت انجام شد'));
@@ -192,9 +192,9 @@ class ProfileController extends AppController
     //-------------------------------------------------------------------------------
     private function completeProfile(){
         
-        $this->ShopProfiles = TableRegistry::get('Shop.ShopProfiles');
+        $this->ShopProfiles = $this->getTableLocator()->get('Shop.ShopProfiles');
         $temps = $this->ShopProfiles->find('all')
-            ->where(['user_id'=>$this->Auth->user('id')])
+            ->where(['user_id'=>$this->request->getAttribute('identity')->get('id')])
             ->first();
         if($temps)
             $shop_profile = $temps;
@@ -203,7 +203,7 @@ class ProfileController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $shop_profile = $this->ShopProfiles->patchEntity($shop_profile,$this->request->getData());
-            $shop_profile->user_id = $this->Auth->user()?$this->Auth->user('id'):null;
+            $shop_profile->user_id = $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null;
             if ($this->ShopProfiles->save($shop_profile)){
                 $this->Flash->success(__('ثبت اطلاعات با موفقیت انجام شد'));
                 if($this->request->getQuery('redirect') and $this->request->getQuery('redirect') == 'factor')
@@ -217,8 +217,8 @@ class ProfileController extends AppController
     }
     //-------------------------------------------------------------------------------
     private function orders(){
-        $results = TableRegistry::get('Shop.ShopOrders')->find('all')
-            ->where(['ShopOrders.user_id'=> $this->Auth->user('id')])
+        $results = $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
+            ->where(['ShopOrders.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->order(['ShopOrders.id'=>'desc'])
             ->contain(['ShopOrderproducts','ShopPayments','ShopOrderrefunds'])
             ->toarray();
@@ -226,14 +226,14 @@ class ProfileController extends AppController
     }
     //-------------------------------------------------------------------------------
     private function favorites(){
-        $this->ShopFavorites = TableRegistry::get('Shop.ShopFavorites');
+        $this->ShopFavorites = $this->getTableLocator()->get('Shop.ShopFavorites');
         if($this->request->is('post') and $this->request->getQuery('delete')){
 
             $this->request->allowMethod(['post', 'delete']);
             $temp = $this->ShopFavorites->find('all')
                 ->where([
                     'id' => $this->request->getQuery('delete'),
-                    'user_id' => $this->Auth->user('id')])
+                    'user_id' => $this->request->getAttribute('identity')->get('id')])
                 ->first();
 
             if ($this->ShopFavorites->delete($temp)) {
@@ -247,13 +247,13 @@ class ProfileController extends AppController
         if($this->request->getQuery('add') and $this->request->getQuery('add') != ''){
 
             if( $this->ShopFavorites->find('all')
-                ->where(['post_id'=> $this->request->getQuery('add') , 'user_id'=>$this->Auth->user('id')])
+                ->where(['post_id'=> $this->request->getQuery('add') , 'user_id'=>$this->request->getAttribute('identity')->get('id')])
                 ->count() > 0){
 
                     $temp = $this->ShopFavorites->find('all')
                         ->where([
                             'post_id' => $this->request->getQuery('add'),
-                            'user_id' => $this->Auth->user('id')])
+                            'user_id' => $this->request->getAttribute('identity')->get('id')])
                         ->first();
 
                     if ($this->ShopFavorites->delete($temp)) {
@@ -265,7 +265,7 @@ class ProfileController extends AppController
                     return $this->redirect($this->referer());
                 }
             $temp = $this->ShopFavorites->patchEntity($this->ShopFavorites->newEntity(),[
-                'user_id' => $this->Auth->user('id'),
+                'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'post_id' => $this->request->getQuery('add'),
             ]);
             if ($this->ShopFavorites->save($temp)) {
@@ -277,7 +277,7 @@ class ProfileController extends AppController
         }
 
         $results = $this->ShopFavorites->find('all')
-            ->where(['user_id'=> $this->Auth->user('id')])
+            ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->order(['id'=>'desc'])
             ->toarray();
 
@@ -286,7 +286,7 @@ class ProfileController extends AppController
     //-------------------------------------------------------------------------------
     private function addresses(){
         $results = $this->ShopAddresses->find('all')
-            ->where(['user_id' => $this->Auth->user('id')])
+            ->where(['user_id' => $this->request->getAttribute('identity')->get('id')])
             ->order(['id' => 'desc'])
             ->toarray();
         $this->set('results',$results);
@@ -311,7 +311,7 @@ class ProfileController extends AppController
                 $temp = $this->ShopAddresses->find('all')
                     ->where([
                         'id' => $this->request->getQuery('delete'),
-                        'user_id' => $this->Auth->user('id')])
+                        'user_id' => $this->request->getAttribute('identity')->get('id')])
                     ->first();
                 if ($this->ShopAddresses->delete($temp)) {
                     $this->Flash->success(__('حذف از آدرس ها انجام شد'));
@@ -324,7 +324,7 @@ class ProfileController extends AppController
                 $temp = $this->ShopAddresses->find('all')
                     ->where([
                         'id' => $this->request->getQuery('delete'),
-                        'user_id' => $this->Auth->user('id')])
+                        'user_id' => $this->request->getAttribute('identity')->get('id')])
                     ->first();
                 if ($this->ShopAddresses->delete($temp)) {
                     $this->Flash->success(__('حذف از آدرس ها انجام شد'));
@@ -343,13 +343,13 @@ class ProfileController extends AppController
         if($this->request->getQuery('edit'))
             $shopAddress = $this->ShopAddresses->find('all')
                 ->where(['id' => $this->request->getQuery('edit') ,
-                    'user_id'=> $this->Auth->user('id')])
+                    'user_id'=> $this->request->getAttribute('identity')->get('id')])
                 ->first();
         else
             $shopAddress = $this->ShopAddresses->newEntity();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $shopAddress = $this->ShopAddresses->patchEntity($shopAddress, $this->request->getData());
-            $shopAddress['user_id'] = $this->Auth->user('id');
+            $shopAddress['user_id'] = $this->request->getAttribute('identity')->get('id');
             if ($this->ShopAddresses->save($shopAddress)) {
                 $this->Flash->success(__('ثبت اطلاعات با موفقیت انجام شد'));
 
@@ -368,15 +368,15 @@ class ProfileController extends AppController
     }
     //-------------------------------------------------------------------------------
     public function addrefund($id = null){
-        if(!$this->Auth->user('id')){
+        if(!$this->request->getAttribute('identity')->get('id')){
             $this->Flash->error(__('لطفا در سایت وارد شوید'));
             return $this->redirect('/');
         }
         
-        $this->Orderrefunds = TableRegistry::get('Shop.ShopOrderrefunds');
-        $p = TableRegistry::get('Shop.ShopOrders')->find('all')
+        $this->Orderrefunds = $this->getTableLocator()->get('Shop.ShopOrderrefunds');
+        $p = $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->where([
-                'user_id'=>$this->Auth->user('id') ,
+                'user_id'=>$this->request->getAttribute('identity')->get('id') ,
                 'trackcode'=> $this->request->getParam('trackcode')])
             ->first();
         if(!$p){
@@ -386,7 +386,7 @@ class ProfileController extends AppController
         
         $p2 = $this->Orderrefunds->find('all')
             ->where([
-                'user_id'=>$this->Auth->user('id') ,
+                'user_id'=>$this->request->getAttribute('identity')->get('id') ,
                 'shop_order_id' => $p['id'] ])
             ->first();
         if($p2){
@@ -397,7 +397,7 @@ class ProfileController extends AppController
         $refunds = $this->Orderrefunds->newEntity();
         if($this->request->is('post')){
             $refunds = $this->Orderrefunds->patchEntity($refunds, $this->request->getData());
-            $refunds['user_id'] = $this->Auth->user('id');
+            $refunds['user_id'] = $this->request->getAttribute('identity')->get('id');
             $refunds['shop_order_id'] = $p->id;
             $refunds['enable'] = 1;
             $refunds['status'] = 1;

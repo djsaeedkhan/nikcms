@@ -2,7 +2,7 @@
 use Cake\ORM\TableRegistry;
 use Lms\Predata;
 $pd = new Predata();
-$this->LmsExamresults = TableRegistry::get('Lms.LmsExamresults');
+$this->LmsExamresults = $this->getTableLocator()->get('Lms.LmsExamresults');
 ?>
 
 <div class="card"><div class="card-body">
@@ -47,7 +47,7 @@ $this->LmsExamresults = TableRegistry::get('Lms.LmsExamresults');
                         /* if(isset($f['lms_courseweek']['title']))
                             $courseweek = $f['lms_courseweek']['title']; */
 
-                       /*  $session = tableregistry::get('Lms.LmsCoursesessions')->find('all')
+                       /*  $session = $this->getTableLocator()->get('Lms.LmsCoursesessions')->find('all')
                             ->where(['user_id'=> $us['user_id'],'LmsCoursesessions.lms_course_id'=> $us['lms_course_id'] ])
                             ->contain(['lmsCoursefiles'])
                             ->order(['lms_coursefile_id'=>'desc'])->first(); */
@@ -61,7 +61,7 @@ $this->LmsExamresults = TableRegistry::get('Lms.LmsExamresults');
                 <!-- <td width="100"><?php $us['user']['id']?></td>
                 <td></td> -->
                 <td><?php
-                    $p = TableRegistry::get('Lms.LmsCoursesessions')->find('all')
+                    $p = $this->getTableLocator()->get('Lms.LmsCoursesessions')->find('all')
                         ->where([
                             'LmsCoursesessions.user_id'=> $us['user']['id'] ,
                             'LmsCoursesessions.lms_course_id' => $us['lms_course_id'] ])
@@ -79,7 +79,7 @@ $this->LmsExamresults = TableRegistry::get('Lms.LmsExamresults');
                 <td><?= ( $exam_has == 0?'':'<i data-feather="check-circle" class="text-success"></i>')?></td>
                 <td><?= $exam_succ == 0 ?'-':$exam_succ?></td>
                 <td><?php
-                    $coursefile = TableRegistry::get('Lms.LmsCoursefiles')->find('list',['keyField'=>'id','valueField'=>'id'])
+                    $coursefile = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('list',['keyField'=>'id','valueField'=>'id'])
                         ->where(['lms_course_id' => $us['lms_course_id']])
                         ->select(['id'])
                         ->toarray();
