@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-use Cake\Event\Event;
 use Cake\Http\BaseApplication;
 use Cake\Core\Plugin;
 use Cake\I18n\I18n;
@@ -19,6 +18,7 @@ use Cake\View\View;
 use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\Event\EventInterface;
+use Cake\Event\Event;
 
 
 class AppController extends Controller
@@ -104,7 +104,8 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $this->Auth->allow(['Website.index']); // 'view', 'display'
     } */
-    public function beforeFilter(EventInterface $event): void
+
+    public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['Website.index']);

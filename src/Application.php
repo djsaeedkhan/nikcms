@@ -62,15 +62,15 @@ class Application extends BaseApplication
         $this->addPlugin('Postviews');
         $this->addPlugin('Widget');
         $this->addPlugin('Comingsoon');
-        $this->addPlugin('Backup');
+        //$this->addPlugin('Backup');
         $this->addPlugin('Elementor');
         $this->addPlugin('RegisterField');
         $this->addPlugin('Thumbnail');
         $this->addPlugin('Mpdfs');
-        $this->addPlugin('Filemanager');
+        //$this->addPlugin('Filemanager');
         $this->addPlugin('Scheduler');
         $this->addPlugin('Userslogs',['console' => true]);
-        $this->addPlugin('Security',['console' => true]);
+        //$this->addPlugin('Security',['console' => true]);
         $this->addPlugin('Template');
 
         if (PHP_SAPI === 'cli') {

@@ -16,20 +16,23 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\I18n\Time;
 use Cake\Routing\Router;
-//use \StopSpam\SpamDetector;
 use \Sms\Sms;
 use \RegisterField\RField;
 use Cake\Utility\Security;
+use Cake\Event\EventInterface;
 
 class UsersController extends AppController{
-    public function initialize() {
+
+    public function initialize(): void
+    {
         parent::initialize();
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
     }
     //----------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'logout','register','remember','rememberToken','thumbnail']);
+        $this->Authentication->allowUnauthenticated(['add', 'logout','register','remember','rememberToken','thumbnail']);
     }
     //----------------------------------------------------------
     public function isAuthorized($user){
