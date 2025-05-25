@@ -7,7 +7,8 @@ use Cake\Core\Plugin;
 
 class PluginsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     //----------------------------------------------------------------

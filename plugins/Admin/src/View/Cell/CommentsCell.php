@@ -6,7 +6,8 @@ use Cake\View\Cell;
 class CommentsCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){}
+    public function initialize(): void
+    {}
     public function display($ids = null, $attr = []){
         global $result;
         $id = null;

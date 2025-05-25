@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 class AdminController extends AppController
 {
     //-----------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->Challenges = $this->getTableLocator()->get('Challenge.Challenges');
     }

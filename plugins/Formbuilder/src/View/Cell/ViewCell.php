@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 class ViewCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
     }
     public function display( $id = null){
         if($id == null){

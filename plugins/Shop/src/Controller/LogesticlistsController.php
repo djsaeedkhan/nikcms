@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 
 class LogesticlistsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopLogesticlists = TableRegistry::getTableLocator()->get('Shop.ShopLogesticlists');

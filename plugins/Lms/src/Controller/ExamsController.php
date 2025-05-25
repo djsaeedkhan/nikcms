@@ -6,7 +6,8 @@ use Lms\Controller\AppController;
 
 class ExamsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     

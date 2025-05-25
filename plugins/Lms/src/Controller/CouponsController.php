@@ -7,7 +7,8 @@ use Lms\Controller\AppController;
 
 class CouponsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->LmsCoupons = TableRegistry::getTableLocator()->get('Lms.LmsCoupons');
     }

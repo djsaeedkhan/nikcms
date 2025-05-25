@@ -11,7 +11,8 @@ class MenuCell extends Cell
 {
 
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         global $current_lang;
         I18n::setLocale($current_lang);
     }

@@ -4,7 +4,8 @@ use Lms\Controller\AppController;
 
 class CourseweeksController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     

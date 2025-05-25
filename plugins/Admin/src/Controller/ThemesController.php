@@ -4,11 +4,12 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use App\Model\Table\Options;
 use Cake\ORM\TableRegistry;
-use Cake\Event\Event;
+use Admin\Controller\AppController;
 
 class ThemesController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     //----------------------------------------------------------
@@ -139,7 +140,8 @@ class ThemesController extends AppController
         $this->set(compact('theme'));
     }
     //----------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         //parent::beforeFilter($event);
         //$user = $this->request->getAttribute('identity');
         //pr($user['role']);

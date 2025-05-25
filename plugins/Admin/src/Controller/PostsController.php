@@ -6,7 +6,7 @@ use Admin\View\Helper\ModuleHelper;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Cake\Utility\Text;
-use Cake\Event\Event;
+use Admin\Controller\AppController;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\I18n\I18n;
@@ -14,7 +14,8 @@ use Cake\ORM\Behavior\TreeBehavior;
 
 class PostsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $user_id = $this->request->getAttribute('identity')->get('id');
         $this->set(['user_ids'=> $user_id]);

@@ -7,7 +7,8 @@ use Challenge\Controller\AppController;
 class ChallengequestsController extends AppController
 {
     //-----------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         global $types;
         $types = [

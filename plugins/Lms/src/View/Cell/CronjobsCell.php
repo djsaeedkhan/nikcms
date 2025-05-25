@@ -13,7 +13,8 @@ class CronjobsCell extends Cell
 {
     protected $_validCellOptions = [];
     public $setting = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         $result = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_lms'])

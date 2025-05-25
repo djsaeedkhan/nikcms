@@ -5,12 +5,14 @@ use Cake\Event\EventInterface;
 
 class AppController extends BaseController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
     }
 
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
     }
 }

@@ -36,7 +36,8 @@ class GuestController extends AppController
 
     }
     //----------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
         $this->Authentication->addUnauthenticatedActions(['index','view','detail','courses','register','subscribe']);
     }

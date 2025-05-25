@@ -2,18 +2,20 @@
 namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\Controller\Exception\SecurityException;
-use Cake\Event\Event;
+use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Auth\DefaultPasswordHasher;
 
 class UsersController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         //$this->loadComponent('Security');
     }
     //--------------------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
         //$this->Security->setConfig('blackHoleCallback', 'blackhole');
     }

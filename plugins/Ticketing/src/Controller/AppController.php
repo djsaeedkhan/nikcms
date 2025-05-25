@@ -7,7 +7,8 @@ use Cake\Routing\Router;
 class AppController extends BaseController
 {
     public $setting = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
         $this->loadComponent('Admin.Fileupload');

@@ -11,12 +11,14 @@ use Shop\View\Helper\CartHelper;
 
 class OrderController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
     }
     //-----------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         $this->Authentication->addUnauthenticatedActions(['checkToken']);
     }
     //-----------------------------------------------------------

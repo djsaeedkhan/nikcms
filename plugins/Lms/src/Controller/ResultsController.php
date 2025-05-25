@@ -6,7 +6,8 @@ use Lms\Checker;
 use Lms\Controller\AppController;
 class ResultsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     

@@ -14,7 +14,8 @@ use Shop\View\Helper\ShopHelper;
 class ContentController extends AppController
 {
     public $template;
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->template = $this->Func->OptionGet('website_template');
         $this->viewBuilder()->setTheme($this->template);
@@ -26,7 +27,8 @@ class ContentController extends AppController
         $this->loadComponent('Website.Fetchs');
     }
     //-----------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         $this->Authentication->addUnauthenticatedActions();
     }
     //-----------------------------------------------------------

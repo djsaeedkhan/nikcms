@@ -14,7 +14,8 @@ use Cake\View\CellTrait;
 class Shortcode
 {
     use CellTrait;
-    public function initialize(){
+    public function initialize(): void
+    {
         //$this->loadComponent('Auth');
     }
     public function work_on_shortcode($data){

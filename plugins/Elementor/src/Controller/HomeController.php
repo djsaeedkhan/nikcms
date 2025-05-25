@@ -6,7 +6,8 @@ use Elementor\Controller\AppController;
 use Cake\ORM\TableRegistry;
 class HomeController extends AppController{
     //-------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     //-------------------------------------------------------------------

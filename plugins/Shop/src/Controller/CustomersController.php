@@ -7,7 +7,8 @@ use App\Controller\AppController as BaseController;
 
 class CustomersController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopAddresses = $this->getTableLocator()->get('Shop.ShopAddresses');

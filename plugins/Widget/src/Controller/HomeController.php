@@ -6,7 +6,8 @@ use Cake\Auth\BaseAuthenticate;
 
 class HomeController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     

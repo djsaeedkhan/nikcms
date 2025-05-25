@@ -4,7 +4,8 @@ use App\Controller\AppController as BaseController;
 use Cake\Routing\Router;
 
 class AppController extends BaseController{
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         if($this->request->getQuery('read')){
             $this->Func->OptionSave('alert_formbuilder',null,'create');

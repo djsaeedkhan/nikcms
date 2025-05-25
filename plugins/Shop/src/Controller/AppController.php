@@ -8,7 +8,8 @@ use Shop\View\Helper\CartHelper;
 class AppController extends BaseController
 {
     public $setting;
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->loadComponent('Auth');
         $result = TableRegistry::getTableLocator()->get('Admin.Options')
@@ -30,7 +31,8 @@ class AppController extends BaseController
         } */
     }
 
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
     }
 

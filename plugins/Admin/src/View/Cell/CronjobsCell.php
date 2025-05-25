@@ -11,7 +11,8 @@ use \Sms\Sms;
 class CronjobsCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){}
+    public function initialize(): void
+    {}
     public function display(){}
     public function user_alert_10day(){
 

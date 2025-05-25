@@ -22,7 +22,8 @@ class ManageController extends AppController
 {
     public $template;
     //-------------------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Shop.default');
         $this->ShopAddresses = $this->getTableLocator()->get('Shop.ShopAddresses');
@@ -33,7 +34,8 @@ class ManageController extends AppController
         $this->ShopProfiles = $this->getTableLocator()->get('Shop.ShopProfiles');
     }
     //-------------------------------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         //$this->Auth->allow();
         $this->Authentication->addUnauthenticatedActions();
     }

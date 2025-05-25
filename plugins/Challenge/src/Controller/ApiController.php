@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 class ApiController extends AppController
 {
     //-----------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         
         //$this->loadComponent('Admin.Fileupload');

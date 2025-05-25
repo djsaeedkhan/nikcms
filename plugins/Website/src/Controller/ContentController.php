@@ -16,7 +16,8 @@ class ContentController extends AppController
     public $template;
     public $fetch_error = false;
     //------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->template = $this->Func->OptionGet('website_template');
         $this->viewBuilder()->setTheme($this->template);

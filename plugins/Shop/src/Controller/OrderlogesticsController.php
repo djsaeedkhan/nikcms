@@ -13,7 +13,8 @@ use Cake\ORM\TableRegistry;
  */
 class OrderlogesticsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
         $this->ShopOrderlogestics = TableRegistry::getTableLocator()->get('Shop.ShopOrderlogestics');

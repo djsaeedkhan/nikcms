@@ -31,7 +31,8 @@ class UsersController extends AppController{
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['add', 'logout','register','remember','rememberToken','thumbnail']);
+        //$this->Authentication->addUnauthenticatedActions([]);
+        $this->Authentication->allowUnauthenticated(['login', 'register','Website.index','logout','remember','rememberToken','thumbnail']);
     }
     //----------------------------------------------------------
     public function isAuthorized($user){

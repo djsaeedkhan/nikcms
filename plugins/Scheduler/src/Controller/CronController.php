@@ -7,7 +7,8 @@ use Cake\ORM\TableRegistry;
 
 class CronController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         //Configure::write('debug', 0);
         parent::initialize();
         $this->Authentication->addUnauthenticatedActions();

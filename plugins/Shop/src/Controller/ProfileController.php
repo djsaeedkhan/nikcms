@@ -20,13 +20,15 @@ class ProfileController extends AppController
 {
     public $template;
     //-------------------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Shop.profile');
         $this->ShopAddresses =  $this->getTableLocator()->get('Shop.ShopUseraddresses');
     }
     //-------------------------------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
         $this->Authentication->addUnauthenticatedActions();
         if(!$this->request->getAttribute('identity')->get('id')){

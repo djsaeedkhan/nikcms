@@ -4,7 +4,8 @@ use Challenge\Controller\AppController;
 
 class ChallengeforumsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
         //$this->Challenges = $this->getTableLocator()->get('Challenge.Challenges');

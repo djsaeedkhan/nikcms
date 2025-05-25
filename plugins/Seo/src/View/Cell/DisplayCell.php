@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 class DisplayCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         global $Func;
         $options = [];
         $result = $Func->OptionGet('seo_plugin');

@@ -1,16 +1,18 @@
 <?php
 namespace Admin\Controller;
 use Admin\Controller\AppController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 class CommentsController extends AppController
 {
     //-----------------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     //-----------------------------------------------------------------------------
-    public function beforeFilter(Event $event){
+    public function beforeFilter(EventInterface $event)
+    {
         if($this->request->getParam('action') == 'save'){
             //$this->Auth->allow();
             $this->Authentication->addUnauthenticatedActions();

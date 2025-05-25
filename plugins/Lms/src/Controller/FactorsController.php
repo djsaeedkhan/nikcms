@@ -6,7 +6,8 @@ use Lms\Controller\AppController;
 
 class FactorsController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     //-----------------------------------------------------------------------------------

@@ -10,7 +10,8 @@ use Sms\Sms;
 class ViewController extends AppController
 {
     //----------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         $this->loadComponent('Admin.Fileupload');
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
         $this->viewBuilder()->setLayout('Template.default');

@@ -12,7 +12,8 @@ class ViewController extends AppController
     public $sms,$max_time, $max_count;
     public $token;
     //-----------------------------------------------------------------------------
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         if($this->Func->OptionGet('template_layout') == 1)
             $this->viewBuilder()->setLayout('Template.login');

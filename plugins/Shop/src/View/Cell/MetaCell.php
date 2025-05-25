@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 use Cake\View\Cell;
 class MetaCell extends Cell{
     protected $_validCellOptions = [];
-    public function initialize(){}
+    public function initialize(): void
+    {}
     public function save(){
         //$this->loadComponent('Shop.Product');
         //$this->Product->Save();

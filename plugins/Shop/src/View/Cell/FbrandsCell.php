@@ -5,7 +5,8 @@ use Cake\ORM\TableRegistry;
 use Cake\View\Cell;
 class FbrandsCell extends Cell{
     protected $_validCellOptions = [];
-    public function initialize(){}
+    public function initialize(): void
+    {}
     public function admin($field = null , $value = null){
         $this->set([
             'field' => $field ,

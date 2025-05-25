@@ -4,14 +4,15 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\Routing\Router;
 use Admin\Core\Resize;
-use Cake\Event\Event;
+use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 
 class MediasController extends AppController
 {
     public $media_ptype = 'media';
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->loadModel('Files');
         $parentCategory = TableRegistry::getTableLocator()->get('Admin.Categories')

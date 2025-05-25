@@ -7,7 +7,8 @@ use Cake\I18n\Time;
 class AppController extends BaseController
 {
     public $setting;
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->LmsCourses = TableRegistry::getTableLocator()->get('Lms.LmsCourses');
         $this->LmsCourseweeks = TableRegistry::getTableLocator()->get('Lms.LmsCourseweeks');

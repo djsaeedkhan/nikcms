@@ -5,7 +5,8 @@ use Cake\ORM\TableRegistry;
 
 class GoogleaCell extends Cell{
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         global $Func;
         $options = [];
         try {

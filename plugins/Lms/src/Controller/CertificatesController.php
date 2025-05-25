@@ -7,7 +7,8 @@ use Lms\Controller\AppController;
 
 class CertificatesController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->LmsCertificates = TableRegistry::getTableLocator()->get('Lms.LmsCertificates');
     }

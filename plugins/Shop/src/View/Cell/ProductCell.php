@@ -8,7 +8,8 @@ use Shop\View\Helper\ShopHelper;
 class ProductCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         $this->Sparams = $this->getTableLocator()->get('Shop.ShopProductParams');
         $this->Sattrs = $this->getTableLocator()->get('Shop.ShopAttributes');
         $this->majors = $this->getTableLocator()->get('Shop.ShopProductmajors');

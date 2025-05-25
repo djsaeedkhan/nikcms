@@ -7,7 +7,8 @@ use Challenge\Predata;
 class AppController extends BaseController
 {
     public $setting_challenge = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
 

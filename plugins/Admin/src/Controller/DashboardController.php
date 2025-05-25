@@ -3,7 +3,8 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
 class DashboardController extends AppController {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
     }
     public function index(){

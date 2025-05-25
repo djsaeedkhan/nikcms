@@ -8,7 +8,8 @@ use Cake\I18n\I18n;
 class MenuCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize(){
+    public function initialize(): void
+    {
         I18n::setLocale('fa');
     }
 

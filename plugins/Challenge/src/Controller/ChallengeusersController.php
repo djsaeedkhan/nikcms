@@ -7,7 +7,8 @@ use Challenge\Predata;
 
 class ChallengeusersController extends AppController
 {
-    public function initialize(){
+    public function initialize(): void
+    {
         parent::initialize();
         $this->Users = TableRegistry::getTableLocator()->get('Challenge.Users');
         $this->Challengeuserprofiles = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles');
