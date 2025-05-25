@@ -45,6 +45,7 @@ class Application extends BaseApplication
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
+        $this->addPlugin('Authentication');
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
         $this->addPlugin('Website');

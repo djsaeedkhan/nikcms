@@ -830,15 +830,15 @@ class UsersController extends AppController{
         $this->_activity('delete');
         $this->request->getSession()->destroy();
         $this->Cookie->delete('connects');
-        if($this->Func->OptionGet('logout_alert')!= "")
-            $this->Flash->success($this->Func->OptionGet('logout_alert'));
-        else
+        $this->Authentication->logout();
+
+        $this->Func->OptionGet('logout_alert')!= ""?
+            $this->Flash->success($this->Func->OptionGet('logout_alert')):
             $this->Flash->success(__('شما با موفقیت از سایت خارج شدید'));
-        
-        if($this->Func->OptionGet('logout_url')!= "")
-            return $this->redirect($this->Func->OptionGet('logout_url'));
-        else
-            return $this->redirect($this->Auth->logout());
+
+        return $this->Func->OptionGet('logout_url')!= ""?
+            $this->redirect($this->Func->OptionGet('logout_url')):
+            $this->redirect($this->Auth->logout());
     }
     //----------------------------------------------------------
     function _autoLogin(){
