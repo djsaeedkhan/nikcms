@@ -19,7 +19,7 @@ class QueryHelper extends Helper
 {
     public $helpers = ['Html','Form','Func','Module','Url'];
     //------------
-    public function initialize(array $config){}
+    //public function initialize(array $config): void{}
     //------------
     protected $_defaultConfig = [
         'errorClass' => 'error',

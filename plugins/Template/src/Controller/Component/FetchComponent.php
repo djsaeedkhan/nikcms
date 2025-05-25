@@ -8,7 +8,7 @@ use Cake\ORM\TableRegistry;
 class FetchComponent extends Component {
     protected $_defaultConfig = [];
     public $components = ['Paginator'];
-    public function initialize(array $config){}
+    public function initialize(array $config): void{}
     public function home($id = null){
     }
     

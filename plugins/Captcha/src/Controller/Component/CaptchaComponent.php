@@ -4,6 +4,7 @@ namespace Captcha\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
+use Cake\Core\Configure;
 
 class CaptchaComponent extends Component	{
 
@@ -76,10 +77,10 @@ class CaptchaComponent extends Component	{
       'mlabel' => 'Answer simple math:'
     );
 
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         //debug($this->Session->read());
-        $this->Session = $this->request->getSession();
+        $this->Session = $this->_registry->getController()->getRequest()->getSession();
         $this->__init();
     }
 
@@ -137,7 +138,10 @@ class CaptchaComponent extends Component	{
      */
     function __setDefaults()    {
 
-        $q = $this->Controller->request->getQuery();
+        //$q = $this->Controller->request->getQuery();
+        $controller = $this->_registry->getController();
+        $request = $controller->getRequest();
+        $q = $request->getQuery();
         if(!$q) return;
 
         //Preference is given the settings parameter passed through helper

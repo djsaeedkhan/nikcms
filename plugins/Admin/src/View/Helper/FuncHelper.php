@@ -25,7 +25,6 @@ use Admin\Core\Resize;
 class FuncHelper extends Helper
 {
     public $helpers = ['Html','Form','Query','Url'];
-
     protected $_defaultConfig = [];
     /* ------------------------ Post */
     function show_post_thumbnail($data = null, $size = 'thumbnail'){
@@ -295,11 +294,14 @@ class FuncHelper extends Helper
 
         global $current_lang;
         global $options;
-        I18n::setLocale($current_lang);
+
+        if (!empty($current_lang) && is_string($current_lang))
+            I18n::setLocale($current_lang);
 
         if(is_array($options)){
             $data = $options;
-        }else{
+        }
+        else{
             if(isset($opt['lang']) and $opt['lang'] == 1)
                 $model = TableRegistry::getTableLocator()->get('Admin.Options2'); 
             else

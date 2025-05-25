@@ -41,8 +41,11 @@ class AppController extends Controller
         
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Cookie');
-        $this->loadComponent('Auth', [
+        //$this->loadComponent('Cookie');
+        $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Captcha.Captcha'); //load on the fly!
+
+        /* $this->loadComponent('Auth', [
             'loginRedirect' => [
                 'plugin' => false,
                 'controller' => 'Users',
@@ -57,11 +60,13 @@ class AppController extends Controller
                 'action' => 'login' ],
             'authorize' => ['Controller'],
             'authError' => __('برای استفاده از سایت، لطفا وارد شوید'),
-        ]);
+        ]); */
 
+        /* 
+        1404-03-04 حذف شد
         $this->Cookie->setConfig([
             'httpOnly' => true
-        ]);
+        ]); */
 
         global $upload_path;
         $upload_path = $this->upload_path;
@@ -107,7 +112,9 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['Website.index']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'register','Website.index']);
+
+        //$this->Authentication->allowUnauthenticated([]);
     }
     //----------------------------------------------------
     private function Nonce(){
@@ -158,19 +165,19 @@ class AppController extends Controller
             $langs = $this->Func->language_list();
             $q = $this->request->getQuery('lang');
             if (isset($langs[$q])) {
-                $this->getRequest()->getSession()->write('lang', $q);
+                $this->request->getSession()->write('lang', h($q));
                 $this->redirect($this->referer());
             }
         }
 
-        if ($this->getRequest()->getSession()->read('lang') and 
-            $this->getRequest()->getSession()->read('lang') != '') {
+        if ($this->request->getSession()->read('lang') and 
+            $this->request->getSession()->read('lang') != '') {
 
             if (strtolower($this->request->getParam('plugin')) == 'admin') {
-                $this->getRequest()->getSession()->delete('lang');
+                $this->request->getSession()->delete('lang');
             } else {
-                I18n::setLocale($this->getRequest()->getSession()->read('lang'));
-                $lang = $this->getRequest()->getSession()->read('lang'); 
+                I18n::setLocale($this->request->getSession()->read('lang'));
+                $lang = $this->request->getSession()->read('lang'); 
             }
         }
         global $current_lang;

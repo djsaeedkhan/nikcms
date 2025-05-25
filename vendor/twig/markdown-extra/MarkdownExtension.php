@@ -17,7 +17,7 @@ use Twig\TwigFilter;
 
 final class MarkdownExtension extends AbstractExtension
 {
-    public function getFilters(): array
+    public function getFilters()
     {
         return [
             new TwigFilter('markdown_to_html', ['Twig\\Extra\\Markdown\\MarkdownRuntime', 'convert'], ['is_safe' => ['all']]),

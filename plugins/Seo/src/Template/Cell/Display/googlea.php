@@ -147,8 +147,8 @@ try {
 
     // Replace with your view ID, for example XXXX.
     //$VIEW_ID = '228229264';
-	$VIEW_ID = null
-	if(isset($options['ga_viewid']) and $options['ga_viewid'] != '')
+	$VIEW_ID = null;
+	if(isset($options['ga_viewid']) and $options['ga_viewid'] != ''){
     	$VIEW_ID = $view_id;
 
     // Create the DateRange object.

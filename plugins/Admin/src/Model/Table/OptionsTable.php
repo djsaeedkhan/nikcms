@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Admin\Model\Table;
 
 use Cake\ORM\Query;
@@ -8,7 +9,7 @@ use Cake\Validation\Validator;
 
 class OptionsTable extends Table
 {
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -17,7 +18,7 @@ class OptionsTable extends Table
         $this->setPrimaryKey('id');
     }
 
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')

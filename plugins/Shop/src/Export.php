@@ -42,7 +42,7 @@ class Export {
         <p><b>مشخصات خریدار: </b>'.
             ( $address != null?
                 $address['first_name'] .' ' . $address['last_name']  .'.<br>'.
-                $address['billing_city'] .' / '. $address['billing_address'].'<br>'.
+                $address['billing_city'] .' / '. $address['billing_address'].'<br>'
                 
             :'').'
         </p>

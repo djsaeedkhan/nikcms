@@ -11,7 +11,7 @@ use Cake\Log\Log;
 
 class PostsTable extends Table
 {
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
         $this->setTable('posts');

@@ -25,7 +25,7 @@ class UsersController extends AppController{
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadComponent('Captcha.Captcha'); //load on the fly!
+        
     }
     //----------------------------------------------------------
     public function beforeFilter(EventInterface $event)

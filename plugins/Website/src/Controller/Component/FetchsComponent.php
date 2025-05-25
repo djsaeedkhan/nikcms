@@ -10,7 +10,7 @@ use Admin\View\Helper\FuncHelper;
 class FetchsComponent extends Component {
     protected $_defaultConfig = [];
     public $components = ['Paginator','Session'];
-    public function initialize(array $config){}
+    public function initialize(array $config): void{}
     public function home($id = null){}
     public function index() {
         
