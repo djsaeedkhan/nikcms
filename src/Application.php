@@ -136,7 +136,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 'httponly' => true,
             ]))
             ->add(new RoutingMiddleware($this))
-            // add Authentication after RoutingMiddleware
             ->add(new AuthenticationMiddleware($this))
             ;
 

@@ -200,7 +200,7 @@ class AppController extends Controller
         $st = unserialize($this->Func->Optionget('session_template'));
         if($act == 'getlist')
             return $st;
-        
+
         $st[$this->request->getAttribute('identity')->get('session_hash')] = [
             'id' => $this->request->getAttribute('identity')->get('id'), 
             'username' => $this->request->getAttribute('identity')->get('username'), 

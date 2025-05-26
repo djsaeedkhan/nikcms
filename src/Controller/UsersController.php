@@ -113,13 +113,13 @@ class UsersController extends AppController{
         }
         
 
-        $this->_autoLogin();
+        //$this->_autoLogin();
 
         if($this->request->getQuery('reset')){
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-        if ($this->Auth->user())
+        if ($user = $this->request->getAttribute('identity'))
             $this->redirect(['action'=>'index']);
         
         if ($this->request->is(['ajax','post'])) {
@@ -429,7 +429,7 @@ class UsersController extends AppController{
             $this->viewBuilder()->setLayout('login');
 
         //echo ((new DefaultPasswordHasher)->hash("123456"));
-        if ($this->Auth->user())
+        if ($user = $this->request->getAttribute('identity'))
             $this->redirect(['action'=>'index']);
             
         if ($this->request->is('post')) {
@@ -516,7 +516,7 @@ class UsersController extends AppController{
 
         global $register_users;
         $this->request->getSession()->delete('SmsActivations');
-        if ($this->Auth->user())
+        if ($user = $this->request->getAttribute('identity'))
             $this->redirect(['action'=>'index']);
 
         $user = $this->Users->newEntity($this->request->getData());
