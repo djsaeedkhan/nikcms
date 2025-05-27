@@ -35,7 +35,7 @@ class TagsTable extends Table
         ]);
     }
 
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -96,7 +96,7 @@ class TagsTable extends Table
         }
         return true;
     }
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         //$rules->add($rules->isUnique(['slug']));
         return $rules;

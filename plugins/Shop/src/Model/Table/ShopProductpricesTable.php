@@ -88,7 +88,7 @@ class ShopProductpricesTable extends Table
             $this->getTableLocator()->get('Shop.ShopProductprices')->deleteAll(['post_id'=>$entity->post_id]);
     } */
 
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['post_id'], 'Posts'));
         return $rules;

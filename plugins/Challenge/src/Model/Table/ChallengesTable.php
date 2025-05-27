@@ -238,7 +238,7 @@ class ChallengesTable extends Table
         return true;
     } 
     
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['challengestatus_id'], 'Challengestatuses'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));

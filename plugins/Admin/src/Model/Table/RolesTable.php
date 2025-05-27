@@ -16,7 +16,7 @@ class RolesTable extends Table
         $this->setPrimaryKey('id');
         
     }
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')

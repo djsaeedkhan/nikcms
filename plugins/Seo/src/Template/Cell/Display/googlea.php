@@ -1,8 +1,8 @@
 <?php
 use Cake\Routing\Router;
 use Cake\I18n\Time;
-include_once __DIR__ . '/../../../vendor/vendor/autoload.php';
-include_once __DIR__. '/../../../vendor/base.php';
+//include_once __DIR__ . '/../../../vendor/vendor/autoload.php';
+//include_once __DIR__. '/../../../vendor/base.php';
 
 $analytics = initializeAnalytics($options);
 $profile = getFirstProfileId($analytics);

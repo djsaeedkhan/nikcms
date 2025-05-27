@@ -34,7 +34,7 @@ class LogsTable extends Table
         ]); */
     }
 
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -64,7 +64,7 @@ class LogsTable extends Table
         return true;
     }
     
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         /* $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['action_id'], 'Actions'));

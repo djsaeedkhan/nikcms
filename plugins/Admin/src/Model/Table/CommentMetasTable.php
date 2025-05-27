@@ -64,7 +64,7 @@ class CommentMetasTable extends Table
         }
         return true;
     }
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->allowEmptyString('id', null, 'create');
@@ -95,7 +95,7 @@ class CommentMetasTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['comment_id'], 'Comments'));
         return $rules;

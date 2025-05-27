@@ -15,7 +15,7 @@ class CategorieMetasTable extends Table
         $this->addBehavior('Translate', ['fields' => ['meta_value']]);
     }
 
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->allowEmpty('id', 'create');
@@ -30,7 +30,7 @@ class CategorieMetasTable extends Table
         return $validator;
     }
 
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         //$rules->add($rules->existsIn(['post_id'], 'Posts'));
         return $rules;

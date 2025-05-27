@@ -43,7 +43,7 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         //$this->loadComponent('Cookie');
         $this->loadComponent('Authentication.Authentication');
-        $this->loadComponent('Captcha.Captcha'); //load on the fly!
+        //$this->loadComponent('Captcha.Captcha'); //load on the fly!
 
         /* $this->loadComponent('Auth', [
             'loginRedirect' => [

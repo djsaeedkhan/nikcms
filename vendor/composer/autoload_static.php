@@ -50,10 +50,23 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Widget\\' => 7,
+            'Website\\' => 8,
+        ),
+        'U' => 
+        array (
+            'Userslogs\\' => 10,
+        ),
         'T' => 
         array (
             'Twig\\Extra\\Markdown\\' => 20,
             'Twig\\' => 5,
+            'Tinyurl\\' => 8,
+            'Ticketing\\' => 10,
+            'Thumbnail\\' => 10,
+            'Template\\' => 9,
         ),
         'S' => 
         array (
@@ -71,13 +84,21 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
+            'Sms\\' => 4,
             'SlevomatCodingStandard\\' => 23,
+            'Sitemap\\' => 8,
+            'Shop\\' => 5,
+            'Seo\\' => 4,
             'Seld\\Signal\\' => 12,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
+            'Security\\' => 9,
+            'Scheduler\\' => 10,
         ),
         'R' => 
         array (
+            'Role\\' => 5,
+            'RegisterField\\' => 14,
             'React\\Promise\\' => 14,
         ),
         'P' => 
@@ -88,6 +109,8 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
+            'Predata\\' => 8,
+            'Postviews\\' => 10,
             'PhpParser\\' => 10,
             'Phinx\\' => 6,
             'PHPStan\\PhpDocParser\\' => 21,
@@ -95,12 +118,14 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         ),
         'M' => 
         array (
+            'Mpdfs\\' => 6,
             'Migrations\\' => 11,
             'MabeEnum\\' => 9,
             'M1\\Env\\' => 7,
         ),
         'L' => 
         array (
+            'Lms\\' => 4,
             'League\\Container\\' => 17,
             'Laminas\\HttpHandlerRunner\\' => 26,
             'Laminas\\Diactoros\\' => 18,
@@ -109,6 +134,15 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             'JsonSchema\\' => 11,
             'Jasny\\Twig\\' => 11,
+        ),
+        'F' => 
+        array (
+            'Formbuilder\\' => 12,
+            'Filemanager\\' => 12,
+        ),
+        'E' => 
+        array (
+            'Elementor\\' => 10,
         ),
         'D' => 
         array (
@@ -129,6 +163,8 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
             'Composer\\ClassMapGenerator\\' => 27,
             'Composer\\CaBundle\\' => 18,
             'Composer\\' => 9,
+            'Comingsoon\\' => 11,
+            'Challenge\\' => 10,
             'Captcha\\' => 8,
             'Cake\\TwigView\\' => 14,
             'Cake\\Test\\' => 10,
@@ -140,7 +176,9 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         'B' => 
         array (
             'Brick\\VarExporter\\' => 18,
+            'Breadcrumb\\' => 11,
             'Bake\\' => 5,
+            'Backup\\' => 7,
         ),
         'A' => 
         array (
@@ -153,6 +191,18 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
     );
 
     public static $prefixDirsPsr4 = array (
+        'Widget\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Widget/src',
+        ),
+        'Website\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Website/src',
+        ),
+        'Userslogs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Userslogs/src',
+        ),
         'Twig\\Extra\\Markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/markdown-extra',
@@ -160,6 +210,22 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Tinyurl\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Tinyurl/src',
+        ),
+        'Ticketing\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Ticketing/src',
+        ),
+        'Thumbnail\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Thumbnail/src',
+        ),
+        'Template\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Template/src',
         ),
         'Symfony\\Polyfill\\Php81\\' => 
         array (
@@ -217,9 +283,25 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Sms\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Sms/src',
+        ),
         'SlevomatCodingStandard\\' => 
         array (
             0 => __DIR__ . '/..' . '/slevomat/coding-standard/SlevomatCodingStandard',
+        ),
+        'Sitemap\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Sitemap/src',
+        ),
+        'Shop\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Shop/src',
+        ),
+        'Seo\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Seo/src',
         ),
         'Seld\\Signal\\' => 
         array (
@@ -232,6 +314,22 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
+        'Security\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Security/src',
+        ),
+        'Scheduler\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Scheduler/src',
+        ),
+        'Role\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Role/src',
+        ),
+        'RegisterField\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/RegisterField/src',
         ),
         'React\\Promise\\' => 
         array (
@@ -263,6 +361,14 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Predata\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Predata/src',
+        ),
+        'Postviews\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Postviews/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -279,6 +385,10 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
+        'Mpdfs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Mpdfs/src',
+        ),
         'Migrations\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/migrations/src',
@@ -290,6 +400,10 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         'M1\\Env\\' => 
         array (
             0 => __DIR__ . '/..' . '/m1/env/src',
+        ),
+        'Lms\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Lms/src',
         ),
         'League\\Container\\' => 
         array (
@@ -310,6 +424,18 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         'Jasny\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/jasny/twig-extensions/src',
+        ),
+        'Formbuilder\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Formbuilder/src',
+        ),
+        'Filemanager\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Filemanager/src',
+        ),
+        'Elementor\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Elementor/src',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (
@@ -367,6 +493,14 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             0 => __DIR__ . '/..' . '/composer/composer/src/Composer',
         ),
+        'Comingsoon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Comingsoon/src',
+        ),
+        'Challenge\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Challenge/src',
+        ),
         'Captcha\\' => 
         array (
             0 => __DIR__ . '/../..' . '/plugins/Captcha/src',
@@ -399,9 +533,17 @@ class ComposerStaticInit77e5d74ac5ed0e27b2d02fa7354bc182
         array (
             0 => __DIR__ . '/..' . '/brick/varexporter/src',
         ),
+        'Breadcrumb\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Breadcrumb/src',
+        ),
         'Bake\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/bake/src',
+        ),
+        'Backup\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/plugins/Backup/src',
         ),
         'Authentication\\' => 
         array (

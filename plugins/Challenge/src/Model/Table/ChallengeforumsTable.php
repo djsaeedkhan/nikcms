@@ -105,7 +105,7 @@ class ChallengeforumsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['challenge_id'], 'Challenges'));
         $rules->add($rules->existsIn(['challengeforumtitle_id'], 'Challengeforumtitles'));

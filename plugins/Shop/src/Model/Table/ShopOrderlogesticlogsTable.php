@@ -98,7 +98,7 @@ class ShopOrderlogesticlogsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['shop_logestic_id'], 'ShopLogestics'));
         $rules->add($rules->existsIn(['shop_order_id'], 'ShopOrders'));

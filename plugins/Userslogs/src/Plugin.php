@@ -24,13 +24,13 @@ class Plugin extends BasePlugin
             ]
         ];
     }
-    public function console($commands)
+    /* public function console($commands)
     {
         // Add console commands here.
         $commands = parent::console($commands);
         //$commands->add('bake model', ModelCommand::class);
         return $commands;
-    }
+    } */
     public function activation(){
         $conn = \Cake\Datasource\ConnectionManager::get('default');
         $conn->execute("CREATE TABLE IF NOT EXISTS `users_logs` (

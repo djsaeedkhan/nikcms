@@ -1,11 +1,7 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var array $params
- * @var string $message
- */
 if (!isset($params['escape']) || $params['escape'] !== false) {
-    $message = h($message);
+    $message = strip_tags($message,'<a><br><b>');
 }
 ?>
-<div class="message error" onclick="this.classList.add('hidden');"><?= $message ?></div>
+<div class="alert alert-danger" style="font-size:14px;margin-top:20px;" ><?= $message ?>
+<span style="float: left;cursor:pointer" title="بستن">X</span></div>
