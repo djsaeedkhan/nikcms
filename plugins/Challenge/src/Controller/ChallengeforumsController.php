@@ -47,7 +47,7 @@ class ChallengeforumsController extends AppController
 
     public function add()
     {
-        $challengeforum = $this->Challengeforums->newEntity();
+        $challengeforum = $this->Challengeforums->newEmptyEntity(();
         if ($this->request->is('post')) {
             $challengeforum = $this->Challengeforums->patchEntity($challengeforum, $this->request->getData());
             if ($this->Challengeforums->save($challengeforum)) {

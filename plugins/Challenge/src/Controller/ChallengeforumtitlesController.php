@@ -14,7 +14,7 @@ class ChallengeforumtitlesController extends AppController
 {
     public function add($id = null)
     {
-        $challengeforumtitle = $this->Challengeforumtitles->newEntity();
+        $challengeforumtitle = $this->Challengeforumtitles->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengeforumtitle = $this->Challengeforumtitles->patchEntity($challengeforumtitle, $this->request->getData());

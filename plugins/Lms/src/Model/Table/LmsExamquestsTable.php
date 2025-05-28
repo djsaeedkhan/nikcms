@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsExamresultlistsTable&\Cake\ORM\Association\HasMany $LmsExamresultlists
  *
  * @method \Lms\Model\Entity\LmsExamquest get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsExamquest newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsExamquest newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsExamquest[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsExamquest|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsExamquest saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

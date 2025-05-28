@@ -32,7 +32,7 @@ class CourseweeksController extends AppController
         if($ids != null)
             $lmsCourseweek = $this->LmsCourseweeks->get($ids, ['contain' => [],]);
         else 
-            $lmsCourseweek = $this->LmsCourseweeks->newEntity();
+            $lmsCourseweek = $this->LmsCourseweeks->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             if($id != null)

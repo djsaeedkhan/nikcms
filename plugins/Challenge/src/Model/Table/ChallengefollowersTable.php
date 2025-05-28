@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Challenge\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Challenge\Model\Entity\Challengefollower get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challengefollower newEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challengefollower newEmptyEntity(($data = null, array $options = [])
  * @method \Challenge\Model\Entity\Challengefollower[] newEntities(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengefollower|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challengefollower saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

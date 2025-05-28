@@ -21,7 +21,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
  *
  * @method \Lms\Model\Entity\LmsCourse get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCourse newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourse newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCourse[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourse|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCourse saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

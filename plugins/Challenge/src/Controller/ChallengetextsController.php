@@ -6,7 +6,7 @@ class ChallengetextsController extends AppController
 {
     public function add($id= null)
     {
-        $challengetext = $this->Challengetexts->newEntity();
+        $challengetext = $this->Challengetexts->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengetext = $this->Challengetexts->patchEntity($challengetext, $this->request->getData());

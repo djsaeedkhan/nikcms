@@ -26,7 +26,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
  *
  * @method \Shop\Model\Entity\Post get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\Post newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\Post newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\Post[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\Post|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\Post saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

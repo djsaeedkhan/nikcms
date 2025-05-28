@@ -18,7 +18,7 @@ class TicketcategoriesController extends AppController
         if($id != null)
             $ticketcategory = $this->Ticketcategories->get($id);
         else
-            $ticketcategory = $this->Ticketcategories->newEntity();
+            $ticketcategory = $this->Ticketcategories->newEmptyEntity(();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $ticketcategory = $this->Ticketcategories->patchEntity($ticketcategory, $this->request->getData());
             if ($this->Ticketcategories->save($ticketcategory)) {

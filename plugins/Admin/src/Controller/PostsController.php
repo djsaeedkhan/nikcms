@@ -98,7 +98,7 @@ class PostsController extends AppController
         global $post_type;
         $post_type = $this->post_type;
         
-        $post = $this->Posts->newEntity();
+        $post = $this->Posts->newEmptyEntity(();
         $this->set('post_types',$this->post_type);
         if ($this->request->is([ 'post'])) {
             $this->request = $this->request->withData('PostMetas.pin', isset($this->request->getData()['PostMetas']['pin'])?$this->request->getData()['PostMetas']['pin']:0);
@@ -363,7 +363,7 @@ class PostsController extends AppController
             } 
             else
             {
-               $data = $this->Tags->newEntity();
+               $data = $this->Tags->newEmptyEntity(();
                $data = $this->Tags->patchEntity($data,[
                         'title'=>$tag,
                         'slug'=>Text::slug(Text::excerpt($tag,'',20, '...' ),['transliteratorId'=>false]),

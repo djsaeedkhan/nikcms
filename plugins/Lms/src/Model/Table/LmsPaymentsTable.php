@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Lms\Model\Entity\LmsPayment get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsPayment newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsPayment newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsPayment[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsPayment|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsPayment saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

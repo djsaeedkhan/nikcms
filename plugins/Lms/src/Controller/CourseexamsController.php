@@ -21,7 +21,7 @@ class CourseexamsController extends AppController
 
     public function add($id = null)
     {
-        $lmsCourseexam = $this->LmsCourseexams->newEntity();
+        $lmsCourseexam = $this->LmsCourseexams->newEmptyEntity(();
         if ($this->request->is('post')) {
             if($id != null){
                 $this->request = $this->request->withData('lms_coursefile_id', $id );

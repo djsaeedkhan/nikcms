@@ -6,7 +6,7 @@ class ChallengeimagesController extends AppController
 {
     public function add($id = null)
     {
-        $challengeimage = $this->Challengeimages->newEntity();
+        $challengeimage = $this->Challengeimages->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengeimage = $this->Challengeimages->patchEntity($challengeimage, $this->request->getData());

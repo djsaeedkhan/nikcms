@@ -82,7 +82,7 @@ class ThemesController extends AppController
             return $this->redirect(['action'=>'Menu']);
         }
         if($this->request->is('post')):
-            $option = $this->Themes->newEntity();
+            $option = $this->Themes->newEmptyEntity(();
             $data = [
                 'id'=> isset($this->request->getData()['id'])?$this->request->getData()['id']:null,
                 'name'=>$this->request->getData()['name'],
@@ -128,7 +128,7 @@ class ThemesController extends AppController
     }
     //----------------------------------------------------------
     public function Widget($id = null){
-        $theme = $this->Themes->newEntity();
+        $theme = $this->Themes->newEmptyEntity(();
         if ($this->request->is('post')) {
             $theme = $this->Themes->patchEntity($theme, $this->request->getData());
             if ($this->Themes->save($theme)) {

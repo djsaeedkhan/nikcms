@@ -14,7 +14,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopAttributelistsTable&\Cake\ORM\Association\BelongsTo $ShopAttributelists
  *
  * @method \Shop\Model\Entity\ShopOrderattribute get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopOrderattribute newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopOrderattribute newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopOrderattribute[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopOrderattribute|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopOrderattribute saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

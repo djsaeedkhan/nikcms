@@ -19,7 +19,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
  *
  * @method \Lms\Model\Entity\LmsCoursefile get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCoursefile newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCoursefile newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursefile[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursefile|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCoursefile saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

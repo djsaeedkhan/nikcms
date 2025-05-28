@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * LmsCoursecategories Model
  *
  * @method \Lms\Model\Entity\LmsCoursecategory get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCoursecategory newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCoursecategory newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursecategory[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursecategory|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCoursecategory saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

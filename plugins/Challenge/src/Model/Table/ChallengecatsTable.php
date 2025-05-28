@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Challenge\Model\Table\ChallengesTable&\Cake\ORM\Association\BelongsToMany $Challenges
  *
  * @method \Challenge\Model\Entity\Challengecat get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challengecat newEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challengecat newEmptyEntity(($data = null, array $options = [])
  * @method \Challenge\Model\Entity\Challengecat[] newEntities(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengecat|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challengecat saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

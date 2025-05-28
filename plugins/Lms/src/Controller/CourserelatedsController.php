@@ -30,7 +30,7 @@ class CourserelatedsController extends AppController
     } */
 
     public function add($id = null){
-        $lmsCourserelated = $this->LmsCourserelateds->newEntity();
+        $lmsCourserelated = $this->LmsCourserelateds->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('lms_course_id', $id);
 

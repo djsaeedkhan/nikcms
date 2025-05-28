@@ -110,7 +110,7 @@ class PaymentsController extends AppController
      */
     public function add()
     {
-        $lmsPayment = $this->LmsPayments->newEntity();
+        $lmsPayment = $this->LmsPayments->newEmptyEntity(();
         if ($this->request->is('post')) {
             $lmsPayment = $this->LmsPayments->patchEntity($lmsPayment, $this->request->getData());
             if ($this->LmsPayments->save($lmsPayment)) {

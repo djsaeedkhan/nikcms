@@ -22,7 +22,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopPaymentsTable&\Cake\ORM\Association\HasMany $ShopPayments
  *
  * @method \Shop\Model\Entity\ShopOrder get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopOrder newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopOrder newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopOrder[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopOrder|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopOrder saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

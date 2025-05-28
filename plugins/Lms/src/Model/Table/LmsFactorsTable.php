@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsUserfactorsTable&\Cake\ORM\Association\HasMany $LmsUserfactors
  *
  * @method \Lms\Model\Entity\LmsFactor get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsFactor newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsFactor newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsFactor[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsFactor|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsFactor saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

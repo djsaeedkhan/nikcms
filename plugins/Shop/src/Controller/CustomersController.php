@@ -52,7 +52,7 @@ class CustomersController extends AppController
         if($id != null)
             $shopAddress = $this->ShopAddresses->get($id);
         else
-            $shopAddress = $this->ShopAddresses->newEntity();
+            $shopAddress = $this->ShopAddresses->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $shopAddress = $this->ShopAddresses->patchEntity($shopAddress, $this->request->getData());

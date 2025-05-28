@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\PostsTable&\Cake\ORM\Association\BelongsTo $Posts
  *
  * @method \Shop\Model\Entity\ShopProductstock get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopProductstock newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopProductstock newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopProductstock[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopProductstock|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopProductstock saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

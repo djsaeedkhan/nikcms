@@ -37,7 +37,7 @@ use Cake\Validation\Validator;
  * @property \Sss\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Sss\Model\Entity\User newEmptyEntity()
- * @method \Sss\Model\Entity\User newEntity(array $data, array $options = [])
+ * @method \Sss\Model\Entity\User newEmptyEntity((array $data, array $options = [])
  * @method \Sss\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Sss\Model\Entity\User get($primaryKey, $options = [])
  * @method \Sss\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])

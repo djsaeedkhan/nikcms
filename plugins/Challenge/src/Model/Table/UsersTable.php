@@ -59,7 +59,7 @@ use Cake\Validation\Validator;
  * @property \Challenge\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Challenge\Model\Entity\User get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\User newEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\User newEmptyEntity(($data = null, array $options = [])
  * @method \Challenge\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Challenge\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

@@ -35,7 +35,7 @@ class ExamusersController extends AppController
      */
     public function add()
     {
-        $lmsExamuser = $this->LmsExamusers->newEntity();
+        $lmsExamuser = $this->LmsExamusers->newEmptyEntity(();
         if ($this->request->is('post')) {
             $lmsExamuser = $this->LmsExamusers->patchEntity($lmsExamuser, $this->request->getData());
             if ($this->LmsExamusers->save($lmsExamuser)) {

@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property &\Cake\ORM\Association\BelongsToMany $Challengeuserprofiles
  *
  * @method \Challenge\Model\Entity\Challengetopic get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challengetopic newEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challengetopic newEmptyEntity(($data = null, array $options = [])
  * @method \Challenge\Model\Entity\Challengetopic[] newEntities(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengetopic|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challengetopic saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

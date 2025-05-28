@@ -15,7 +15,7 @@ class TicketstatusesController extends AppController
         if($id != null)
             $ticketstatus = $this->Ticketstatuses->get($id);
         else
-            $ticketstatus = $this->Ticketstatuses->newEntity();
+            $ticketstatus = $this->Ticketstatuses->newEmptyEntity(();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $ticketstatus = $this->Ticketstatuses->patchEntity($ticketstatus, $this->request->getData());
             if ($this->Ticketstatuses->save($ticketstatus)) {

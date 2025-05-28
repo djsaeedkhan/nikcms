@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * SmsLogs Model
  *
  * @method \Sms\Model\Entity\SmsLog get($primaryKey, $options = [])
- * @method \Sms\Model\Entity\SmsLog newEntity($data = null, array $options = [])
+ * @method \Sms\Model\Entity\SmsLog newEmptyEntity(($data = null, array $options = [])
  * @method \Sms\Model\Entity\SmsLog[] newEntities(array $data, array $options = [])
  * @method \Sms\Model\Entity\SmsLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Sms\Model\Entity\SmsLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

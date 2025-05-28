@@ -127,7 +127,7 @@ class OrderController extends AppController
                 $order = $this->ShopOrders->get($id,['contain'=>'ShopAddresses']);
         }
         else
-            $order = $this->ShopOrders->newEntity();
+            $order = $this->ShopOrders->newEmptyEntity(();
 
         $mobile_number = false;
         
@@ -161,7 +161,7 @@ class OrderController extends AppController
                                 'text' => "سفارش شما نیاز به تایید دارد<br>".$order->token ]);
     
                             TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                                TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                                TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                                 'shop_order_id' =>  $value ,
                                 'user_id'=> $this->request->getAttribute('identity')->get('id'),
                                 'status'=>'ارسال پیامک صحت سنجی<br>کد: '. $order->token .'<br>شماره موبایل: '.$mobile_number
@@ -176,7 +176,7 @@ class OrderController extends AppController
                                     'text' => $this->setting['sms_'.$new_status] ]);
 
                                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                                    TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                                    TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                                     'shop_order_id' =>  $value ,
                                     'user_id'=> $this->request->getAttribute('identity')->get('id'),
                                     'status'=>'ارسال پیامک تغییر وضعیت سفارش به شماره '.$mobile_number
@@ -185,7 +185,7 @@ class OrderController extends AppController
                         }
 
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                             'shop_order_id' =>  $value ,
                             'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'سفارش - تغییر وضعیت به "'. CartHelper::Predata('order_status',$this->request->getData()['status']).'"'
@@ -214,7 +214,7 @@ class OrderController extends AppController
                             'text' => "سفارش شما نیاز به تایید دارد<br>".$order->token ]);
 
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                             'shop_order_id' =>  $order->id ,
                             'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'ارسال پیامک صحت سنجی<br>کد: '. $order->token .'<br>شماره موبایل: '.$mobile_number
@@ -229,7 +229,7 @@ class OrderController extends AppController
                                 'text' => $this->setting['sms_'.$new_status] ]);
                         }
                         TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                            TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                             'shop_order_id' =>   $id,
                             'user_id'=> $this->request->getAttribute('identity')->get('id'),
                             'status'=>'ارسال پیامک تغییر وضعیت سفارش به شماره '.$mobile_number
@@ -237,7 +237,7 @@ class OrderController extends AppController
                     }
 
                     TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                        TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                        TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                         'shop_order_id' => $id,
                         'user_id'=> $this->request->getAttribute('identity')->get('id'),
                         'status'=>'سفارش - تغییر وضعیت به "'. CartHelper::Predata('order_status',$this->request->getData()['status']).'"'
@@ -304,7 +304,7 @@ class OrderController extends AppController
         //Log::write('debug', $this->request);
 
         /* $this->opt = $this->getTableLocator()->get('Options');
-        $text = $this->opt->patchEntity($this->opt->newEntity(),
+        $text = $this->opt->patchEntity($this->opt->newEmptyEntity((),
         [
             'name'=>'1',
             'value'=> serialize(($this->request->getQuery())),
@@ -330,7 +330,7 @@ class OrderController extends AppController
                         
             }
 
-            /* $text = $this->model->patchEntity($this->opt->newEntity(),[
+            /* $text = $this->model->patchEntity($this->opt->newEmptyEntity((),[
                 'name'=>'1',
                 'value'=> serialize(($this->request->getQuery())),
                 'types'=>'3',

@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopAttributesTable&\Cake\ORM\Association\BelongsTo $ShopAttributes
  *
  * @method \Shop\Model\Entity\ShopAttributelist get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopAttributelist newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopAttributelist newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopAttributelist[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopAttributelist|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopAttributelist saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

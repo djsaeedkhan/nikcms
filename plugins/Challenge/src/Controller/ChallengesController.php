@@ -158,7 +158,7 @@ class ChallengesController extends AppController
             }
             else
             {
-                $challengefollower = $this->Challenges->Challengefollowers->newEntity();
+                $challengefollower = $this->Challenges->Challengefollowers->newEmptyEntity(();
                 $challengefollower = $this->Challenges->Challengefollowers->patchEntity(
                     $challengefollower, [
                         'user_id' => $this->request->getAttribute('identity')->get('id'),
@@ -364,7 +364,7 @@ class ChallengesController extends AppController
                 }
                 else
                 {
-                    $userform = $this->Challengeuserforms->newEntity();
+                    $userform = $this->Challengeuserforms->newEmptyEntity(();
                     if($temp['challengestatus_id'] != 1){
                         $this->Flash->error('مدت زمان شرکت در این '.__d('Template', 'همیاری').' به پایان رسیده است');
                         return $this->redirect($this->referer()); 
@@ -436,7 +436,7 @@ class ChallengesController extends AppController
                         if($id)
                             $this->Challengeqanswers->deleteAll(['id IN'=>$id]);
 
-                        $answer = $this->Challengeqanswers->newEntity();
+                        $answer = $this->Challengeqanswers->newEmptyEntity(();
                         $answer = $this->Challengeqanswers->patchEntities($answer,$list);
                         if($this->Challengeqanswers->saveMany($answer)){
                             $currentuser = $this->getTableLocator()->get('Challenge.Challengeuserprofiles') 
@@ -514,7 +514,7 @@ class ChallengesController extends AppController
                     $render  = 'forum_list';
 
                     $this->Challengeforums = $this->getTableLocator()->get('Challenge.Challengeforums');
-                    $challengeforum = $this->Challengeforums->newEntity();
+                    $challengeforum = $this->Challengeforums->newEmptyEntity(();
                     if ($this->request->is('post')) {
                         $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
                         $this->request = $this->request->withData('challenge_id', $challenge_id );
@@ -660,7 +660,7 @@ class ChallengesController extends AppController
                 ->execute();
         }
         else{
-            $viewModel->save($viewModel->newEntity([
+            $viewModel->save($viewModel->newEmptyEntity(([
                 'challenge_id'  => $challenge['id'],
                 'views' => 1 ,
             ]));
@@ -801,7 +801,7 @@ class ChallengesController extends AppController
             }
         }
         else
-            $userprofiles = $tmp = $this->userprofiles->newEntity();
+            $userprofiles = $tmp = $this->userprofiles->newEmptyEntity(();
 
         if ($this->request->is(['post','put','patch'])) {
             if($user->first()){

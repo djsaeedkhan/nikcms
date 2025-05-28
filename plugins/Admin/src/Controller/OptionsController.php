@@ -56,7 +56,7 @@ class OptionsController extends AppController
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
             foreach($this->request->getData() as $key => $val):
-                $option = $this->Options->newEntity();
+                $option = $this->Options->newEmptyEntity(();
                 $result = $this->Options->find('all')->where(['name' => $key]);
                 $tkey = $key;
                 if(substr( $tkey, 0, 8 ) === "setting_")
@@ -76,7 +76,7 @@ class OptionsController extends AppController
                         'value' => $val];
                 endif;
 
-                $option = $this->Options->newEntity($data);
+                $option = $this->Options->newEmptyEntity(($data);
                 $option = $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))
@@ -98,7 +98,7 @@ class OptionsController extends AppController
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
             foreach($this->request->getData() as $key=>$val):
-                $option = $this->Options->newEntity();
+                $option = $this->Options->newEmptyEntity(();
                 $result = $this->Options->find('all')->where(['name' => $key]);
                 if(substr( $key, 0, 8 ) === "setting_")
                     $val = is_array($val)?json_encode($val,JSON_UNESCAPED_UNICODE):$val;
@@ -115,7 +115,7 @@ class OptionsController extends AppController
                         'name' => $key,
                         'value' => $val ];
                 endif;
-                $option = $this->Options->newEntity($data);
+                $option = $this->Options->newEmptyEntity(($data);
                 $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))

@@ -37,7 +37,7 @@ class CommentsController extends AppController
         if($id != null)
             $comment = $this->Comments->get($id, ['contain' => ['Posts', 'Users']]);
         else
-            $comment = $this->Comments->newEntity();
+            $comment = $this->Comments->newEmptyEntity(();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
@@ -54,7 +54,7 @@ class CommentsController extends AppController
     {
         $comment = $this->Comments->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $comment = $this->Comments->newEntity();
+            $comment = $this->Comments->newEmptyEntity(();
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 $this->Flash->success(__d('Admin', 'The comment has been saved.'));
@@ -94,7 +94,7 @@ class CommentsController extends AppController
         $data = $this->request->getData();
         $post = $this->Query->post('',['id'=> $data['post_id'],'get_type'=>'first']);
         if ($this->request->is(['post']) and isset($post['id'])) {
-            $comment = $this->Comments->newEntity();
+            $comment = $this->Comments->newEmptyEntity(();
             $comment = $this->Comments->patchEntity($comment,[
                 'post_id' => $post['id'],
                 'content' => isset($data['body'])?$data['body']:null,

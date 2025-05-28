@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Tinyurls Model
  *
  * @method \Tinyurl\Model\Entity\Tinyurl get($primaryKey, $options = [])
- * @method \Tinyurl\Model\Entity\Tinyurl newEntity($data = null, array $options = [])
+ * @method \Tinyurl\Model\Entity\Tinyurl newEmptyEntity(($data = null, array $options = [])
  * @method \Tinyurl\Model\Entity\Tinyurl[] newEntities(array $data, array $options = [])
  * @method \Tinyurl\Model\Entity\Tinyurl|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Tinyurl\Model\Entity\Tinyurl|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

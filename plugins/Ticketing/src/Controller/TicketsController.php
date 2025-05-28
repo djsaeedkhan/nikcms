@@ -111,7 +111,7 @@ class TicketsController extends AppController
     //---------------------------------------------------------------------
     public function add($id = null) {
         if($id == null)
-            $ticket = $this->Tickets->newEntity();
+            $ticket = $this->Tickets->newEmptyEntity(();
         else
             $ticket = $this->Tickets->get($id);
 
@@ -136,13 +136,13 @@ class TicketsController extends AppController
             }
             $this->Ticketcomments= TableRegistry::getTableLocator()->get('Admin.Ticketcomments');
             foreach ($this->request->getData()['user_id'] as $user_id) {
-                $ticket = $this->Tickets->newEntity();
+                $ticket = $this->Tickets->newEmptyEntity(();
                 $this->request = $this->request->withData('user_id', $user_id);
                 $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
                 if ($this->Tickets->save($ticket)) {
 
                     if(!empty($this->request->getData()['file']['name'])) {	
-                        $ticketcomment = $this->Ticketcomments->newEntity();
+                        $ticketcomment = $this->Ticketcomments->newEmptyEntity(();
                         $ticketcomment = $this->Ticketcomments->patchEntity($ticketcomment, [
                             'content'=>$ticket->content,
                             'user_id'=>$this->request->getAttribute('identity')->get('id'),

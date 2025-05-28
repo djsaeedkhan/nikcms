@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\CommentsTable&\Cake\ORM\Association\BelongsTo $Comments
  *
  * @method \Admin\Model\Entity\CommentMeta get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\CommentMeta newEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\CommentMeta newEmptyEntity(($data = null, array $options = [])
  * @method \Admin\Model\Entity\CommentMeta[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\CommentMeta|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\CommentMeta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

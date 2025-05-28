@@ -75,7 +75,7 @@ class MyController extends AppController
     public function submit($id = null ) {
         $this->set(['current'=>'submit']);
         
-        $ticketcomment = $this->Ticketcomments->newEntity();
+        $ticketcomment = $this->Ticketcomments->newEmptyEntity(();
         if ($this->request->is('post')) {
             
             if (!empty($this->request->getData()['file']['name'])) {	
@@ -135,7 +135,7 @@ class MyController extends AppController
     }
     //---------------------------------------------------------------------
     private function add() {
-        $ticket = $this->Tickets->newEntity();
+        $ticket = $this->Tickets->newEmptyEntity(();
 
         if ($this->request->is(['post'])) {
             $this->request = $this->request->withData('subject', strip_tags($this->request->getData()['subject']));
@@ -160,7 +160,7 @@ class MyController extends AppController
                         $this->request = $this->request->withData('filename', $this->request->getData()['file']['name']);
                         $this->request = $this->request->withData('filesrc', $item);
 
-                        $ticketcomment = $this->Ticketcomments->patchEntity($this->Ticketcomments->newEntity(), $this->request->getData());
+                        $ticketcomment = $this->Ticketcomments->patchEntity($this->Ticketcomments->newEmptyEntity((), $this->request->getData());
                         $ticketcomment['user_id'] = $this->request->getAttribute('identity')->get('id');
                         $ticketcomment['ticket_id'] = $ticket->id;
                         if($this->Ticketcomments->save($ticketcomment))
@@ -186,7 +186,7 @@ class MyController extends AppController
     }
     //---------------------------------------------------------------------
     public function query($id = null) {
-        $ticket = $this->Tickets->newEntity();
+        $ticket = $this->Tickets->newEmptyEntity(();
         if ($this->request->is('post')) {
             $ticket = $this->Tickets->patchEntity($ticket, []);
             $ticket->subject = strip_tags($this->request->getData()['subject']);

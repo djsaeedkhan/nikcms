@@ -15,7 +15,7 @@ class TicketprioritiesController extends AppController
         if($id != null)
             $ticketpriority = $this->Ticketpriorities->get($id);
         else
-            $ticketpriority = $this->Ticketpriorities->newEntity();
+            $ticketpriority = $this->Ticketpriorities->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $ticketpriority = $this->Ticketpriorities->patchEntity($ticketpriority, $this->request->getData());

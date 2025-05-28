@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \UsersLogs\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \UsersLogs\Model\Entity\UsersLog get($primaryKey, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog newEntity($data = null, array $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog newEmptyEntity(($data = null, array $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog[] newEntities(array $data, array $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

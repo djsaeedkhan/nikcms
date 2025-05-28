@@ -37,7 +37,7 @@ class AdminController extends AppController
     }
     //-----------------------------------------------------
     public function add() {
-        $challenge = $this->Challenges->newEntity();
+        $challenge = $this->Challenges->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
             $challenge = $this->Challenges->patchEntity($challenge, $this->request->getData());

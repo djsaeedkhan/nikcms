@@ -14,7 +14,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopOrdersTable&\Cake\ORM\Association\HasMany $ShopOrders
  *
  * @method \Shop\Model\Entity\ShopAddress get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopAddress newEntity($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopAddress newEmptyEntity(($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopAddress[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopAddress|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopAddress saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

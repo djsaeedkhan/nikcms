@@ -73,7 +73,7 @@ class CoursesController extends AppController
     public function add($id = null,$action = null)
     {
         if($id == null)
-            $lmsCourse = $this->LmsCourses->newEntity();
+            $lmsCourse = $this->LmsCourses->newEmptyEntity(();
         else
             $lmsCourse = $this->LmsCourses->get($id);
           
@@ -165,7 +165,7 @@ class CoursesController extends AppController
             ->enablehydration(false)
             ->first();
 
-        $temp = $this->LmsCourses->newEntity();
+        $temp = $this->LmsCourses->newEmptyEntity(();
         $temp = $this->LmsCourses->patchEntity($temp, [
             'title'=> 'کپی شده >> '. $lmsCourse['title'],
             'user_id'=> $this->request->getAttribute('identity')->get('id'),
@@ -181,7 +181,7 @@ class CoursesController extends AppController
         if ($this->LmsCourses->save($temp)) {
 
             foreach($lmsCourse['lms_courseweeks'] as $week){
-                $temp2 = $this->LmsCourseweeks->newEntity();
+                $temp2 = $this->LmsCourseweeks->newEmptyEntity(();
                 $temp2 = $this->LmsCourseweeks->patchEntity($temp2, [
                     'lms_course_id'=> $temp['id'],
                     'title'=> $week['title'],
@@ -190,7 +190,7 @@ class CoursesController extends AppController
                 if ($this->LmsCourseweeks->save($temp2)) {
 
                     foreach($week['lms_coursefiles'] as $file){
-                        $temp3 = $this->LmsCoursefiles->newEntity();
+                        $temp3 = $this->LmsCoursefiles->newEmptyEntity(();
                         $temp3 = $this->LmsCoursefiles->patchEntity($temp3, [
                             'title'=> $file['title'],
                             'lms_course_id'=> $temp['id'],

@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Ticketing\Model\Table\TicketsTable&\Cake\ORM\Association\BelongsTo $Tickets
  *
  * @method \Ticketing\Model\Entity\Ticketcomment get($primaryKey, $options = [])
- * @method \Ticketing\Model\Entity\Ticketcomment newEntity($data = null, array $options = [])
+ * @method \Ticketing\Model\Entity\Ticketcomment newEmptyEntity(($data = null, array $options = [])
  * @method \Ticketing\Model\Entity\Ticketcomment[] newEntities(array $data, array $options = [])
  * @method \Ticketing\Model\Entity\Ticketcomment|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Ticketing\Model\Entity\Ticketcomment saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

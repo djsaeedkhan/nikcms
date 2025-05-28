@@ -106,8 +106,8 @@ class HomeController extends AppController
         $this->ShopParams = $this->getTableLocator()->get('Shop.ShopParams');
         $this->ShopParamlists = $this->getTableLocator()->get('Shop.ShopParamlists');
         
-        $params = $this->ShopParams->newEntity();
-        $paramlists = $this->ShopParamlists->newEntity();
+        $params = $this->ShopParams->newEmptyEntity(();
+        $paramlists = $this->ShopParamlists->newEmptyEntity(();
 
         //ajax
         if($this->request->is('ajax') and $this->request->getQuery('getlist') ) {
@@ -210,7 +210,7 @@ class HomeController extends AppController
         if($this->request->getQuery('edit'))
             $labels = $this->Labels->get($this->request->getQuery('edit'));
         else
-            $labels = $this->Labels->newEntity();
+            $labels = $this->Labels->newEmptyEntity(();
         
         $attrlister= [];
         if($this->request->getQuery('delete')){
@@ -241,7 +241,7 @@ class HomeController extends AppController
         if($this->request->getQuery('edit'))
             $brands = $this->Brands->get($this->request->getQuery('edit'));
         else
-            $brands = $this->Brands->newEntity();
+            $brands = $this->Brands->newEmptyEntity(();
         
         $attrlister= [];
         if($this->request->getQuery('delete')){
@@ -274,7 +274,7 @@ class HomeController extends AppController
         if($this->request->getQuery('edit'))
             $attrs = $this->ShopAttributes->get($this->request->getQuery('edit'));
         else
-            $attrs = $this->ShopAttributes->newEntity();
+            $attrs = $this->ShopAttributes->newEmptyEntity(();
         
         $this->attrib_ajax();
 
@@ -283,7 +283,7 @@ class HomeController extends AppController
             $attrlister = $this->ShopAttlists->get($this->request->getQuery('e_attriblist'));
 
             if ($this->request->is(['patch', 'post', 'put']) ) {
-                //$attrlister = $this->ShopAttlists->newEntity();
+                //$attrlister = $this->ShopAttlists->newEmptyEntity(();
                 $attrlister = $this->ShopAttlists->patchEntity($attrlister, $this->request->getData() );
                 if($this->ShopAttlists->save($attrlister))
                     $this->Flash->success(__('ثبت اطلاعات با موفقیت انجام شد'));
@@ -294,7 +294,7 @@ class HomeController extends AppController
             }
         }
         elseif($this->request->getQuery('a_attrblist')){
-            $attrlister = $this->ShopAttlists->newEntity();
+            $attrlister = $this->ShopAttlists->newEmptyEntity(();
             if ($this->request->is(['patch', 'post', 'put']) ) {
                 $this->request = $this->request->withData('shop_attribute_id',$this->request->getQuery('a_attrblist'));
                 $this->request = $this->request->withData('value',1);
@@ -341,7 +341,7 @@ class HomeController extends AppController
                         ];
                     }
                     
-                    $attrs = $this->ShopAttlists->newEntity();
+                    $attrs = $this->ShopAttlists->newEmptyEntity(();
                     $attrs = $this->ShopAttlists->patchEntities($attrs, $data );
                     $this->ShopAttlists->saveMany($attrs);
                 }

@@ -62,7 +62,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Lms\Model\Entity\User get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\User newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\User newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

@@ -73,7 +73,7 @@ class CourseusersController extends AppController
         }
         else{
             if($this->request->getQuery('id')){
-                $tmp = $this->LmsCoursefilecans->newEntity();
+                $tmp = $this->LmsCoursefilecans->newEmptyEntity(();
                 $tmp = $this->LmsCoursefilecans->patchEntity($tmp,[
                     'lms_coursefile_id' => $this->request->getQuery('id'),
                     'lms_course_id' => $course_id,
@@ -91,7 +91,7 @@ class CourseusersController extends AppController
             elseif($this->request->getQuery('submit')){
                 foreach($this->request->getQuery() as $k=>$val){ 
                     if(intval($k) != 0 and $val == 1):
-                        $tmp = $this->LmsCoursefilecans->newEntity();
+                        $tmp = $this->LmsCoursefilecans->newEmptyEntity(();
                         $tmp = $this->LmsCoursefilecans->patchEntity($tmp,[
                             'lms_coursefile_id' => $k,
                             'lms_course_id' => $course_id,
@@ -156,7 +156,7 @@ class CourseusersController extends AppController
         
     }
     public function add($id = null){
-        $lmsCourseuser = $this->LmsCourseusers->newEntity();
+        $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
 
         if ($this->request->is('post') and 
             $this->request->getQuery('type') and $this->request->getQuery('type')=='textarea') {
@@ -168,7 +168,7 @@ class CourseusersController extends AppController
 
                         $user = $this->getTableLocator()->get('Users')->find('all')->where(['username'=> $list])->first();
                         if($user){
-                            $lmsCourseuser = $this->LmsCourseusers->newEntity();
+                            $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
                             $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
                                 'user_id' => $user['id'],
                                 'lms_course_id' => $id
@@ -191,7 +191,7 @@ class CourseusersController extends AppController
                     $id = $this->request->getData()['lms_course_id'];
 
                 foreach($this->request->getData()['user_id'] as $user){
-                    $lmsCourseuser = $this->LmsCourseusers->newEntity();
+                    $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
                     $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
                         'user_id' => $user,
                         'lms_course_id' => $id
@@ -257,7 +257,7 @@ class CourseusersController extends AppController
                 return $this->redirect($this->referer());
         }
 
-        $lmsCourseuser = $this->LmsCourseusers->newEntity();
+        $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
         $lmsCourses = $this->LmsCourseusers->LmsCourses->find('list');
 
         $temp = $this->LmsCourseusers->find('all')

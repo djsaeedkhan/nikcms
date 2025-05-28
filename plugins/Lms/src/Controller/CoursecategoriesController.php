@@ -36,7 +36,7 @@ class CoursecategoriesController extends AppController
     public function add($id = null)
     {
         if( $id == null)
-            $lmsCoursecategory = $this->LmsCoursecategories->newEntity();
+            $lmsCoursecategory = $this->LmsCoursecategories->newEmptyEntity(();
         else
             $lmsCoursecategory = $this->LmsCoursecategories->get($id, [
                 'contain' => [],

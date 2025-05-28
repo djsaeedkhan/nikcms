@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\PostsTable&\Cake\ORM\Association\BelongsToMany $Posts
  *
  * @method \Admin\Model\Entity\I18n get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\I18n newEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\I18n newEmptyEntity(($data = null, array $options = [])
  * @method \Admin\Model\Entity\I18n[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\I18n|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\I18n saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

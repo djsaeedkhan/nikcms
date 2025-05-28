@@ -72,7 +72,7 @@ class ResultsController extends AppController
 
     public function add()
     {
-        $lmsExamresult = $this->LmsExamresults->newEntity();
+        $lmsExamresult = $this->LmsExamresults->newEmptyEntity(();
         if ($this->request->is('post')) {
             $lmsExamresult = $this->LmsExamresults->patchEntity($lmsExamresult, $this->request->getData());
             if ($this->LmsExamresults->save($lmsExamresult)) {

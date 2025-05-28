@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Ticketing\Model\Table\TicketsTable&\Cake\ORM\Association\HasMany $Tickets
  *
  * @method \Ticketing\Model\Entity\Ticketpriority get($primaryKey, $options = [])
- * @method \Ticketing\Model\Entity\Ticketpriority newEntity($data = null, array $options = [])
+ * @method \Ticketing\Model\Entity\Ticketpriority newEmptyEntity(($data = null, array $options = [])
  * @method \Ticketing\Model\Entity\Ticketpriority[] newEntities(array $data, array $options = [])
  * @method \Ticketing\Model\Entity\Ticketpriority|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Ticketing\Model\Entity\Ticketpriority saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

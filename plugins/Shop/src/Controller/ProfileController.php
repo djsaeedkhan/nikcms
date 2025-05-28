@@ -161,7 +161,7 @@ class ProfileController extends AppController
 
         if ($this->request->is('post') and isset($this->request->getData()['descr']) and $order_detail['enable'] < 1) {
             $this->ShopOrderlogesticlogs = TableRegistry::getTableLocator()->get('Shop.ShopOrderlogesticlogs');
-            $shopOrderlogesticlog = $this->ShopOrderlogesticlogs->newEntity();
+            $shopOrderlogesticlog = $this->ShopOrderlogesticlogs->newEmptyEntity(();
             $shopOrderlogesticlog = $this->ShopOrderlogesticlogs->patchEntity($shopOrderlogesticlog,[
                 'descr'=> $this->request->getData()['descr'],
                 'shop_logestic_id'=>$id,
@@ -201,7 +201,7 @@ class ProfileController extends AppController
         if($temps)
             $shop_profile = $temps;
         else
-            $shop_profile = $this->ShopProfiles->newEntity();
+            $shop_profile = $this->ShopProfiles->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $shop_profile = $this->ShopProfiles->patchEntity($shop_profile,$this->request->getData());
@@ -266,7 +266,7 @@ class ProfileController extends AppController
 
                     return $this->redirect($this->referer());
                 }
-            $temp = $this->ShopFavorites->patchEntity($this->ShopFavorites->newEntity(),[
+            $temp = $this->ShopFavorites->patchEntity($this->ShopFavorites->newEmptyEntity((),[
                 'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'post_id' => $this->request->getQuery('add'),
             ]);
@@ -348,7 +348,7 @@ class ProfileController extends AppController
                     'user_id'=> $this->request->getAttribute('identity')->get('id')])
                 ->first();
         else
-            $shopAddress = $this->ShopAddresses->newEntity();
+            $shopAddress = $this->ShopAddresses->newEmptyEntity(();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $shopAddress = $this->ShopAddresses->patchEntity($shopAddress, $this->request->getData());
             $shopAddress['user_id'] = $this->request->getAttribute('identity')->get('id');
@@ -396,7 +396,7 @@ class ProfileController extends AppController
             return $this->redirect($this->referer());
         }
 
-        $refunds = $this->Orderrefunds->newEntity();
+        $refunds = $this->Orderrefunds->newEmptyEntity(();
         if($this->request->is('post')){
             $refunds = $this->Orderrefunds->patchEntity($refunds, $this->request->getData());
             $refunds['user_id'] = $this->request->getAttribute('identity')->get('id');

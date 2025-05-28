@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\PostsTable&\Cake\ORM\Association\BelongsTo $Posts
  *
  * @method \Admin\Model\Entity\PostMeta get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\PostMeta newEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\PostMeta newEmptyEntity(($data = null, array $options = [])
  * @method \Admin\Model\Entity\PostMeta[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\PostMeta|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\PostMeta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

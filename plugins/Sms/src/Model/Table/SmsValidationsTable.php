@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Sms\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Sms\Model\Entity\SmsValidation get($primaryKey, $options = [])
- * @method \Sms\Model\Entity\SmsValidation newEntity($data = null, array $options = [])
+ * @method \Sms\Model\Entity\SmsValidation newEmptyEntity(($data = null, array $options = [])
  * @method \Sms\Model\Entity\SmsValidation[] newEntities(array $data, array $options = [])
  * @method \Sms\Model\Entity\SmsValidation|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Sms\Model\Entity\SmsValidation saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

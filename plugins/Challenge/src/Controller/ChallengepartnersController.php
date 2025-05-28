@@ -6,7 +6,7 @@ use Challenge\Controller\AppController;
 class ChallengepartnersController extends AppController
 {
     public function add($id = null){
-        $challengepartner = $this->Challengepartners->newEntity();
+        $challengepartner = $this->Challengepartners->newEmptyEntity(();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengepartner = $this->Challengepartners->patchEntity($challengepartner, $this->request->getData());

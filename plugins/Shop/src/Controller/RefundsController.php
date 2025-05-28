@@ -32,13 +32,13 @@ class RefundsController extends AppController
         if($id != null)
             $refund = $this->Refunds->get($id);
         else
-            $refund = $this->Refunds->newEntity();
+            $refund = $this->Refunds->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $refund = $this->Refunds->patchEntity($refund, $this->request->getData());
             if ($this->Refunds->save($refund)) {
                 TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->save(
-                    TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEntity([
+                    TableRegistry::getTableLocator()->get('Shop.ShopOrderlogs')->newEmptyEntity(([
                     'shop_order_id' => $refund->shop_order_id,
                     'user_id'=> $this->request->getAttribute('identity')->get('id'),
                     'status'=>'مرجوعی - تغییر وضعیت به "'. CartHelper::Predata('order_refundtype',$this->request->getData()['status']).'"'

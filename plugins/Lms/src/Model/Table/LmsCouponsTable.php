@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsFactorsTable&\Cake\ORM\Association\HasMany $LmsFactors
  *
  * @method \Lms\Model\Entity\LmsCoupon get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCoupon newEntity($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCoupon newEmptyEntity(($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCoupon[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCoupon|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCoupon saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

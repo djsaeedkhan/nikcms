@@ -16,7 +16,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $ChildComments
  *
  * @method \Admin\Model\Entity\Comment get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\Comment newEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\Comment newEmptyEntity(($data = null, array $options = [])
  * @method \Admin\Model\Entity\Comment[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\Comment|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\Comment saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

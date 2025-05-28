@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Widgets Model
  *
  * @method \Widget\Model\Entity\Widget get($primaryKey, $options = [])
- * @method \Widget\Model\Entity\Widget newEntity($data = null, array $options = [])
+ * @method \Widget\Model\Entity\Widget newEmptyEntity(($data = null, array $options = [])
  * @method \Widget\Model\Entity\Widget[] newEntities(array $data, array $options = [])
  * @method \Widget\Model\Entity\Widget|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Widget\Model\Entity\Widget|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

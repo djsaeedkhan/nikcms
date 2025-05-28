@@ -121,7 +121,7 @@ class ChallengeusersController extends AppController
             $user = $this->Users->get($id,['contain'=>'Challengeuserprofiles']);
         }
         else
-            $user = $this->Users->newEntity();
+            $user = $this->Users->newEmptyEntity(();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             //$this->request = $this->request->withData('challengeuserprofile',$this->request->getData() );
@@ -131,7 +131,7 @@ class ChallengeusersController extends AppController
                 
                 $profile = $this->Challengeuserprofiles->find('all')->where(['user_id'=>$id])->first();
                 if(! $profile)
-                    $profile = $this->Challengeuserprofiles->newEntity();
+                    $profile = $this->Challengeuserprofiles->newEmptyEntity(();
                 $this->request = $this->request->withData('challengeuserprofile.user_id', $id);
                 $profile = $this->Challengeuserprofiles->patchEntity($profile, $this->request->getData()['challengeuserprofile'] );
 

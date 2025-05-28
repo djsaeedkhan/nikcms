@@ -37,7 +37,7 @@ class ExamsController extends AppController
     public function add($id = null)
     {
         if($id == null)
-            $lmsExam = $this->LmsExams->newEntity();
+            $lmsExam = $this->LmsExams->newEmptyEntity(();
         else
             $lmsExam = $this->LmsExams->get($id);
 
@@ -93,7 +93,7 @@ class ExamsController extends AppController
         unset( $exam['id'],$exam['created'] );
         $exam['user_id'] = $this->request->getAttribute('identity')->get('id');
         $exam['title'] = 'کپی شده >> '.$exam['title'];
-        $temp = $this->LmsExams->newEntity();
+        $temp = $this->LmsExams->newEmptyEntity(();
         $temp = $this->LmsExams->patchEntity($temp, $exam);
         if ($this->LmsExams->save($temp)) {
             $this->Flash->success('کپی از آزمون با موفقیت انجام گردید. <br>لطفا قبل از استفاده، سوالات آزمون را بررسی کنید');

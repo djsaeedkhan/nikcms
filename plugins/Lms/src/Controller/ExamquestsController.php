@@ -29,7 +29,7 @@ class ExamquestsController extends AppController
 
     public function add($id = null)
     {
-        $lmsExamquest = $this->LmsExamquests->newEntity();
+        $lmsExamquest = $this->LmsExamquests->newEmptyEntity(();
 
         if($this->request->is('post') and $this->request->getQuery('type') == "group"){
 
@@ -56,7 +56,7 @@ class ExamquestsController extends AppController
                 $value = array_values($lst);
                 pr($value[0]);
                 $title = isset($value[0])?$value[0]:'';
-                $equest = $this->LmsExamquests->patchEntity($this->LmsExamquests->newEntity(),[
+                $equest = $this->LmsExamquests->patchEntity($this->LmsExamquests->newEmptyEntity((),[
                     'title'=> $title ,
                     'types'=> isset($lst['types'])?$lst['types']:'',
                     'priority'=> isset($lst['priority'])?$lst['priority']:'',

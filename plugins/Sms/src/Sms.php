@@ -43,7 +43,7 @@ class Sms
 
         $this->SmsLogs = TableRegistry::getTableLocator()->get('Sms.SmsLogs');
         try{
-            $temp = $this->SmsLogs->newEntity(null,['validate' => false]);
+            $temp = $this->SmsLogs->newEmptyEntity((null,['validate' => false]);
             $temp = $this->SmsLogs->patchEntity($temp,[
                 'mobile' => $data['mobile'],
                 'message'=> $data['text'],
@@ -262,7 +262,7 @@ class Sms
 
         try{
             $this->SmsLogs = TableRegistry::getTableLocator()->get('Sms.SmsLogs');
-            $temp = $this->SmsLogs->newEntity(null,['validate' => false]);
+            $temp = $this->SmsLogs->newEmptyEntity((null,['validate' => false]);
             $temp = $this->SmsLogs->patchEntity($temp,[
                 'mobile' => $data['mobile'],
                 'message'=> $data['text'],

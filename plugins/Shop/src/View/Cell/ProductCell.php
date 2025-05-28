@@ -29,7 +29,7 @@ class ProductCell extends Cell
             if(isset($data['ShopMetas'])){
                 $this->ShopMetas->deleteAll(['post_id' => $post_id]);
                 foreach($data['ShopMetas'] as $list=>$value){
-                    $temp = $this->ShopMetas->newEntity();
+                    $temp = $this->ShopMetas->newEmptyEntity(();
                     $temp = $this->ShopMetas->patchEntity($temp,[
                         'post_id' => $post_id,
                         'meta_key' => $list,
@@ -43,7 +43,7 @@ class ProductCell extends Cell
             $this->PDetail->deleteAll(['post_id' => $post_id]);
             if(isset($data['Meta'])){
                 foreach($data['Meta'] as $list => $value){
-                    $temp = $this->PDetail->newEntity();
+                    $temp = $this->PDetail->newEmptyEntity(();
                     $temp = $this->PDetail->patchEntity($temp,[
                         'post_id' => $post_id,
                         'pattern' => $list,
@@ -61,7 +61,7 @@ class ProductCell extends Cell
             if(isset($data['shop']['params']['list']) and count($data['shop']['params']['list'])){
                 $this->Sparams->deleteAll(['post_id' => $post_id]);
                 foreach($data['shop']['params']['list'] as $list => $value){
-                    $temp = $this->Sparams->newEntity();
+                    $temp = $this->Sparams->newEmptyEntity(();
                     $temp = $this->Sparams->patchEntity($temp,[
                         //'id'=> (array_search($list, $param_list)?array_search($list, $param_list): false),
                         'post_id' => $post_id,
@@ -74,7 +74,7 @@ class ProductCell extends Cell
             //Save Stocks
             $this->Stock->deleteAll(['post_id' => $post_id]);
             if( isset($data['ShopMetas']['stock']) ){
-                $temp = $this->Stock->newEntity();
+                $temp = $this->Stock->newEmptyEntity(();
                 $temp = $this->Stock->patchEntity($temp,[
                     'post_id' => $post_id,
                     'pattern' => null,
@@ -83,7 +83,7 @@ class ProductCell extends Cell
             }
             if(isset($data['Meta'])){
                 foreach($data['Meta'] as $list => $value){
-                    $temp = $this->Stock->newEntity();
+                    $temp = $this->Stock->newEmptyEntity(();
                     $temp = $this->Stock->patchEntity($temp,[
                         'post_id' => $post_id,
                         'pattern' => $list,
@@ -97,7 +97,7 @@ class ProductCell extends Cell
                 if($data['ShopMetas']['product_type'] == 'wholesale'){
                     foreach($data['big_price'] as $value){
                         if( isset($value['start']) and $value['start'] != ''):
-                            $temp = $this->majors->newEntity();
+                            $temp = $this->majors->newEmptyEntity(();
                             $temp = $this->majors->patchEntity($temp,[
                                 'post_id' => $post_id,
                                 'start' => $value['start'],
@@ -114,7 +114,7 @@ class ProductCell extends Cell
                 if($data['ShopMetas']['product_type'] == 'wholesale'){
                     foreach($data['big_price2'] as $value){
                         if( isset($value['start']) and $value['start'] != ''):
-                            $temp = $this->majors->newEntity();
+                            $temp = $this->majors->newEmptyEntity(();
                             $temp = $this->majors->patchEntity($temp,[
                                 'post_id' => $post_id,
                                 'start' => $value['start'],
@@ -132,7 +132,7 @@ class ProductCell extends Cell
             $find = $this->PPrice->find('all')
                 ->where(['post_id'=> $post_id , 'created = '=> date('Y-m-d')])
                 ->first();
-            $temp = $this->PPrice->newEntity();
+            $temp = $this->PPrice->newEmptyEntity(();
             $temp = $this->PPrice->patchEntity($temp ,[
                 'id' => isset($find['id'])?$find['id']:null,
                 'post_id' => $post_id,

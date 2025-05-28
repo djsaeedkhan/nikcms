@@ -21,7 +21,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Admin\Model\Entity\User get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\User newEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\User newEmptyEntity(($data = null, array $options = [])
  * @method \Admin\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
