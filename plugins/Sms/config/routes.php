@@ -3,7 +3,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-Router::plugin(
+/* Router::plugin(
     'Sms',
     ['path' => '/admin/sms/'],
     function (RouteBuilder $routes) {
@@ -32,4 +32,4 @@ Router::plugin(
         $routes->connect('/', ['controller' => 'View']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

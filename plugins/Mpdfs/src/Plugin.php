@@ -1,6 +1,13 @@
 <?php
 namespace Mpdfs;
 use Cake\Core\BasePlugin;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
+
 class Plugin extends BasePlugin {
     public $name= 'Mpdfs';
     public function preload(){}
@@ -9,12 +16,11 @@ class Plugin extends BasePlugin {
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Mpdfs',
+            ['path' => '/admin/mpdfs/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
         parent::routes($routes);

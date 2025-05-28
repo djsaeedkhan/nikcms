@@ -9,6 +9,7 @@ use Admin\View\Helper\FuncHelper;
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
@@ -87,14 +88,22 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Admin',
+            ['path' => '/admin'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Admin',
+            ['path' => '/savecomments'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
+
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

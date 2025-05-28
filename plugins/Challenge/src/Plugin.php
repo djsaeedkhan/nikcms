@@ -3,7 +3,12 @@ namespace Challenge;
 
 use Admin\View\Helper\FuncHelper;
 use Cake\Core\BasePlugin;
-
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 class Plugin extends BasePlugin{
     public $name= 'Challenge';
     function post_type(){
@@ -516,13 +521,26 @@ class Plugin extends BasePlugin{
 
     public function routes(RouteBuilder $routes): void
     {
+     
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Challenge',
+            ['path' => '/admin/challenge/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Admin']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Challenge',
+            ['path' => '/challenge'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/profile/*', ['controller' => 'Challenges','action'=>'profile']);
+                $routes->connect('/:slug/', ['controller' => 'Challenges','action'=>'View']);
+                //$routes->connect('/:slug/solution', ['controller' => 'Challenges','action'=>'solution']);
+                $routes->connect('/:slug/:method', ['controller' => 'Challenges','action'=>'View']);
+                $routes->connect('/follow/:slug/', ['controller' => 'Challenges','action'=>'follow']);
+                $routes->connect('/', ['controller' => 'Challenges']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
         parent::routes($routes);

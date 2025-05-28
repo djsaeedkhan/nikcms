@@ -2,6 +2,10 @@
 namespace Ticketing;
 use Cake\Core\BasePlugin;
 use Admin\View\Helper\FuncHelper;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin {
     public $name= 'Ticketing';
@@ -11,7 +15,6 @@ class Plugin extends BasePlugin {
             case 'register_form':
         }
     }
-
     public function sidemenu(){
         return [
             [
@@ -75,7 +78,6 @@ class Plugin extends BasePlugin {
         ],
         ];
     }
-
     function options_role(){
         return [
             'plugin' => self::config()['name'] ,
@@ -148,7 +150,6 @@ class Plugin extends BasePlugin {
             ]
         ];
     }
-
     public function preload(){
         FuncHelper::do_action('admin_sidemenu', self::sidemenu());
         FuncHelper::do_action('options_role', self::options_role());
@@ -171,5 +172,44 @@ class Plugin extends BasePlugin {
                 'setting' =>'/admin/ticketing/setting/index/',
                 ]
         ];
+    }
+    public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Admin',
+            ['path' => '/admin'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Admin',
+            ['path' => '/savecomments'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        );
+
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
     }
 }

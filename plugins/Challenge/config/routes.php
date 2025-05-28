@@ -14,14 +14,7 @@ use Cake\Routing\Route\DashedRoute;
     }
 ); */
 
-Router::plugin(
-    'Challenge',
-    ['path' => '/admin/challenge/'],
-    function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Admin']);
-        $routes->fallbacks(DashedRoute::class);
-    }
-);
+
 
 /* Router::plugin(
     'Challenge',
@@ -32,6 +25,15 @@ Router::plugin(
     }
 );
  */
+
+/* Router::plugin(
+    'Challenge',
+    ['path' => '/admin/challenge/'],
+    function (RouteBuilder $routes) {
+        $routes->connect('/', ['controller' => 'Admin']);
+        $routes->fallbacks(DashedRoute::class);
+    }
+);
 Router::plugin(
     'Challenge',
     ['path' => '/challenge'],
@@ -44,7 +46,7 @@ Router::plugin(
         $routes->connect('/', ['controller' => 'Challenges']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */
 /* Router::plugin(
     'Challenge',
     ['path' => '/challenge/'],

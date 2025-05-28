@@ -1,7 +1,12 @@
 <?php
 namespace Breadcrumb;
 use Cake\Core\BasePlugin;
-
+use Cake\Console\CommandCollection;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 class Plugin extends BasePlugin
 {
     public $name= 'Breadcrumb';
@@ -22,12 +27,11 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Breadcrumb',
+            ['path' => '/admin/breadcrumb/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
         parent::routes($routes);

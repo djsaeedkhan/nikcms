@@ -11,12 +11,12 @@ use Cake\Routing\Route\DashedRoute;
     }
 ); */
 
-Router::plugin(
+/* Router::plugin(
     'Elementor',
     ['path' => '/admin/elementor/'],
     function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Home']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */
 

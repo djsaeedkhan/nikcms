@@ -1,8 +1,12 @@
 <?php
 namespace Scheduler;
 use Cake\Core\BasePlugin;
-use Admin\View\Helper\FuncHelper;
-//use \RegisterField\RField;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin {
     public $name= 'Scheduler';
@@ -37,4 +41,45 @@ class Plugin extends BasePlugin {
                 ]
         ];
     }
+
+    public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Scheduler',
+            ['path' => '/admin/scheduler/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Scheduler',
+            ['path' => '/dowithcronjobs/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Cron']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        );
+
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
+    }
+
 }

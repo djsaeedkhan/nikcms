@@ -3,8 +3,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-
-Router::plugin(
+/* Router::plugin(
     'Lms',
     ['path' => '/admin/lms/'],
     function (RouteBuilder $routes) {
@@ -57,4 +56,4 @@ Router::plugin('Lms',['path' => '/lms/client/myexams'],
         $routes->connect('/', ['controller' => 'Client', 'action' => 'myexam']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

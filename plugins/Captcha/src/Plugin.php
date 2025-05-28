@@ -1,7 +1,11 @@
 <?php
 namespace Captcha;
 use Cake\Core\BasePlugin;
-
+use Cake\Console\CommandCollection;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\RouteBuilder;
 class Plugin extends BasePlugin
 {
     public $name= 'Captcha';
@@ -10,7 +14,7 @@ class Plugin extends BasePlugin
     public function deactivation( $drop = false){}
     public function routes(RouteBuilder $routes): void
     {
-        $routes->plugin(
+        /* $routes->plugin(
             'Sss',
             ['path' => '/sss'],
             function (RouteBuilder $builder) {
@@ -18,7 +22,7 @@ class Plugin extends BasePlugin
 
                 $builder->fallbacks();
             }
-        );
+        ); */
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

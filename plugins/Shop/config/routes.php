@@ -3,7 +3,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-Router::plugin(
+/* Router::plugin(
     'Shop',
     ['path' => '/admin/shop/'],
     function (RouteBuilder $routes) {
@@ -90,7 +90,7 @@ Router::plugin(
         //$routes->connect('/brand/',['controller' => 'Content', 'action' => 'brand']);
         //$routes->connect('/brands/*', ['controller' => 'Content', 'action' => 'brand'],['[a-z]','[a-z]']);
         //$routes->connect('/brands/*', ['controller' => 'Content', 'action' => 'index','?'=>['brands'=>[':product_id'] ]],['[a-z]']);
-        /* $routes->connect('/label/*', ['controller' => 'Content', 'action' => 'label'],['[a-z]','[a-z]']); */
+        //$routes->connect('/label/*', ['controller' => 'Content', 'action' => 'label'],['[a-z]','[a-z]']);
 
         $routes->connect('/brand/:brands',['controller' => 'Content', 'action' => 'index'])->setPass(['brands']);
         $routes->connect('/label/:label',['controller' => 'Content', 'action' => 'index'])->setPass(['label']);
@@ -108,4 +108,4 @@ Router::plugin(
 
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

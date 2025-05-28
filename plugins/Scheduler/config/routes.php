@@ -3,7 +3,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-Router::plugin(
+/* Router::plugin(
     'Scheduler',
     ['path' => '/admin/scheduler/'],
     function (RouteBuilder $routes) {
@@ -18,4 +18,4 @@ Router::plugin(
         $routes->connect('/', ['controller' => 'Cron']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

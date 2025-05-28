@@ -3,7 +3,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-Router::plugin(
+/* Router::plugin(
     'RegisterField',
     ['path' => '/admin/registerfield/'],
     function (RouteBuilder $routes) {
@@ -18,4 +18,4 @@ Router::plugin(
         $routes->connect('/', ['controller' => 'Home']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

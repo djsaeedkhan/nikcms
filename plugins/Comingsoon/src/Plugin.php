@@ -3,6 +3,11 @@ namespace Comingsoon;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Admin\View\Helper\FuncHelper;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
 {
@@ -45,12 +50,11 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Comingsoon',
+            ['path' => '/admin/comingsoon/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
         parent::routes($routes);

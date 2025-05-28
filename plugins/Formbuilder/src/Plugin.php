@@ -2,6 +2,12 @@
 namespace Formbuilder;
 use Cake\Core\BasePlugin;
 use \Admin\View\Helper\FuncHelper;
+use Cake\Console\CommandCollection;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
 {
@@ -37,12 +43,19 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+            'Formbuilder',
+            ['path' => '/admin/formbuilder/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Formbuilder',
+            ['path' => '/form/*'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'View','action'=>'index']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
         parent::routes($routes);

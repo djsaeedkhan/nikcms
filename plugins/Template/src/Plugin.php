@@ -3,18 +3,19 @@ namespace Template;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Admin\View\Helper\FuncHelper;
-//use Cake\Routing\Router;
-use Admin\Core\Shortcode;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
 {
     public $name= 'Template';
     function post_type(){
         return [
-            
         ];
     }
-
     function post_widget( $menu_type = 'post'){
         switch ($menu_type) {
             case 'dashboard': break;
@@ -31,11 +32,9 @@ class Plugin extends BasePlugin
         }
         return [];
     }
-
     private function elementor(){
         return [];
     }
-
     function posttype_adminmenu(){
         $menu = [];
         foreach($this->post_type() as $post_type => $value ){
@@ -97,13 +96,11 @@ class Plugin extends BasePlugin
         }
         return $menu;
     }
-
     function shortcode(){
         return [
             'code_tchart' => 'Template.View',
         ];
     }
-
     public function preload(){
         define('template_slug','zarphampay');
         FuncHelper::do_action('excplgn', [
@@ -149,5 +146,34 @@ class Plugin extends BasePlugin
                 //'index'=>['width'=>'500','height'=>'500','mode'=>'auto'],
             ]
         ];
+    }
+    public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Template',
+            ['path' => '/template'],
+            function (RouteBuilder $routes) {
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ;
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
     }
 }

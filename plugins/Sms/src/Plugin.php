@@ -2,6 +2,12 @@
 namespace Sms;
 use Cake\Core\BasePlugin;
 use Admin\View\Helper\FuncHelper;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
 {
@@ -78,8 +84,6 @@ class Plugin extends BasePlugin
             $conn->execute("DROP TABLE IF EXISTS `sms_validations`;");
         }
     }
-
-
     public function do_sql(){
         'ALTER TABLE `sms_validations` CHANGE `user_id` `user_id` INT(11) NULL;';
     }
@@ -98,4 +102,57 @@ class Plugin extends BasePlugin
                 ]
         ];
     }
+
+public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Sms',
+            ['path' => '/admin/sms/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home']);
+                $routes->connect('/log', ['controller' => 'Home','action'=>'logs']);
+                $routes->connect('/setting', ['controller' => 'Home','action'=>'setting']);
+                $routes->connect('/sendsms', ['controller' => 'Home','action'=>'sendsms']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Sms',
+            ['path' => '/sms/activation'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/activate', ['controller' => 'View','action'=>'active']);
+                $routes->connect('/', ['controller' => 'View']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Sms',
+            ['path' => '/sms/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/autoactivate', ['controller' => 'View','action'=>'autoactivate']);
+                $routes->connect('/', ['controller' => 'View']);
+                $routes->fallbacks(DashedRoute::class);
+            });
+
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
+    }
+    
 }
