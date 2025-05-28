@@ -9,10 +9,11 @@ class UserLogg
         'cache' => true,
     ];
     public $user_id;
+    public $UsersLogs;
     public function __construct(){}
     public function login_savelog($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
-        $r = $this->UsersLogs->patchEntity($this->UsersLogs->newEntity() , [
+        $r = $this->UsersLogs->patchEntity($this->UsersLogs->newEmptyEntity() , [
             'user_id' => isset($user['id'])? $user['id'] :false,
             'username' => isset($user['username'])? $user['username'] :false,
             'types' => $types , //1:succ 2:faild
@@ -25,13 +26,15 @@ class UserLogg
             return false;
         }
     }
+    
     public function login_firstvisit($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
         $r = $this->UsersLogs->find('all')
             ->where(['user_id' => isset($user['id'])?$user['id']:false]);
         if($r->count() > 1)
             return true;
-        else return false;
+        else 
+            return false;
     }
     public function login_check_failed($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');

@@ -104,7 +104,7 @@ class FuncHelper extends Helper
     /* ------------------------  */
     function LogSave($group_id = null, $act = null, $value = null){
         $model = TableRegistry::getTableLocator()->get('logs');
-        $model->save( $model->newEntity([
+        $model->save( $model->newEmptyEntity([
                 'user_id' => $this->request->getAttribute('identity')->get('id'),
                 'group_id'  => $group_id,
                 'action_id' => $act,
@@ -264,7 +264,7 @@ class FuncHelper extends Helper
         $existing = $model->findByName($name);
 
         if($existing->count()) {
-            $model->save($model->newEntity([
+            $model->save($model->newEmptyEntity([
                 'id' => $existing->first()['id'],
                 'name'  => $name,
                 'value' => $value,
@@ -272,7 +272,7 @@ class FuncHelper extends Helper
             return true;
         }
         if(!$existing->count() and $action =='create'){
-            $model->save($model->newEntity([
+            $model->save($model->newEmptyEntity([
                 'name'  => $name,
                 'value' => $value,
             ]));
@@ -372,7 +372,7 @@ class FuncHelper extends Helper
             return true;
         }
         if(!$existing->count() and $action =='create'){
-            $p = $PostMetas->save($PostMetas->newEntity([
+            $p = $PostMetas->save($PostMetas->newEmptyEntity([
                 $call_id  => $id,
                 'meta_key'  => $name,
                 'meta_value' => $value,

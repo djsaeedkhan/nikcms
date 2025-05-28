@@ -95,6 +95,20 @@ class UsersController extends AppController{
     //----------------------------------------------------------
     public function login(){
 
+
+        $ulog = new \Userslogs\UserLogg();
+            $p = $ulog->login_savelog([
+                'username'=>"admin",
+                'id' => "1"
+            ], 1); //1:succ 2:faild\
+        try {
+            
+        } catch (\Throwable $th) {
+            echo "asdasd";
+            //throw $th;
+        }
+
+        
         /* $ulog = new \Userlogs\UserLogg();
             $p = $ulog->login_check_failed([
             'username'=>"admin",
@@ -184,7 +198,8 @@ class UsersController extends AppController{
             $result = $this->Authentication->getResult();
             if ($result && $result->isValid()) {
                 $user = $this->request->getAttribute('identity');
-
+                
+                //فعلا غیرفعال شد 1404.03.07
                 /* if ($this->Func->OptionGet('login_expired_check') == 1 and $user->get('expired') != null ) {
                     $time = new Time($user->get('expired'));
                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
@@ -201,6 +216,7 @@ class UsersController extends AppController{
                     }
                 } */
                     
+                //فعلا غیرفعال شد 1404.03.07
                 /* if(isset($this->request->getData()['remember']) and $this->request->getData()['remember'] == 1)
                     $this->_setAutoLogin($user->get('id')); */
 
@@ -216,19 +232,15 @@ class UsersController extends AppController{
                     $this->Flash->success(__('ورود شما به پنل کاربری با موفقیت انجام شد'));
                 }
 
-                $this->Authentication->getResult()->getData()->offsetSet('role_list', "sdfsdfsdf");
+                $role_array = $user->get('role');
+                if(isset($role_array['data']))
+                    $role_list = unserialize($role_array['data']);
+                else
+                    $role_list = [];
+
+                $this->Authentication->getResult()->getData()->offsetSet('role_list', $role_list);
                 $this->Authentication->getResult()->getData()->offsetSet('session_hash', $this->_hashGenerator() );
 
-                /* if(isset($user['role']['data']))
-                    $user['role_list'] = unserialize($user['role']['data']);
-                else
-                    $user['role_list'] = [];
-
-                $user['session_hash'] = ; */
-                //$this->Auth->setUser($user);
-
-                pr($user);
-                die("");
                 try {
                     $ulog = new \Userslogs\UserLogg();
                     $p = $ulog->login_savelog([
@@ -239,23 +251,8 @@ class UsersController extends AppController{
                     //throw $th;
                 }
                 
-                /* if($this->request->getQuery('redirect') == '')
-                    return $this->redirect($this->referer()); */
 
-                if($this->Func->OptionGet('login_redirecturl') !=''){
-                    if($this->request->is('ajax')){
-                        return $this->response->withType('application/json')->withStringBody(json_encode([
-                            'code'=>'F5',
-                            'type'=>'success',
-                            'alert'=>__('ورود انجام شد، لطفا منتظر بمانید'),
-                            'referer'=> $this->Func->OptionGet('login_redirecturl'),
-                        ]));
-                    }
-                    else
-                        return $this->redirect($this->Func->OptionGet('login_redirecturl'));
-
-                }
-                
+                //check for first visit to complete profile
                 if( $ulog->login_firstvisit([
                         'id' => $user->get('id'),
                         'username'=>$user->get('username')]) == false 
@@ -284,6 +281,24 @@ class UsersController extends AppController{
                             return $this->redirect(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']);
                     }
                 }
+
+                //if redirect pass in url
+                if($this->request->getQuery('redirect') == '')
+                    return $this->redirect($this->referer());
+
+                if($this->Func->OptionGet('login_redirecturl') !=''){
+                    if($this->request->is('ajax')){
+                        return $this->response->withType('application/json')->withStringBody(json_encode([
+                            'code'=>'F5',
+                            'type'=>'success',
+                            'alert'=>__('ورود انجام شد، لطفا منتظر بمانید'),
+                            'referer'=> $this->Func->OptionGet('login_redirecturl'),
+                        ]));
+                    }
+                    else
+                        return $this->redirect($this->Func->OptionGet('login_redirecturl'));
+                }
+                
                 if($this->request->is('ajax')){
                     return $this->response->withType('application/json')->withStringBody(json_encode([
                         'code'=>'F8',
@@ -329,6 +344,8 @@ class UsersController extends AppController{
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
+
+
                 //stemp
                 //$session->write('show_recaptcha', '1');
                 $session->write('show_recaptcha', '0');
