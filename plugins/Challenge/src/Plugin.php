@@ -252,7 +252,8 @@ class Plugin extends BasePlugin{
         FuncHelper::do_action('options_role', self::options_role());
         define('challenge_title',''.__d('Template', 'همیاری').'');
     }
-    public function activation(){
+    public function activation()
+    {
         $conn = \Cake\Datasource\ConnectionManager::get('default');
         $conn->execute("
         -- Table structure for table `challengeblueticks`
@@ -511,6 +512,38 @@ class Plugin extends BasePlugin{
         
         ALTER TABLE `challengetopics` ADD `descr` TEXT NULL AFTER `img`;
         ");
+    }
+
+    public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Sss',
+            ['path' => '/sss'],
+            function (RouteBuilder $builder) {
+                // Add custom routes here
+
+                $builder->fallbacks();
+            }
+        );
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
     }
     public function deactivation( $drop = false){}
     public function config(){

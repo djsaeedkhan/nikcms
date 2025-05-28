@@ -12,7 +12,6 @@ use Cake\Auth\DefaultPasswordHasher;
 use App\Controller\AppController;
 use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
-use Cake\Log\Log;
 use Cake\I18n\Time;
 use Cake\Routing\Router;
 use \Sms\Sms;
@@ -25,7 +24,6 @@ class UsersController extends AppController{
     public function initialize(): void
     {
         parent::initialize();
-        
     }
     //----------------------------------------------------------
     public function beforeFilter(EventInterface $event)
@@ -111,7 +109,6 @@ class UsersController extends AppController{
         catch (\Exception $e){
             $this->viewBuilder()->setLayout('login');
         }
-        
 
         //$this->_autoLogin();
 
@@ -119,11 +116,10 @@ class UsersController extends AppController{
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-        if ($user = $this->request->getAttribute('identity'))
+        if ($this->request->getAttribute('identity'))
             $this->redirect(['action'=>'index']);
         
         if ($this->request->is(['ajax','post'])) {
-            
             $session = $this->getRequest()->getSession();
             if ($this->request->is('ajax')) {
                 $this->autoRender = false;
@@ -181,16 +177,16 @@ class UsersController extends AppController{
                 }
                 else{
                     return $this->Flash->error(__('فیلدهای نام کاربری و پسورد پیدا نشد'));
-                    return;
                 } 
             }
             
-            $user = $this->request->getAttribute('identity');
-            if ($user) {
-                //->get(
+            //
+            $result = $this->Authentication->getResult();
+            if ($result && $result->isValid()) {
+                $user = $this->request->getAttribute('identity');
 
-                if ($this->Func->OptionGet('login_expired_check') == 1 and isset($user['expired']) and $user['expired']!= null) {
-                    $time = new Time($user['expired']);
+                /* if ($this->Func->OptionGet('login_expired_check') == 1 and $user->get('expired') != null ) {
+                    $time = new Time($user->get('expired'));
                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                     if (Time::now() > $time) {
                         $this->request->getSession()->destroy();
@@ -203,10 +199,10 @@ class UsersController extends AppController{
                             );
                         return $this->redirect($this->referer());
                     }
-                }
+                } */
                     
-                if(isset($this->request->getData()['remember']) and $this->request->getData()['remember'] == 1)
-                    $this->_setAutoLogin($user['id']);
+                /* if(isset($this->request->getData()['remember']) and $this->request->getData()['remember'] == 1)
+                    $this->_setAutoLogin($user->get('id')); */
 
                 $session->delete('show_recaptcha');
                 if ($this->request->is('ajax')) {
@@ -225,13 +221,13 @@ class UsersController extends AppController{
                     $user['role_list'] = [];
 
                 $user['session_hash'] = $this->_hashGenerator();
-                $this->Auth->setUser($user);
+                //$this->Auth->setUser($user);
 
                 try {
                     $ulog = new \Userslogs\UserLogg();
                     $p = $ulog->login_savelog([
-                        'username'=>$user['username'],
-                        'id' => $user['id']
+                        'username'=>$user->get('username'),
+                        'id' => $user->get('id')
                     ], 1); //1:succ 2:faild
                 } catch (\Throwable $th) {
                     //throw $th;
@@ -254,7 +250,10 @@ class UsersController extends AppController{
 
                 }
                 
-                if( $ulog->login_firstvisit(['id' => $user['id'],'username'=>$user['username']]) == false ){
+                if( $ulog->login_firstvisit([
+                        'id' => $user->get('id'),
+                        'username'=>$user->get('username')]) == false 
+                    ){
                     if($this->request->is('ajax')){
                         $this->response->withType('application/json')->withStringBody(json_encode([
                             'code'=>'F6',
@@ -828,18 +827,23 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function logout(){
-        $this->_activity('delete');
-        $this->request->getSession()->destroy();
-        $this->Cookie->delete('connects');
-        $this->Authentication->logout();
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $this->Authentication->logout();
 
-        $this->Func->OptionGet('logout_alert')!= ""?
-            $this->Flash->success($this->Func->OptionGet('logout_alert')):
-            $this->Flash->success(__('شما با موفقیت از سایت خارج شدید'));
+            //$this->_activity('delete');
+            $this->request->getSession()->destroy();
+            //$this->Cookie->delete('connects');
+            
+            $this->Func->OptionGet('logout_alert')!= ""?
+                $this->Flash->success($this->Func->OptionGet('logout_alert')):
+                $this->Flash->success(__('شما با موفقیت از سایت خارج شدید'));
 
-        return $this->Func->OptionGet('logout_url')!= ""?
-            $this->redirect($this->Func->OptionGet('logout_url')):
-            $this->redirect($this->Auth->logout());
+            return $this->Func->OptionGet('logout_url')!= ""?
+                $this->redirect($this->Func->OptionGet('logout_url')):
+                $this->redirect($this->Auth->logout());
+        }
+        return $this->redirect($this->referer());
     }
     //----------------------------------------------------------
     function _autoLogin(){

@@ -196,9 +196,9 @@ class AppController extends Controller
         $this->Func->Run();
     }
     //----------------------------------------------------
-    public function _activity($act = null) {
+    public function _activity($action = null) {
         $st = unserialize($this->Func->Optionget('session_template'));
-        if($act == 'getlist')
+        if($action == 'getlist')
             return $st;
 
         $st[$this->request->getAttribute('identity')->get('session_hash')] = [
@@ -207,7 +207,7 @@ class AppController extends Controller
             'date' => date('Y-m-d H:i:s'),
             'url' => $this->_currenturl()
         ];
-        if ($act =='delete') {
+        if ($action =='delete') {
             unset($st[$this->request->getAttribute('identity')->get('session_hash')]);
         }
 

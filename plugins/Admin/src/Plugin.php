@@ -1,11 +1,15 @@
 <?php
+declare(strict_types=1);
 namespace Admin;
 
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Admin\Core\Shortcode;
 use Admin\View\Helper\FuncHelper;
-//use Cake\Core\Plugin;
+use Cake\Console\CommandCollection;
+use Cake\Core\ContainerInterface;
+use Cake\Http\MiddlewareQueue;
+use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
 {
@@ -79,6 +83,39 @@ class Plugin extends BasePlugin
                 'position' => 99,
             )];
     }
+
+    public function routes(RouteBuilder $routes): void
+    {
+        $routes->plugin(
+            'Sss',
+            ['path' => '/sss'],
+            function (RouteBuilder $builder) {
+                // Add custom routes here
+
+                $builder->fallbacks();
+            }
+        );
+        parent::routes($routes);
+    }
+    public function bootstrap(PluginApplicationInterface $app): void
+    {
+    }
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    {
+        // Add your middlewares here
+        return $middlewareQueue;
+    }
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        // Add your commands here
+        $commands = parent::console($commands);
+        return $commands;
+    }
+    public function services(ContainerInterface $container): void
+    {
+    }
+
     function posttype_adminmenu(){
         $this->Func = new FuncHelper(new \Cake\View\View());
         if($this->Func->check_role(['plugin'=>'admin','controller'=>'posts','action'=>'index']) == false)

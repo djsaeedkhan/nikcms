@@ -39,13 +39,13 @@ $predata = new Predata();
                                 'required']).'</div>';
 
                         if( $this->getRequest()->getSession()->check('show_recaptcha') == 1):
-                            echo $this->Captcha->create('securitycode', [
+                            /* echo $this->Captcha->create('securitycode', [
                                 'reload_txt' => 'تصویر جدید',
                                 'clabel'=>'کد امنیتی نشان داده شده در بالا را وارد کنید:',
                                 'type'=>'number', // 'recaptcha' , 'math', 'image', 'number'
                                 //'sitekey'=>'xxxxxxxxxxxxxxxxxxxxxx-xx', //set if it is recaptcha
                                 //'theme'=>'random'
-                            ]);
+                            ]); */
                         endif;?>
                             <div class="form-group mb-2" style="float: left;">
                                 <div class="custom-control custom-checkbox">
