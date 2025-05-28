@@ -2,7 +2,7 @@
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
-Router::plugin('Website',['path' => '/'],
+/* Router::plugin('Website',['path' => '/'],
     function (RouteBuilder $routes) {
 
         //home
@@ -54,4 +54,4 @@ Router::plugin('Website',['path' => '/'],
         $routes->connect('/search/*',['controller' => 'Content', 'action' => 'search']);
         $routes->fallbacks(DashedRoute::class);
     }
-);
+); */

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -76,64 +77,13 @@ class UsersTable extends Table
         $this->hasMany('Comments', [
             'foreignKey' => 'user_id',
         ]);
-        $this->hasMany('FormbuilderDatas', [
-            'foreignKey' => 'user_id',
-        ]);
         $this->hasMany('Logs', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('PollVotes', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Posts', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Profiles', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopAddresses', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopFavorites', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopLogesticusers', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrderlogesticlogs', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrderlogestics', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrderlogs', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrderrefunds', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrders', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrdershippings', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrdertexts', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopOrdertokens', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopPayments', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopProfiles', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('ShopUseraddresses', [
-            'foreignKey' => 'user_id',
-        ]);
-        $this->hasMany('SmsValidations', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('UserMetas', [
@@ -209,5 +159,10 @@ class UsersTable extends Table
         $rules->add($rules->existsIn('role_id', 'Roles'), ['errorField' => 'role_id']);
 
         return $rules;
+    }
+
+    public function findActivo(Query $query, array $options): Query
+    {
+        return $query->contain(['Roles']);//->where(['active' => true]);
     }
 }

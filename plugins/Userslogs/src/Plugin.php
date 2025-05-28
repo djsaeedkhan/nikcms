@@ -3,7 +3,9 @@ namespace Userslogs;
 use Cake\Core\BasePlugin;
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
@@ -71,18 +73,10 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Admin',
-            ['path' => '/admin'],
+            'Userslogs',
+            ['path' => '/admin/userslogs/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'Admin',
-            ['path' => '/savecomments'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->connect('/', ['controller' => 'Home']);
                 $routes->fallbacks(DashedRoute::class);
             }
         );

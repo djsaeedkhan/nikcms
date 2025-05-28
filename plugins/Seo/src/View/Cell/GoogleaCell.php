@@ -1,16 +1,19 @@
 <?php
 namespace Seo\View\Cell;
 use Cake\View\Cell;
-use Cake\ORM\TableRegistry;
+use Cake\View\View;
+use Admin\View\Helper\FuncHelper;
 
 class GoogleaCell extends Cell{
     protected $_validCellOptions = [];
+    public $FuncHelper;  
     public function initialize(): void
     {
-        global $Func;
+        $view = new View();
+        $this->FuncHelper = new FuncHelper($view);
         $options = [];
         try {
-            $options = $Func->OptionGet('seo_plugin');
+            $options = $this->FuncHelper->OptionGet('seo_plugin');
         } catch (\Throwable $th) {
             $options = [];
         }

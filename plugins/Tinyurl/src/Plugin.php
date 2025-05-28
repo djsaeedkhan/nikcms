@@ -3,7 +3,9 @@ namespace Tinyurl;
 use Cake\Core\BasePlugin;
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
@@ -66,19 +68,30 @@ class Plugin extends BasePlugin
     }
     public function routes(RouteBuilder $routes): void
     {
+
+       
+
         $routes->plugin(
-            'Admin',
-            ['path' => '/admin'],
+            'Tinyurl',
+            ['path' => '/admin/url/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
                 $routes->fallbacks(DashedRoute::class);
             }
         )
         ->plugin(
-            'Admin',
-            ['path' => '/savecomments'],
+            'Tinyurl',
+            ['path' => '/admin/tinyurl/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Tinyurl', 
+            ['path' => '/url/*'], 
+            function ($routes) {
+                $routes->connect('/', ['controller' => 'Url', 'action' => 'index']);
                 $routes->fallbacks(DashedRoute::class);
             }
         );

@@ -11,11 +11,3 @@ use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Router;
 
 Router::defaultRouteClass(DashedRoute::class);
-
-Router::plugin(
-    'Captcha',
-    ['path' => '/'],
-    function ($routes) {
-        $routes->connect('/create-captcha', ['controller' => 'Captcha', 'action' => 'create']);
-    }
-);

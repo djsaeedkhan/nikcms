@@ -14,15 +14,13 @@ class Plugin extends BasePlugin
     public function deactivation( $drop = false){}
     public function routes(RouteBuilder $routes): void
     {
-        /* $routes->plugin(
-            'Sss',
-            ['path' => '/sss'],
-            function (RouteBuilder $builder) {
-                // Add custom routes here
-
-                $builder->fallbacks();
+        $routes->plugin(
+            'Captcha',
+            ['path' => '/'],
+            function ($routes) {
+                $routes->connect('/create-captcha', ['controller' => 'Captcha', 'action' => 'create']);
             }
-        ); */
+        );
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

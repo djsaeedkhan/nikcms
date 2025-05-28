@@ -4,7 +4,9 @@ use Cake\Core\BasePlugin;
 use Admin\View\Helper\FuncHelper;
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin {
@@ -176,22 +178,24 @@ class Plugin extends BasePlugin {
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Admin',
-            ['path' => '/admin'],
+            'Ticketing',
+            ['path' => '/admin/ticketing/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->connect('/', ['controller' => 'Tickets']);
                 $routes->fallbacks(DashedRoute::class);
             }
         )
         ->plugin(
-            'Admin',
-            ['path' => '/savecomments'],
+            'Ticketing',
+            ['path' => '/tickets/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->connect('/submit/:id', ['controller' => 'My','action'=>'submit'])->setPass(['id']);
+                $routes->connect('/question/', ['controller' => 'My','action'=>'query']);
+                $routes->connect('/:id', ['controller' => 'My', 'action' => 'index'])->setPass(['id']);
+                $routes->connect('/', ['controller' => 'My','action'=>'index']);
                 $routes->fallbacks(DashedRoute::class);
             }
         );
-
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

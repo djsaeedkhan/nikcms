@@ -2,15 +2,10 @@
 namespace Admin\View\Helper;
 
 use Cake\View\Helper;
-use Bank\Controller\AppController;
-use Cake\Controller\Controller;
-use Cake\View\View;
 use Cake\ORM\TableRegistry;
-use Cake\Event\EventInterface;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
 use Cake\I18n\Date;
-use Admin\View\Helper\FuncHelper;
 use DateTime;
 
 //use Cake\View\Helper\UrlHelper;
@@ -21,17 +16,9 @@ class QueryHelper extends Helper
     //------------
     //public function initialize(array $config): void{}
     //------------
-    protected $_defaultConfig = [
-        'errorClass' => 'error',
-        'templates' => [
-            'label' => '<label for="{{for}}">{{content}}</label>',
-        ],
-    ];
-    
+    protected $_defaultConfig = [];
     //------------
     public function info($title){
-        //echo $this->FuncHelper->OptionGet($title);
-        
         $this->Themes = TableRegistry::getTableLocator()->get('Admin.Themes');
         $temp = $this->Themes->find('all')
             ->select(['value'])

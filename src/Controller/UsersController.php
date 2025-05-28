@@ -215,14 +215,20 @@ class UsersController extends AppController{
                 } else {
                     $this->Flash->success(__('ورود شما به پنل کاربری با موفقیت انجام شد'));
                 }
-                if(isset($user['role']['data']))
+
+                $this->Authentication->getResult()->getData()->offsetSet('role_list', "sdfsdfsdf");
+                $this->Authentication->getResult()->getData()->offsetSet('session_hash', $this->_hashGenerator() );
+
+                /* if(isset($user['role']['data']))
                     $user['role_list'] = unserialize($user['role']['data']);
                 else
                     $user['role_list'] = [];
 
-                $user['session_hash'] = $this->_hashGenerator();
+                $user['session_hash'] = ; */
                 //$this->Auth->setUser($user);
 
+                pr($user);
+                die("");
                 try {
                     $ulog = new \Userslogs\UserLogg();
                     $p = $ulog->login_savelog([
@@ -846,9 +852,10 @@ class UsersController extends AppController{
         return $this->redirect($this->referer());
     }
     //----------------------------------------------------------
+    //فعلا غیرفعال شد 1404.03.07
     function _autoLogin(){
         if ($this->Cookie->read('connects')) {
-            $user = $this->Users->findByToken($this->Cookie->read('connects'))->first();
+            /* $user = $this->Users->findByToken($this->Cookie->read('connects'))->first();
             if($user){
                 $this->_setAutoLogin($user['id']);
                 $user['session_hash'] = $this->_hashGenerator();
@@ -856,7 +863,7 @@ class UsersController extends AppController{
                 $this->Auth->setUser($user);
                 $ulog = new \Userslogs\UserLogg();
                 return $this->redirect($this->Auth->redirectUrl());
-            }
+            } */
             /* else 
                 return false; */
         }
@@ -865,7 +872,7 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     function _hashGenerator(){
-        return Security::hash(rand());
+        return Security::hash((string) rand(), 'sha1', true);
     }
     //----------------------------------------------------------
     function _setAutoLogin($id=null){

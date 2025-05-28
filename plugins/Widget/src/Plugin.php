@@ -3,7 +3,9 @@ namespace Widget;
 use Cake\Core\BasePlugin;
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
+use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
 class Plugin extends BasePlugin
@@ -72,22 +74,14 @@ class Plugin extends BasePlugin
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
-            'Admin',
-            ['path' => '/admin'],
+            'Widget',
+            ['path' => '/admin/widget/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
                 $routes->fallbacks(DashedRoute::class);
             }
         )
-        ->plugin(
-            'Admin',
-            ['path' => '/savecomments'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        );
-
+        ;
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void
@@ -109,10 +103,5 @@ class Plugin extends BasePlugin
     {
     }
 
-    'Widget',
-    ['path' => '/admin/widget/'],
-    function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
-        $routes->fallbacks(DashedRoute::class);
-    }
+    
 }

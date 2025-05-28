@@ -6,15 +6,19 @@ use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Admin\Core\Shortcode;
 use Admin\View\Helper\FuncHelper;
+
 use Cake\Console\CommandCollection;
 use Cake\Core\ContainerInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\View\View;
+use Exception;
 
 class Plugin extends BasePlugin
 {
     public $name= 'Admin';
+    public $FuncHelper;  
     function post_type(){
         return [
             'post'=>array(
@@ -84,7 +88,6 @@ class Plugin extends BasePlugin
                 'position' => 99,
             )];
     }
-
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
@@ -108,6 +111,8 @@ class Plugin extends BasePlugin
     }
     public function bootstrap(PluginApplicationInterface $app): void
     {
+        $view = new View();
+        $this->FuncHelper = new FuncHelper($view);
     }
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
@@ -126,8 +131,7 @@ class Plugin extends BasePlugin
     }
 
     function posttype_adminmenu(){
-        $this->Func = new FuncHelper(new \Cake\View\View());
-        if($this->Func->check_role(['plugin'=>'admin','controller'=>'posts','action'=>'index']) == false)
+        if($this->FuncHelper->check_role(['plugin'=>'admin','controller'=>'posts','action'=>'index']) == false)
             return [];
         
         $menu = array();
@@ -458,9 +462,8 @@ class Plugin extends BasePlugin
                 ],
             )];
 
-        $this->Func = new FuncHelper(new \Cake\View\View());
-        if(($tmp = $this->Func->OptionGet('plugin_favorite_list')) != ''){
-            $available = $this->Func->plugin_available();
+        if(($tmp = $this->FuncHelper->OptionGet('plugin_favorite_list')) != ''){
+            $available = $this->FuncHelper->plugin_available();
             if(($tmp = unserialize($tmp))){
                 $i=1;
                 asort($tmp);
@@ -663,13 +666,13 @@ class Plugin extends BasePlugin
         return $data;
     }
     public function preload(){
-        FuncHelper::do_action('post_type', self::post_type());
-        FuncHelper::do_action('admin_sidemenu', self::sidemenu() + self::posttype_adminmenu());
-        FuncHelper::do_action('admin_navmenu', self::admin_navmenu());
-        FuncHelper::do_action('admin_dashboard', self::post_widget('dashboard'));
-        FuncHelper::do_action('options_role', self::options_role());
-        FuncHelper::do_action('register_widgets', self::post_widget('widget'));
-        FuncHelper::do_action('register_cronjobs', self::post_widget('cronjobs'));
+        $this->FuncHelper->do_action('post_type', self::post_type());
+        $this->FuncHelper->do_action('admin_sidemenu', self::sidemenu() + self::posttype_adminmenu());
+        $this->FuncHelper->do_action('admin_navmenu', self::admin_navmenu());
+        $this->FuncHelper->do_action('admin_dashboard', self::post_widget('dashboard'));
+        $this->FuncHelper->do_action('options_role', self::options_role());
+        $this->FuncHelper->do_action('register_widgets', self::post_widget('widget'));
+        $this->FuncHelper->do_action('register_cronjobs', self::post_widget('cronjobs'));
     }
     public function activation(){
         $conn = \Cake\Datasource\ConnectionManager::get('default');

@@ -2,21 +2,11 @@
 namespace Admin\View\Helper;
 
 use \Cake\View\Helper;
-use \Cake\View\View;
-use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Plugin;
 use Cake\I18n\I18n;
-use Cake\Utility\Inflector;
-use Cake\Utility\Text;
 use Cake\Routing\Router;
-use Cake\View\Helper\UrlHelper;
 //use Cake\Log\Log;
-use \Cake\View\Cell;
-use \Cake\View\CellTrait;
-use \Cake\View\Helper\FormHelper;
-use Admin\View\Helper\QueryHelper;
-
 use Admin\Core\Resize;
 
 /**

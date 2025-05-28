@@ -2,18 +2,19 @@
 namespace Comingsoon\View\Cell;
 
 use Cake\View\Cell;
+use Admin\View\Helper\FuncHelper;
+use Cake\View\View;
 
 class ViewCell extends Cell
 {
     protected $_validCellOptions = [];
-    public function initialize()
-    {
-    }
+    public $FuncHelper;
     public function display()
     {
-        global $Func;
+        $view = new View();
+        $this->FuncHelper = new FuncHelper($view);
         try {
-            $result = $Func->OptionGet('coming_plugin');
+            $result =$this->FuncHelper->OptionGet('coming_plugin');
         } catch (\Throwable $th) {
             $result = false;
         }

@@ -29,8 +29,6 @@ class AppController extends Controller
     public function initialize(): void
     {
         parent::initialize();
-        global $Func;
-        //Log::write('debug',Router::url());
 		define('inter_mode', true); //get resource from inside project
 
         /*
@@ -38,41 +36,18 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
-        
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        //$this->loadComponent('Cookie');
         $this->loadComponent('Authentication.Authentication');
         //$this->loadComponent('Captcha.Captcha'); //load on the fly!
-
-        /* $this->loadComponent('Auth', [
-            'loginRedirect' => [
-                'plugin' => false,
-                'controller' => 'Users',
-                'action' => 'login'],
-            'authenticate' => [
-                'Form' => [
-                    'finder' => 'auth'
-                ]],
-            'logoutRedirect' => [
-                'plugin' => false,
-                'controller' => 'Users',
-                'action' => 'login' ],
-            'authorize' => ['Controller'],
-            'authError' => __('برای استفاده از سایت، لطفا وارد شوید'),
-        ]); */
-
-        /* 
-        1404-03-04 حذف شد
-        $this->Cookie->setConfig([
-            'httpOnly' => true
-        ]); */
+        
+        $view = new View();
 
         global $upload_path;
         $upload_path = $this->upload_path;
 
-        $this->Func = $Func = new FuncHelper(new \Cake\View\View());
-        $this->Query = new QueryHelper(new \Cake\View\View());
+        $this->Func = new FuncHelper($view);
+        $this->Query = new QueryHelper($view);
         //$this->FormCsp = new FormHelper(new \Cake\View\View());
         if ($this->request->getQuery('dibug')) {
             Configure::write('debug', 1);
