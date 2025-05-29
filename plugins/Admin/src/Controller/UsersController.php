@@ -125,10 +125,10 @@ class UsersController extends AppController
     }    
     //--------------------------------------------------------------------
     public function add(){
-        $user = $this->Users->newEmptyEntity(();
+        $user = $this->Users->newEmptyEntity();
         
         $this->Users = TableRegistry::getTableLocator()->get('Users');
-        $user = $this->Users->newEmptyEntity(();
+        $user = $this->Users->newEmptyEntity();
 
         if ($this->request->is('post') and $this->request->getQuery('get')) {
 
@@ -155,7 +155,7 @@ class UsersController extends AppController
                 $value = array_values($lst);
                 $username = isset($lst['username'])?$lst['username']:$value[0];
 
-                $user = $this->Users->newEmptyEntity(();
+                $user = $this->Users->newEmptyEntity();
                 $user = $this->Users->patchEntity($user,[
                     'username'=> $username,
                     'password'=> isset($lst['password'])?$lst['password']:'',
@@ -278,7 +278,7 @@ class UsersController extends AppController
         $str2 = (explode("\n", $str));
         foreach($str2 as $st){
             $temp = explode(',',$st);
-            $user = $this->Users->newEmptyEntity(();
+            $user = $this->Users->newEmptyEntity();
             $user = $this->Users->patchEntity($user, [
                 'family' => trim($temp[0]),
                 'username' => trim($temp[1]),

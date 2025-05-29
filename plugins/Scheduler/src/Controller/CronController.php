@@ -85,7 +85,7 @@ class CronController extends AppController
     private function save_res($data = null, $descr = null){
         if( ($id = $this->crons->find('all')->where(['name'=> $data['name']])->first()))
             $cron = $this->crons->get($id['id']);
-        else $cron = $this->crons->newEmptyEntity(();
+        else $cron = $this->crons->newEmptyEntity();
         
         $cron = $this->crons->patchEntity($cron, [
             'name' => $data['name'],

@@ -21,9 +21,9 @@ class PricechartCell extends Cell
      *
      * @return void
      */
-    public function initialize()
+    /* public function initialize()
     {
-    }
+    } */
 
     /**
      * Default display method.

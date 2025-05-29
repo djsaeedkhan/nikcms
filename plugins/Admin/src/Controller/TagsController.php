@@ -12,7 +12,7 @@ class TagsController extends AppController
     }
 
     public function index(){
-        $tag = $this->Tags->newEmptyEntity(();
+        $tag = $this->Tags->newEmptyEntity();
         $tags = $this->paginate($this->Tags->find('all')
             ->contain(['Posts'])
             ->where(['post_type'=>$this->post_type]));
@@ -30,7 +30,7 @@ class TagsController extends AppController
         if($id != null)
             $tag = $this->Tags->get($id, ['contain' => ['Posts']]);
         else
-            $tag = $this->Tags->newEmptyEntity(();
+            $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is(['patch', 'post', 'put'])) {
             //$this->request->data['post_type'] = $this->post_type;
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());

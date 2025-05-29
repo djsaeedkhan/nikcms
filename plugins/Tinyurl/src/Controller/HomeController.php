@@ -21,7 +21,7 @@ class HomeController extends AppController
     }
     public function add($id = null){
         if($id != null) $result = $this->Tinyurls->get($id);
-        else $result = $this->Tinyurls->newEmptyEntity(();
+        else $result = $this->Tinyurls->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $result = $this->Tinyurls->patchEntity($result, $this->request->getData());

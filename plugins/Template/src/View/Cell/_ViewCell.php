@@ -6,10 +6,6 @@ use Admin\View\Helper\QueryHelper;
 
 class ViewCell extends Cell
 {
-    protected $_validCellOptions = [];
-    public function initialize(): void
-    {
-    }
     public function display( $id = null){
         if($id == null){
             $this->viewBuilder()->setTemplate(false);

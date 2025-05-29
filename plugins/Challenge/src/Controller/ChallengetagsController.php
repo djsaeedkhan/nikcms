@@ -47,7 +47,7 @@ class ChallengetagsController extends AppController
      */
     public function add()
     {
-        $challengetag = $this->Challengetags->newEmptyEntity(();
+        $challengetag = $this->Challengetags->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengetag = $this->Challengetags->patchEntity($challengetag, $this->request->getData());
             if ($this->Challengetags->save($challengetag)) {

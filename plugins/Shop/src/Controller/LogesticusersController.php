@@ -43,7 +43,7 @@ class LogesticusersController extends AppController
             $this->Flash->error(__('واحد نمایندگی پیدا نشد'));
             return $this->redirect($this->referer()); 
         }
-        $shopLogesticuser = $this->ShopLogesticusers->newEmptyEntity(();
+        $shopLogesticuser = $this->ShopLogesticusers->newEmptyEntity();
             
         if ($this->request->is('post')) {
             

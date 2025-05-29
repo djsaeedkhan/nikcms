@@ -26,7 +26,7 @@ class ChallengetopicsController extends AppController
 
     public function add()
     {
-        $challengetopic = $this->Challengetopics->newEmptyEntity(();
+        $challengetopic = $this->Challengetopics->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengetopic = $this->Challengetopics->patchEntity($challengetopic, $this->request->getData());
             if ($this->Challengetopics->save($challengetopic)) {

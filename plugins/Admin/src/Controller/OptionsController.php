@@ -56,7 +56,7 @@ class OptionsController extends AppController
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
             foreach($this->request->getData() as $key => $val):
-                $option = $this->Options->newEmptyEntity(();
+                $option = $this->Options->newEmptyEntity();
                 $result = $this->Options->find('all')->where(['name' => $key]);
                 $tkey = $key;
                 if(substr( $tkey, 0, 8 ) === "setting_")
@@ -98,7 +98,7 @@ class OptionsController extends AppController
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
             foreach($this->request->getData() as $key=>$val):
-                $option = $this->Options->newEmptyEntity(();
+                $option = $this->Options->newEmptyEntity();
                 $result = $this->Options->find('all')->where(['name' => $key]);
                 if(substr( $key, 0, 8 ) === "setting_")
                     $val = is_array($val)?json_encode($val,JSON_UNESCAPED_UNICODE):$val;

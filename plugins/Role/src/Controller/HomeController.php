@@ -18,7 +18,7 @@ class HomeController extends AppController
 
     public function add($id = null){
         $this->Role = $this->getTableLocator()->get('Role.Roles');
-        $roles = $this->Role->newEmptyEntity(();
+        $roles = $this->Role->newEmptyEntity();
         $result= [];
         if($id != null){
             $roles = $this->Role->find('all')->where(['id' => $id])->order(['id'=>'desc'])->first();

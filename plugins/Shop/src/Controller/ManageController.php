@@ -71,7 +71,7 @@ class ManageController extends AppController
             }
         }
 
-        $shopAddress = $this->ShopAddresses->newEmptyEntity(();
+        $shopAddress = $this->ShopAddresses->newEmptyEntity();
         $shop = CartHelper::getcart();
 
         if ($this->request->is('post')) {
@@ -184,7 +184,7 @@ class ManageController extends AppController
             'current_useraddress' => $user_address,
         ]);
 
-        $shopAddress = $this->ShopAddresses->newEmptyEntity(();
+        $shopAddress = $this->ShopAddresses->newEmptyEntity();
 
         if ($this->request->is('post') and CartHelper::getcart() != '') {
             if(! isset($this->request->getData()['shipping']['sendtime'])){
@@ -230,7 +230,7 @@ class ManageController extends AppController
             }
             
             //$tracker = $this->get_tracker();
-            $shopOrder = $this->ShopOrders->newEmptyEntity(();
+            $shopOrder = $this->ShopOrders->newEmptyEntity();
             $shopOrder = $this->ShopOrders->patchEntity($shopOrder, [
                 'user_id'=>  $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
                 'trackcode' => "0",
@@ -249,7 +249,7 @@ class ManageController extends AppController
                 $list = [];
                 $items = CartHelper::getcart();
                 foreach( $items['Orderproducts'] as $item){
-                    $shopOrderproduct = $this->ShopOrderproducts->newEmptyEntity(();
+                    $shopOrderproduct = $this->ShopOrderproducts->newEmptyEntity();
                     $shopOrderproduct = $this->ShopOrderproducts->patchEntity($shopOrderproduct,[
                         'shop_order_id' => $shopOrder->id ,
                         'post_id' => $item['product_id']  ,
@@ -266,7 +266,7 @@ class ManageController extends AppController
                                 'shop_attribute_id' => $kttr ,
                                 'shop_attributelist_id' => $attr  ];
                         }
-                        $temp = $this->Orderattr->newEmptyEntity(();
+                        $temp = $this->Orderattr->newEmptyEntity();
                         $temp = $this->Orderattr->patchEntities($temp,$attrs);
                         $this->Orderattr->saveMany($temp);
                     }
@@ -283,7 +283,7 @@ class ManageController extends AppController
                     }
 
                     $this->Shippings = $this->getTableLocator()->get('Shop.ShopOrdershippings');
-                    $temp = $this->Shippings->newEmptyEntity(();
+                    $temp = $this->Shippings->newEmptyEntity();
                     $temp = $this->Shippings->patchEntity($temp,[
                         'shop_order_id'=> $shopOrder->id,
                         'user_id' => $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
@@ -298,7 +298,7 @@ class ManageController extends AppController
 
                 if( $this->request->getData()['billing_desc']){
                     $this->ShopOrdertexts = $this->getTableLocator()->get('Shop.ShopOrdertexts');
-                    $ShopOrdertext = $this->ShopOrdertexts->newEmptyEntity(();
+                    $ShopOrdertext = $this->ShopOrdertexts->newEmptyEntity();
                     $ShopOrdertext = $this->ShopOrdertexts->patchEntity($ShopOrdertext,[
                         'shop_order_id'=> $shopOrder->id,
                         'user_id'=> $this->Auth->user()?$this->request->getAttribute('identity')->get('id'):null,
@@ -515,7 +515,7 @@ class ManageController extends AppController
         
         if ($this->request->is('post')) {
             $this->ShopOrderlogestics = $this->getTableLocator()->get('Shop.ShopOrderlogestics');
-            $orderlogestics = $this->ShopOrderlogestics->newEmptyEntity(();
+            $orderlogestics = $this->ShopOrderlogestics->newEmptyEntity();
             $orderlogestics = $this->ShopOrderlogestics->patchEntity($orderlogestics, [
                 'shop_order_id'=>$result['shop_order']['id'],
                 'shop_orderproduct_id'=> $id,
@@ -647,7 +647,7 @@ class ManageController extends AppController
             if ($res->Status == 100) {
                 $au = $res->Authority; // dar database save conid b hamrahe order_id , amount
                 $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
-                $pay = $model_payments->newEmptyEntity(();
+                $pay = $model_payments->newEmptyEntity();
                 $pay = $model_payments->patchEntity($pay,[
                     'shop_order_id'=> $result['id'],
                     'user_id'=> $result['user_id'],
@@ -873,7 +873,7 @@ class ManageController extends AppController
                 if ($res_pay->SalePaymentRequestResult->Token && $res_pay->SalePaymentRequestResult->Status === 0) {
 
                     $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
-                    $pay = $model_payments->newEmptyEntity(();
+                    $pay = $model_payments->newEmptyEntity();
                     $pay = $model_payments->patchEntity($pay,[
                         'shop_order_id'=> $result['id'],
                         'user_id'=> $result['user_id'],
@@ -967,7 +967,7 @@ class ManageController extends AppController
                     $finalURL = 'https://fcp.shaparak.ir/_ipgw_/payment/?lang=fa&token=' . $token;
 
                     $model_payments = $this->getTableLocator()->get('Shop.shopPayments');
-                    $pay = $model_payments->newEmptyEntity(();
+                    $pay = $model_payments->newEmptyEntity();
                     $pay = $model_payments->patchEntity($pay,[
                         'shop_order_id'=> $result['id'],
                         'user_id'=> $result['user_id'],

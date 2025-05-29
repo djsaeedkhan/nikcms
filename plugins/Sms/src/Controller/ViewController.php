@@ -124,7 +124,7 @@ class ViewController extends AppController
                 'date' => strtotime(date('ymdhis', strtotime('+3 minutes')))
             ]);
             
-            $log = $this->SmsValidations->newEmptyEntity(();
+            $log = $this->SmsValidations->newEmptyEntity();
             $log = $this->SmsValidations->patchEntity($log,[
                 'mobile'=>$data['data']['username'] ,
                 'code' =>$this->token,
@@ -280,7 +280,7 @@ class ViewController extends AppController
         if ($this->request->is(['post', 'put']) and isset($this->request->getData()['mobile'])) {
             if(intval($this->request->getData()['mobile']) == $data['activate']['code'] ){
 
-                $temp = $this->SmsValidations->newEmptyEntity(();
+                $temp = $this->SmsValidations->newEmptyEntity();
                 $temp = $this->SmsValidations->patchEntity($temp,[
                     'status' => 1 ,
                     'mobile' => $data['activate']['mobile'],

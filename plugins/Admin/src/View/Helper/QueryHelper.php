@@ -1,24 +1,29 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\View\Helper;
 
 use Cake\View\Helper;
+use Cake\View\View;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
 use Cake\I18n\Date;
 use DateTime;
 
-//use Cake\View\Helper\UrlHelper;
-
 class QueryHelper extends Helper
 {
     public $helpers = ['Html','Form','Func','Module','Url'];
     //------------
-    //public function initialize(array $config): void{}
+    public function initialize(array $config): void
+    {
+        parent::initialize($config);
+        // Optional: Initialize your logic here
+    }
     //------------
     protected $_defaultConfig = [];
     //------------
-    public function info($title){
+    public function info($title = null){
         $this->Themes = TableRegistry::getTableLocator()->get('Admin.Themes');
         $temp = $this->Themes->find('all')
             ->select(['value'])
@@ -212,8 +217,6 @@ class QueryHelper extends Helper
         catch (\Exception $e) {
             $tmp =  null;
         }
-        //pr($tmp);
-
 
         if ($tmp) :
             if ($size == 'full' or $size =='large') {
@@ -339,8 +342,9 @@ class QueryHelper extends Helper
         return 0;
     }
     //--------------
-    //1402-3-19
-    public function getAdjascentKey( $key, $hash = array(), $increment ) {
+    //1402-3-19 start
+    //1404-3-7 commented
+    /* public function getAdjascentKey( $key, $hash = array(), $increment ) {
 
         pr($hash);
         $keys = array_keys( $hash );   
@@ -353,7 +357,7 @@ class QueryHelper extends Helper
         $newindex = $found_index+$increment;
         // returns false if no result found
         return ($newindex > 0 && $newindex < sizeof($hash)) ? $keys[$newindex] : false;
-    }
+    } */
     /* function get_next($array, $key) {
         $currentKey = key($array);
         while ($currentKey !== null && $currentKey != $key) {
@@ -397,17 +401,17 @@ class QueryHelper extends Helper
                 $condition['Posts.id']=$p['id'];
         }
 
-        
-
         if(isset($p['title'])){
             if(is_array($p['title']))
                 $condition[$this->Posts->translationField('title'). ' IN'] = $p['title'];
             else
                 $condition[$this->Posts->translationField('title')] = $p['title'];
         }
+
         if(isset($p['title_like'])){
             $condition[$this->Posts->translationField('title'). ' LIKE '] = "%".$p['title_like']."%";
         }
+
         if(isset($p['content_like'])){
             $condition[$this->Posts->translationField('content').' LIKE '] = "%".$p['content_like']."%";
         }
@@ -491,7 +495,6 @@ class QueryHelper extends Helper
                 $ex += 1;
             endforeach;
         }
-       
         
         $result->select($field)
             ->contain($model)
@@ -628,7 +631,6 @@ class QueryHelper extends Helper
                 $result->find('list',$p['keyField']);
             else
                 $result->find('list',['keyField'=>'id','valueField'=>'title']);
-
         }
         elseif($find_type == 'list'){
             $result = $this->Categories
@@ -672,7 +674,7 @@ class QueryHelper extends Helper
 		return $result->toarray();
     }
 
-    public function the_category2($option =[]){
+    public function the_category2($option = []){
         global $category;
         global $post_type;
         $ptitle = [];
@@ -790,12 +792,12 @@ class QueryHelper extends Helper
         return $string;
     }
     //-----------------------------------------------------------------------------------------
-    public function shm_to_mil($date,$sep='-'){
+    public function shm_to_mil($date, $sep='-'){
 		$date=explode($sep,$date);
 		return jalali_to_gregorian($date[0],$date[1],$date[2],'-');
 	}
 	//-----------------------------------------------------------------------------------------
-	public function mil_to_shm($date='',$sep='-'){
+	public function mil_to_shm($date='', $sep='-'){
         $date=explode($sep,$date);
         $dt=gregorian_to_jalali($date[0],$date[1],$date[2],'/');
         $dt=explode("/", $dt);
@@ -969,7 +971,7 @@ class QueryHelper extends Helper
         return (substr($string, 0, $len) === $startString); 
     }
 	//-----------------------------------------------------------------------------------------
-    public function Navmenu_getlink($id = 0,$type ='post',$data = null)
+    public function Navmenu_getlink($id = 0, $type ='post', $data = null)
     {
         $result = [];
         if($type =='post')
@@ -986,7 +988,7 @@ class QueryHelper extends Helper
         //return $result != '-' ?QueryHelper::get_permalink( $result, $type):null;
     }
     //------------
-    public function NavLinkCheck($link = null ,$current = null)
+    public function NavLinkCheck($link = null, $current = null)
     {
         //pr(urldecode(Router::url($link,'true')));
 
@@ -1029,7 +1031,7 @@ class QueryHelper extends Helper
 		return $text;
 	}
     //------------
-    public function Navmenu($id = null, $data){
+    public function Navmenu($id = null, $data = null){
         if( $id == null ) return;
         /* $current = str_replace(
             Router::url('/'),

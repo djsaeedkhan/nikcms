@@ -6,10 +6,6 @@ use Cake\ORM\TableRegistry;
 
 class LastpostCell extends Cell
 {
-    protected $_validCellOptions = [];
-    public function initialize()
-    {
-    }
     public function display($setting = null)
     {
         $this->set([

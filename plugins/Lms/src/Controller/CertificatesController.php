@@ -37,7 +37,7 @@ class CertificatesController extends AppController
                 'contain' => [],
             ]);
         }else{
-            $lmsCertificate = $this->LmsCertificates->newEmptyEntity(();
+            $lmsCertificate = $this->LmsCertificates->newEmptyEntity();
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $lmsCertificate = $this->LmsCertificates->patchEntity($lmsCertificate, $this->request->getData());

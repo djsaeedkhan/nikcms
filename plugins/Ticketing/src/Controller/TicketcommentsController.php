@@ -26,7 +26,7 @@ class TicketcommentsController extends AppController
 
     public function add()
     {
-        $ticketcomment = $this->Ticketcomments->newEmptyEntity(();
+        $ticketcomment = $this->Ticketcomments->newEmptyEntity();
         if ($this->request->is('post')) {
 
             if(!empty($this->request->getData()['file']['name'])) {	

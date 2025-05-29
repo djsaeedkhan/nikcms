@@ -20,7 +20,7 @@ class AppController extends BaseController
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions();
+        //$this->Authentication->addUnauthenticatedActions();
     }
 
     public function isAuthorized($user){

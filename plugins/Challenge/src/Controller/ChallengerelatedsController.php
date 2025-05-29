@@ -8,7 +8,7 @@ class ChallengerelatedsController extends AppController
 
     public function add($id = null)
     {
-        $challengerelated = $this->Challengerelateds->newEmptyEntity(();
+        $challengerelated = $this->Challengerelateds->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengerelated = $this->Challengerelateds->patchEntity($challengerelated, $this->request->getData());
             if ($this->Challengerelateds->save($challengerelated)) {

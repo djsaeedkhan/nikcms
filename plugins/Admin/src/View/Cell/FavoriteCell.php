@@ -6,11 +6,6 @@ use Cake\View\Cell;
 
 class FavoriteCell extends Cell
 {
-    protected $_validCellOptions = [];
-    public function initialize()
-    {
-        
-    }
     public function display($id = null)
     {
         $this->loadModel('Posts');

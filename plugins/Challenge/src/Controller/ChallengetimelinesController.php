@@ -5,7 +5,7 @@ use Challenge\Controller\AppController;
 class ChallengetimelinesController extends AppController
 {
     public function add($id = null){
-        $challengetimeline = $this->Challengetimelines->newEmptyEntity(();
+        $challengetimeline = $this->Challengetimelines->newEmptyEntity();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengetimeline = $this->Challengetimelines->patchEntity($challengetimeline, $this->request->getData());

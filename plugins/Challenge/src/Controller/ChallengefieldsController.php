@@ -16,7 +16,7 @@ class ChallengefieldsController extends AppController
 
     public function add()
     {
-        $challengefield = $this->Challengefields->newEmptyEntity(();
+        $challengefield = $this->Challengefields->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengefield = $this->Challengefields->patchEntity($challengefield, $this->request->getData());
             if ($this->Challengefields->save($challengefield)) {

@@ -107,7 +107,7 @@ class ClientController extends AppController
             ])
             ->toarray();
 
-        $lmsCertificate = $this->LmsCertificates->newEmptyEntity(();
+        $lmsCertificate = $this->LmsCertificates->newEmptyEntity();
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('lms_course_id', $id);
             $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
@@ -236,7 +236,7 @@ class ClientController extends AppController
                 }
             }
 
-            $lmsFactor = $this->LmsFactors->newEmptyEntity(();
+            $lmsFactor = $this->LmsFactors->newEmptyEntity();
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
                     'user_id'=>$this->request->getAttribute('identity')->get('id'),
                     'price'=>$lmsCourses['price_renew'],
@@ -246,7 +246,7 @@ class ClientController extends AppController
                     'descr'=>'تمدید دوره "'. $lmsCourses['title'].'" به مدت '.$lmsCourses['renew_day'] ,
                 ]);
             if ($id = $this->LmsFactors->save($lmsFactor)) {
-                $lmsuserf = $this->LmsUserfactors->newEmptyEntity(();
+                $lmsuserf = $this->LmsUserfactors->newEmptyEntity();
                 $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
                         'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_factor_id' => $lmsFactor->id,
@@ -351,7 +351,7 @@ class ClientController extends AppController
             return $this->redirect($this->referer());  
         }
 
-        $lmsFactor = $this->LmsFactors->newEmptyEntity(();
+        $lmsFactor = $this->LmsFactors->newEmptyEntity();
         $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
                 'user_id'=>$this->request->getAttribute('identity')->get('id'),
                 'price'=> $options['renew_price'],
@@ -362,7 +362,7 @@ class ClientController extends AppController
             ]);
 
         if ($id = $this->LmsFactors->save($lmsFactor)) {
-            $lmsuserf = $this->LmsUserfactors->newEmptyEntity(();
+            $lmsuserf = $this->LmsUserfactors->newEmptyEntity();
             $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
                     'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'lms_factor_id' => $lmsFactor->id,
@@ -558,7 +558,7 @@ class ClientController extends AppController
             $this->autoRender = false;
 
             if($this->request->getQuery('visit') and $this->request->getQuery('visit')!='' ){
-                $sessions = $this->LmsCoursesessions->patchEntity($this->LmsCoursesessions->newEmptyEntity((), [
+                $sessions = $this->LmsCoursesessions->patchEntity($this->LmsCoursesessions->newEmptyEntity(), [
                     'lms_course_id' => $id,
                     'lms_coursefile_id' => $file_id ,
                     'user_id' => $this->request->getAttribute('identity')->get('id'),
@@ -710,7 +710,7 @@ class ClientController extends AppController
                     $fail = 2;
                 }
                 
-                $lmsExamresult = $this->LmsExamresultlists->newEmptyEntity(();
+                $lmsExamresult = $this->LmsExamresultlists->newEmptyEntity();
                 $lmsExamresult = $this->LmsExamresultlists->patchEntity($lmsExamresult,[
                     'user_id' => $this->request->getAttribute('identity')->get('id'),
                     'lms_examresult_id'=> $lms_examresult_id ,
@@ -797,7 +797,7 @@ class ClientController extends AppController
                 }
             }
             
-            $lmsExamresult = $this->LmsExamresults->newEmptyEntity(();
+            $lmsExamresult = $this->LmsExamresults->newEmptyEntity();
             $lmsExamresult = $this->LmsExamresults->patchEntity($lmsExamresult,[
                 'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 'lms_exam_id'=> $file['lms_exam_id'],
@@ -1183,7 +1183,7 @@ class ClientController extends AppController
                                     }
                                 }
                                 else{
-                                    $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
+                                    $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity();
                                     $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
                                         'user_id' => $this->request->getAttribute('identity')->get('id'),
                                         'lms_course_id' => $userf->lms_course_id
@@ -1233,7 +1233,7 @@ class ClientController extends AppController
     {
         $factors = $factors[0];
         if(! $this->request->getQuery('order')){
-            $pay = $this->LmsPayments->patchEntity($this->LmsPayments->newEmptyEntity((),[
+            $pay = $this->LmsPayments->patchEntity($this->LmsPayments->newEmptyEntity(),[
                 'user_id'=> $this->request->getAttribute('identity')->get('id'),
                 'price'=> $factors['price'],
                 'lms_factor_id'=> $factors['id'],

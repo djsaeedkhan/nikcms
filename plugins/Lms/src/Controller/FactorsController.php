@@ -101,7 +101,7 @@ class FactorsController extends AppController
         if($id != null)
             $lmsFactor = $this->LmsFactors->get($id);
         else
-            $lmsFactor = $this->LmsFactors->newEmptyEntity(();
+            $lmsFactor = $this->LmsFactors->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->request = $this->request->withData('user_ids', $this->request->getAttribute('identity')->get('id') );
@@ -110,7 +110,7 @@ class FactorsController extends AppController
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor, $this->request->getData());
             if ($this->LmsFactors->save($lmsFactor)) {
                 if ($this->request->is(['post'])) {
-                    $lmsUserfactor = $this->LmsUserfactors->newEmptyEntity(();
+                    $lmsUserfactor = $this->LmsUserfactors->newEmptyEntity();
                     $lmsUserfactor = $this->LmsUserfactors->patchEntity($lmsUserfactor,[
                         'user_id' => $this->request->getData()['user_id'],
                         'lms_factor_id' => $lmsFactor->id,
@@ -122,7 +122,7 @@ class FactorsController extends AppController
                         $this->Flash->success('ثبت فاکتور دسترسی کاربر به دوره با موفقیت انجام شد');  
 
                         if($this->request->getData()['paid'] == 1){
-                            $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
+                            $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity();
                             $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
                                 'user_id' => $this->request->getData()['user_id'],
                                 'lms_course_id' => $this->request->getData()['lms_course_id'],

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Website\Controller;
 
 use Website\Controller\AppController;
@@ -28,12 +29,14 @@ class ContentController extends AppController
         $this->viewBuilder()->setLayout($this->template.'.default');
         try {
             $this->loadComponent($this->template.'.Fetch');
-        } catch (\Throwable $th) {$this->fetch_error = true;}
+        }
+        catch (\Throwable $th) {$this->fetch_error = true;}
 
         try {
             $this->loadComponent('Website.Fetchs');
-        } catch (\Throwable $th) {}
-        $this->loadComponent('Captcha.Captcha');
+        }
+        catch (\Throwable $th) {}
+        //$this->loadComponent('Captcha.Captcha');
 
     }
     //------------------------------------------------------------------

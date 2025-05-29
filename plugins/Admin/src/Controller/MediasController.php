@@ -119,7 +119,7 @@ class MediasController extends AppController
             $this->request = $this->request->withData('post_type',$this->media_ptype );
             $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id'));
 
-            $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity((),$this->request->getData());
+            $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity(),$this->request->getData());
             if ($media = $this->Medias->save($media)){
 
                 $fileName['media_id'] = $media->id;
@@ -218,7 +218,7 @@ class MediasController extends AppController
 
             /* if(($fileName = $this->uploadfile($this->request->getData('file'))) != '0'){
             
-                $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity((),[
+                $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity(),[
                     'title'=> $fileName['filename'],
                     'image'=> $fileName['filename'],
                     'published'=> 1,

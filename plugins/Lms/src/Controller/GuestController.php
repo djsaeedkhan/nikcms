@@ -287,7 +287,7 @@ class GuestController extends AppController
         }
 
         if ($this->request->is('post')) {
-            $lmsFactor = $this->LmsFactors->newEmptyEntity(();
+            $lmsFactor = $this->LmsFactors->newEmptyEntity();
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
                     'user_id'=>$this->request->getAttribute('identity')->get('id'),
                     'price'=>$lmsCourses['price'],
@@ -296,7 +296,7 @@ class GuestController extends AppController
                     'descr'=>'ثبت نام در '. $lmsCourses['title'] ,
                 ]);
             if ($id = $this->LmsFactors->save($lmsFactor)) {
-                $lmsuserf = $this->LmsUserfactors->newEmptyEntity(();
+                $lmsuserf = $this->LmsUserfactors->newEmptyEntity();
                 $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
                         'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_factor_id' => $lmsFactor->id,
@@ -307,7 +307,7 @@ class GuestController extends AppController
 
                     // از اینجا منتقل شد به پس از پرداخت فاکتور
                     // 1401-12-01
-                    /* $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity(();
+                    /* $lmsCourseuser = $this->LmsCourseusers->newEmptyEntity();
                     $lmsCourseuser = $this->LmsCourseusers->patchEntity($lmsCourseuser, [
                         'user_id' => $this->request->getAttribute('identity')->get('id'),
                         'lms_course_id' => $lmsCourses['id']

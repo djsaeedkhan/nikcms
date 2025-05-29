@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\View\Helper;
 
 use \Cake\View\Helper;
@@ -150,7 +152,7 @@ class FuncHelper extends Helper
         return $data;
     }
     /* ------------------------ Admin Menu */
-    function admin_menu_is_current($index=null , $here=null){
+    function admin_menu_is_current($index = null, $here = null){
         $temp = ModuleHelper::admin_sidemenu();
         $menu = $temp[$index];
         if(Router::url($menu['link'], true ) == $here) return 1;
@@ -249,17 +251,17 @@ class FuncHelper extends Helper
     }
     /* --------------------------------------  */
     /* --------------------------------------  */
-    public function get_label($post_type = null,$label = null){
+    public function get_label($post_type = null , $label = null){
         $type = ModuleHelper::post_type();
         return isset($type[$post_type]['name'][$label])?$type[$post_type]['name'][$label]:'-';
     }
-    public function get_ptaccess($post_type = null,$label = null){
+    public function get_ptaccess($post_type = null , $label = null){
         $type = ModuleHelper::post_type();
         return isset($type[$post_type][$label])?$type[$post_type][$label]:'-';
     }
     /* --------------------------------------  */
     /* --------------------------------------  */
-    public function OptionSave($name = null, $value = null,$action = null){
+    public function OptionSave($name = null , $value = null , $action = null){
         $model = TableRegistry::getTableLocator()->get('Options');
         $existing = $model->findByName($name);
 
@@ -280,7 +282,7 @@ class FuncHelper extends Helper
         }
         return false;
     }
-    public function OptionGet($name = null, $opt = []){
+    public function OptionGet($name = null , $opt = []){
 
         global $current_lang;
         global $options;
@@ -342,7 +344,7 @@ class FuncHelper extends Helper
 
         return ($existing);
     }
-    public function PostMetaSave($id = null, $options = array()){
+    public function PostMetaSave($id = null , $options = array()){
         $source = isset($options['source'])?$options['source']:null;
         $type = isset($options['type'])?$options['type']:null;
         $name = isset($options['name'])?$options['name']:null;
@@ -394,7 +396,7 @@ class FuncHelper extends Helper
         }
     }
     /* --------------------------------------  */
-    public function MetaList($data = null, $type = null){
+    public function MetaList($data = null , $type = null){
         $result=array();
         if($type == 'category' or isset($data['categorie_metas'])):
             foreach($data['categorie_metas'] as $d){if(isset($d['meta_key'])): 
@@ -440,7 +442,7 @@ class FuncHelper extends Helper
         return $result;
     }
     /* --------------------------------------  */
-    function is_serial( $data, $strict = true ) {
+    function is_serial( $data , $strict = true ) {
         // If it isn't a string, it isn't serialized.
         if ( ! is_string( $data ) ) {
             return false;
@@ -515,7 +517,7 @@ class FuncHelper extends Helper
         endforeach;
         return $size;
     }
-    public function language_list($id = null, $act = null){
+    public function language_list($id = null , $act = null){
         switch ($act) {
             case 'arr_dir':
                 $arr = [
@@ -550,7 +552,7 @@ class FuncHelper extends Helper
             return isset($arr[$id])?$arr[$id]:'-';
     }
     /* --------------------------------------  */
-    public function province_list($id = null, $type = null){
+    public function province_list($id = null , $type = null){
         $tag = $id;
         if(! is_numeric ($id))
             $id = null;
@@ -781,7 +783,7 @@ class FuncHelper extends Helper
         return $slider;
     }
     //-----------------------------------------------------------------------------------------پ
-    public function date2($date , $format = null){
+    public function date2($date = null , $format = null){
         if($date == null)
             return '-';
         if(is_array($date) and isset($date['created'])){
@@ -793,12 +795,12 @@ class FuncHelper extends Helper
         return FuncHelper::mil_to_shm(date("Y-m-d", strtotime($date))) .($format == null? ' '.date(" H:i", strtotime($date)) :'');
     }
 	//-----------------------------------------------------------------------------------------
-    public function shm_to_mil($date,$sep='-'){
+    public function shm_to_mil($date = null , $sep = '-'){
 		$date = explode($sep,$date);
 		return jalali_to_gregorian($date[0],$date[1],$date[2],'-');
 	}
 	//-----------------------------------------------------------------------------------------
-	public function mil_to_shm($date='',$sep='-'){
+	public function mil_to_shm($date = null , $sep='-'){
         $date=explode($sep,$date);
         $dt=gregorian_to_jalali($date[0],$date[1],$date[2],'/');
         $dt=explode("/", $dt);
@@ -923,7 +925,7 @@ class FuncHelper extends Helper
     }
     /* --------------------------------------  */
     //-----------------------------------------------------------------------------------------
-    public function DiffDuration($datas, $until = null, $current = null ){
+    public function DiffDuration($datas = null , $until = null, $current = null ){
         try{
             $end_date = '';
             foreach($datas as $data){
@@ -951,7 +953,7 @@ class FuncHelper extends Helper
         }
     }
     //-----------------------------------------------------------------------------------------
-    public function DiffDate($start_date = null, $end_date = null){
+    public function DiffDate($start_date = null , $end_date = null){
         if($start_date == 'now')
             $date1 = date_create(str_replace('/','-',FuncHelper::mil_to_shm(date("Y-m-d", strtotime(date('Y-m-d'))))));
         else 
@@ -967,7 +969,7 @@ class FuncHelper extends Helper
         return ($diff->format("%R%a"));
     }
     //-----------------------------------------------------------------------------------------
-    public function DiffDateFa($start_date = null, $end_date = null){
+    public function DiffDateFa($start_date = null , $end_date = null){
 
         if($start_date == 'now')
             $start_date = date_create(date("Y-m-d"));
@@ -1025,12 +1027,12 @@ class FuncHelper extends Helper
             define("setting", (isset($setting['hsite'])?$setting['hsite']:[]) );
     }
     //-----------------------------------------------------------------------------------------
-    function isJson($string) {
+    function isJson($string = null) {
         json_decode($string);
         return json_last_error() === JSON_ERROR_NONE;
     }
     //-----------------------------------------------------------------------------------------
-    public function tocsv($data = null, $header = null , $fileName = null){
+    public function tocsv($data = null , $header = null , $fileName = null){
         /* 
             $header = array("Book Title", "ISBN No.", "Auther");
             $data = array(
@@ -1104,7 +1106,7 @@ class FuncHelper extends Helper
     }
     //-----------------------------------------------------------------------------------------
     //----1400/8/13-------------------------------------------------------------------------------------
-    public function save_image_size( $url,$media_id=null ){
+    public function save_image_size( $url = null , $media_id=null ){
         global $upload_path;
         if($upload_path != '')
             $this->upload_path = $upload_path;
@@ -1154,7 +1156,7 @@ class FuncHelper extends Helper
         return $englishNumbersOnly;
     }
     //----1400/8/13-------------------------------------------------------------------------------------
-    public function Redirect($url= null){
+    public function Redirect($url = null){
         die(header('location: '.$url));
         //die('<meta http-equiv="refresh" content="0; url='.$url.'">'.'Please wait ...');
     }
@@ -1169,7 +1171,7 @@ class FuncHelper extends Helper
         return ($save_path);
     }
     //----1400/12/13-------------------------------------------------------------------------------------
-    public function create_admin_alert($plugin = null ,$options = []){
+    public function create_admin_alert($plugin = null , $options = []){
         $p = FuncHelper::OptionGet('alert_'.$plugin);
         $type = isset($options['slug'])?$options['slug']:'new';
         $title = ' '.(isset($options['title'])?$options['title']:__d('Admin', 'پیام جدید ثبت شده است'));
@@ -1193,7 +1195,8 @@ class FuncHelper extends Helper
                     'link'=> isset($options['link'])?$options['link']:'/admin/',
                     'descr'=> isset($options['descr'])?$options['descr']:'',
                 ];
-            }else{
+            }
+            else{
                 $temp[$type] = [
                     'count'=> 1,
                     'title'=>'1'.$title,

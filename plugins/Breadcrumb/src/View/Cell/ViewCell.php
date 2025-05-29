@@ -4,10 +4,6 @@ use Cake\View\Cell;
 
 class ViewCell extends Cell
 {
-    protected $_validCellOptions = [];
-    public function initialize()
-    {
-    }
     public function display($split= null , $div = null,$options = [])
     {
         $split = ($split == null ?'<i class="fa fa-angle-double-left"></i>':$split);

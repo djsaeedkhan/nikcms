@@ -25,7 +25,7 @@ class CoursefilesController extends AppController
     }
 
     public function add($id = null, $weekid = null) {
-        $lmsCoursefile = $this->LmsCoursefiles->newEmptyEntity(();
+        $lmsCoursefile = $this->LmsCoursefiles->newEmptyEntity();
         if ($this->request->is('post')) {
             
             if($id != null)

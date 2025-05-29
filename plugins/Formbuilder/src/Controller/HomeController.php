@@ -32,7 +32,7 @@ class HomeController extends AppController{
                 ->contain(['FormbuilderItems'])
                 ->first();
         else
-            $result = $this->Formbuilders->newEmptyEntity(();
+            $result = $this->Formbuilders->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->request = $this->request->withData('formbuilder_items.0.form_data', urldecode( $this->request->getData()['formbuilder_items'][0]['form_data']));

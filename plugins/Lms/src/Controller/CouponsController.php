@@ -48,7 +48,7 @@ class CouponsController extends AppController
                 'contain' => [],
             ]);
         }else{
-            $lmsCoupon = $this->LmsCoupons->newEmptyEntity(();
+            $lmsCoupon = $this->LmsCoupons->newEmptyEntity();
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->request = $this->request->withData('product_ids', json_encode($this->request->getData()['product_ids']));

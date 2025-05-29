@@ -12,11 +12,6 @@ class WgtMenuCell extends Cell
      *
      * @var array
      */
-    protected $_validCellOptions = [];
-    public function initialize()
-    {
-    }
-
     public function admin($field = null , $value = null){
         $this->set([
             'field' => $field ,

@@ -32,7 +32,7 @@ class RefundsController extends AppController
         if($id != null)
             $refund = $this->Refunds->get($id);
         else
-            $refund = $this->Refunds->newEmptyEntity(();
+            $refund = $this->Refunds->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $refund = $this->Refunds->patchEntity($refund, $this->request->getData());

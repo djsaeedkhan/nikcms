@@ -5,10 +5,6 @@ use Cake\ORM\TableRegistry;
 
 class ViewCell extends Cell
 {
-    protected $_validCellOptions = [];
-    public function initialize()
-    {
-    }
     public function add($post_id = null,$action = null)
     {
         

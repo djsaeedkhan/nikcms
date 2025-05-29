@@ -30,7 +30,7 @@ class LogesticlistsController extends AppController
     public function add($id = null)
     {
         if($id == null)
-            $shopLogesticlist = $this->ShopLogesticlists->newEmptyEntity(();
+            $shopLogesticlist = $this->ShopLogesticlists->newEmptyEntity();
         else
             $shopLogesticlist = $this->ShopLogesticlists->get($id, [
                 'contain' => [],

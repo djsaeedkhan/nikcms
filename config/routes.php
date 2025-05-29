@@ -55,12 +55,21 @@ return function (RouteBuilder $routes): void {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        //$builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/users/login',['controller' => 'Users','action'=>'login']);
+        $builder->connect('/users/register',['controller' => 'Users','action'=>'register']);
+        $builder->connect('/users/logout',['controller' => 'Users','action'=>'logout']);
+        $builder->connect('/users/remember/token/*',['controller' => 'Users','action'=>'remember_token']);
+        $builder->connect('/users/remember',['controller' => 'Users','action'=>'remember']);
+        $builder->connect('/users/index',['controller' => 'Users','action'=>'index']);
+        $builder->connect('/users/profile',['controller' => 'Users','action'=>'profile']);
+        $builder->connect('/users/thumbnail/*',['controller' => 'Users','action'=>'thumbnail']);
+
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
-        $builder->connect('/pages/*', 'Pages::display');
+        //$builder->connect('/pages/*', 'Pages::display');
 
         /*
          * Connect catchall routes for all controllers.

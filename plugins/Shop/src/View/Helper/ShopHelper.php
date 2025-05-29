@@ -42,7 +42,7 @@ class ShopHelper extends Helper
     }
     ////////////////////////////////////////////////////////////////////////////////
     public static function get_brands($title = null, $options = []){
-        $brands = $this->getTableLocator()->get('Shop.ShopBrands')->find('all')
+        $brands = TableRegistry::getTableLocator()->get('Shop.ShopBrands')->find('all')
             ->where([ $title!= null?['OR'=>[
                     'slug' => $title , 
                     'title' => str_replace('-',' ', $title),
@@ -74,7 +74,7 @@ class ShopHelper extends Helper
                 switch ($options['width_product']['type']) {
                    
                     case 'count':
-                        $brands[$k]['product_count'] = $this->getTableLocator()->get('Shop.ShopProductMetas')
+                        $brands[$k]['product_count'] = TableRegistry::getTableLocator()->get('Shop.ShopProductMetas')
                             ->find('all')
                             ->where([
                                 'meta_key' =>'brands',
@@ -85,7 +85,7 @@ class ShopHelper extends Helper
                         break;
                     
                     default:
-                        $brands[$k]['product_all'] = $this->getTableLocator()->get('Shop.ShopProductMetas')
+                        $brands[$k]['product_all'] = TableRegistry::getTableLocator()->get('Shop.ShopProductMetas')
                             ->find('all')
                             ->where([
                                 'meta_key' =>'brands',
@@ -103,7 +103,7 @@ class ShopHelper extends Helper
     ////////////////////////////////////////////////////////////////////////////////
     public static function get_labels($title = null, $options = []){
         $title = strip_tags($title);
-        $labels = $this->getTableLocator()->get('Shop.ShopLabels')
+        $labels = TableRegistry::getTableLocator()->get('Shop.ShopLabels')
             ->find('all')
             ->where([ 'title' =>$title ])
             ->limit(isset($options['limit']) ?$options['limit']:false)
@@ -114,7 +114,7 @@ class ShopHelper extends Helper
                 switch ($options['width_product']['type']) {
                    
                     case 'count':
-                        $labels[$k]['product_count'] = $this->getTableLocator()->get('Shop.ShopProductMetas')
+                        $labels[$k]['product_count'] = TableRegistry::getTableLocator()->get('Shop.ShopProductMetas')
                             ->find('all')
                             ->where([
                                 'meta_key' =>'label',
@@ -125,7 +125,7 @@ class ShopHelper extends Helper
                         break;
                     
                     default:
-                        $labels[$k]['product_all'] = $this->getTableLocator()->get('Shop.ShopProductMetas')
+                        $labels[$k]['product_all'] = TableRegistry::getTableLocator()->get('Shop.ShopProductMetas')
                             ->find('all')
                             ->where([
                                 'meta_key' =>'label',
@@ -149,13 +149,13 @@ class ShopHelper extends Helper
         global $is_status;
 
         if($result == null or !isset($result['shop_metas']) ){
-            $result['shop_metas'] = $this->getTableLocator()->get('Shop.ShopProductMetas')
+            $result['shop_metas'] = TableRegistry::getTableLocator()->get('Shop.ShopProductMetas')
                 ->find('list',['keyField'=>'meta_key','valueField'=>'meta_value'])
                 ->where(['post_id' => $id ])
                 ->toArray();
                 
             if(isset($result['shop_metas']['product_type']) and $result['shop_metas']['product_type'] == 'wholesale'){
-                $result['shop_metas']['wholesale'] = $this->getTableLocator()->get('Shop.ShopProductmajors')
+                $result['shop_metas']['wholesale'] = TableRegistry::getTableLocator()->get('Shop.ShopProductmajors')
                     ->find('all')
                     ->enableHydration(false)
                     ->select(['id','start','pattern','price'])
@@ -207,13 +207,13 @@ class ShopHelper extends Helper
         if(!$pid) 
             return $data;
 
-        $lists = $this->getTableLocator()->get('Shop.ShopParamlists')->find('all')
+        $lists = TableRegistry::getTableLocator()->get('Shop.ShopParamlists')->find('all')
             ->where(['shop_param_id'=> $pid ])
             ->enableHydration(false)
             ->order(['priority'=>'asc'])
             ->toarray();
 
-        $temps = $this->getTableLocator()->get('Shop.ShopProductParams')
+        $temps = TableRegistry::getTableLocator()->get('Shop.ShopProductParams')
             ->find('list',['keyField'=>'shop_param_id','valueField'=>'value'])
             ->where(['post_id'=> $id])
             ->enableHydration(false)
@@ -268,7 +268,7 @@ class ShopHelper extends Helper
     }
     ////////////////////////////////////////////////////////////////////////////////
     public static function get_Stocklist($id = null){
-        $result = $this->getTableLocator()->get('Shop.ShopProductstocks')
+        $result = TableRegistry::getTableLocator()->get('Shop.ShopProductstocks')
             ->find('list',['keyField'=>'pattern','valueField'=>'stock'])
             ->where(['post_id' => $id ])
             ->toArray();
@@ -321,7 +321,7 @@ class ShopHelper extends Helper
             global $id;
         ShopHelper::prepare($id);
 
-        $lists = $this->getTableLocator()->get('Shop.ShopOrders')->find('all')
+        $lists = TableRegistry::getTableLocator()->get('Shop.ShopOrders')->find('all')
             ->where(['status' => 'pending' , function($exp) {
                 $now1 = Time::now();$now = Time::now();
                 $now->modify('-60 minutes');
@@ -387,7 +387,7 @@ class ShopHelper extends Helper
         }
         $temp = null;
         if(isset( $data['attrs'])){
-            $temp = $this->getTableLocator()->get('Shop.ShopProductdetails')->find('all')
+            $temp = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')->find('all')
                 ->where(['post_id'=> $data['id'],'pattern' => $data['attrs'] ])
                 ->first();
         }
@@ -460,7 +460,7 @@ class ShopHelper extends Helper
             switch ($meta['product_type']) {
                 case 'simple':
                     if(isset($options['attrs'])){
-                        $price = $this->getTableLocator()->get('Shop.ShopProductdetails')
+                        $price = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                             ->find('list',['keyField'=>'price','valueField'=>'price'])
                             ->where(['post_id'=> $id , 'pattern'=> $options['attrs']])
                             ->first();
@@ -468,7 +468,7 @@ class ShopHelper extends Helper
                     elseif(isset($meta['price']) and $meta['price'] != '')
                         $price = $meta['price'];
                     else{
-                        $temp = $this->getTableLocator()->get('Shop.ShopProductdetails')
+                        $temp = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                             ->find('list',['keyField'=>'price','valueField'=>'price'])
                             ->where(['post_id'=> $id])
                             ->toarray();
@@ -499,18 +499,18 @@ class ShopHelper extends Helper
                 //---------------------------------------------------------------------------------
                 case 'wholesale':
                     
-                    $temp = $this->getTableLocator()->get('Shop.ShopProductdetails')
+                    $temp = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                             ->find('list',['keyField'=>'pattern','valueField'=>'price'])
                             ->where(['post_id'=> $id])
                             ->toarray();
 
-                    $temp = $this->getTableLocator()->get('Shop.ShopProductdetails')
+                    $temp = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                             ->find('list',['keyField'=>'price','valueField'=>'price'])
                             ->where(['post_id'=> $id])
                             ->toarray();
                        
                     if(isset($options['attrs'])){
-                        $price = $this->getTableLocator()->get('Shop.ShopProductdetails')
+                        $price = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                             ->find('list',['keyField'=>'price','valueField'=>'price'])
                             ->where(['post_id'=> $id , 'pattern'=> $options['attrs']])
                             ->first();
@@ -1001,12 +1001,12 @@ class ShopHelper extends Helper
         $attrib = [];
         if(isset($result['shop_metas']['attribute'])){
             $attr = explode(';', $result['shop_metas']['attribute']);
-            $items = $this->getTableLocator()->get('Shop.ShopAttributes')->find('all')
+            $items = TableRegistry::getTableLocator()->get('Shop.ShopAttributes')->find('all')
                 ->where(['id IN '=> $attr])
                 ->contain(['shopAttributelists'])
                 ->toarray();
             
-            $patterns = $this->getTableLocator()->get('Shop.ShopProductdetails')
+            $patterns = TableRegistry::getTableLocator()->get('Shop.ShopProductdetails')
                 ->find('list',['keyField'=>'pattern','valueField'=>'pattern'])
                 ->where(['post_id'=>$id ,'pattern IS NOT NULL'])
                 ->toarray();  
@@ -1073,7 +1073,7 @@ class ShopHelper extends Helper
         if($id == null)
             global $id;
 
-        return $this->getTableLocator()->get('Shop.ShopFavorites')->find('all')
+        return TableRegistry::getTableLocator()->get('Shop.ShopFavorites')->find('all')
             ->where(['post_id'=> $id , 'user_id'=> Router::getRequest()->getSession()->read('Auth.User.id')])
             ->count();
     }
@@ -1086,7 +1086,7 @@ class ShopHelper extends Helper
         $data = null;
         if(isset($result['shop_metas']['label']) and $result['shop_metas']['label'] != ''){
             $lid = $result['shop_metas']['label'];
-            $temp = $this->getTableLocator()->get('Shop.ShopLabels')->find('all')
+            $temp = TableRegistry::getTableLocator()->get('Shop.ShopLabels')->find('all')
                 ->where(['id' => $lid])
                 ->first();
             if($temp and isset($options['show'])){

@@ -95,7 +95,7 @@ class ViewController extends AppController
                 case 'all': 
                 case 'db':
                     $this->FormbuilderDatas = TableRegistry::getTableLocator()->get('Formbuilder.FormbuilderDatas');
-                    $temp = $this->FormbuilderDatas->newEmptyEntity(();
+                    $temp = $this->FormbuilderDatas->newEmptyEntity();
                     $this->request = $this->request->withData('formbuilders_id', $result['id']);
                     
                     foreach($this->request->getData() as $k => $data)

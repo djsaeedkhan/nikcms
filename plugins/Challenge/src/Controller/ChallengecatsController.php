@@ -47,7 +47,7 @@ class ChallengecatsController extends AppController
      */
     public function add()
     {
-        $challengecat = $this->Challengecats->newEmptyEntity(();
+        $challengecat = $this->Challengecats->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengecat = $this->Challengecats->patchEntity($challengecat, $this->request->getData());
             if ($this->Challengecats->save($challengecat)) {

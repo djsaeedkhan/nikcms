@@ -11,7 +11,7 @@ class CategoriesController extends AppController
     }
 
     public function index(){
-        $cat = $this->Categories->newEmptyEntity(();
+        $cat = $this->Categories->newEmptyEntity();
         try {
              $this->Categories->recover();
         } catch (\Exception $e) {}
@@ -44,7 +44,7 @@ class CategoriesController extends AppController
         if($id != null)
             $category = $this->Categories->get(intval($id), ['contain' => ['CategorieMetas']]);
         else
-            $category = $this->Categories->newEmptyEntity(();
+            $category = $this->Categories->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             //$this->request->data['post_type'] = $this->post_type;

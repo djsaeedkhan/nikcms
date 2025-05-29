@@ -19,7 +19,6 @@ use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\Event\EventInterface;
 
-
 class AppController extends Controller
 {
     use CellTrait;
@@ -46,8 +45,9 @@ class AppController extends Controller
         global $upload_path;
         $upload_path = $this->upload_path;
 
-        $this->Func = new FuncHelper($view);
+        
         $this->Query = new QueryHelper($view);
+        $this->Func = new FuncHelper($view);
         //$this->FormCsp = new FormHelper(new \Cake\View\View());
         if ($this->request->getQuery('dibug')) {
             Configure::write('debug', 1);
@@ -59,7 +59,6 @@ class AppController extends Controller
         $this->Lang();
         $this->Run();
         $this->Security();
-        
     }
     //----------------------------------------------------
     public function isAuthorized($user){
@@ -87,8 +86,8 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['login', 'register','Website.index']);
-
+        $this->Authentication->addUnauthenticatedActions([
+            'login', 'register','Website.index']);
         //$this->Authentication->allowUnauthenticated([]);
     }
     //----------------------------------------------------

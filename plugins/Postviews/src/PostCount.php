@@ -18,7 +18,7 @@ class PostCount
             $this->PostMetas->save($tmp);
         }
         else{
-            $result = $this->PostMetas->newEmptyEntity(();
+            $result = $this->PostMetas->newEmptyEntity();
             $result = $this->PostMetas->patchEntity($result,[
                 'post_id' => $this->post_id ,
                 'meta_value'=> 1,

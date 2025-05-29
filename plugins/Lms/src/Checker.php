@@ -232,7 +232,7 @@ class Checker
     //-------------------------------------------------------------------------------
     private function _enablefiles($user_id = null, $file_id = null, $course_id = null ){
         $filecans = $this->getTableLocator()->get('Lms.LmsCoursefilecans');
-        $lmsCoursefile = $filecans->newEmptyEntity(();
+        $lmsCoursefile = $filecans->newEmptyEntity();
         $lmsCoursefile = $filecans->patchEntity($lmsCoursefile, [
             'user_id' =>  $user_id,
             'lms_coursefile_id' => $file_id , 

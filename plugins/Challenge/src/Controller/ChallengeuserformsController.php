@@ -419,7 +419,7 @@ class ChallengeuserformsController extends AppController
 
     public function add()
     {
-        $challengeuserform = $this->Challengeuserforms->newEmptyEntity(();
+        $challengeuserform = $this->Challengeuserforms->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengeuserform = $this->Challengeuserforms->patchEntity($challengeuserform, $this->request->getData());
             if ($this->Challengeuserforms->save($challengeuserform)) {

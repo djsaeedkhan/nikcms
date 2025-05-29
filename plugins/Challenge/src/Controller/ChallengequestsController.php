@@ -85,7 +85,7 @@ class ChallengequestsController extends AppController
                 ];
             }
             
-            $answer = $this->Challengeqanswers->newEmptyEntity(();
+            $answer = $this->Challengeqanswers->newEmptyEntity();
             $answer = $this->Challengeqanswers->patchEntities($answer,$list);
             if($this->Challengeqanswers->saveMany($answer))
                 $this->redirect('?chid='.$ch_id.','.$this->request->getAttribute('identity')->get('id'));
@@ -146,7 +146,7 @@ class ChallengequestsController extends AppController
 
     public function add($ch_id = null, $parent_id = null)
     {
-        $challengequest = $this->Challengequests->newEmptyEntity(();
+        $challengequest = $this->Challengequests->newEmptyEntity();
         if ($this->request->is('post')) {
 
             if($parent_id != null)

@@ -299,16 +299,21 @@ class UsersController extends AppController{
                         return $this->redirect($this->Func->OptionGet('login_redirecturl'));
                 }
                 
+                $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Users',
+                    'action' => 'index',
+                ]);
+                
                 if($this->request->is('ajax')){
                     return $this->response->withType('application/json')->withStringBody(json_encode([
                         'code'=>'F8',
                         'type'=>'success',
                         'alert'=>__('ورود شما به پنل کاربری با موفقیت انجام شد'),
-                        'referer'=> Router::url($this->Auth->redirectUrl()),
+                        'referer'=> Router::url($redirect),
                     ]));
                 }
                 else{
-                    return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect($redirect);
                 }
             }
             else{

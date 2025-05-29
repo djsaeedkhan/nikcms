@@ -127,7 +127,7 @@ class OrderController extends AppController
                 $order = $this->ShopOrders->get($id,['contain'=>'ShopAddresses']);
         }
         else
-            $order = $this->ShopOrders->newEmptyEntity(();
+            $order = $this->ShopOrders->newEmptyEntity();
 
         $mobile_number = false;
         
@@ -304,7 +304,7 @@ class OrderController extends AppController
         //Log::write('debug', $this->request);
 
         /* $this->opt = $this->getTableLocator()->get('Options');
-        $text = $this->opt->patchEntity($this->opt->newEmptyEntity((),
+        $text = $this->opt->patchEntity($this->opt->newEmptyEntity(),
         [
             'name'=>'1',
             'value'=> serialize(($this->request->getQuery())),
@@ -330,7 +330,7 @@ class OrderController extends AppController
                         
             }
 
-            /* $text = $this->model->patchEntity($this->opt->newEmptyEntity((),[
+            /* $text = $this->model->patchEntity($this->opt->newEmptyEntity(),[
                 'name'=>'1',
                 'value'=> serialize(($this->request->getQuery())),
                 'types'=>'3',

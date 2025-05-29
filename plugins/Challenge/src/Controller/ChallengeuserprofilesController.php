@@ -50,7 +50,7 @@ class ChallengeuserprofilesController extends AppController
      */
     public function add()
     {
-        $challengeuserprofile = $this->Challengeuserprofiles->newEmptyEntity(();
+        $challengeuserprofile = $this->Challengeuserprofiles->newEmptyEntity();
         if ($this->request->is('post')) {
             $challengeuserprofile = $this->Challengeuserprofiles->patchEntity($challengeuserprofile, $this->request->getData());
             if ($this->Challengeuserprofiles->save($challengeuserprofile)) {
