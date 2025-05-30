@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace Lms\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Lms\Model\Table\LmsCourseusersTable;
 
@@ -15,14 +16,14 @@ class LmsCourseusersTableTest extends TestCase
      *
      * @var \Lms\Model\Table\LmsCourseusersTable
      */
-    public $LmsCourseusers;
+    protected $LmsCourseusers;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.Lms.LmsCourseusers',
         'plugin.Lms.LmsCourses',
         'plugin.Lms.Users',
@@ -33,11 +34,11 @@ class LmsCourseusersTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('LmsCourseusers') ? [] : ['className' => LmsCourseusersTable::class];
-        $this->LmsCourseusers = TableRegistry::getTableLocator()->get('LmsCourseusers', $config);
+        $config = $this->getTableLocator()->exists('LmsCourseusers') ? [] : ['className' => LmsCourseusersTable::class];
+        $this->LmsCourseusers = $this->getTableLocator()->get('LmsCourseusers', $config);
     }
 
     /**
@@ -45,7 +46,7 @@ class LmsCourseusersTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->LmsCourseusers);
 
@@ -53,11 +54,12 @@ class LmsCourseusersTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test beforeSave method
      *
      * @return void
+     * @uses \Lms\Model\Table\LmsCourseusersTable::beforeSave()
      */
-    public function testInitialize()
+    public function testBeforeSave(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -66,8 +68,9 @@ class LmsCourseusersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \Lms\Model\Table\LmsCourseusersTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -76,8 +79,9 @@ class LmsCourseusersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \Lms\Model\Table\LmsCourseusersTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

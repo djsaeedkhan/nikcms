@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Shop\Model\Entity\ShopFavorite get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopFavorite newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopFavorite newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopFavorite[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopFavorite|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopFavorite saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

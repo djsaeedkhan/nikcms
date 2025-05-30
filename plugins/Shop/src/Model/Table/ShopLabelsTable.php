@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * ShopLabels Model
  *
  * @method \Shop\Model\Entity\ShopLabel get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopLabel newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopLabel newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopLabel[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopLabel|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopLabel saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

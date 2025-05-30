@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Lms\Model\Table;
 
 use Cake\ORM\Query;
@@ -12,14 +14,19 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsCoursesTable&\Cake\ORM\Association\BelongsTo $LmsCourses
  * @property \Lms\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \Lms\Model\Entity\LmsCourseuser get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCourseuser newEmptyEntity(($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser newEmptyEntity()
+ * @method \Lms\Model\Entity\LmsCourseuser newEntity(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourseuser[] newEntities(array $data, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser get($primaryKey, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourseuser|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCourseuser saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Lms\Model\Entity\LmsCourseuser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Lms\Model\Entity\LmsCourseuser[] patchEntities($entities, array $data, array $options = [])
- * @method \Lms\Model\Entity\LmsCourseuser findOrCreate($search, callable $callback = null, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourseuser[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -53,21 +60,6 @@ class LmsCourseusersTable extends Table
         ]);
     }
 
-    public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
-    }
     /**
      * Default validation rules.
      *
@@ -77,8 +69,12 @@ class LmsCourseusersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('lms_course_id')
+            ->notEmptyString('lms_course_id');
+
+        $validator
+            ->integer('user_id')
+            ->notEmptyString('user_id');
 
         $validator
             ->allowEmptyString('status');
@@ -99,9 +95,8 @@ class LmsCourseusersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['lms_course_id'], 'LmsCourses'));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->isUnique(['lms_course_id','user_id'], 'این دوره قبلا برای این کاربر ثبت شده است'));
+        $rules->add($rules->existsIn('lms_course_id', 'LmsCourses'), ['errorField' => 'lms_course_id']);
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }

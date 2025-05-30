@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Role\Model\Table\UsersTable&\Cake\ORM\Association\HasMany $Users
  *
  * @method \Role\Model\Entity\Role get($primaryKey, $options = [])
- * @method \Role\Model\Entity\Role newEmptyEntity(($data = null, array $options = [])
+ * @method \Role\Model\Entity\Role newEmptyEntity($data = null, array $options = [])
  * @method \Role\Model\Entity\Role[] newEntities(array $data, array $options = [])
  * @method \Role\Model\Entity\Role|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Role\Model\Entity\Role saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

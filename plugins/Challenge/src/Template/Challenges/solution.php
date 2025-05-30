@@ -4,7 +4,7 @@ $this->Func->getSiteSetting();
 $predata = new Predata();
 
 $show = false;
-if($this->request->getSession()->read('Auth.User')):
+if( $this->request->getAttribute('identity')->get('id') ):
     if(
         !isset($users['challengeuserprofile']) or 
         (isset($users['challengeuserprofile']) and !isset($users['challengeuserprofile']['id'])) 

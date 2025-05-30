@@ -1,7 +1,7 @@
 <?php
 use Cake\Routing\Router;
 use Cake\ORM\TableRegistry;
-if($this->Func->OptionGet('role'.$this->getRequest()->getSession()->read('Auth.User.role_id')) === "0"){
+if($this->Func->OptionGet('role'.$this->request->getAttribute('identity')->get('role_id')) === "0"){
     echo $this->Func->Redirect(Router::url('/'));
 }
 $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
@@ -163,7 +163,7 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                 </li>
                 <li class="nav-item nav-moon"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
 
-                <?php if($this->getRequest()->getSession()->read('Auth.User.role_id') == 1):?>
+                <?php if( $this->request->getAttribute('identity')->get('role_id') == 1):?>
                     <li class="nav-item dropdown dropdown-notification mr-25">
                         <?php
                         $temp = null;
@@ -232,8 +232,8 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                 <li class="nav-item dropdown dropdown-user">
                     <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-nav d-sm-flex d-none">
-                            <span class="user-name font-weight-bolder"><?=$this->getRequest()->getSession()->read('Auth.User.family');?></span>
-                            <span class="user-status"><?= $this->getRequest()->getSession()->read('Auth.User.username');?></span>
+                            <span class="user-name font-weight-bolder"><?= $this->request->getAttribute('identity')->get('family');?></span>
+                            <span class="user-status"><?= $this->request->getAttribute('identity')->get('username');?></span>
                         </div>
                         <span class="avatar">
                             <?= $this->html->image('/admin/img/avatars/6.jpg',[
@@ -244,8 +244,8 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
 
                         <div class="dropdown-item d-sm-none d-block">
-                            <span class="user-name font-weight-bolder"><?=$this->getRequest()->getSession()->read('Auth.User.family');?></span>
-                            <span class="user-status"><?= $this->getRequest()->getSession()->read('Auth.User.username');?></span>
+                            <span class="user-name font-weight-bolder"><?= $this->request->getAttribute('identity')->get('family');?></span>
+                            <span class="user-status"><?= $this->request->getAttribute('identity')->get('username');?></span>
                         
                         </div>
                         <div class="dropdown-divider d-sm-none d-block"></div>

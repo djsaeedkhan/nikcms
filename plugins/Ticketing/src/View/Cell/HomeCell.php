@@ -6,7 +6,7 @@ class HomeCell extends Cell
 {
     public function user_dashboard(){
 
-        $user_id = $this->request->getsession()->read('Auth.User.id');
+        $user_id = $this->request->getAttribute('identity')->get('id');
         $tickets = $this->getTableLocator()->get('Ticketing.Tickets')->find('all')
                 ->contain([
                     'Ticketstatuses', 

@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Shop\Model\Entity\ShopProfile get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopProfile newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopProfile newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopProfile[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopProfile|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopProfile saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

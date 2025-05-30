@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
  *
  * @method \Admin\Model\Entity\PostsCategory get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\PostsCategory newEmptyEntity(($data = null, array $options = [])
+ * @method \Admin\Model\Entity\PostsCategory newEmptyEntity($data = null, array $options = [])
  * @method \Admin\Model\Entity\PostsCategory[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\PostsCategory|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\PostsCategory|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

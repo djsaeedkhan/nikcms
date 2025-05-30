@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopParamsTable&\Cake\ORM\Association\BelongsTo $ShopParams
  *
  * @method \Shop\Model\Entity\ShopProductParam get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopProductParam newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopProductParam newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopProductParam[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopProductParam|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopProductParam saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

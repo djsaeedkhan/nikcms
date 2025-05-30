@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Admin\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Admin\Model\Entity\UserMeta get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\UserMeta newEmptyEntity(($data = null, array $options = [])
+ * @method \Admin\Model\Entity\UserMeta newEmptyEntity($data = null, array $options = [])
  * @method \Admin\Model\Entity\UserMeta[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\UserMeta|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\UserMeta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

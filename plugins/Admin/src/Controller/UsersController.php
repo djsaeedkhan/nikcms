@@ -2,7 +2,6 @@
 namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\Controller\Exception\SecurityException;
-use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Auth\DefaultPasswordHasher;
 
@@ -87,7 +86,7 @@ class UsersController extends AppController
     }
     //--------------------------------------------------------------------
     public function view($id = null){
-        if($id == null) $id = $this->getRequest()->getSession()->read('Auth.User.id');
+        if($id == null) $id = $this->request->getAttribute('identity')->get('id');
         
         try{
             $user = $this->Users->get($id, [
@@ -106,7 +105,7 @@ class UsersController extends AppController
             $this->_Thumbnail($this->request->getQuery('thumbnail'));
         }
         if($id == null or $this->request->getAttribute('identity')->get('role_id') != 1) 
-            $id = $this->getRequest()->getSession()->read('Auth.User.id');
+            $id = $this->request->getAttribute('identity')->get('id');
         try{
             $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
         }

@@ -51,6 +51,10 @@
                     <td><?= h($user->modified) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Expired') ?></th>
+                    <td><?= h($user->expired) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Enable') ?></th>
                     <td><?= $user->enable ? __('Yes') : __('No'); ?></td>
                 </tr>
@@ -81,6 +85,326 @@
                                 <?= $this->Html->link(__('View'), ['controller' => 'Logs', 'action' => 'view', $logs->]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Logs', 'action' => 'edit', $logs->]) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'Logs', 'action' => 'delete', $logs->], ['confirm' => __('Are you sure you want to delete # {0}?', $logs->)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengetags') ?></h4>
+                <?php if (!empty($user->challengetags)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengetags as $challengetags) : ?>
+                        <tr>
+                            <td><?= h($challengetags->id) ?></td>
+                            <td><?= h($challengetags->title) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengetags', 'action' => 'view', $challengetags->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengetags', 'action' => 'edit', $challengetags->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengetags', 'action' => 'delete', $challengetags->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengetags->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengeblueticks') ?></h4>
+                <?php if (!empty($user->challengeblueticks)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengeblueticks as $challengeblueticks) : ?>
+                        <tr>
+                            <td><?= h($challengeblueticks->id) ?></td>
+                            <td><?= h($challengeblueticks->user_id) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengeblueticks', 'action' => 'view', $challengeblueticks->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengeblueticks', 'action' => 'edit', $challengeblueticks->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengeblueticks', 'action' => 'delete', $challengeblueticks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengeblueticks->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengefollowers') ?></h4>
+                <?php if (!empty($user->challengefollowers)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Challenge Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengefollowers as $challengefollowers) : ?>
+                        <tr>
+                            <td><?= h($challengefollowers->id) ?></td>
+                            <td><?= h($challengefollowers->challenge_id) ?></td>
+                            <td><?= h($challengefollowers->user_id) ?></td>
+                            <td><?= h($challengefollowers->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengefollowers', 'action' => 'view', $challengefollowers->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengefollowers', 'action' => 'edit', $challengefollowers->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengefollowers', 'action' => 'delete', $challengefollowers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengefollowers->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengeforums') ?></h4>
+                <?php if (!empty($user->challengeforums)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Challenge Id') ?></th>
+                            <th><?= __('Challengeforumtitle Id') ?></th>
+                            <th><?= __('Lft') ?></th>
+                            <th><?= __('Rght') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Text') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengeforums as $challengeforums) : ?>
+                        <tr>
+                            <td><?= h($challengeforums->id) ?></td>
+                            <td><?= h($challengeforums->challenge_id) ?></td>
+                            <td><?= h($challengeforums->challengeforumtitle_id) ?></td>
+                            <td><?= h($challengeforums->lft) ?></td>
+                            <td><?= h($challengeforums->rght) ?></td>
+                            <td><?= h($challengeforums->user_id) ?></td>
+                            <td><?= h($challengeforums->text) ?></td>
+                            <td><?= h($challengeforums->enable) ?></td>
+                            <td><?= h($challengeforums->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengeforums', 'action' => 'view', $challengeforums->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengeforums', 'action' => 'edit', $challengeforums->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengeforums', 'action' => 'delete', $challengeforums->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengeforums->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengeqanswers') ?></h4>
+                <?php if (!empty($user->challengeqanswers)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Challenge Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Challengequest Id') ?></th>
+                            <th><?= __('Value') ?></th>
+                            <th><?= __('Types') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengeqanswers as $challengeqanswers) : ?>
+                        <tr>
+                            <td><?= h($challengeqanswers->id) ?></td>
+                            <td><?= h($challengeqanswers->challenge_id) ?></td>
+                            <td><?= h($challengeqanswers->user_id) ?></td>
+                            <td><?= h($challengeqanswers->challengequest_id) ?></td>
+                            <td><?= h($challengeqanswers->value) ?></td>
+                            <td><?= h($challengeqanswers->types) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengeqanswers', 'action' => 'view', $challengeqanswers->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengeqanswers', 'action' => 'edit', $challengeqanswers->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengeqanswers', 'action' => 'delete', $challengeqanswers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengeqanswers->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challenges') ?></h4>
+                <?php if (!empty($user->challenges)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Slug') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Priority') ?></th>
+                            <th><?= __('Img') ?></th>
+                            <th><?= __('Img1') ?></th>
+                            <th><?= __('Img2') ?></th>
+                            <th><?= __('Challengestatus Id') ?></th>
+                            <th><?= __('Start Date') ?></th>
+                            <th><?= __('End Date') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Chtype') ?></th>
+                            <th><?= __('Price') ?></th>
+                            <th><?= __('Password') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challenges as $challenges) : ?>
+                        <tr>
+                            <td><?= h($challenges->id) ?></td>
+                            <td><?= h($challenges->title) ?></td>
+                            <td><?= h($challenges->slug) ?></td>
+                            <td><?= h($challenges->descr) ?></td>
+                            <td><?= h($challenges->priority) ?></td>
+                            <td><?= h($challenges->img) ?></td>
+                            <td><?= h($challenges->img1) ?></td>
+                            <td><?= h($challenges->img2) ?></td>
+                            <td><?= h($challenges->challengestatus_id) ?></td>
+                            <td><?= h($challenges->start_date) ?></td>
+                            <td><?= h($challenges->end_date) ?></td>
+                            <td><?= h($challenges->user_id) ?></td>
+                            <td><?= h($challenges->enable) ?></td>
+                            <td><?= h($challenges->chtype) ?></td>
+                            <td><?= h($challenges->price) ?></td>
+                            <td><?= h($challenges->password) ?></td>
+                            <td><?= h($challenges->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challenges', 'action' => 'view', $challenges->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challenges', 'action' => 'edit', $challenges->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challenges', 'action' => 'delete', $challenges->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challenges->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengeuserforms') ?></h4>
+                <?php if (!empty($user->challengeuserforms)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Challenge Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Userinfo') ?></th>
+                            <th><?= __('Filesrc') ?></th>
+                            <th><?= __('Filesrc2') ?></th>
+                            <th><?= __('Filesrc3') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Descr1') ?></th>
+                            <th><?= __('Descr2') ?></th>
+                            <th><?= __('Descr3') ?></th>
+                            <th><?= __('Descr4') ?></th>
+                            <th><?= __('Descr5') ?></th>
+                            <th><?= __('Descr6') ?></th>
+                            <th><?= __('Token1') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Approved') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengeuserforms as $challengeuserforms) : ?>
+                        <tr>
+                            <td><?= h($challengeuserforms->id) ?></td>
+                            <td><?= h($challengeuserforms->challenge_id) ?></td>
+                            <td><?= h($challengeuserforms->user_id) ?></td>
+                            <td><?= h($challengeuserforms->userinfo) ?></td>
+                            <td><?= h($challengeuserforms->filesrc) ?></td>
+                            <td><?= h($challengeuserforms->filesrc2) ?></td>
+                            <td><?= h($challengeuserforms->filesrc3) ?></td>
+                            <td><?= h($challengeuserforms->title) ?></td>
+                            <td><?= h($challengeuserforms->descr1) ?></td>
+                            <td><?= h($challengeuserforms->descr2) ?></td>
+                            <td><?= h($challengeuserforms->descr3) ?></td>
+                            <td><?= h($challengeuserforms->descr4) ?></td>
+                            <td><?= h($challengeuserforms->descr5) ?></td>
+                            <td><?= h($challengeuserforms->descr6) ?></td>
+                            <td><?= h($challengeuserforms->token1) ?></td>
+                            <td><?= h($challengeuserforms->enable) ?></td>
+                            <td><?= h($challengeuserforms->approved) ?></td>
+                            <td><?= h($challengeuserforms->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengeuserforms', 'action' => 'view', $challengeuserforms->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengeuserforms', 'action' => 'edit', $challengeuserforms->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengeuserforms', 'action' => 'delete', $challengeuserforms->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengeuserforms->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Challengeuserprofiles') ?></h4>
+                <?php if (!empty($user->challengeuserprofiles)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Gender') ?></th>
+                            <th><?= __('Provice') ?></th>
+                            <th><?= __('Birth Date') ?></th>
+                            <th><?= __('Single') ?></th>
+                            <th><?= __('Eductions') ?></th>
+                            <th><?= __('Email') ?></th>
+                            <th><?= __('Mobile') ?></th>
+                            <th><?= __('Center') ?></th>
+                            <th><?= __('Center Name') ?></th>
+                            <th><?= __('Semat') ?></th>
+                            <th><?= __('Codemeli') ?></th>
+                            <th><?= __('Field') ?></th>
+                            <th><?= __('Univercity') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Extra') ?></th>
+                            <th><?= __('Image') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->challengeuserprofiles as $challengeuserprofiles) : ?>
+                        <tr>
+                            <td><?= h($challengeuserprofiles->id) ?></td>
+                            <td><?= h($challengeuserprofiles->user_id) ?></td>
+                            <td><?= h($challengeuserprofiles->gender) ?></td>
+                            <td><?= h($challengeuserprofiles->provice) ?></td>
+                            <td><?= h($challengeuserprofiles->birth_date) ?></td>
+                            <td><?= h($challengeuserprofiles->single) ?></td>
+                            <td><?= h($challengeuserprofiles->eductions) ?></td>
+                            <td><?= h($challengeuserprofiles->email) ?></td>
+                            <td><?= h($challengeuserprofiles->mobile) ?></td>
+                            <td><?= h($challengeuserprofiles->center) ?></td>
+                            <td><?= h($challengeuserprofiles->center_name) ?></td>
+                            <td><?= h($challengeuserprofiles->semat) ?></td>
+                            <td><?= h($challengeuserprofiles->codemeli) ?></td>
+                            <td><?= h($challengeuserprofiles->field) ?></td>
+                            <td><?= h($challengeuserprofiles->univercity) ?></td>
+                            <td><?= h($challengeuserprofiles->descr) ?></td>
+                            <td><?= h($challengeuserprofiles->extra) ?></td>
+                            <td><?= h($challengeuserprofiles->image) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Challengeuserprofiles', 'action' => 'view', $challengeuserprofiles->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Challengeuserprofiles', 'action' => 'edit', $challengeuserprofiles->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Challengeuserprofiles', 'action' => 'delete', $challengeuserprofiles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengeuserprofiles->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -173,6 +497,552 @@
                 <?php endif; ?>
             </div>
             <div class="related">
+                <h4><?= __('Related Lms Certificates') ?></h4>
+                <?php if (!empty($user->lms_certificates)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('Input Data') ?></th>
+                            <th><?= __('Image') ?></th>
+                            <th><?= __('Download') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Alert') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Accepted') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_certificates as $lmsCertificates) : ?>
+                        <tr>
+                            <td><?= h($lmsCertificates->id) ?></td>
+                            <td><?= h($lmsCertificates->user_id) ?></td>
+                            <td><?= h($lmsCertificates->lms_course_id) ?></td>
+                            <td><?= h($lmsCertificates->input_data) ?></td>
+                            <td><?= h($lmsCertificates->image) ?></td>
+                            <td><?= h($lmsCertificates->download) ?></td>
+                            <td><?= h($lmsCertificates->status) ?></td>
+                            <td><?= h($lmsCertificates->alert) ?></td>
+                            <td><?= h($lmsCertificates->enable) ?></td>
+                            <td><?= h($lmsCertificates->created) ?></td>
+                            <td><?= h($lmsCertificates->accepted) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsCertificates', 'action' => 'view', $lmsCertificates->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsCertificates', 'action' => 'edit', $lmsCertificates->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsCertificates', 'action' => 'delete', $lmsCertificates->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsCertificates->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Coursefilecans') ?></h4>
+                <?php if (!empty($user->lms_coursefilecans)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('Lms Coursefile Id') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Types') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_coursefilecans as $lmsCoursefilecans) : ?>
+                        <tr>
+                            <td><?= h($lmsCoursefilecans->id) ?></td>
+                            <td><?= h($lmsCoursefilecans->user_id) ?></td>
+                            <td><?= h($lmsCoursefilecans->lms_course_id) ?></td>
+                            <td><?= h($lmsCoursefilecans->lms_coursefile_id) ?></td>
+                            <td><?= h($lmsCoursefilecans->enable) ?></td>
+                            <td><?= h($lmsCoursefilecans->types) ?></td>
+                            <td><?= h($lmsCoursefilecans->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsCoursefilecans', 'action' => 'view', $lmsCoursefilecans->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsCoursefilecans', 'action' => 'edit', $lmsCoursefilecans->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsCoursefilecans', 'action' => 'delete', $lmsCoursefilecans->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsCoursefilecans->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Courses') ?></h4>
+                <?php if (!empty($user->lms_courses)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Lms Coursecategorie Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Text') ?></th>
+                            <th><?= __('Textweb') ?></th>
+                            <th><?= __('Image') ?></th>
+                            <th><?= __('Date Start') ?></th>
+                            <th><?= __('Date End') ?></th>
+                            <th><?= __('Date Type') ?></th>
+                            <th><?= __('Price') ?></th>
+                            <th><?= __('Price Special') ?></th>
+                            <th><?= __('Price Renew') ?></th>
+                            <th><?= __('Show In List') ?></th>
+                            <th><?= __('Can Add') ?></th>
+                            <th><?= __('Can Renew') ?></th>
+                            <th><?= __('Renew Day') ?></th>
+                            <th><?= __('Total Time') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Priority') ?></th>
+                            <th><?= __('Options') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_courses as $lmsCourses) : ?>
+                        <tr>
+                            <td><?= h($lmsCourses->id) ?></td>
+                            <td><?= h($lmsCourses->title) ?></td>
+                            <td><?= h($lmsCourses->lms_coursecategorie_id) ?></td>
+                            <td><?= h($lmsCourses->user_id) ?></td>
+                            <td><?= h($lmsCourses->text) ?></td>
+                            <td><?= h($lmsCourses->textweb) ?></td>
+                            <td><?= h($lmsCourses->image) ?></td>
+                            <td><?= h($lmsCourses->date_start) ?></td>
+                            <td><?= h($lmsCourses->date_end) ?></td>
+                            <td><?= h($lmsCourses->date_type) ?></td>
+                            <td><?= h($lmsCourses->price) ?></td>
+                            <td><?= h($lmsCourses->price_special) ?></td>
+                            <td><?= h($lmsCourses->price_renew) ?></td>
+                            <td><?= h($lmsCourses->show_in_list) ?></td>
+                            <td><?= h($lmsCourses->can_add) ?></td>
+                            <td><?= h($lmsCourses->can_renew) ?></td>
+                            <td><?= h($lmsCourses->renew_day) ?></td>
+                            <td><?= h($lmsCourses->total_time) ?></td>
+                            <td><?= h($lmsCourses->enable) ?></td>
+                            <td><?= h($lmsCourses->priority) ?></td>
+                            <td><?= h($lmsCourses->options) ?></td>
+                            <td><?= h($lmsCourses->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsCourses', 'action' => 'view', $lmsCourses->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsCourses', 'action' => 'edit', $lmsCourses->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsCourses', 'action' => 'delete', $lmsCourses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsCourses->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Coursesessions') ?></h4>
+                <?php if (!empty($user->lms_coursesessions)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('Lms Courseweek Id') ?></th>
+                            <th><?= __('Lms Coursefile Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_coursesessions as $lmsCoursesessions) : ?>
+                        <tr>
+                            <td><?= h($lmsCoursesessions->id) ?></td>
+                            <td><?= h($lmsCoursesessions->lms_course_id) ?></td>
+                            <td><?= h($lmsCoursesessions->lms_courseweek_id) ?></td>
+                            <td><?= h($lmsCoursesessions->lms_coursefile_id) ?></td>
+                            <td><?= h($lmsCoursesessions->user_id) ?></td>
+                            <td><?= h($lmsCoursesessions->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsCoursesessions', 'action' => 'view', $lmsCoursesessions->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsCoursesessions', 'action' => 'edit', $lmsCoursesessions->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsCoursesessions', 'action' => 'delete', $lmsCoursesessions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsCoursesessions->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Courseusers') ?></h4>
+                <?php if (!empty($user->lms_courseusers)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_courseusers as $lmsCourseusers) : ?>
+                        <tr>
+                            <td><?= h($lmsCourseusers->id) ?></td>
+                            <td><?= h($lmsCourseusers->lms_course_id) ?></td>
+                            <td><?= h($lmsCourseusers->user_id) ?></td>
+                            <td><?= h($lmsCourseusers->status) ?></td>
+                            <td><?= h($lmsCourseusers->enable) ?></td>
+                            <td><?= h($lmsCourseusers->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsCourseusers', 'action' => 'view', $lmsCourseusers->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsCourseusers', 'action' => 'edit', $lmsCourseusers->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsCourseusers', 'action' => 'delete', $lmsCourseusers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsCourseusers->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Examresultlists') ?></h4>
+                <?php if (!empty($user->lms_examresultlists)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Examresult Id') ?></th>
+                            <th><?= __('Lms Exam Id') ?></th>
+                            <th><?= __('Lms Examquest Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Answer') ?></th>
+                            <th><?= __('Result') ?></th>
+                            <th><?= __('Filesrc') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_examresultlists as $lmsExamresultlists) : ?>
+                        <tr>
+                            <td><?= h($lmsExamresultlists->id) ?></td>
+                            <td><?= h($lmsExamresultlists->user_id) ?></td>
+                            <td><?= h($lmsExamresultlists->lms_examresult_id) ?></td>
+                            <td><?= h($lmsExamresultlists->lms_exam_id) ?></td>
+                            <td><?= h($lmsExamresultlists->lms_examquest_id) ?></td>
+                            <td><?= h($lmsExamresultlists->token) ?></td>
+                            <td><?= h($lmsExamresultlists->answer) ?></td>
+                            <td><?= h($lmsExamresultlists->result) ?></td>
+                            <td><?= h($lmsExamresultlists->filesrc) ?></td>
+                            <td><?= h($lmsExamresultlists->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsExamresultlists', 'action' => 'view', $lmsExamresultlists->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsExamresultlists', 'action' => 'edit', $lmsExamresultlists->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsExamresultlists', 'action' => 'delete', $lmsExamresultlists->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsExamresultlists->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Examresults') ?></h4>
+                <?php if (!empty($user->lms_examresults)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Exam Id') ?></th>
+                            <th><?= __('Lms Coursefile Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Result') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_examresults as $lmsExamresults) : ?>
+                        <tr>
+                            <td><?= h($lmsExamresults->id) ?></td>
+                            <td><?= h($lmsExamresults->user_id) ?></td>
+                            <td><?= h($lmsExamresults->lms_exam_id) ?></td>
+                            <td><?= h($lmsExamresults->lms_coursefile_id) ?></td>
+                            <td><?= h($lmsExamresults->token) ?></td>
+                            <td><?= h($lmsExamresults->result) ?></td>
+                            <td><?= h($lmsExamresults->descr) ?></td>
+                            <td><?= h($lmsExamresults->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsExamresults', 'action' => 'view', $lmsExamresults->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsExamresults', 'action' => 'edit', $lmsExamresults->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsExamresults', 'action' => 'delete', $lmsExamresults->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsExamresults->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Exams') ?></h4>
+                <?php if (!empty($user->lms_exams)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Timer') ?></th>
+                            <th><?= __('Reexam') ?></th>
+                            <th><?= __('Fail Count') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Options') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_exams as $lmsExams) : ?>
+                        <tr>
+                            <td><?= h($lmsExams->id) ?></td>
+                            <td><?= h($lmsExams->title) ?></td>
+                            <td><?= h($lmsExams->descr) ?></td>
+                            <td><?= h($lmsExams->timer) ?></td>
+                            <td><?= h($lmsExams->reexam) ?></td>
+                            <td><?= h($lmsExams->fail_count) ?></td>
+                            <td><?= h($lmsExams->user_id) ?></td>
+                            <td><?= h($lmsExams->options) ?></td>
+                            <td><?= h($lmsExams->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsExams', 'action' => 'view', $lmsExams->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsExams', 'action' => 'edit', $lmsExams->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsExams', 'action' => 'delete', $lmsExams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsExams->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Examusers') ?></h4>
+                <?php if (!empty($user->lms_examusers)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Exam Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Final Result') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_examusers as $lmsExamusers) : ?>
+                        <tr>
+                            <td><?= h($lmsExamusers->id) ?></td>
+                            <td><?= h($lmsExamusers->user_id) ?></td>
+                            <td><?= h($lmsExamusers->lms_exam_id) ?></td>
+                            <td><?= h($lmsExamusers->token) ?></td>
+                            <td><?= h($lmsExamusers->final_result) ?></td>
+                            <td><?= h($lmsExamusers->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsExamusers', 'action' => 'view', $lmsExamusers->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsExamusers', 'action' => 'edit', $lmsExamusers->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsExamusers', 'action' => 'delete', $lmsExamusers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsExamusers->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Factors') ?></h4>
+                <?php if (!empty($user->lms_factors)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('User Ids') ?></th>
+                            <th><?= __('Price') ?></th>
+                            <th><?= __('Old Price') ?></th>
+                            <th><?= __('Lms Coupon Id') ?></th>
+                            <th><?= __('Paid') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Options') ?></th>
+                            <th><?= __('Types') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_factors as $lmsFactors) : ?>
+                        <tr>
+                            <td><?= h($lmsFactors->id) ?></td>
+                            <td><?= h($lmsFactors->user_id) ?></td>
+                            <td><?= h($lmsFactors->user_ids) ?></td>
+                            <td><?= h($lmsFactors->price) ?></td>
+                            <td><?= h($lmsFactors->old_price) ?></td>
+                            <td><?= h($lmsFactors->lms_coupon_id) ?></td>
+                            <td><?= h($lmsFactors->paid) ?></td>
+                            <td><?= h($lmsFactors->status) ?></td>
+                            <td><?= h($lmsFactors->descr) ?></td>
+                            <td><?= h($lmsFactors->options) ?></td>
+                            <td><?= h($lmsFactors->types) ?></td>
+                            <td><?= h($lmsFactors->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsFactors', 'action' => 'view', $lmsFactors->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsFactors', 'action' => 'edit', $lmsFactors->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsFactors', 'action' => 'delete', $lmsFactors->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsFactors->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Payments') ?></h4>
+                <?php if (!empty($user->lms_payments)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Lms Factor Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Price') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Terminal Ids') ?></th>
+                            <th><?= __('Auth') ?></th>
+                            <th><?= __('RefID') ?></th>
+                            <th><?= __('TraceID') ?></th>
+                            <th><?= __('Errcode') ?></th>
+                            <th><?= __('Errtext') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_payments as $lmsPayments) : ?>
+                        <tr>
+                            <td><?= h($lmsPayments->id) ?></td>
+                            <td><?= h($lmsPayments->lms_factor_id) ?></td>
+                            <td><?= h($lmsPayments->token) ?></td>
+                            <td><?= h($lmsPayments->price) ?></td>
+                            <td><?= h($lmsPayments->user_id) ?></td>
+                            <td><?= h($lmsPayments->terminal_ids) ?></td>
+                            <td><?= h($lmsPayments->auth) ?></td>
+                            <td><?= h($lmsPayments->RefID) ?></td>
+                            <td><?= h($lmsPayments->TraceID) ?></td>
+                            <td><?= h($lmsPayments->Errcode) ?></td>
+                            <td><?= h($lmsPayments->Errtext) ?></td>
+                            <td><?= h($lmsPayments->status) ?></td>
+                            <td><?= h($lmsPayments->enable) ?></td>
+                            <td><?= h($lmsPayments->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsPayments', 'action' => 'view', $lmsPayments->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsPayments', 'action' => 'edit', $lmsPayments->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsPayments', 'action' => 'delete', $lmsPayments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsPayments->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Userfactors') ?></h4>
+                <?php if (!empty($user->lms_userfactors)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Factor Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('Lms Exam Id') ?></th>
+                            <th><?= __('User Ids') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_userfactors as $lmsUserfactors) : ?>
+                        <tr>
+                            <td><?= h($lmsUserfactors->id) ?></td>
+                            <td><?= h($lmsUserfactors->user_id) ?></td>
+                            <td><?= h($lmsUserfactors->lms_factor_id) ?></td>
+                            <td><?= h($lmsUserfactors->lms_course_id) ?></td>
+                            <td><?= h($lmsUserfactors->lms_exam_id) ?></td>
+                            <td><?= h($lmsUserfactors->user_ids) ?></td>
+                            <td><?= h($lmsUserfactors->enable) ?></td>
+                            <td><?= h($lmsUserfactors->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsUserfactors', 'action' => 'view', $lmsUserfactors->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsUserfactors', 'action' => 'edit', $lmsUserfactors->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsUserfactors', 'action' => 'delete', $lmsUserfactors->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsUserfactors->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Usernotes') ?></h4>
+                <?php if (!empty($user->lms_usernotes)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Lms Course Id') ?></th>
+                            <th><?= __('Lms Coursefile Id') ?></th>
+                            <th><?= __('Text') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_usernotes as $lmsUsernotes) : ?>
+                        <tr>
+                            <td><?= h($lmsUsernotes->id) ?></td>
+                            <td><?= h($lmsUsernotes->user_id) ?></td>
+                            <td><?= h($lmsUsernotes->lms_course_id) ?></td>
+                            <td><?= h($lmsUsernotes->lms_coursefile_id) ?></td>
+                            <td><?= h($lmsUsernotes->text) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsUsernotes', 'action' => 'view', $lmsUsernotes->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsUsernotes', 'action' => 'edit', $lmsUsernotes->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsUsernotes', 'action' => 'delete', $lmsUsernotes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsUsernotes->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Lms Userprofiles') ?></h4>
+                <?php if (!empty($user->lms_userprofiles)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->lms_userprofiles as $lmsUserprofiles) : ?>
+                        <tr>
+                            <td><?= h($lmsUserprofiles->id) ?></td>
+                            <td><?= h($lmsUserprofiles->user_id) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'LmsUserprofiles', 'action' => 'view', $lmsUserprofiles->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'LmsUserprofiles', 'action' => 'edit', $lmsUserprofiles->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'LmsUserprofiles', 'action' => 'delete', $lmsUserprofiles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lmsUserprofiles->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
                 <h4><?= __('Related Poll Votes') ?></h4>
                 <?php if (!empty($user->poll_votes)) : ?>
                 <div class="table-responsive">
@@ -227,6 +1097,7 @@
                             <th><?= __('Meta Keywords') ?></th>
                             <th><?= __('User Id') ?></th>
                             <th><?= __('Post Type') ?></th>
+                            <th><?= __('Priority') ?></th>
                             <th><?= __('Created') ?></th>
                             <th><?= __('Modified') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
@@ -247,6 +1118,7 @@
                             <td><?= h($posts->meta_keywords) ?></td>
                             <td><?= h($posts->user_id) ?></td>
                             <td><?= h($posts->post_type) ?></td>
+                            <td><?= h($posts->priority) ?></td>
                             <td><?= h($posts->created) ?></td>
                             <td><?= h($posts->modified) ?></td>
                             <td class="actions">
@@ -813,6 +1685,415 @@
                                 <?= $this->Html->link(__('View'), ['controller' => 'SmsValidations', 'action' => 'view', $smsValidations->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'SmsValidations', 'action' => 'edit', $smsValidations->id]) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'SmsValidations', 'action' => 'delete', $smsValidations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $smsValidations->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Ticketaudits') ?></h4>
+                <?php if (!empty($user->ticketaudits)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Operation') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Ticket Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->ticketaudits as $ticketaudits) : ?>
+                        <tr>
+                            <td><?= h($ticketaudits->id) ?></td>
+                            <td><?= h($ticketaudits->operation) ?></td>
+                            <td><?= h($ticketaudits->user_id) ?></td>
+                            <td><?= h($ticketaudits->ticket_id) ?></td>
+                            <td><?= h($ticketaudits->created) ?></td>
+                            <td><?= h($ticketaudits->modified) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Ticketaudits', 'action' => 'view', $ticketaudits->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Ticketaudits', 'action' => 'edit', $ticketaudits->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Ticketaudits', 'action' => 'delete', $ticketaudits->id], ['confirm' => __('Are you sure you want to delete # {0}?', $ticketaudits->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Ticketcomments') ?></h4>
+                <?php if (!empty($user->ticketcomments)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Content') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Ticket Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Filename') ?></th>
+                            <th><?= __('Filesrc') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->ticketcomments as $ticketcomments) : ?>
+                        <tr>
+                            <td><?= h($ticketcomments->id) ?></td>
+                            <td><?= h($ticketcomments->content) ?></td>
+                            <td><?= h($ticketcomments->user_id) ?></td>
+                            <td><?= h($ticketcomments->ticket_id) ?></td>
+                            <td><?= h($ticketcomments->created) ?></td>
+                            <td><?= h($ticketcomments->filename) ?></td>
+                            <td><?= h($ticketcomments->filesrc) ?></td>
+                            <td><?= h($ticketcomments->modified) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Ticketcomments', 'action' => 'view', $ticketcomments->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Ticketcomments', 'action' => 'edit', $ticketcomments->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Ticketcomments', 'action' => 'delete', $ticketcomments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $ticketcomments->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tickets') ?></h4>
+                <?php if (!empty($user->tickets)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Subject') ?></th>
+                            <th><?= __('Content') ?></th>
+                            <th><?= __('Html') ?></th>
+                            <th><?= __('Ticketstatus Id') ?></th>
+                            <th><?= __('Ticketpriority Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Agent Id') ?></th>
+                            <th><?= __('Post Id') ?></th>
+                            <th><?= __('Phone Number') ?></th>
+                            <th><?= __('Alert Type') ?></th>
+                            <th><?= __('Email') ?></th>
+                            <th><?= __('Ticketcategory Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th><?= __('Completed') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tickets as $tickets) : ?>
+                        <tr>
+                            <td><?= h($tickets->id) ?></td>
+                            <td><?= h($tickets->subject) ?></td>
+                            <td><?= h($tickets->content) ?></td>
+                            <td><?= h($tickets->html) ?></td>
+                            <td><?= h($tickets->ticketstatus_id) ?></td>
+                            <td><?= h($tickets->ticketpriority_id) ?></td>
+                            <td><?= h($tickets->user_id) ?></td>
+                            <td><?= h($tickets->agent_id) ?></td>
+                            <td><?= h($tickets->post_id) ?></td>
+                            <td><?= h($tickets->phone_number) ?></td>
+                            <td><?= h($tickets->alert_type) ?></td>
+                            <td><?= h($tickets->email) ?></td>
+                            <td><?= h($tickets->ticketcategory_id) ?></td>
+                            <td><?= h($tickets->created) ?></td>
+                            <td><?= h($tickets->modified) ?></td>
+                            <td><?= h($tickets->completed) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Tickets', 'action' => 'view', $tickets->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Tickets', 'action' => 'edit', $tickets->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tickets', 'action' => 'delete', $tickets->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tickets->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Challengeforms') ?></h4>
+                <?php if (!empty($user->tmp_challengeforms)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Tmp Challenge Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Info') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_challengeforms as $tmpChallengeforms) : ?>
+                        <tr>
+                            <td><?= h($tmpChallengeforms->id) ?></td>
+                            <td><?= h($tmpChallengeforms->token) ?></td>
+                            <td><?= h($tmpChallengeforms->tmp_challenge_id) ?></td>
+                            <td><?= h($tmpChallengeforms->title) ?></td>
+                            <td><?= h($tmpChallengeforms->info) ?></td>
+                            <td><?= h($tmpChallengeforms->descr) ?></td>
+                            <td><?= h($tmpChallengeforms->user_id) ?></td>
+                            <td><?= h($tmpChallengeforms->enable) ?></td>
+                            <td><?= h($tmpChallengeforms->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpChallengeforms', 'action' => 'view', $tmpChallengeforms->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpChallengeforms', 'action' => 'edit', $tmpChallengeforms->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpChallengeforms', 'action' => 'delete', $tmpChallengeforms->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpChallengeforms->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Members') ?></h4>
+                <?php if (!empty($user->tmp_members)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Name') ?></th>
+                            <th><?= __('Family') ?></th>
+                            <th><?= __('Uid') ?></th>
+                            <th><?= __('Birth Date') ?></th>
+                            <th><?= __('Province') ?></th>
+                            <th><?= __('City') ?></th>
+                            <th><?= __('Bakhsh') ?></th>
+                            <th><?= __('Deh') ?></th>
+                            <th><?= __('Favorite') ?></th>
+                            <th><?= __('Gender') ?></th>
+                            <th><?= __('Educate') ?></th>
+                            <th><?= __('Job') ?></th>
+                            <th><?= __('Mobile') ?></th>
+                            <th><?= __('Images') ?></th>
+                            <th><?= __('Scode') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_members as $tmpMembers) : ?>
+                        <tr>
+                            <td><?= h($tmpMembers->id) ?></td>
+                            <td><?= h($tmpMembers->user_id) ?></td>
+                            <td><?= h($tmpMembers->name) ?></td>
+                            <td><?= h($tmpMembers->family) ?></td>
+                            <td><?= h($tmpMembers->uid) ?></td>
+                            <td><?= h($tmpMembers->birth_date) ?></td>
+                            <td><?= h($tmpMembers->province) ?></td>
+                            <td><?= h($tmpMembers->city) ?></td>
+                            <td><?= h($tmpMembers->bakhsh) ?></td>
+                            <td><?= h($tmpMembers->deh) ?></td>
+                            <td><?= h($tmpMembers->favorite) ?></td>
+                            <td><?= h($tmpMembers->gender) ?></td>
+                            <td><?= h($tmpMembers->educate) ?></td>
+                            <td><?= h($tmpMembers->job) ?></td>
+                            <td><?= h($tmpMembers->mobile) ?></td>
+                            <td><?= h($tmpMembers->images) ?></td>
+                            <td><?= h($tmpMembers->scode) ?></td>
+                            <td><?= h($tmpMembers->enable) ?></td>
+                            <td><?= h($tmpMembers->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpMembers', 'action' => 'view', $tmpMembers->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpMembers', 'action' => 'edit', $tmpMembers->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpMembers', 'action' => 'delete', $tmpMembers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpMembers->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Personlikes') ?></h4>
+                <?php if (!empty($user->tmp_personlikes)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Tmp Person Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_personlikes as $tmpPersonlikes) : ?>
+                        <tr>
+                            <td><?= h($tmpPersonlikes->id) ?></td>
+                            <td><?= h($tmpPersonlikes->tmp_person_id) ?></td>
+                            <td><?= h($tmpPersonlikes->user_id) ?></td>
+                            <td><?= h($tmpPersonlikes->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpPersonlikes', 'action' => 'view', $tmpPersonlikes->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpPersonlikes', 'action' => 'edit', $tmpPersonlikes->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpPersonlikes', 'action' => 'delete', $tmpPersonlikes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpPersonlikes->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Persons') ?></h4>
+                <?php if (!empty($user->tmp_persons)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Image') ?></th>
+                            <th><?= __('Organ Name') ?></th>
+                            <th><?= __('Organ Ids') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Yourdescr') ?></th>
+                            <th><?= __('Likes') ?></th>
+                            <th><?= __('Province') ?></th>
+                            <th><?= __('Pcity') ?></th>
+                            <th><?= __('City') ?></th>
+                            <th><?= __('Part') ?></th>
+                            <th><?= __('Village') ?></th>
+                            <th><?= __('File') ?></th>
+                            <th><?= __('Semat') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Link') ?></th>
+                            <th><?= __('Show Inlist') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_persons as $tmpPersons) : ?>
+                        <tr>
+                            <td><?= h($tmpPersons->id) ?></td>
+                            <td><?= h($tmpPersons->token) ?></td>
+                            <td><?= h($tmpPersons->title) ?></td>
+                            <td><?= h($tmpPersons->image) ?></td>
+                            <td><?= h($tmpPersons->organ_name) ?></td>
+                            <td><?= h($tmpPersons->organ_ids) ?></td>
+                            <td><?= h($tmpPersons->descr) ?></td>
+                            <td><?= h($tmpPersons->yourdescr) ?></td>
+                            <td><?= h($tmpPersons->likes) ?></td>
+                            <td><?= h($tmpPersons->province) ?></td>
+                            <td><?= h($tmpPersons->pcity) ?></td>
+                            <td><?= h($tmpPersons->city) ?></td>
+                            <td><?= h($tmpPersons->part) ?></td>
+                            <td><?= h($tmpPersons->village) ?></td>
+                            <td><?= h($tmpPersons->file) ?></td>
+                            <td><?= h($tmpPersons->semat) ?></td>
+                            <td><?= h($tmpPersons->enable) ?></td>
+                            <td><?= h($tmpPersons->user_id) ?></td>
+                            <td><?= h($tmpPersons->link) ?></td>
+                            <td><?= h($tmpPersons->show_inlist) ?></td>
+                            <td><?= h($tmpPersons->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpPersons', 'action' => 'view', $tmpPersons->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpPersons', 'action' => 'edit', $tmpPersons->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpPersons', 'action' => 'delete', $tmpPersons->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpPersons->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Problemforms') ?></h4>
+                <?php if (!empty($user->tmp_problemforms)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Tmp Problem Id') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('File') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_problemforms as $tmpProblemforms) : ?>
+                        <tr>
+                            <td><?= h($tmpProblemforms->id) ?></td>
+                            <td><?= h($tmpProblemforms->token) ?></td>
+                            <td><?= h($tmpProblemforms->tmp_problem_id) ?></td>
+                            <td><?= h($tmpProblemforms->title) ?></td>
+                            <td><?= h($tmpProblemforms->descr) ?></td>
+                            <td><?= h($tmpProblemforms->file) ?></td>
+                            <td><?= h($tmpProblemforms->user_id) ?></td>
+                            <td><?= h($tmpProblemforms->enable) ?></td>
+                            <td><?= h($tmpProblemforms->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpProblemforms', 'action' => 'view', $tmpProblemforms->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpProblemforms', 'action' => 'edit', $tmpProblemforms->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpProblemforms', 'action' => 'delete', $tmpProblemforms->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpProblemforms->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Tmp Problems') ?></h4>
+                <?php if (!empty($user->tmp_problems)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Token') ?></th>
+                            <th><?= __('Level') ?></th>
+                            <th><?= __('Province') ?></th>
+                            <th><?= __('Pcity') ?></th>
+                            <th><?= __('City') ?></th>
+                            <th><?= __('Part') ?></th>
+                            <th><?= __('Village') ?></th>
+                            <th><?= __('Cats') ?></th>
+                            <th><?= __('Title') ?></th>
+                            <th><?= __('Descr') ?></th>
+                            <th><?= __('Plan') ?></th>
+                            <th><?= __('File') ?></th>
+                            <th><?= __('Roles') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th><?= __('Enable') ?></th>
+                            <th><?= __('Trcode') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->tmp_problems as $tmpProblems) : ?>
+                        <tr>
+                            <td><?= h($tmpProblems->id) ?></td>
+                            <td><?= h($tmpProblems->token) ?></td>
+                            <td><?= h($tmpProblems->level) ?></td>
+                            <td><?= h($tmpProblems->province) ?></td>
+                            <td><?= h($tmpProblems->pcity) ?></td>
+                            <td><?= h($tmpProblems->city) ?></td>
+                            <td><?= h($tmpProblems->part) ?></td>
+                            <td><?= h($tmpProblems->village) ?></td>
+                            <td><?= h($tmpProblems->cats) ?></td>
+                            <td><?= h($tmpProblems->title) ?></td>
+                            <td><?= h($tmpProblems->descr) ?></td>
+                            <td><?= h($tmpProblems->plan) ?></td>
+                            <td><?= h($tmpProblems->file) ?></td>
+                            <td><?= h($tmpProblems->roles) ?></td>
+                            <td><?= h($tmpProblems->user_id) ?></td>
+                            <td><?= h($tmpProblems->enable) ?></td>
+                            <td><?= h($tmpProblems->trcode) ?></td>
+                            <td><?= h($tmpProblems->created) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'TmpProblems', 'action' => 'view', $tmpProblems->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'TmpProblems', 'action' => 'edit', $tmpProblems->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'TmpProblems', 'action' => 'delete', $tmpProblems->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tmpProblems->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

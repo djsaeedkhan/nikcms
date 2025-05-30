@@ -62,7 +62,7 @@ use Cake\Validation\Validator;
  * @property \Ticketing\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Ticketing\Model\Entity\User get($primaryKey, $options = [])
- * @method \Ticketing\Model\Entity\User newEmptyEntity(($data = null, array $options = [])
+ * @method \Ticketing\Model\Entity\User newEmptyEntity($data = null, array $options = [])
  * @method \Ticketing\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Ticketing\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Ticketing\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

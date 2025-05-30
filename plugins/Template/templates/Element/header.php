@@ -129,10 +129,10 @@ if (!function_exists('get_api_price')){
 							</li>
 
 							<?php
-							if ($this->request->getSession()->read('Auth.User')):
+							if ( $this->request->getAttribute('identity')->get('id') ):
 								echo '<li class="rounded-20 li2 fs-13">';
 									echo $this->html->link('<div class="hee-text ">'.
-                  $this->request->getSession()->read('Auth.User.family'),
+                  $this->request->getAttribute('identity')->get('family'),
 										CartHelper::Link('profile'),
 										['escape'=>false,'title'=>'مشاهده صفحه پروفایل','class'=>'text-dark text-black']);
 									/* echo $this->html->link('<i class="icon-line2-login text-dark mr-2"></i>',

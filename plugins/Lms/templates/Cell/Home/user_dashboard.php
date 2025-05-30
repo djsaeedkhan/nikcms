@@ -13,7 +13,7 @@
 							</div>
 						</div>
 						<div class="media-body my-auto">
-							<h4 class="font-weight-bolder mb-0"><?=count($lmsCourses)?></h4>
+							<h4 class="font-weight-bolder mb-0"><?= is_array($lmsCourses)?count($lmsCourses):"-"?></h4>
 							<p class="card-text font-small-4 mb-0">دوره های من</p>
 						</div>
 					</div>

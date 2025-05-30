@@ -4,6 +4,7 @@
  * @var \Cake\Datasource\EntityInterface $user
  * @var string[]|\Cake\Collection\CollectionInterface $roles
  * @var string[]|\Cake\Collection\CollectionInterface $logs
+ * @var string[]|\Cake\Collection\CollectionInterface $challengetags
  */
 ?>
 <div class="row">
@@ -32,7 +33,9 @@
                     echo $this->Form->control('role_id', ['options' => $roles, 'empty' => true]);
                     echo $this->Form->control('enable');
                     echo $this->Form->control('token');
+                    echo $this->Form->control('expired', ['empty' => true]);
                     echo $this->Form->control('logs._ids', ['options' => $logs]);
+                    echo $this->Form->control('challengetags._ids', ['options' => $challengetags]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

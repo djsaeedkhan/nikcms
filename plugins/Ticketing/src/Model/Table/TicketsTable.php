@@ -19,7 +19,7 @@ use Cake\Validation\Validator;
  * @property \Ticketing\Model\Table\TicketcommentsTable&\Cake\ORM\Association\HasMany $Ticketcomments
  *
  * @method \Ticketing\Model\Entity\Ticket get($primaryKey, $options = [])
- * @method \Ticketing\Model\Entity\Ticket newEmptyEntity(($data = null, array $options = [])
+ * @method \Ticketing\Model\Entity\Ticket newEmptyEntity($data = null, array $options = [])
  * @method \Ticketing\Model\Entity\Ticket[] newEntities(array $data, array $options = [])
  * @method \Ticketing\Model\Entity\Ticket|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Ticketing\Model\Entity\Ticket saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

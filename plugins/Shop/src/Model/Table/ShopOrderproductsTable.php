@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopOrderlogesticsTable&\Cake\ORM\Association\HasMany $ShopOrderlogestics
  *
  * @method \Shop\Model\Entity\ShopOrderproduct get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopOrderproduct newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopOrderproduct newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopOrderproduct[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopOrderproduct|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopOrderproduct saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

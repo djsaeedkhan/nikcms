@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\ShopLogesticsTable&\Cake\ORM\Association\HasMany $ShopLogestics
  *
  * @method \Shop\Model\Entity\ShopLogesticlist get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopLogesticlist newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopLogesticlist newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopLogesticlist[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopLogesticlist|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopLogesticlist saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

@@ -76,7 +76,7 @@ class OptionsController extends AppController
                         'value' => $val];
                 endif;
 
-                $option = $this->Options->newEmptyEntity(($data);
+                $option = $this->Options->newEmptyEntity($data);
                 $option = $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))
@@ -115,7 +115,7 @@ class OptionsController extends AppController
                         'name' => $key,
                         'value' => $val ];
                 endif;
-                $option = $this->Options->newEmptyEntity(($data);
+                $option = $this->Options->newEmptyEntity($data);
                 $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))

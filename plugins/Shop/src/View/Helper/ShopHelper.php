@@ -1074,7 +1074,11 @@ class ShopHelper extends Helper
             global $id;
 
         return TableRegistry::getTableLocator()->get('Shop.ShopFavorites')->find('all')
-            ->where(['post_id'=> $id , 'user_id'=> Router::getRequest()->getSession()->read('Auth.User.id')])
+            ->where([
+                'post_id'=> $id , 
+                'user_id'=> $this->request->getAttribute('identity')->get('id')
+                    //Router::getRequest()->getSession()->read('Auth.User.id')
+                ])
             ->count();
     }
     ////////////////////////////////////////////////////////////////////////////////

@@ -30,6 +30,6 @@ class CanseeCell extends Cell
         $current->checkcurrent($course_id, $file_id, $this->user_id(), $this->request->getQuery()) ;
     }
     public function user_id(){
-        return $this->request->getsession()->read('Auth.User.id');
+        return $this->request->getAttribute('identity')->get('id');
     }
 }

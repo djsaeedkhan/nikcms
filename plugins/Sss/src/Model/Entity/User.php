@@ -19,10 +19,32 @@ use Cake\ORM\Entity;
  * @property string|null $token
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $expired
  *
  * @property \Sss\Model\Entity\Role $role
+ * @property \Sss\Model\Entity\Challengebluetick[] $challengeblueticks
+ * @property \Sss\Model\Entity\Challengefollower[] $challengefollowers
+ * @property \Sss\Model\Entity\Challengeforum[] $challengeforums
+ * @property \Sss\Model\Entity\Challengeqanswer[] $challengeqanswers
+ * @property \Sss\Model\Entity\Challenge[] $challenges
+ * @property \Sss\Model\Entity\Challengeuserform[] $challengeuserforms
+ * @property \Sss\Model\Entity\Challengeuserprofile[] $challengeuserprofiles
  * @property \Sss\Model\Entity\Comment[] $comments
  * @property \Sss\Model\Entity\FormbuilderData[] $formbuilder_datas
+ * @property \Sss\Model\Entity\LmsCertificate[] $lms_certificates
+ * @property \Sss\Model\Entity\LmsCoursefilecan[] $lms_coursefilecans
+ * @property \Sss\Model\Entity\LmsCourse[] $lms_courses
+ * @property \Sss\Model\Entity\LmsCoursesession[] $lms_coursesessions
+ * @property \Sss\Model\Entity\LmsCourseuser[] $lms_courseusers
+ * @property \Sss\Model\Entity\LmsExamresultlist[] $lms_examresultlists
+ * @property \Sss\Model\Entity\LmsExamresult[] $lms_examresults
+ * @property \Sss\Model\Entity\LmsExam[] $lms_exams
+ * @property \Sss\Model\Entity\LmsExamuser[] $lms_examusers
+ * @property \Sss\Model\Entity\LmsFactor[] $lms_factors
+ * @property \Sss\Model\Entity\LmsPayment[] $lms_payments
+ * @property \Sss\Model\Entity\LmsUserfactor[] $lms_userfactors
+ * @property \Sss\Model\Entity\LmsUsernote[] $lms_usernotes
+ * @property \Sss\Model\Entity\LmsUserprofile[] $lms_userprofiles
  * @property \Sss\Model\Entity\Log[] $logs
  * @property \Sss\Model\Entity\PollVote[] $poll_votes
  * @property \Sss\Model\Entity\Post[] $posts
@@ -42,12 +64,22 @@ use Cake\ORM\Entity;
  * @property \Sss\Model\Entity\ShopProfile[] $shop_profiles
  * @property \Sss\Model\Entity\ShopUseraddress[] $shop_useraddresses
  * @property \Sss\Model\Entity\SmsValidation[] $sms_validations
+ * @property \Sss\Model\Entity\Ticketaudit[] $ticketaudits
+ * @property \Sss\Model\Entity\Ticketcomment[] $ticketcomments
+ * @property \Sss\Model\Entity\Ticket[] $tickets
+ * @property \Sss\Model\Entity\TmpChallengeform[] $tmp_challengeforms
+ * @property \Sss\Model\Entity\TmpMember[] $tmp_members
+ * @property \Sss\Model\Entity\TmpPersonlike[] $tmp_personlikes
+ * @property \Sss\Model\Entity\TmpPerson[] $tmp_persons
+ * @property \Sss\Model\Entity\TmpProblemform[] $tmp_problemforms
+ * @property \Sss\Model\Entity\TmpProblem[] $tmp_problems
  * @property \Sss\Model\Entity\UserMeta[] $user_metas
+ * @property \Sss\Model\Entity\Challengetag[] $challengetags
  */
 class User extends Entity
 {
     /**
-     * Fields that can be mass assigned using newEmptyEntity() or patchEntity().
+     * Fields that can be mass assigned using newEntity() or patchEntity().
      *
      * Note that when '*' is set to true, this allows all unspecified fields to
      * be mass assigned. For security purposes, it is advised to set '*' to false
@@ -66,9 +98,31 @@ class User extends Entity
         'token' => true,
         'created' => true,
         'modified' => true,
+        'expired' => true,
         'role' => true,
+        'challengeblueticks' => true,
+        'challengefollowers' => true,
+        'challengeforums' => true,
+        'challengeqanswers' => true,
+        'challenges' => true,
+        'challengeuserforms' => true,
+        'challengeuserprofiles' => true,
         'comments' => true,
         'formbuilder_datas' => true,
+        'lms_certificates' => true,
+        'lms_coursefilecans' => true,
+        'lms_courses' => true,
+        'lms_coursesessions' => true,
+        'lms_courseusers' => true,
+        'lms_examresultlists' => true,
+        'lms_examresults' => true,
+        'lms_exams' => true,
+        'lms_examusers' => true,
+        'lms_factors' => true,
+        'lms_payments' => true,
+        'lms_userfactors' => true,
+        'lms_usernotes' => true,
+        'lms_userprofiles' => true,
         'logs' => true,
         'poll_votes' => true,
         'posts' => true,
@@ -88,7 +142,17 @@ class User extends Entity
         'shop_profiles' => true,
         'shop_useraddresses' => true,
         'sms_validations' => true,
+        'ticketaudits' => true,
+        'ticketcomments' => true,
+        'tickets' => true,
+        'tmp_challengeforms' => true,
+        'tmp_members' => true,
+        'tmp_personlikes' => true,
+        'tmp_persons' => true,
+        'tmp_problemforms' => true,
+        'tmp_problems' => true,
         'user_metas' => true,
+        'challengetags' => true,
     ];
 
     /**

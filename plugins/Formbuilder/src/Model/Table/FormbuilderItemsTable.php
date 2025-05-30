@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Formbuilder\Model\Table\FormbuildersTable&\Cake\ORM\Association\BelongsTo $Formbuilders
  *
  * @method \Formbuilder\Model\Entity\FormbuilderItem get($primaryKey, $options = [])
- * @method \Formbuilder\Model\Entity\FormbuilderItem newEmptyEntity(($data = null, array $options = [])
+ * @method \Formbuilder\Model\Entity\FormbuilderItem newEmptyEntity($data = null, array $options = [])
  * @method \Formbuilder\Model\Entity\FormbuilderItem[] newEntities(array $data, array $options = [])
  * @method \Formbuilder\Model\Entity\FormbuilderItem|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Formbuilder\Model\Entity\FormbuilderItem saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

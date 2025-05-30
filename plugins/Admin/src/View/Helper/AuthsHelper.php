@@ -59,6 +59,7 @@ class AuthsHelper extends Helper
     }
 
     function get_session(){
+        //$this->request->getAttribute('identity')->get('id')
         return $this->getView()->getRequest()->getSession()->read('Auth.User.role_list');
     }
 }

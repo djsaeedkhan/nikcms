@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Shop\Model\Entity\ShopUseraddress get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopUseraddress newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopUseraddress newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopUseraddress[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopUseraddress|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopUseraddress saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

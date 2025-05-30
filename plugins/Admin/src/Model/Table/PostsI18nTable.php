@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * PostsI18n Model
  *
  * @method \Admin\Model\Entity\PostsI18n get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\PostsI18n newEmptyEntity(($data = null, array $options = [])
+ * @method \Admin\Model\Entity\PostsI18n newEmptyEntity($data = null, array $options = [])
  * @method \Admin\Model\Entity\PostsI18n[] newEntities(array $data, array $options = [])
  * @method \Admin\Model\Entity\PostsI18n|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Admin\Model\Entity\PostsI18n saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

@@ -132,7 +132,7 @@ use Cake\Routing\Router;
 
                         
                         <?php
-                        if(! $this->request->getSession()->read('Auth.User')){
+                        if(! $this->request->getAttribute('identity')->get('id') ){
                             echo '<br> <br>'.$this->html->link('تایید و  تکمیل سفارش',
                             '#modal-login-form',[
                                 'data-bs-target'=>'#loginRegisterModal',
@@ -169,7 +169,7 @@ use Cake\Routing\Router;
 
             <!-- ----------------------------------------------------------- -->
             <?php
-            if($this->request->getSession()->read('Auth.User')){
+            if( $this->request->getAttribute('identity')->get('id') ){
                 
             echo $this->Form->create($shopAddress,['id'=>'forms']);?>
             <div class="row">
@@ -203,7 +203,7 @@ use Cake\Routing\Router;
                             
                             <div class="col-12" style="text-align: right;">
                                 <?php
-                                if($this->request->getSession()->read('Auth.User')){
+                                if( $this->request->getAttribute('identity')->get('id') ){
                                 echo $this->html->link('افزودن / ویرایش آدرس ها',
                                     '#myModal1',[ 'data-lightbox'=>"inline",
                                     "class"=>"btn btn-sm btn-primary",

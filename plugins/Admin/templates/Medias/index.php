@@ -122,7 +122,7 @@ foreach ($medias as $media):
 
 <div class="paginator">
     <p class="float-left pt-1">
-        <?= $this->Paginator->counter(['format' => __d('Admin', 'صفحه {{page}} از {{pages}} / درحال نمایش {{current}} رکورد از {{count}} ')]) ?>
+        <?= $this->Paginator->counter(__d('Admin', 'صفحه {{page}} از {{pages}} / درحال نمایش {{current}} رکورد از {{count}} ')) ?>
     </p>
 
     <ul class="pagination pagination-rounded pagination mt-4">

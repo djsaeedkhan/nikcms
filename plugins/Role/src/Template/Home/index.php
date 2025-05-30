@@ -38,7 +38,7 @@
                 <td>
 
                     <?php
-                    if($this->getRequest()->getSession()->read('Auth.User.role_id') != $data->id):
+                    if( $this->request->getAttribute('identity')->get('role_id') != $data->id):
                     echo $this->Form->create(null, ['url'=>['plugin'=>'Admin','controller'=>'Options','action'=>'SaveSetting']]);?>
                     <div class="custom-control custom-switch custom-switch-success">
                         <input type="hidden" value="0" name="role<?=$data->id?>"/>

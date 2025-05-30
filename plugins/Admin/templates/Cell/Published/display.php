@@ -9,7 +9,7 @@
         <?= $this->Form->create(null, ['url'=>['controller'=>'Posts','action'=>'add']]);?>
         <?= $this->Form->control('post_type',['default'=>'post', 'type'=>'hidden']);?>
         <?= $this->Form->control('published',['default'=> 0, 'type'=>'hidden']);?>
-        <?= $this->Form->control('user_id',['default'=>$this->getRequest()->getSession()->read('Auth.User.id'), 'type'=>'hidden']);?>
+        <?= $this->Form->control('user_id',['default'=>$this->request->getAttribute('identity')->get('id'), 'type'=>'hidden']);?>
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-md-12">

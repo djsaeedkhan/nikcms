@@ -12,8 +12,29 @@ use Cake\Validation\Validator;
  * Users Model
  *
  * @property \Sss\Model\Table\RolesTable&\Cake\ORM\Association\BelongsTo $Roles
+ * @property \Sss\Model\Table\ChallengeblueticksTable&\Cake\ORM\Association\HasMany $Challengeblueticks
+ * @property \Sss\Model\Table\ChallengefollowersTable&\Cake\ORM\Association\HasMany $Challengefollowers
+ * @property \Sss\Model\Table\ChallengeforumsTable&\Cake\ORM\Association\HasMany $Challengeforums
+ * @property \Sss\Model\Table\ChallengeqanswersTable&\Cake\ORM\Association\HasMany $Challengeqanswers
+ * @property \Sss\Model\Table\ChallengesTable&\Cake\ORM\Association\HasMany $Challenges
+ * @property \Sss\Model\Table\ChallengeuserformsTable&\Cake\ORM\Association\HasMany $Challengeuserforms
+ * @property \Sss\Model\Table\ChallengeuserprofilesTable&\Cake\ORM\Association\HasMany $Challengeuserprofiles
  * @property \Sss\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
  * @property \Sss\Model\Table\FormbuilderDatasTable&\Cake\ORM\Association\HasMany $FormbuilderDatas
+ * @property \Sss\Model\Table\LmsCertificatesTable&\Cake\ORM\Association\HasMany $LmsCertificates
+ * @property \Sss\Model\Table\LmsCoursefilecansTable&\Cake\ORM\Association\HasMany $LmsCoursefilecans
+ * @property \Sss\Model\Table\LmsCoursesTable&\Cake\ORM\Association\HasMany $LmsCourses
+ * @property \Sss\Model\Table\LmsCoursesessionsTable&\Cake\ORM\Association\HasMany $LmsCoursesessions
+ * @property \Sss\Model\Table\LmsCourseusersTable&\Cake\ORM\Association\HasMany $LmsCourseusers
+ * @property \Sss\Model\Table\LmsExamresultlistsTable&\Cake\ORM\Association\HasMany $LmsExamresultlists
+ * @property \Sss\Model\Table\LmsExamresultsTable&\Cake\ORM\Association\HasMany $LmsExamresults
+ * @property \Sss\Model\Table\LmsExamsTable&\Cake\ORM\Association\HasMany $LmsExams
+ * @property \Sss\Model\Table\LmsExamusersTable&\Cake\ORM\Association\HasMany $LmsExamusers
+ * @property \Sss\Model\Table\LmsFactorsTable&\Cake\ORM\Association\HasMany $LmsFactors
+ * @property \Sss\Model\Table\LmsPaymentsTable&\Cake\ORM\Association\HasMany $LmsPayments
+ * @property \Sss\Model\Table\LmsUserfactorsTable&\Cake\ORM\Association\HasMany $LmsUserfactors
+ * @property \Sss\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
+ * @property \Sss\Model\Table\LmsUserprofilesTable&\Cake\ORM\Association\HasMany $LmsUserprofiles
  * @property \Sss\Model\Table\LogsTable&\Cake\ORM\Association\HasMany $Logs
  * @property \Sss\Model\Table\PollVotesTable&\Cake\ORM\Association\HasMany $PollVotes
  * @property \Sss\Model\Table\PostsTable&\Cake\ORM\Association\HasMany $Posts
@@ -33,11 +54,21 @@ use Cake\Validation\Validator;
  * @property \Sss\Model\Table\ShopProfilesTable&\Cake\ORM\Association\HasMany $ShopProfiles
  * @property \Sss\Model\Table\ShopUseraddressesTable&\Cake\ORM\Association\HasMany $ShopUseraddresses
  * @property \Sss\Model\Table\SmsValidationsTable&\Cake\ORM\Association\HasMany $SmsValidations
+ * @property \Sss\Model\Table\TicketauditsTable&\Cake\ORM\Association\HasMany $Ticketaudits
+ * @property \Sss\Model\Table\TicketcommentsTable&\Cake\ORM\Association\HasMany $Ticketcomments
+ * @property \Sss\Model\Table\TicketsTable&\Cake\ORM\Association\HasMany $Tickets
+ * @property \Sss\Model\Table\TmpChallengeformsTable&\Cake\ORM\Association\HasMany $TmpChallengeforms
+ * @property \Sss\Model\Table\TmpMembersTable&\Cake\ORM\Association\HasMany $TmpMembers
+ * @property \Sss\Model\Table\TmpPersonlikesTable&\Cake\ORM\Association\HasMany $TmpPersonlikes
+ * @property \Sss\Model\Table\TmpPersonsTable&\Cake\ORM\Association\HasMany $TmpPersons
+ * @property \Sss\Model\Table\TmpProblemformsTable&\Cake\ORM\Association\HasMany $TmpProblemforms
+ * @property \Sss\Model\Table\TmpProblemsTable&\Cake\ORM\Association\HasMany $TmpProblems
  * @property \Sss\Model\Table\UserMetasTable&\Cake\ORM\Association\HasMany $UserMetas
+ * @property \Sss\Model\Table\ChallengetagsTable&\Cake\ORM\Association\BelongsToMany $Challengetags
  * @property \Sss\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
  * @method \Sss\Model\Entity\User newEmptyEntity()
- * @method \Sss\Model\Entity\User newEmptyEntity((array $data, array $options = [])
+ * @method \Sss\Model\Entity\User newEntity(array $data, array $options = [])
  * @method \Sss\Model\Entity\User[] newEntities(array $data, array $options = [])
  * @method \Sss\Model\Entity\User get($primaryKey, $options = [])
  * @method \Sss\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
@@ -74,6 +105,34 @@ class UsersTable extends Table
             'foreignKey' => 'role_id',
             'className' => 'Sss.Roles',
         ]);
+        $this->hasMany('Challengeblueticks', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengeblueticks',
+        ]);
+        $this->hasMany('Challengefollowers', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengefollowers',
+        ]);
+        $this->hasMany('Challengeforums', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengeforums',
+        ]);
+        $this->hasMany('Challengeqanswers', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengeqanswers',
+        ]);
+        $this->hasMany('Challenges', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challenges',
+        ]);
+        $this->hasMany('Challengeuserforms', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengeuserforms',
+        ]);
+        $this->hasMany('Challengeuserprofiles', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Challengeuserprofiles',
+        ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'user_id',
             'className' => 'Sss.Comments',
@@ -81,6 +140,62 @@ class UsersTable extends Table
         $this->hasMany('FormbuilderDatas', [
             'foreignKey' => 'user_id',
             'className' => 'Sss.FormbuilderDatas',
+        ]);
+        $this->hasMany('LmsCertificates', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsCertificates',
+        ]);
+        $this->hasMany('LmsCoursefilecans', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsCoursefilecans',
+        ]);
+        $this->hasMany('LmsCourses', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsCourses',
+        ]);
+        $this->hasMany('LmsCoursesessions', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsCoursesessions',
+        ]);
+        $this->hasMany('LmsCourseusers', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsCourseusers',
+        ]);
+        $this->hasMany('LmsExamresultlists', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsExamresultlists',
+        ]);
+        $this->hasMany('LmsExamresults', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsExamresults',
+        ]);
+        $this->hasMany('LmsExams', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsExams',
+        ]);
+        $this->hasMany('LmsExamusers', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsExamusers',
+        ]);
+        $this->hasMany('LmsFactors', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsFactors',
+        ]);
+        $this->hasMany('LmsPayments', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsPayments',
+        ]);
+        $this->hasMany('LmsUserfactors', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsUserfactors',
+        ]);
+        $this->hasMany('LmsUsernotes', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsUsernotes',
+        ]);
+        $this->hasMany('LmsUserprofiles', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.LmsUserprofiles',
         ]);
         $this->hasMany('Logs', [
             'foreignKey' => 'user_id',
@@ -158,9 +273,51 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'className' => 'Sss.SmsValidations',
         ]);
+        $this->hasMany('Ticketaudits', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Ticketaudits',
+        ]);
+        $this->hasMany('Ticketcomments', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Ticketcomments',
+        ]);
+        $this->hasMany('Tickets', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.Tickets',
+        ]);
+        $this->hasMany('TmpChallengeforms', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpChallengeforms',
+        ]);
+        $this->hasMany('TmpMembers', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpMembers',
+        ]);
+        $this->hasMany('TmpPersonlikes', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpPersonlikes',
+        ]);
+        $this->hasMany('TmpPersons', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpPersons',
+        ]);
+        $this->hasMany('TmpProblemforms', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpProblemforms',
+        ]);
+        $this->hasMany('TmpProblems', [
+            'foreignKey' => 'user_id',
+            'className' => 'Sss.TmpProblems',
+        ]);
         $this->hasMany('UserMetas', [
             'foreignKey' => 'user_id',
             'className' => 'Sss.UserMetas',
+        ]);
+        $this->belongsToMany('Challengetags', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'challengetag_id',
+            'joinTable' => 'challengetags_users',
+            'className' => 'Sss.Challengetags',
         ]);
         $this->belongsToMany('Logs', [
             'foreignKey' => 'user_id',
@@ -215,6 +372,10 @@ class UsersTable extends Table
             ->scalar('token')
             ->maxLength('token', 50)
             ->allowEmptyString('token');
+
+        $validator
+            ->dateTime('expired')
+            ->allowEmptyDateTime('expired');
 
         return $validator;
     }

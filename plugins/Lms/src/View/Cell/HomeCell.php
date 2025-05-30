@@ -5,39 +5,49 @@ use Cake\View\Cell;
 class HomeCell extends Cell
 {
     public function user_dashboard(){
-
-        $user_id = $this->request->getsession()->read('Auth.User.id');
-        $lmsCourses = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
-            ->where(['LmsCourseusers.user_id'=> $user_id ])
-            ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
-            ->order(['LmsCourseusers.id'=>'desc'])
-            ->toarray();
-
-        $lmsCoursefiles = [];
-        $lmsCoursefilecan = [];
-        $lmsCourseexam = [];
-
-        foreach($lmsCourses as $lms){ 
-            $lms_id = $lms['LmsCourses']['id'];
-            $lmsCoursefiles[  $lms_id ] =  $this->getTableLocator()->get('Lms.LmsCoursefiles')
-                ->find('list',['keyField' => 'id','valueField' => 'id'])
-                ->where(['lms_course_id'=>  $lms_id ])
+        
+        $lmsCourses = $lmsCoursefilecan = $lmsCoursefiles = $lmsCourseexam = [];
+        try {
+            $user_id = $this->request->getAttribute('identity')->get('id');
+            $lmsCourses = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
+                ->where(['LmsCourseusers.user_id'=> $user_id ])
+                ->contain(['lmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
+                ->order(['LmsCourseusers.id'=>'desc'])
                 ->toarray();
 
-            if(count($lmsCoursefiles[  $lms_id ])){
-                $query = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
-                    ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
-                    ->select(['lms_coursefile_id','user_id'])
-                    ->where(['user_id'=> $user_id , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
-                    ->group(['lms_coursefile_id']);
-                $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
+            $lmsCoursefiles = [];
+            $lmsCoursefilecan = [];
+            $lmsCourseexam = [];
 
-                $lmsCourseexam[  $lms_id ]  = $this->getTableLocator()->get('Lms.LmsCourseexams')
-                    ->find('list',['keyField' => 'id','valueField' => 'id'])
-                    ->where([ 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
-                    ->toarray();
+            foreach($lmsCourses as $lms){ 
+                if(isset($lms['LmsCourses']['id'])){
+                    $lms_id = $lms['LmsCourses']['id'];
+                    $lmsCoursefiles[  $lms_id ] =  $this->getTableLocator()->get('Lms.LmsCoursefiles')
+                        ->find('list',['keyField' => 'id','valueField' => 'id'])
+                        ->where(['lms_course_id'=>  $lms_id ])
+                        ->toarray();
+
+                    if(isset($lmsCoursefiles[  $lms_id ]) and count($lmsCoursefiles[  $lms_id ])){
+                        $query = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
+                            ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
+                            ->select(['lms_coursefile_id','user_id'])
+                            ->where(['user_id'=> $user_id , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                            ->group(['lms_coursefile_id']);
+                        $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
+
+                        $lmsCourseexam[  $lms_id ]  = $this->getTableLocator()->get('Lms.LmsCourseexams')
+                            ->find('list',['keyField' => 'id','valueField' => 'id'])
+                            ->where([ 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                            ->toarray();
+                    }
+                }
+                
             }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
+        
+
         $this->set([
             'lmsCourses' => $lmsCourses,
             'lmsCoursefilecan' => $lmsCoursefilecan,

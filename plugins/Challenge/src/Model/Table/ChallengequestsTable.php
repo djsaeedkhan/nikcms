@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @property \Challenge\Model\Table\ChallengequestsTable&\Cake\ORM\Association\HasMany $ChildChallengequests
  *
  * @method \Challenge\Model\Entity\Challengequest get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challengequest newEmptyEntity(($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challengequest newEmptyEntity($data = null, array $options = [])
  * @method \Challenge\Model\Entity\Challengequest[] newEntities(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengequest|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challengequest saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

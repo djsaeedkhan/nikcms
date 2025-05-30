@@ -4,7 +4,6 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use App\Model\Table\Options;
 use Cake\ORM\TableRegistry;
-use Admin\Controller\AppController;
 
 class ThemesController extends AppController
 {

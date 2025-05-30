@@ -24,6 +24,7 @@ class CommentsController extends AppController
     }
     //-----------------------------------------------------------------------------
     public function index(){
+        //Deprecated
         $this->paginate = [
             'contain' => ['Posts', 'Users','ParentComments'],
             'order'=> ['id'=>'desc']

@@ -14,7 +14,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsCoursefilesTable&\Cake\ORM\Association\BelongsTo $LmsCoursefiles
  *
  * @method \Lms\Model\Entity\LmsCoursefilecan get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCoursefilecan newEmptyEntity(($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCoursefilecan newEmptyEntity($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursefilecan[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCoursefilecan|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCoursefilecan saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

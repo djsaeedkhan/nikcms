@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace Lms\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Lms\Model\Table\LmsCoursesTable;
 
@@ -15,16 +16,18 @@ class LmsCoursesTableTest extends TestCase
      *
      * @var \Lms\Model\Table\LmsCoursesTable
      */
-    public $LmsCourses;
+    protected $LmsCourses;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.Lms.LmsCourses',
+        'plugin.Lms.LmsCoursecategories',
         'plugin.Lms.Users',
+        'plugin.Lms.LmsCertificates',
         'plugin.Lms.LmsCourseexams',
         'plugin.Lms.LmsCoursefilecans',
         'plugin.Lms.LmsCoursefiles',
@@ -41,11 +44,11 @@ class LmsCoursesTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('LmsCourses') ? [] : ['className' => LmsCoursesTable::class];
-        $this->LmsCourses = TableRegistry::getTableLocator()->get('LmsCourses', $config);
+        $config = $this->getTableLocator()->exists('LmsCourses') ? [] : ['className' => LmsCoursesTable::class];
+        $this->LmsCourses = $this->getTableLocator()->get('LmsCourses', $config);
     }
 
     /**
@@ -53,7 +56,7 @@ class LmsCoursesTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->LmsCourses);
 
@@ -61,21 +64,12 @@ class LmsCoursesTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test validationDefault method
      *
      * @return void
+     * @uses \Lms\Model\Table\LmsCoursesTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -84,8 +78,9 @@ class LmsCoursesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \Lms\Model\Table\LmsCoursesTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

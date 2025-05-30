@@ -38,7 +38,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Roles', 'Logs', 'Comments', 'FormbuilderDatas', 'PollVotes', 'Posts', 'Profiles', 'ShopAddresses', 'ShopFavorites', 'ShopLogesticusers', 'ShopOrderlogesticlogs', 'ShopOrderlogestics', 'ShopOrderlogs', 'ShopOrderrefunds', 'ShopOrders', 'ShopOrdershippings', 'ShopOrdertexts', 'ShopOrdertokens', 'ShopPayments', 'ShopProfiles', 'ShopUseraddresses', 'SmsValidations', 'UserMetas'],
+            'contain' => ['Roles', 'Logs', 'Challengetags', 'Challengeblueticks', 'Challengefollowers', 'Challengeforums', 'Challengeqanswers', 'Challenges', 'Challengeuserforms', 'Challengeuserprofiles', 'Comments', 'FormbuilderDatas', 'LmsCertificates', 'LmsCoursefilecans', 'LmsCourses', 'LmsCoursesessions', 'LmsCourseusers', 'LmsExamresultlists', 'LmsExamresults', 'LmsExams', 'LmsExamusers', 'LmsFactors', 'LmsPayments', 'LmsUserfactors', 'LmsUsernotes', 'LmsUserprofiles', 'PollVotes', 'Posts', 'Profiles', 'ShopAddresses', 'ShopFavorites', 'ShopLogesticusers', 'ShopOrderlogesticlogs', 'ShopOrderlogestics', 'ShopOrderlogs', 'ShopOrderrefunds', 'ShopOrders', 'ShopOrdershippings', 'ShopOrdertexts', 'ShopOrdertokens', 'ShopPayments', 'ShopProfiles', 'ShopUseraddresses', 'SmsValidations', 'Ticketaudits', 'Ticketcomments', 'Tickets', 'TmpChallengeforms', 'TmpMembers', 'TmpPersonlikes', 'TmpPersons', 'TmpProblemforms', 'TmpProblems', 'UserMetas'],
         ]);
 
         $this->set(compact('user'));
@@ -63,7 +63,8 @@ class UsersController extends AppController
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200])->all();
         $logs = $this->Users->Logs->find('list', ['limit' => 200])->all();
-        $this->set(compact('user', 'roles', 'logs'));
+        $challengetags = $this->Users->Challengetags->find('list', ['limit' => 200])->all();
+        $this->set(compact('user', 'roles', 'logs', 'challengetags'));
     }
 
     /**
@@ -76,7 +77,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Logs'],
+            'contain' => ['Logs', 'Challengetags'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -89,7 +90,8 @@ class UsersController extends AppController
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200])->all();
         $logs = $this->Users->Logs->find('list', ['limit' => 200])->all();
-        $this->set(compact('user', 'roles', 'logs'));
+        $challengetags = $this->Users->Challengetags->find('list', ['limit' => 200])->all();
+        $this->set(compact('user', 'roles', 'logs', 'challengetags'));
     }
 
     /**

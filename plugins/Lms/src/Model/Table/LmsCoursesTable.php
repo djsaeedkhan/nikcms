@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Lms\Model\Table;
 
 use Cake\ORM\Query;
@@ -9,7 +11,9 @@ use Cake\Validation\Validator;
 /**
  * LmsCourses Model
  *
+ * @property \Lms\Model\Table\LmsCoursecategoriesTable&\Cake\ORM\Association\BelongsTo $LmsCoursecategories
  * @property \Lms\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \Lms\Model\Table\LmsCertificatesTable&\Cake\ORM\Association\HasMany $LmsCertificates
  * @property \Lms\Model\Table\LmsCourseexamsTable&\Cake\ORM\Association\HasMany $LmsCourseexams
  * @property \Lms\Model\Table\LmsCoursefilecansTable&\Cake\ORM\Association\HasMany $LmsCoursefilecans
  * @property \Lms\Model\Table\LmsCoursefilesTable&\Cake\ORM\Association\HasMany $LmsCoursefiles
@@ -20,14 +24,19 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsUserfactorsTable&\Cake\ORM\Association\HasMany $LmsUserfactors
  * @property \Lms\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
  *
- * @method \Lms\Model\Entity\LmsCourse get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCourse newEmptyEntity(($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourse newEmptyEntity()
+ * @method \Lms\Model\Entity\LmsCourse newEntity(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourse[] newEntities(array $data, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourse get($primaryKey, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourse[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourse|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCourse saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Lms\Model\Entity\LmsCourse patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Lms\Model\Entity\LmsCourse[] patchEntities($entities, array $data, array $options = [])
- * @method \Lms\Model\Entity\LmsCourse findOrCreate($search, callable $callback = null, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Lms\Model\Entity\LmsCourse[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -49,20 +58,22 @@ class LmsCoursesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('LmsCoursecategories', [
+            'foreignKey' => 'lms_coursecategorie_id',
+            'className' => 'Lms.LmsCoursecategories',
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'className' => 'Lms.Users',
+        ]);
+        $this->hasMany('LmsCertificates', [
+            'foreignKey' => 'lms_course_id',
+            'className' => 'Lms.LmsCertificates',
         ]);
         $this->hasMany('LmsCourseexams', [
             'foreignKey' => 'lms_course_id',
             'className' => 'Lms.LmsCourseexams',
         ]);
-
-        $this->belongsTo('LmsCoursecategories', [
-            'foreignKey' => 'lms_coursecategorie_id',
-            'className' => 'Lms.LmsCoursecategories',
-        ]);
-
         $this->hasMany('LmsCoursefilecans', [
             'foreignKey' => 'lms_course_id',
             'className' => 'Lms.LmsCoursefilecans',
@@ -97,21 +108,6 @@ class LmsCoursesTable extends Table
         ]);
     }
 
-    public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified','date_end','date_start'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
-    }
     /**
      * Default validation rules.
      *
@@ -121,14 +117,18 @@ class LmsCoursesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
-        $validator
             ->scalar('title')
             ->maxLength('title', 200)
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
+
+        $validator
+            ->integer('lms_coursecategorie_id')
+            ->allowEmptyString('lms_coursecategorie_id');
+
+        $validator
+            ->integer('user_id')
+            ->allowEmptyString('user_id');
 
         $validator
             ->scalar('text')
@@ -166,11 +166,6 @@ class LmsCoursesTable extends Table
             ->allowEmptyString('price_renew');
 
         $validator
-            ->scalar('total_time')
-            ->maxLength('total_time', 50)
-            ->allowEmptyString('total_time');
-
-        $validator
             ->boolean('show_in_list')
             ->notEmptyString('show_in_list');
 
@@ -185,6 +180,11 @@ class LmsCoursesTable extends Table
         $validator
             ->integer('renew_day')
             ->allowEmptyString('renew_day');
+
+        $validator
+            ->scalar('total_time')
+            ->maxLength('total_time', 50)
+            ->allowEmptyString('total_time');
 
         $validator
             ->boolean('enable')
@@ -210,7 +210,8 @@ class LmsCoursesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn('lms_coursecategorie_id', 'LmsCoursecategories'), ['errorField' => 'lms_coursecategorie_id']);
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }

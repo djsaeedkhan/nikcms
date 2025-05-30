@@ -61,7 +61,7 @@ class FetchsComponent extends Component {
         $results = $model
             ->find('all')
             ->where([
-                $this->request->getSession()->read('Auth.User.id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
                 ])
@@ -188,7 +188,7 @@ class FetchsComponent extends Component {
         $result = TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('all')
             ->where([
-                $this->request->getSession()->read('Auth.User.id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
             ])
@@ -198,14 +198,14 @@ class FetchsComponent extends Component {
             $result = $result->where([
                 'slug' => strip_tags($this->request->getParam('slug')),
                 'Posts.published' => 1 ,
-                $this->request->getSession()->read('Auth.User.id') != 'NULL'?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != 'NULL'?[]:['Posts.post_status !=' => 2],
             ]);
         }
         elseif($id != null){
             $result = $result->where([
                 'Posts.id' => intval($id),
                 'Posts.published' => 1 ,
-                $this->request->getSession()->read('Auth.User.id') != 'NULL'?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != 'NULL'?[]:['Posts.post_status !=' => 2],
             ]);
         }else{
             $result = false;
@@ -251,7 +251,7 @@ class FetchsComponent extends Component {
         $results = $model->find('all')
             ->contain(['Categories','Tags','PostMetas','PostsI18n'])//,'Users'
             ->where([
-                $this->request->getSession()->read('Auth.User.id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
                 ])
@@ -278,7 +278,7 @@ class FetchsComponent extends Component {
             ->order(['Posts.created'=>'desc'])
             ->contain(['Categories','Tags','PostMetas','PostsI18n'])//,'Users'
             ->where([
-                $this->request->getSession()->read('Auth.User.id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s'),
                 'Posts.post_type !=' => 'media',

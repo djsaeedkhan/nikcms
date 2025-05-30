@@ -63,7 +63,7 @@
             'div'=>'form-group']);
         echo $this->Form->control('user_id', [
             'type' =>'hidden',
-            'value'=> $this->request->getSession()->read('Auth.User.id'),
+            'value'=> $this->request->getAttribute('identity')->get('id'),
             'class'=>'form-control',
             'div'=>'form-group']);?>
     </div>

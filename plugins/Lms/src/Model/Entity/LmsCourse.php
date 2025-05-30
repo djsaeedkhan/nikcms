@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Lms\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -10,6 +12,7 @@ use Lms\View\Helper\LmsHelper;
  *
  * @property int $id
  * @property string $title
+ * @property int|null $lms_coursecategorie_id
  * @property int|null $user_id
  * @property string|null $text
  * @property string|null $textweb
@@ -24,11 +27,15 @@ use Lms\View\Helper\LmsHelper;
  * @property bool $can_add
  * @property bool|null $can_renew
  * @property int|null $renew_day
+ * @property string|null $total_time
  * @property bool $enable
  * @property int|null $priority
+ * @property string|null $options
  * @property \Cake\I18n\FrozenTime $created
  *
+ * @property \Lms\Model\Entity\LmsCoursecategory $lms_coursecategory
  * @property \Lms\Model\Entity\User $user
+ * @property \Lms\Model\Entity\LmsCertificate[] $lms_certificates
  * @property \Lms\Model\Entity\LmsCourseexam[] $lms_courseexams
  * @property \Lms\Model\Entity\LmsCoursefilecan[] $lms_coursefilecans
  * @property \Lms\Model\Entity\LmsCoursefile[] $lms_coursefiles
@@ -42,13 +49,13 @@ use Lms\View\Helper\LmsHelper;
 class LmsCourse extends Entity
 {
     /**
-     * Fields that can be mass assigned using newEmptyEntity() or patchEntity().
+     * Fields that can be mass assigned using newEntity() or patchEntity().
      *
      * Note that when '*' is set to true, this allows all unspecified fields to
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<string, bool>
      */
     protected $_accessible = [
         'title' => true,
@@ -70,9 +77,11 @@ class LmsCourse extends Entity
         'total_time' => true,
         'enable' => true,
         'priority' => true,
-        'options'=>true,
+        'options' => true,
         'created' => true,
+        'lms_coursecategory' => true,
         'user' => true,
+        'lms_certificates' => true,
         'lms_courseexams' => true,
         'lms_coursefilecans' => true,
         'lms_coursefiles' => true,
@@ -84,7 +93,6 @@ class LmsCourse extends Entity
         'lms_usernotes' => true,
     ];
 
-    
     protected $_virtual = ['slug','sprice'];
     protected function _getslug(){
         return (Text::excerpt(preg_replace('/\s/u', '-',$this->get('title')),'',50) );
@@ -97,5 +105,4 @@ class LmsCourse extends Entity
                 '</span>';
         }
     }
-
 }

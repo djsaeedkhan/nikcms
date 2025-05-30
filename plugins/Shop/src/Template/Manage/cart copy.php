@@ -171,7 +171,7 @@ use Cake\Routing\Router;
                             
                             <div class="col-12" style="text-align: right;">
                                 <?php
-                                if($this->request->getSession()->read('Auth.user')){
+                                if( $this->request->getAttribute('identity')->get('id') ){
                                 echo $this->html->link('افزودن / ویرایش آدرس ها',
                                     '#myModal1',[ 'data-lightbox'=>"inline",
                                     "class"=>"btn btn-sm btn-primary",

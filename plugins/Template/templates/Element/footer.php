@@ -48,7 +48,7 @@ use \Shop\View\Helper\CartHelper;
         <i class="icon-heart1 fs-20"></i><br>
          علاقه مندی
       </a>
-      <?php if ($this->request->getSession()->read('Auth.User')):?>
+      <?php if ( $this->request->getAttribute('identity')->get('id') ):?>
         <?= $this->html->link('<i class="icon-user-circle1 fs-20"></i><br><small>صفحه پروفایل</small>',
               CartHelper::Link('profile'),
               ['escape'=>false,'title'=>'مشاهده صفحه پروفایل','class'=>'nav-link text-center']);?>

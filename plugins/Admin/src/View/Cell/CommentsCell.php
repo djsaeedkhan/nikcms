@@ -35,7 +35,7 @@ class CommentsCell extends Cell
         endif;
 
         $this->set([
-            'user'=> $this->request->getSession()->read('Auth.User'),
+            'user'=> $this->request->getAttribute('identity'),
             'form' => $form,
             'viewlist' => $viewlist,
             'id'=> $id

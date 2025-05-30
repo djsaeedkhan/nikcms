@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Cronjobs Model
  *
  * @method \Scheduler\Model\Entity\Cronjob get($primaryKey, $options = [])
- * @method \Scheduler\Model\Entity\Cronjob newEmptyEntity(($data = null, array $options = [])
+ * @method \Scheduler\Model\Entity\Cronjob newEmptyEntity($data = null, array $options = [])
  * @method \Scheduler\Model\Entity\Cronjob[] newEntities(array $data, array $options = [])
  * @method \Scheduler\Model\Entity\Cronjob|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Scheduler\Model\Entity\Cronjob saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

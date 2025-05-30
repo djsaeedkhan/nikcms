@@ -4,7 +4,6 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\Routing\Router;
 use Admin\Core\Resize;
-use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 

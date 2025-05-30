@@ -28,8 +28,9 @@ class UsersFixture extends TestFixture
                 'role_id' => 'Lorem ipsum dolor ',
                 'enable' => 1,
                 'token' => 'Lorem ipsum dolor sit amet',
-                'created' => '2025-05-28 13:19:49',
-                'modified' => '2025-05-28 13:19:49',
+                'created' => '2025-05-29 08:38:39',
+                'modified' => '2025-05-29 08:38:39',
+                'expired' => '2025-05-29 08:38:39',
             ],
         ];
         parent::init();

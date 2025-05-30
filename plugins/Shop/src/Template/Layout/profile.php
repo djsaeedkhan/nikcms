@@ -17,7 +17,9 @@
 
                     <?php 
                     $temp = Cake\ORM\TableRegistry::getTableLocator()->get('Shop.ShopLogesticusers')->find('all')
-                        ->where(['user_id'=> $this->getRequest()->getSession()->read('Auth.User.id') ])
+                        ->where([
+                            'user_id'=> $this->request->getAttribute('identity')->get('id')
+                            ])
                         ->toarray();
                     if(is_array($temp) and count($temp) > 0):?>
                     <div class="sidebar-widgets-wrap pbox">

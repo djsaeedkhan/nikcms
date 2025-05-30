@@ -6,9 +6,7 @@ use Cake\ORM\TableRegistry;
 class ViewCell extends Cell
 {
     public function add($post_id = null,$action = null)
-    {
-        
-    }
+    {}
     public function view($post_id = null)
     {
         $this->loadModel('Admin.PostMetas');

@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Shop\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \Shop\Model\Entity\ShopOrdertext get($primaryKey, $options = [])
- * @method \Shop\Model\Entity\ShopOrdertext newEmptyEntity(($data = null, array $options = [])
+ * @method \Shop\Model\Entity\ShopOrdertext newEmptyEntity($data = null, array $options = [])
  * @method \Shop\Model\Entity\ShopOrdertext[] newEntities(array $data, array $options = [])
  * @method \Shop\Model\Entity\ShopOrdertext|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Shop\Model\Entity\ShopOrdertext saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])

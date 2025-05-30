@@ -723,7 +723,7 @@ class ChallengesController extends AppController
                 break;
 
             case 'password':
-                $id = $this->getRequest()->getSession()->read('Auth.User.id');
+                $id = $this->request->getAttribute('identity')->get('id');
                 $this->set(['users'=> $this->getTableLocator()->get('Admin.Users')->get($id, ['contain' => ['UserMetas']])]);
                 $this->set(['page'=>'profile/password']);
                 $this->render('/Challenges/profile/password');
@@ -854,7 +854,9 @@ class ChallengesController extends AppController
                 //update profile image of site header
                 $this->request->getSession()->write('profile',
                     $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
-                        ->where([ 'user_id'=> $this->request->getSession()->read('Auth.User.id') ])->first()
+                        ->where([
+                            'user_id'=> $this->request->getAttribute('identity')->get('id')
+                            ])->first()
                 );
                 if($tmp == null){
                     $this->Flash->success(__('ثبت اطلاعات پروفایل شما با موفقیت انجام شد'));

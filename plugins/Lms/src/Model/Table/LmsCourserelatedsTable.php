@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Lms\Model\Table\LmsCoursesTable&\Cake\ORM\Association\BelongsTo $LmsCourses
  *
  * @method \Lms\Model\Entity\LmsCourserelated get($primaryKey, $options = [])
- * @method \Lms\Model\Entity\LmsCourserelated newEmptyEntity(($data = null, array $options = [])
+ * @method \Lms\Model\Entity\LmsCourserelated newEmptyEntity($data = null, array $options = [])
  * @method \Lms\Model\Entity\LmsCourserelated[] newEntities(array $data, array $options = [])
  * @method \Lms\Model\Entity\LmsCourserelated|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Lms\Model\Entity\LmsCourserelated saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
