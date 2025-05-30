@@ -10,7 +10,9 @@ class CategoriesController extends AppController
         parent::initialize();
     }
 
-    public function index(){
+    public function index(): void
+    {
+       
         $cat = $this->Categories->newEmptyEntity();
         try {
              $this->Categories->recover();
@@ -21,12 +23,19 @@ class CategoriesController extends AppController
             ->find('treeList',['keyField'=>'id','valueField'=>'title','spacer' => '—'])
             ->where(['post_type'=>$this->post_type]);
 
-        $categories = $this->paginate(
+        /* $categories = $this->paginate(
             $this->Categories->find('treeList',['spacer' => '—'])
                 ->contain(['Posts'])
                 ->order(['lft'=>'asc'])
                 ->where(['post_type'=>$this->post_type])
-            ,['limit' => 200]);
+            ,['limit' => 2000]); */
+
+        $query = $this->Categories->find('treeList', ['spacer' => '—'])
+            ->contain(['Posts'])
+            ->order(['lft' => 'asc'])
+            ->where(['post_type' => $this->post_type]);
+
+        $categories = $this->paginate($query, ['limit' => 2000]);
 
         $this->set(compact('cat','categories','parentCategory'));
     }
@@ -47,7 +56,6 @@ class CategoriesController extends AppController
             $category = $this->Categories->newEmptyEntity();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            //$this->request->data['post_type'] = $this->post_type;
             $this->request = $this->request->withData('slug', strtolower($this->request->getData()['slug']) );
 
             if($this->request->getData()['parent_id'] == null)

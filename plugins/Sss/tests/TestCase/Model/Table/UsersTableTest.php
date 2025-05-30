@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Sss\Test\TestCase\Model\Table;
+namespace SSS\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Sss\Model\Table\UsersTable;
+use SSS\Model\Table\UsersTable;
 
 /**
- * Sss\Model\Table\UsersTable Test Case
+ * SSS\Model\Table\UsersTable Test Case
  */
 class UsersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Sss\Model\Table\UsersTable
+     * @var \SSS\Model\Table\UsersTable
      */
     protected $Users;
 
@@ -24,61 +24,61 @@ class UsersTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'plugin.Sss.Users',
-        'plugin.Sss.Roles',
-        'plugin.Sss.Challengeblueticks',
-        'plugin.Sss.Challengefollowers',
-        'plugin.Sss.Challengeforums',
-        'plugin.Sss.Challengeqanswers',
-        'plugin.Sss.Challenges',
-        'plugin.Sss.Challengeuserforms',
-        'plugin.Sss.Challengeuserprofiles',
-        'plugin.Sss.Comments',
-        'plugin.Sss.FormbuilderDatas',
-        'plugin.Sss.LmsCertificates',
-        'plugin.Sss.LmsCoursefilecans',
-        'plugin.Sss.LmsCourses',
-        'plugin.Sss.LmsCoursesessions',
-        'plugin.Sss.LmsCourseusers',
-        'plugin.Sss.LmsExamresultlists',
-        'plugin.Sss.LmsExamresults',
-        'plugin.Sss.LmsExams',
-        'plugin.Sss.LmsExamusers',
-        'plugin.Sss.LmsFactors',
-        'plugin.Sss.LmsPayments',
-        'plugin.Sss.LmsUserfactors',
-        'plugin.Sss.LmsUsernotes',
-        'plugin.Sss.LmsUserprofiles',
-        'plugin.Sss.Logs',
-        'plugin.Sss.PollVotes',
-        'plugin.Sss.Posts',
-        'plugin.Sss.Profiles',
-        'plugin.Sss.ShopAddresses',
-        'plugin.Sss.ShopFavorites',
-        'plugin.Sss.ShopLogesticusers',
-        'plugin.Sss.ShopOrderlogesticlogs',
-        'plugin.Sss.ShopOrderlogestics',
-        'plugin.Sss.ShopOrderlogs',
-        'plugin.Sss.ShopOrderrefunds',
-        'plugin.Sss.ShopOrders',
-        'plugin.Sss.ShopOrdershippings',
-        'plugin.Sss.ShopOrdertexts',
-        'plugin.Sss.ShopOrdertokens',
-        'plugin.Sss.ShopPayments',
-        'plugin.Sss.ShopProfiles',
-        'plugin.Sss.ShopUseraddresses',
-        'plugin.Sss.SmsValidations',
-        'plugin.Sss.Ticketaudits',
-        'plugin.Sss.Ticketcomments',
-        'plugin.Sss.Tickets',
-        'plugin.Sss.TmpChallengeforms',
-        'plugin.Sss.TmpMembers',
-        'plugin.Sss.TmpPersonlikes',
-        'plugin.Sss.TmpPersons',
-        'plugin.Sss.TmpProblemforms',
-        'plugin.Sss.TmpProblems',
-        'plugin.Sss.UserMetas',
-        'plugin.Sss.Challengetags',
+        'plugin.SSS.Users',
+        'plugin.SSS.Roles',
+        'plugin.SSS.Challengeblueticks',
+        'plugin.SSS.Challengefollowers',
+        'plugin.SSS.Challengeforums',
+        'plugin.SSS.Challengeqanswers',
+        'plugin.SSS.Challenges',
+        'plugin.SSS.Challengeuserforms',
+        'plugin.SSS.Challengeuserprofiles',
+        'plugin.SSS.Comments',
+        'plugin.SSS.FormbuilderDatas',
+        'plugin.SSS.LmsCertificates',
+        'plugin.SSS.LmsCoursefilecans',
+        'plugin.SSS.LmsCourses',
+        'plugin.SSS.LmsCoursesessions',
+        'plugin.SSS.LmsCourseusers',
+        'plugin.SSS.LmsExamresultlists',
+        'plugin.SSS.LmsExamresults',
+        'plugin.SSS.LmsExams',
+        'plugin.SSS.LmsExamusers',
+        'plugin.SSS.LmsFactors',
+        'plugin.SSS.LmsPayments',
+        'plugin.SSS.LmsUserfactors',
+        'plugin.SSS.LmsUsernotes',
+        'plugin.SSS.LmsUserprofiles',
+        'plugin.SSS.Logs',
+        'plugin.SSS.PollVotes',
+        'plugin.SSS.Posts',
+        'plugin.SSS.Profiles',
+        'plugin.SSS.ShopAddresses',
+        'plugin.SSS.ShopFavorites',
+        'plugin.SSS.ShopLogesticusers',
+        'plugin.SSS.ShopOrderlogesticlogs',
+        'plugin.SSS.ShopOrderlogestics',
+        'plugin.SSS.ShopOrderlogs',
+        'plugin.SSS.ShopOrderrefunds',
+        'plugin.SSS.ShopOrders',
+        'plugin.SSS.ShopOrdershippings',
+        'plugin.SSS.ShopOrdertexts',
+        'plugin.SSS.ShopOrdertokens',
+        'plugin.SSS.ShopPayments',
+        'plugin.SSS.ShopProfiles',
+        'plugin.SSS.ShopUseraddresses',
+        'plugin.SSS.SmsValidations',
+        'plugin.SSS.Ticketaudits',
+        'plugin.SSS.Ticketcomments',
+        'plugin.SSS.Tickets',
+        'plugin.SSS.TmpChallengeforms',
+        'plugin.SSS.TmpMembers',
+        'plugin.SSS.TmpPersonlikes',
+        'plugin.SSS.TmpPersons',
+        'plugin.SSS.TmpProblemforms',
+        'plugin.SSS.TmpProblems',
+        'plugin.SSS.UserMetas',
+        'plugin.SSS.Challengetags',
     ];
 
     /**
@@ -109,7 +109,7 @@ class UsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Sss\Model\Table\UsersTable::validationDefault()
+     * @uses \SSS\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -120,7 +120,7 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \Sss\Model\Table\UsersTable::buildRules()
+     * @uses \SSS\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
     {

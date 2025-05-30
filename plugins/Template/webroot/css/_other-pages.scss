@@ -1,0 +1,251 @@
+.backup-documents {
+
+	.document {
+		border: 1px solid $gray-300;
+		background: #FFF;
+		padding: $spacer/2;
+		margin-bottom: $spacer;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: $spacer;
+		box-shadow: 0px 16px 40px 0px #00000014;
+		@include  border-radius(12px);
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		.img-wrapper {
+			min-width: 110px;
+			margin-left: $spacer;
+			@include border-radius(8px);
+
+			img {
+				aspect-ratio: 2 / 1.5;
+				object-fit: cover;
+				@include border-radius(8px);
+			}
+		}
+		.title {
+			margin-bottom: 0;
+			font-weight: 700;
+			line-height: 20px;
+			@include font-size(14px);
+			@include lineClamp(2);
+		}
+
+		.download {
+			border-bottom: 1px solid $_primary;
+			color: $_primary;
+			white-space: nowrap;
+			font-weight: 700;
+			@include font-size(14px);
+			@include transition(300ms);
+
+			&:hover {
+				padding-bottom: 5px;
+			}
+		}
+
+	}
+
+} // .backup-documents
+
+.map-contribute-details {
+	border: 1px solid $gray-300;
+	padding: $spacer;
+	box-shadow: 0px 16px 40px 0px #00000014;
+	@include border-radius(12px);
+
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+
+		li {
+			margin-bottom: $spacer/2;
+			position: relative;
+			text-align: right;
+			font-weight: 500;
+			@include font-size(14px);
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:before {
+				content: '';
+				display: inline-block;
+				width: 8px;
+				height: 8px;
+				background: $_black-light;
+				margin-left: $spacer/2;
+				vertical-align: middle;
+				@include border-radius(50%);
+			}
+
+			.value {
+				color: $_primary;
+				font-weight: 700;
+				margin-right: $spacer/2;
+			}
+
+		}
+	} // ul
+
+} // .map-contribute-details
+
+.timing {
+	display: flex;
+	justify-content: space-between;
+
+	@include media-breakpoint-down(md) {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.item {
+		text-align: center;
+
+		@include media-breakpoint-down(md) {
+			width: 50%;
+			margin-bottom: $spacer;
+		}
+
+		&:hover {
+			.img-wrapper {
+				background: $_primary;
+
+				&:after {
+					background-image: url("./images/timing-primary.png");
+				}
+			}
+		}
+
+		.img-wrapper {
+			min-width: 110px;
+			max-width: 110px;
+			min-height: 110px;
+			max-height: 110px;
+			margin: auto;
+			background: #C0C3C7;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			@include border-radius(50%);
+			@include transition(300ms);
+
+			&:after {
+				content: '';
+				display: block;
+				width: 75px;
+				height: 150px;
+				position: absolute;
+				top: 0;
+				right: 15%;
+				z-index: 9;
+				background-image: url("./images/timing-gray.png");
+				background-repeat: no-repeat;
+				background-size: contain;
+				@include transition(300ms);
+			}
+
+			img {
+				width: 48px;
+				height: 48px;
+				position: relative;
+				z-index: 99;
+			}
+
+		} // .img-wrapper
+
+		.title {
+			margin-top: $spacer*3;
+			font-weight: 900;
+			@include font-size(16px);
+		}
+
+		.description {
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 0;
+			font-weight: 400;
+			@include font-size(14px);
+		}
+
+	} // .item
+
+} // .timing
+
+.contribute-modal {
+
+	.title {
+		margin-bottom: $spacer;
+		font-weight: 800;
+		@include font-size(20px);
+
+		@include media-breakpoint-down(md) {
+			@include font-size(16px);
+		}
+	}
+
+	.help {
+		display: flex;
+		align-items: center;
+		background: $_secondary-light;
+		padding: $spacer;
+		position: relative;
+		min-height: 130px;
+		overflow: hidden;
+		margin-top: $spacer*2;
+		margin-bottom: $spacer;
+		@include border-radius(12px);
+
+		@include media-breakpoint-up(md) {
+			&:after {
+				content: '';
+				display: block;
+				width: 130px;
+				height: 100%;
+				background: url("./images/circles-secondary.png") no-repeat center;
+				background-size: contain;
+				position: absolute;
+				left: -#{$spacer};
+				top: 0;
+				z-index: 9;
+			}
+		}
+
+		@include media-breakpoint-down(md) {
+			&:after {
+				content: '';
+				display: block;
+				width: 130px;
+				height: 130px;
+				background: url("./images/circles-secondary-half.png") no-repeat center;
+				background-size: contain;
+				position: absolute;
+				left: calc(50% - 62px);
+				top: -45px;
+				z-index: 9;
+			}
+		}
+
+		.text {
+			width: 85%;
+			margin-bottom: 0;
+			font-weight: 700;
+			@include font-size(15px);
+
+			@include media-breakpoint-down(md) {
+				margin-top: $spacer*2;
+				width: 100%;
+				@include font-size(13px);
+			}
+		}
+	}
+
+} // .contribute-modal

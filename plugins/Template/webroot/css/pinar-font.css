@@ -1,0 +1,78 @@
+﻿
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 100;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Thin.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Thin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 300;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Light.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Light.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 400;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Regular.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 500;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Medium.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 600;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-SemiBold.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 700;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Bold.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 800;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-ExtraBold.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 900;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-Black.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-Black.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: EpicPinar;
+    font-style: normal;
+    font-weight: 950;
+    src: /*url('../css/fonts/pinar/Pinar-DS1-FD-ExtraBlack.woff') format('woff'),*/
+    url('../css/fonts/pinar/Pinar-DS1-FD-ExtraBlack.woff2') format('woff2');
+}
+
+
+
+
+
+

@@ -4,12 +4,14 @@ namespace Admin\Controller;
 use Admin\Controller\AppController;
 use App\Model\Table\Options;
 use Cake\ORM\TableRegistry;
+use Cake\Event\EventInterface;
 
 class ThemesController extends AppController
 {
     public function initialize(): void
     {
         parent::initialize();
+        
     }
     //----------------------------------------------------------
     public function index(){
@@ -68,7 +70,8 @@ class ThemesController extends AppController
             ]);
     }
     //----------------------------------------------------------
-    public function Menu($id = null){
+    public function menu($id = null){
+
         if($this->request->getQuery('delete')){
             $tag = $this->Themes->find('all')->where(['id'=> $this->request->getQuery('delete')]);
             if($tag->first()){  
@@ -141,10 +144,8 @@ class ThemesController extends AppController
     //----------------------------------------------------------
     public function beforeFilter(EventInterface $event)
     {
-        //parent::beforeFilter($event);
-        //$user = $this->request->getAttribute('identity');
-        //pr($user['role']);
-        $this->Authentication->addUnauthenticatedActions('*');
-        $this->Auth->deny(['index']);
+        parent::beforeFilter($event);
+        //$this->Authentication->addUnauthenticatedActions('*');
+        //$this->Auth->deny(['index']);
     }
 }

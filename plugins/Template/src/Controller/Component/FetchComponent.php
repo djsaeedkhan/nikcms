@@ -8,7 +8,6 @@ use Cake\ORM\TableRegistry;
 class FetchComponent extends Component {
     protected $_defaultConfig = [];
     public $components = ['Paginator'];
-    public function initialize(array $config): void{}
     public function home($id = null){
     }
     
@@ -142,7 +141,7 @@ class FetchComponent extends Component {
 
     public function single($id = null)
     {
-        $result = $this->getTableLocator()->get('Admin.Posts')->get($id,[
+        $result = TableRegistry::get('Admin.Posts')->get($id,[
             'contain'=>['Categories','Tags','Users','PostMetas']]);
         return $result;
     }

@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\Test\TestCase\Model\Table;
 
 use Admin\Model\Table\OptionsTable;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -15,14 +16,14 @@ class OptionsTableTest extends TestCase
      *
      * @var \Admin\Model\Table\OptionsTable
      */
-    public $Options;
+    protected $Options;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.Admin.Options',
     ];
 
@@ -31,11 +32,11 @@ class OptionsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Options') ? [] : ['className' => OptionsTable::class];
-        $this->Options = TableRegistry::getTableLocator()->get('Options', $config);
+        $config = $this->getTableLocator()->exists('Options') ? [] : ['className' => OptionsTable::class];
+        $this->Options = $this->getTableLocator()->get('Options', $config);
     }
 
     /**
@@ -43,7 +44,7 @@ class OptionsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->Options);
 
@@ -51,21 +52,12 @@ class OptionsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test validationDefault method
      *
      * @return void
+     * @uses \Admin\Model\Table\OptionsTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

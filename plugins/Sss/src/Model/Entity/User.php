@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sss\Model\Entity;
+namespace SSS\Model\Entity;
 
 use Cake\ORM\Entity;
 
@@ -21,60 +21,60 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $expired
  *
- * @property \Sss\Model\Entity\Role $role
- * @property \Sss\Model\Entity\Challengebluetick[] $challengeblueticks
- * @property \Sss\Model\Entity\Challengefollower[] $challengefollowers
- * @property \Sss\Model\Entity\Challengeforum[] $challengeforums
- * @property \Sss\Model\Entity\Challengeqanswer[] $challengeqanswers
- * @property \Sss\Model\Entity\Challenge[] $challenges
- * @property \Sss\Model\Entity\Challengeuserform[] $challengeuserforms
- * @property \Sss\Model\Entity\Challengeuserprofile[] $challengeuserprofiles
- * @property \Sss\Model\Entity\Comment[] $comments
- * @property \Sss\Model\Entity\FormbuilderData[] $formbuilder_datas
- * @property \Sss\Model\Entity\LmsCertificate[] $lms_certificates
- * @property \Sss\Model\Entity\LmsCoursefilecan[] $lms_coursefilecans
- * @property \Sss\Model\Entity\LmsCourse[] $lms_courses
- * @property \Sss\Model\Entity\LmsCoursesession[] $lms_coursesessions
- * @property \Sss\Model\Entity\LmsCourseuser[] $lms_courseusers
- * @property \Sss\Model\Entity\LmsExamresultlist[] $lms_examresultlists
- * @property \Sss\Model\Entity\LmsExamresult[] $lms_examresults
- * @property \Sss\Model\Entity\LmsExam[] $lms_exams
- * @property \Sss\Model\Entity\LmsExamuser[] $lms_examusers
- * @property \Sss\Model\Entity\LmsFactor[] $lms_factors
- * @property \Sss\Model\Entity\LmsPayment[] $lms_payments
- * @property \Sss\Model\Entity\LmsUserfactor[] $lms_userfactors
- * @property \Sss\Model\Entity\LmsUsernote[] $lms_usernotes
- * @property \Sss\Model\Entity\LmsUserprofile[] $lms_userprofiles
- * @property \Sss\Model\Entity\Log[] $logs
- * @property \Sss\Model\Entity\PollVote[] $poll_votes
- * @property \Sss\Model\Entity\Post[] $posts
- * @property \Sss\Model\Entity\Profile[] $profiles
- * @property \Sss\Model\Entity\ShopAddress[] $shop_addresses
- * @property \Sss\Model\Entity\ShopFavorite[] $shop_favorites
- * @property \Sss\Model\Entity\ShopLogesticuser[] $shop_logesticusers
- * @property \Sss\Model\Entity\ShopOrderlogesticlog[] $shop_orderlogesticlogs
- * @property \Sss\Model\Entity\ShopOrderlogestic[] $shop_orderlogestics
- * @property \Sss\Model\Entity\ShopOrderlog[] $shop_orderlogs
- * @property \Sss\Model\Entity\ShopOrderrefund[] $shop_orderrefunds
- * @property \Sss\Model\Entity\ShopOrder[] $shop_orders
- * @property \Sss\Model\Entity\ShopOrdershipping[] $shop_ordershippings
- * @property \Sss\Model\Entity\ShopOrdertext[] $shop_ordertexts
- * @property \Sss\Model\Entity\ShopOrdertoken[] $shop_ordertokens
- * @property \Sss\Model\Entity\ShopPayment[] $shop_payments
- * @property \Sss\Model\Entity\ShopProfile[] $shop_profiles
- * @property \Sss\Model\Entity\ShopUseraddress[] $shop_useraddresses
- * @property \Sss\Model\Entity\SmsValidation[] $sms_validations
- * @property \Sss\Model\Entity\Ticketaudit[] $ticketaudits
- * @property \Sss\Model\Entity\Ticketcomment[] $ticketcomments
- * @property \Sss\Model\Entity\Ticket[] $tickets
- * @property \Sss\Model\Entity\TmpChallengeform[] $tmp_challengeforms
- * @property \Sss\Model\Entity\TmpMember[] $tmp_members
- * @property \Sss\Model\Entity\TmpPersonlike[] $tmp_personlikes
- * @property \Sss\Model\Entity\TmpPerson[] $tmp_persons
- * @property \Sss\Model\Entity\TmpProblemform[] $tmp_problemforms
- * @property \Sss\Model\Entity\TmpProblem[] $tmp_problems
- * @property \Sss\Model\Entity\UserMeta[] $user_metas
- * @property \Sss\Model\Entity\Challengetag[] $challengetags
+ * @property \SSS\Model\Entity\Role $role
+ * @property \SSS\Model\Entity\Challengebluetick[] $challengeblueticks
+ * @property \SSS\Model\Entity\Challengefollower[] $challengefollowers
+ * @property \SSS\Model\Entity\Challengeforum[] $challengeforums
+ * @property \SSS\Model\Entity\Challengeqanswer[] $challengeqanswers
+ * @property \SSS\Model\Entity\Challenge[] $challenges
+ * @property \SSS\Model\Entity\Challengeuserform[] $challengeuserforms
+ * @property \SSS\Model\Entity\Challengeuserprofile[] $challengeuserprofiles
+ * @property \SSS\Model\Entity\Comment[] $comments
+ * @property \SSS\Model\Entity\FormbuilderData[] $formbuilder_datas
+ * @property \SSS\Model\Entity\LmsCertificate[] $lms_certificates
+ * @property \SSS\Model\Entity\LmsCoursefilecan[] $lms_coursefilecans
+ * @property \SSS\Model\Entity\LmsCourse[] $lms_courses
+ * @property \SSS\Model\Entity\LmsCoursesession[] $lms_coursesessions
+ * @property \SSS\Model\Entity\LmsCourseuser[] $lms_courseusers
+ * @property \SSS\Model\Entity\LmsExamresultlist[] $lms_examresultlists
+ * @property \SSS\Model\Entity\LmsExamresult[] $lms_examresults
+ * @property \SSS\Model\Entity\LmsExam[] $lms_exams
+ * @property \SSS\Model\Entity\LmsExamuser[] $lms_examusers
+ * @property \SSS\Model\Entity\LmsFactor[] $lms_factors
+ * @property \SSS\Model\Entity\LmsPayment[] $lms_payments
+ * @property \SSS\Model\Entity\LmsUserfactor[] $lms_userfactors
+ * @property \SSS\Model\Entity\LmsUsernote[] $lms_usernotes
+ * @property \SSS\Model\Entity\LmsUserprofile[] $lms_userprofiles
+ * @property \SSS\Model\Entity\Log[] $logs
+ * @property \SSS\Model\Entity\PollVote[] $poll_votes
+ * @property \SSS\Model\Entity\Post[] $posts
+ * @property \SSS\Model\Entity\Profile[] $profiles
+ * @property \SSS\Model\Entity\ShopAddress[] $shop_addresses
+ * @property \SSS\Model\Entity\ShopFavorite[] $shop_favorites
+ * @property \SSS\Model\Entity\ShopLogesticuser[] $shop_logesticusers
+ * @property \SSS\Model\Entity\ShopOrderlogesticlog[] $shop_orderlogesticlogs
+ * @property \SSS\Model\Entity\ShopOrderlogestic[] $shop_orderlogestics
+ * @property \SSS\Model\Entity\ShopOrderlog[] $shop_orderlogs
+ * @property \SSS\Model\Entity\ShopOrderrefund[] $shop_orderrefunds
+ * @property \SSS\Model\Entity\ShopOrder[] $shop_orders
+ * @property \SSS\Model\Entity\ShopOrdershipping[] $shop_ordershippings
+ * @property \SSS\Model\Entity\ShopOrdertext[] $shop_ordertexts
+ * @property \SSS\Model\Entity\ShopOrdertoken[] $shop_ordertokens
+ * @property \SSS\Model\Entity\ShopPayment[] $shop_payments
+ * @property \SSS\Model\Entity\ShopProfile[] $shop_profiles
+ * @property \SSS\Model\Entity\ShopUseraddress[] $shop_useraddresses
+ * @property \SSS\Model\Entity\SmsValidation[] $sms_validations
+ * @property \SSS\Model\Entity\Ticketaudit[] $ticketaudits
+ * @property \SSS\Model\Entity\Ticketcomment[] $ticketcomments
+ * @property \SSS\Model\Entity\Ticket[] $tickets
+ * @property \SSS\Model\Entity\TmpChallengeform[] $tmp_challengeforms
+ * @property \SSS\Model\Entity\TmpMember[] $tmp_members
+ * @property \SSS\Model\Entity\TmpPersonlike[] $tmp_personlikes
+ * @property \SSS\Model\Entity\TmpPerson[] $tmp_persons
+ * @property \SSS\Model\Entity\TmpProblemform[] $tmp_problemforms
+ * @property \SSS\Model\Entity\TmpProblem[] $tmp_problems
+ * @property \SSS\Model\Entity\UserMeta[] $user_metas
+ * @property \SSS\Model\Entity\Challengetag[] $challengetags
  */
 class User extends Entity
 {

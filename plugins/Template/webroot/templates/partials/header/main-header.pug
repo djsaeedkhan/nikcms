@@ -1,0 +1,120 @@
+header#main-header
+   .container
+      .top-header
+         img(src="./css/images/amoozesh-logo-white.png" alt="موسسه عالی آموزش و پژوهش مدیریت و برنامه ریزی ")
+      .logo-navbar-wrapper
+         a(href="./").logo
+            img(src="./css/images/logo-white.png" alt="جمع سپاری")
+
+         .navbar-wrapper
+            nav.main-navbar
+               ul
+                  li.active
+                     a(href="#") جمع سپاری ها
+                  li.has-submenu
+                     a(href="#") پایگاه دانشی
+                     img(src="./css/icons/arrow_down.svg" alt="arrow down").arrow-down
+                     ul.second-lvl-menu
+                        li
+                           a(href="#") دانشنامه اساتید
+                        li
+                           a(href="#") پایگاه دانش مربیان
+                        li
+                           a(href="#") پایگاه دانش اساتید
+                  li
+                     a(href="#") اخبار و رویدادها
+                  li
+                     a(href="#") درباره پایگاه
+
+            // TODO show this button before login
+            //button.btn.btn-md.btn-primary(style="width: 150px" data-bs-toggle="modal" data-bs-target="#loginRegisterModal") ورود/ثبت نام
+
+            // TODO show this after login
+            .user-dropdown-toggler
+               img(src="./css/icons/user-square.svg" alt="user icon").user-icon
+               span.name مرتضی قربانعلی زاده
+               img(src="./css/icons/arrow-down.svg" alt="user icon").arrow-down
+
+               ul.user-dropdown
+                  li.active
+                     a(href="profile.html")
+                        img(src="./css/icons/user-octagon.svg" alt="user icon").user-icon
+                        | پروفایل
+                  li
+                     a(href="my-contributes.html")
+                        img(src="./css/icons/like-tag.svg" alt="like icon").user-icon
+                        | مشارکت های من
+                  li
+                     a(href="tickets.html")
+                        img(src="./css/icons/message-text.svg" alt="message icon").user-icon
+                        | پشتیبانی
+                  li
+                     a(href="#")
+                        img(src="./css/icons/logout.svg" alt="logout icon").user-icon
+                        | خروج
+
+
+header#mobile-header
+   div
+      span.bars
+         img(src="./css/icons/hamburger.svg" alt="hamburger menu").hamburger
+         img(src="./css/icons/close-white.svg" alt="close menu").close
+      a(href="./").logo
+         img(src="./css/images/logo-white.png" alt="جمع سپاری")
+
+
+   // TODO show this button before login
+   button.btn.btn-md.btn-white(data-bs-toggle="modal" data-bs-target="#loginRegisterModal") ورود/ثبت نام
+
+   // TODO show this after login
+   //.user-dropdown-toggler
+      img(src="./css/icons/user-square-white.svg" alt="user icon").user-icon
+      span.name مرتضی قربانعلی زاده
+      img(src="./css/icons/arrow-down-white.svg" alt="user icon").arrow-down
+
+      ul.user-dropdown
+         li.active
+            a(href="profile.html")
+               img(src="./css/icons/user-octagon.svg" alt="user icon").user-icon
+               | پروفایل
+         li
+            a(href="my-contributes.html")
+               img(src="./css/icons/like-tag.svg" alt="like icon").user-icon
+               | مشارکت های من
+         li
+            a(href="tickets.html")
+               img(src="./css/icons/message-text.svg" alt="message icon").user-icon
+               | پشتیبانی
+         li
+            a(href="#")
+               img(src="./css/icons/logout.svg" alt="logout icon").user-icon
+               | خروج
+
+   nav.mobile-menu
+      ul
+         li.active
+            a(href="#") جمع سپاری ها
+         li.has-submenu
+            a پایگاه دانشی
+            img(src="./css/icons/arrow_down.svg" alt="arrow down").arrow-down
+            ul.second-lvl-menu
+               li
+                  a(href="#") دانشنامه اساتید
+               li
+                  a(href="#") پایگاه دانش مربیان
+               li
+                  a(href="#") پایگاه دانش اساتید
+         li
+            a(href="#") اخبار و رویدادها
+         li.has-submenu
+            a درباره پایگاه
+            img(src="./css/icons/arrow_down.svg" alt="arrow down").arrow-down
+            ul.second-lvl-menu
+               li
+                  a(href="#") دانشنامه اساتید
+               li
+                  a(href="#") پایگاه دانش مربیان
+               li
+                  a(href="#") پایگاه دانش اساتید
+
+include login-register-modal

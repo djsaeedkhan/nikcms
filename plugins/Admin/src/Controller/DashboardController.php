@@ -19,12 +19,8 @@ class DashboardController extends AppController {
                 $this->getTableLocator()->get('Admin.Posts')->find('all')->where(['post_type'=>'media'])->count()
         ]);
     }
-    public function Update(){
-    }
-    public function Help(){
-    }
-    public function About(){
-    }
-    public function test(){   
-    }
+    public function update(){}
+    public function help(){}
+    public function about(){}
+    public function test(){}
 }

@@ -15,9 +15,8 @@ class ViewCell extends Cell
         $action = $this->request->getParam('action');
         switch ($action):
             case 'single':
-                $id = $this->request->getParam('id');
-                $this->loadModel('Admin.Posts');
-		        $temp = $this->Posts->find('all')
+                $id = intval($this->request->getParam('id'));
+		        $temp = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['Posts.id' => $id ])
                     ->select(['id','title','slug','post_type'])
                     ->contain('Categories')

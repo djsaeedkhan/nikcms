@@ -106,7 +106,8 @@
         <!--  ------------------------>
     </div>
     <div class="col-sm-8">
-        <?php echo $this->Form->create(null);$this->Form->unlockField('nav');?>
+        <?php echo $this->Form->create(null);?>
+        <?php $this->Form->unlockField('nav');?>
         <div class="card"><div class="card-body">
             <div class="row">
             <div class="col-sm-6">

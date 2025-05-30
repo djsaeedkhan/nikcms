@@ -8,7 +8,7 @@ use Cake\View\View;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
-use Cake\I18n\Date;
+use Cake\I18n\FrozenTime;
 use DateTime;
 
 class QueryHelper extends Helper
@@ -832,7 +832,7 @@ class QueryHelper extends Helper
             $result = $results;
 
         try {
-            $date = new Date(isset($result['created'])?$result['created']:$result);
+            $date = new FrozenTime(isset($result['created'])?$result['created']:$result);
             //return QueryHelper::mil_to_shm(date("Y-m-d", strtotime($date)));
             return jdate($opr,strtotime($date->format('Y-m-d'))); 
         } catch (\Exception $e) {

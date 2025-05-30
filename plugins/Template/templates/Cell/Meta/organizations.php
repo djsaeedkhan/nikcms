@@ -51,35 +51,35 @@ $menu = [
                             ['name'=>'PostMetas.section_text1','fname'=>'section_text1','col'=> 12, 'title'=>'متن سکشن (*)',
                                 'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'id'=>'edittextarea1'] ,
+                                'ids'=>'edittextarea1'] ,
                             [],
 
                             ['name'=>'PostMetas.section_title2','fname'=>'section_title2','col'=> 12, 'title'=>'عنوان سکشن 2'] ,
                             ['name'=>'PostMetas.section_text2','fname'=>'section_text2','col'=> 12, 'title'=>'متن سکشن (*)',
                                 'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'id'=>'edittextarea2'] ,
+                                'ids'=>'edittextarea2'] ,
                             [],
 
                             ['name'=>'PostMetas.section_title3','fname'=>'section_title3','col'=> 12, 'title'=>'عنوان سکشن 3'] ,
                             ['name'=>'PostMetas.section_text3','fname'=>'section_text3','col'=> 12, 'title'=>'متن سکشن (*)',
                                 'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'id'=>'edittextarea3'] ,
+                                'ids'=>'edittextarea3'] ,
                             [],
 
                             ['name'=>'PostMetas.section_title4','fname'=>'section_title4','col'=> 12, 'title'=>'عنوان سکشن 4'] ,
                             ['name'=>'PostMetas.section_text4','fname'=>'section_text4','col'=> 12, 'title'=>'متن سکشن (*)',
                                 'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'id'=>'edittextarea4'] ,
+                                'ids'=>'edittextarea4'] ,
                             [],
 
                             ['name'=>'PostMetas.section_title5','fname'=>'section_title5','col'=> 12, 'title'=>'عنوان سکشن 5'] ,
                             ['name'=>'PostMetas.section_text5','fname'=>'section_text5','col'=> 12, 'title'=>'متن سکشن (*)',
                                 'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'id'=>'edittextarea5'] ,
+                                'ids'=>'edittextarea5'] ,
                         ]
                     ],
                 ],
@@ -126,6 +126,26 @@ $menu = [
                     [
                         'title'=>'',
                         'fields'=>[
+                            /* ['name'=>'PostMetas.dashboard',
+                                'fname'=>'dashboard',
+                                'col'=> 12,
+                                'title'=>'داشبورد های مرتبط',
+                                'class'=>'select2',
+                                'multiple'=>'multiple',
+                                'type'=>'select',
+                                'data'=>$this->Query->post("dashboard",['field'=>['id','title'],'limit'=>0, 'find_type'=>'list'])
+                            ],
+                            [],
+                            ['name'=>'PostMetas.organizations',
+                                'fname'=>'organizations',
+                                'col'=> 12,
+                                'title'=>'نهاد مرتبط',
+                                'class'=>'select2',
+                                'multiple'=>'multiple',
+                                'type'=>'select',
+                                'data'=>$this->Query->post("organizations",['field'=>['id','title'],'limit'=>0, 'find_type'=>'list'])
+                            ], */
+
                         ]
                     ],
                 ],

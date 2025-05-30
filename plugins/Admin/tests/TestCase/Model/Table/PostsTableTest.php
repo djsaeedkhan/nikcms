@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\Test\TestCase\Model\Table;
 
 use Admin\Model\Table\PostsTable;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -15,29 +16,23 @@ class PostsTableTest extends TestCase
      *
      * @var \Admin\Model\Table\PostsTable
      */
-    public $Posts;
+    protected $Posts;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.Admin.Posts',
+        'plugin.Admin.PostsTitleTranslation',
+        'plugin.Admin.PostsSummaryTranslation',
+        'plugin.Admin.PostsContentTranslation',
+        'plugin.Admin.PostsI18n',
         'plugin.Admin.Users',
         'plugin.Admin.Comments',
         'plugin.Admin.PostMetas',
-        'plugin.Admin.ShopFavorites',
-        'plugin.Admin.ShopOrderproducts',
-        'plugin.Admin.ShopProductMetas',
-        'plugin.Admin.ShopProductParams',
-        'plugin.Admin.ShopProductdetails',
-        'plugin.Admin.ShopProductmajors',
-        'plugin.Admin.ShopProductprices',
-        'plugin.Admin.ShopProductstocks',
-        'plugin.Admin.Tickets',
         'plugin.Admin.Categories',
-        'plugin.Admin.I18n',
         'plugin.Admin.Tags',
     ];
 
@@ -46,11 +41,11 @@ class PostsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
-        $this->Posts = TableRegistry::getTableLocator()->get('Posts', $config);
+        $config = $this->getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
+        $this->Posts = $this->getTableLocator()->get('Posts', $config);
     }
 
     /**
@@ -58,7 +53,7 @@ class PostsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->Posts);
 
@@ -66,21 +61,23 @@ class PostsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test validationDefault method
      *
      * @return void
+     * @uses \Admin\Model\Table\PostsTable::validationDefault()
      */
-    public function testInitialize()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test validationDefault method
+     * Test beforeSave method
      *
      * @return void
+     * @uses \Admin\Model\Table\PostsTable::beforeSave()
      */
-    public function testValidationDefault()
+    public function testBeforeSave(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -89,8 +86,9 @@ class PostsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \Admin\Model\Table\PostsTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

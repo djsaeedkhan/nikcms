@@ -1,0 +1,57 @@
+.modal.fade(id="loginRegisterModal" tabindex='-1')
+   .modal-dialog.modal-dialog-centered
+      .modal-content
+         .modal-header
+            h5.modal-title
+            button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+
+         .modal-body.tab-content.p-lg-5.p-4
+            .d-flex.justify-content-center.mb-4
+               ul.pill-nav-tabs(id="login-reg-tab" role="tablist")
+                  li.nav-item.active(id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-content" role="tab") ورود
+                  li.nav-item(id="reg-tab" data-bs-toggle="tab" data-bs-target="#reg-tab-content" role="tab") ثبت نام
+
+            .tab-pane.fade.show.active(id="login-tab-content")
+               form
+                  .form-item.has-bg
+                     label.form-label شماره همراه
+                     input.form-control(type="tel" name="phone" required)
+
+                  .form-item.has-bg.has-icon
+                     label.form-label رمز عبور
+                     input.form-control(type="password" name="password" required)
+                     img(src="./css/icons/eye.svg" alt="show password").icon.cursor-pointer.show-pass
+                     img(src="./css/icons/eye.svg" alt="show password" style="display: none").icon.cursor-pointer.hide-pass
+
+                  button(type="submit").btn.btn-lg.btn-primary.w-100.mt-4 ورود به سایت
+
+            // login-tab-content
+
+
+            .tab-pane.fade(id="reg-tab-content")
+               form
+                  .form-item.has-bg
+                     label.form-label نام و نام خانوادگی
+                     input.form-control(type="text" name="fullname" required)
+
+                  .form-item.has-bg
+                     label.form-label شماره همراه
+                     input.form-control(type="tel" name="phone" required)
+
+                  .form-item.select.has-bg
+                     label.form-label استان
+                     select.form-control(name="")
+                        option(value="") استان را انتخاب کنید
+                        option(value="0") اصفهان
+                        option(value="1") تهران
+                        option(value="2") خراسان شمالبی
+
+                  .form-item.has-bg.has-icon
+                     label.form-label رمز عبور
+                     input.form-control(type="password" name="password" required)
+                     img(src="./css/icons/eye.svg" alt="show password").icon.cursor-pointer.show-pass
+                     img(src="./css/icons/eye.svg" alt="show password" style="display: none").icon.cursor-pointer.hide-pass
+
+                  button(type="submit").btn.btn-lg.btn-primary.w-100.mt-4 ثبت نام در سایت
+
+            // reg-tab-content

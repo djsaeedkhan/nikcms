@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Sss\Test\TestCase\Controller;
+namespace SSS\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Sss\Controller\UsersController;
+use SSS\Controller\UsersController;
 
 /**
- * Sss\Controller\UsersController Test Case
+ * SSS\Controller\UsersController Test Case
  *
- * @uses \Sss\Controller\UsersController
+ * @uses \SSS\Controller\UsersController
  */
 class UsersControllerTest extends TestCase
 {

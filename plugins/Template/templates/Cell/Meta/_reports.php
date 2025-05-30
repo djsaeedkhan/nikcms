@@ -43,9 +43,7 @@ for($i=1;$i<20;$i++):
                         'class'=>'mb-2 ltr'] ,
                         
 
-                    ['name'=>'PostMetas.rep_data_'.$i,'fname'=>'rep_data_'.$i,'col'=> 12, 
-                        'title'=>'اسکریپت نمودار ( کدهای بین اسکریپت را وارد کنید)
-                        '.$this->html->image('/template/help_report.png',['style'=>'height: 150px;']), 
+                    ['name'=>'PostMetas.rep_data_'.$i,'fname'=>'rep_data_'.$i,'col'=> 12, 'title'=>'اسکریپت نمودار ( کدهای بین اسکریپت را وارد کنید)', 
                         'type'=>'textarea','style'=>'min-height: 500px;
                         line-height: 20px;
                         font-size: 12px;

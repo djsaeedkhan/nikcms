@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\Model\Table;
 
 use Cake\ORM\Query;
@@ -6,8 +8,37 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+/**
+ * Categories Model
+ *
+ * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $ParentCategories
+ * @property \Admin\Model\Table\PostsTable&\Cake\ORM\Association\BelongsToMany $Posts
+ *
+ * @method \Admin\Model\Entity\Category newEmptyEntity()
+ * @method \Admin\Model\Entity\Category newEntity(array $data, array $options = [])
+ * @method \Admin\Model\Entity\Category[] newEntities(array $data, array $options = [])
+ * @method \Admin\Model\Entity\Category get($primaryKey, $options = [])
+ * @method \Admin\Model\Entity\Category findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Admin\Model\Entity\Category patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Admin\Model\Entity\Category[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Admin\Model\Entity\Category|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\Category saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \Cake\ORM\Behavior\TreeBehavior
+ */
 class CategoriesTable extends Table
 {
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -16,31 +47,28 @@ class CategoriesTable extends Table
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Tree');
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Translate', [
-            'fields' => ['title','description'],
-            'translationTable' => 'CategoriesI18n']);
+        $this->addBehavior('Tree');
 
+        $this->belongsTo('ParentCategories', [
+            'className' => 'Admin.Categories',
+            'foreignKey' => 'parent_id',
+        ]);
+        $this->hasMany('ChildCategories', [
+            'className' => 'Admin.Categories',
+            'foreignKey' => 'parent_id',
+        ]);
+        $this->belongsToMany('I18n', [
+            'foreignKey' => 'category_id',
+            'targetForeignKey' => 'i18n_id',
+            'joinTable' => 'categories_i18n',
+            'className' => 'Admin.I18n',
+        ]);
         $this->belongsToMany('Posts', [
             'foreignKey' => 'category_id',
             'targetForeignKey' => 'post_id',
             'joinTable' => 'posts_categories',
-            'through' => 'PostsCategories',
-            'className' => 'Admin.Posts'
-        ]);
-        $this->belongsTo('ParentCategories', [
-            'className' => 'Categories',
-            'foreignKey' => 'parent_id',
-        ]);
-
-        $this->hasMany('ChildrenCategories', [
-            'className' => 'Categories',
-            'foreignKey' => 'parent_id',
-        ]);
-        $this->hasMany('CategorieMetas', [
-            'foreignKey' => 'categorie_id',
-            'className' => 'Admin.CategorieMetas'
+            'className' => 'Admin.Posts',
         ]);
     }
 
@@ -53,46 +81,27 @@ class CategoriesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
             ->scalar('title')
-            ->requirePresence('title', 'create')
-            ->notEmpty('title');
+            ->allowEmptyString('title');
 
         $validator
             ->scalar('slug')
-            //->requirePresence('slug', 'create')
-            ->allowEmpty('slug');
+            ->allowEmptyString('slug');
 
         $validator
             ->scalar('description')
-            //->requirePresence('description', 'create')
-            ->allowEmpty('description');
+            ->allowEmptyString('description');
+
+        $validator
+            ->integer('parent_id')
+            ->notEmptyString('parent_id');
 
         $validator
             ->scalar('post_type')
             ->maxLength('post_type', 20)
-            ->requirePresence('post_type', 'create')
-            ->notEmpty('post_type');
+            ->allowEmptyString('post_type');
 
         return $validator;
-    }
-    public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
     }
 
     /**
@@ -104,7 +113,8 @@ class CategoriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        //$rules->add($rules->existsIn(['parent_id'], 'ParentCategories'));
+        $rules->add($rules->existsIn('parent_id', 'ParentCategories'), ['errorField' => 'parent_id']);
+
         return $rules;
     }
 }

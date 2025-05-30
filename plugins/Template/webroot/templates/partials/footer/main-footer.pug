@@ -1,0 +1,31 @@
+footer#main-footer
+   .container
+      .row
+         section.col-12.col-lg-4
+            header
+               h4.footer-title تدبیر
+               h5.footer-subtitle سامانه ایده‌پردازی مسائل سیاستی
+            p.footer-description ابتکاری از موسسه عالی آموزش وپژوهش مدیریت وبرنامه ریزی در راستای تحقق سیاست‌گذاری باز و مشارکت متخصصان و صاحب‌نظران در مسائل سیاستی کشور و کمک به بهبود فرآیند تصمیم سازی
+
+            div.d-none.d-lg-block
+               include social-network
+
+         // end of right section
+
+         section.col-12.col-lg-8.left-section
+            include links
+
+            .d-none.d-lg-block
+               include slider
+         // end of left section
+
+         .d-block.d-lg-none
+            include social-network
+            include slider
+
+script(src="./js/packages/bootstrap.bundle.min.js")
+script(src="./js/packages/jquery-3.7.1.min.js")
+script(src="./js/packages/aos.js")
+script(src="./js/packages/swiper-bundle.min.js")
+block scripts
+script(src="./js/app.js")

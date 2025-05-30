@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Sss\Controller;
+namespace SSS\Controller;
 
 use App\Controller\AppController;
 
 /**
  * Users Controller
  *
- * @property \Sss\Model\Table\UsersTable $Users
- * @method \Sss\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \SSS\Model\Table\UsersTable $Users
+ * @method \SSS\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {

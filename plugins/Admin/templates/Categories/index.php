@@ -68,10 +68,10 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $i=1;$category=[];foreach ($categories as $categories->id =>$categories->title):
+                <?php $i=1;$category=[];foreach ($categories as $cat_id => $cat_title ):
                 $cat = $this->Query->category('post',[
                     'contain'=>'Posts',
-                    'get_type'=>'first','id'=>$categories->id]); ?>
+                    'get_type'=>'first','id'=>$cat_id ]); ?>
                 <tr>
                     <td width="10" class="p-0">
                         <div class="dropdown chart-dropdown float-left">
@@ -90,10 +90,10 @@
                         </div>
                     </td>
                     <td>
-                        <?= $categories->title ?>
+                        <?= $cat_title ?>
                         <div class="hidme">
-                            <?= $this->Auths->link(__d('Admin', 'ویرایش'), ['action' => 'add', $categories->id]) ?>
-                            <?= $this->Form->postLink(__d('Admin', 'حذف'), ['action' => 'delete', $categories->id], ['confirm' => __d('Admin', 'آیا برای حذف مطمین هستید؟?')]) ?>
+                            <?= $this->Auths->link(__d('Admin', 'ویرایش'), ['action' => 'add', $cat_id ]) ?>
+                            <?= $this->Form->postLink(__d('Admin', 'حذف'), ['action' => 'delete', $cat_id ], ['confirm' => __d('Admin', 'آیا برای حذف مطمین هستید؟?')]) ?>
                         </div>
                     </td>
                     <td>
@@ -103,7 +103,7 @@
                         <?php
                         if(isset($cat['posts'])){
                             echo $this->html->link(count($cat['posts']),
-                                ['controller'=>'Posts','?'=>['post_type'=> $post_types,'categorie'=> $categories->id]],
+                                ['controller'=>'Posts','?'=>['post_type'=> $post_types,'categorie'=> $cat_id ]],
                                 ['target'=>'_blank','title'=>__d('Admin', 'نمایش پست های این دسته بندی')]);
                         }?>
                     </td>

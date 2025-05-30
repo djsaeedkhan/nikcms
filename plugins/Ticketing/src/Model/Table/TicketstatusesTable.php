@@ -51,7 +51,7 @@ class TicketstatusesTable extends Table
                 if(is_array($entity->{$v})){
                     //$entity->{$v} = ($entity->{$v});
                 }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<button><fieldset><h1><h2><h3><h4><h5><h6><small><label><img><img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
+                    $entity->{$v} = strip_tags( (string) $entity->{$v},'<button><fieldset><h1><h2><h3><h4><h5><h6><small><label><img><img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
                 }
             }
         }

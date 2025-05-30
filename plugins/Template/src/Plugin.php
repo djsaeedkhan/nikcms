@@ -14,27 +14,94 @@ class Plugin extends BasePlugin
     public $name= 'Template';
     function post_type(){
         return [
+            'challenges'=>array(
+                'name'=>array(
+                    'title'=>'جمع سپاری',
+                    'index_header'=>'جمع سپاری','index_add'=>'ثبت جدید',
+                    'single_add'=>'جمع سپاری جدید','single_edit'=>'ویرایش اطلاعات',
+                    'cat_header'=>'دسته بندی جمع سپاری ها','cat_add'=>'ثبت دسته اطلاعات',
+                    'tag_header'=>'برچسب',
+                ),
+                'title'=>true,'editor'=>true,'excerpt'=>true,'author'=>true,'thumbnail'=>true,
+                'comments'=>true,'tag'=>true,'category'=>true,'show_in_menu'=>true,
+                'position'=>101,
+            ),
+            'knowledge'=>array(
+                'name'=>array(
+                    'title'=>'پایگاه دانش',
+                    'index_header'=>'پایگاه دانش','index_add'=>'ثبت جدید',
+                    'single_add'=>'پایگاه دانش جدید','single_edit'=>'ویرایش اطلاعات',
+                    'cat_header'=>'دسته بندی','cat_add'=>'ثبت دسته اطلاعات',
+                    'tag_header'=>'برچسب',
+                ),
+                'title'=>true,'editor'=>true,'excerpt'=>true,'author'=>true,'thumbnail'=>true,
+                'comments'=>true,'tag'=>true,'category'=>true,'show_in_menu'=>true,
+                'position'=>102,
+            ),
+            'multimedia'=>array(
+                'name'=>array(
+                    'title'=>'چندرسانه ای',
+                    'index_header'=>'چندرسانه ای','index_add'=>'ثبت جدید',
+                    'single_add'=>'چندرسانه ای جدید','single_edit'=>'ویرایش اطلاعات',
+                    'cat_header'=>'دسته بندی','cat_add'=>'ثبت دسته اطلاعات',
+                    'tag_header'=>'برچسب',
+                ),
+                'title'=>true,'editor'=>true,'excerpt'=>true,'author'=>true,'thumbnail'=>true,
+                'comments'=>true,'tag'=>true,'category'=>true,'show_in_menu'=>true,
+                'position'=>103,
+            ),
+            'topics'=>array(
+                'name'=>array(
+                    'title'=>'موضوعات',
+                    'index_header'=>'موضوعات','index_add'=>'ثبت جدید',
+                    'single_add'=>'موضوعات جدید','single_edit'=>'ویرایش اطلاعات',
+                    'cat_header'=>'دسته بندی موضوعات','cat_add'=>'ثبت دسته اطلاعات',
+                    'tag_header'=>'برچسب',
+                ),
+                'title'=>true,'editor'=>true,'excerpt'=>true,'author'=>true,'thumbnail'=>true,
+                'comments'=>true,'tag'=>true,'category'=>true,'show_in_menu'=>true,
+                'position'=>104,
+            ),
         ];
     }
+
     function post_widget( $menu_type = 'post'){
         switch ($menu_type) {
             case 'dashboard': break;
             case 'sidebar': break;
             case 'widget':break;
+            case 'elementor':return self::elementor();break;
             case 'category':
                 return [
 					/* ['locations'=>'Template.Meta::locations_cat'],*/
 				];break;
             default:
                 return [
+                    ['knowledge' => 'Template.Meta::knowledge'],
+                    ['topics' => 'Template.Meta::topics'],
+                    ['multimedia' => 'Template.Meta::multimedia'],
+                    /* ['sources' => 'Template.Meta::sources'],
+                    ['organizations' => 'Template.Meta::organizations'],
+                    ['topics' => 'Template.Meta::topics'],
+                    ['models' => 'Template.Meta::models'],
+                    ['dashboard' => 'Template.Meta::dashboard'],
+                    ['impacts' => 'Template.Meta::impacts'], */
                     ['page' => 'Template.Meta::page'],
                 ]; break;
         }
         return [];
     }
+
     private function elementor(){
-        return [];
+        return [
+            'تیتر پر اهمیت'=>'
+            <!---- block start -----><blockquote>
+                <h5 class="title">عنوان</h5>
+                <p>توضیحات</p>
+            </blockquote><!---- block end ----->',
+        ];
     }
+
     function posttype_adminmenu(){
         $menu = [];
         foreach($this->post_type() as $post_type => $value ){
@@ -96,26 +163,17 @@ class Plugin extends BasePlugin
         }
         return $menu;
     }
-    function shortcode(){
-        return [
-            'code_tchart' => 'Template.View',
-        ];
-    }
+
     public function preload(){
-        define('template_slug','zarphampay');
-        FuncHelper::do_action('excplgn', [
-            'Challenge','Lms','Slider','Breadcrumb','Currencybase','Thumbnail','Sitemap','Rss','RegisterField','Prints', 'Elementor',
-            'Backup','CsvView','Help','Ticketing','Mpdfs','Mpdf','Filemanager','Websocket','OnlineChat',
-            'Shareit','Contact','DatabaseBackup','Newsletter','Poll','Rating','Security','Seo','Tinyurl','StopSpam']);
+        define('template_slug','tadbir');
+        FuncHelper::do_action('excplgn', ['Lms','Shop']);
         FuncHelper::do_action('post_type',self::post_type());
         FuncHelper::do_action('admin_sidemenu', self::posttype_adminmenu());
         FuncHelper::do_action('admin_postwidget', self::post_widget('post'));
         FuncHelper::do_action('admin_catswidget', self::post_widget('category'));
         //FuncHelper::do_action('register_widgets', self::post_widget('widget'));
         //FuncHelper::do_action('register_sidebars', self::post_widget('sidebar'));
-        //FuncHelper::do_action('post_elementor', self::post_widget('elementor'));
-
-        FuncHelper::do_action('shortcode', self::shortcode());
+        FuncHelper::do_action('post_elementor', self::post_widget('elementor'));
     }
     public function activation(){
         //ALTER TABLE `` ADD `` VARCHAR(200) NULL AFTER ``;
@@ -124,7 +182,7 @@ class Plugin extends BasePlugin
     public function config(){
         return [
             'name'=>'Template',
-            'title'=>'قالب فروشگاه زرفام',
+            'title'=>'قالب جمع سپاری تدبیر',
             'icon'=>'',
             'description'=>'',
             'author'=>'Mahan',
@@ -137,8 +195,8 @@ class Plugin extends BasePlugin
             'template'=>[
                 'slug'=>'Template',
                 'image'=> '/template/images/template.jpg',
-                'name'=>'قالب فروشگاه زرفام',
-                'info'=>'قالب فروشگاه زرفام',
+                'name'=>'قالب تدبیر',
+                'info'=>'قالب تدبیر',
                 'version'=>'1.0',
                 'author'=>'ماهان',
             ],
@@ -147,6 +205,7 @@ class Plugin extends BasePlugin
             ]
         ];
     }
+
     public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(

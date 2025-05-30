@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Admin\Model\Table;
 
 use Cake\ORM\Query;
@@ -7,8 +8,31 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+/**
+ * Options Model
+ *
+ * @method \Admin\Model\Entity\Option newEmptyEntity()
+ * @method \Admin\Model\Entity\Option newEntity(array $data, array $options = [])
+ * @method \Admin\Model\Entity\Option[] newEntities(array $data, array $options = [])
+ * @method \Admin\Model\Entity\Option get($primaryKey, $options = [])
+ * @method \Admin\Model\Entity\Option findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Admin\Model\Entity\Option patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Admin\Model\Entity\Option[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Admin\Model\Entity\Option|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\Option saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\Option[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Option[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Option[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\Option[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ */
 class OptionsTable extends Table
 {
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -18,12 +42,14 @@ class OptionsTable extends Table
         $this->setPrimaryKey('id');
     }
 
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
         $validator
             ->scalar('name')
             ->requirePresence('name', 'create')
@@ -45,19 +71,4 @@ class OptionsTable extends Table
 
         return $validator;
     }
-    /* public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
-    } */
 }

@@ -184,7 +184,7 @@ global $post_id;
     element.addEventListener('click', displayDate);
   });
   function displayDate(){
-    var dt = new Date();
+    var dt = new FrozenDate();
     var time = dt.getHours() +""+ dt.getMinutes() +""+ dt.getSeconds();
     $('#basic-list-group').append(
     `<li class="list-group-item draggable" 

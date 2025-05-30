@@ -30,12 +30,12 @@ class Plugin extends BasePlugin
         switch ($menu_type) {
             case 'dashboard':
                 return [
-                    [
+                    /* [
                         'name'=>'ga_amar',
                         'title' =>__d('Seo','آمار گوگل آنالایتیک'),
                         'widget' =>'Seo.Googlea',
                         'order'=>'hight2'
-                    ],
+                    ], */
                 ];
                 break;
             

@@ -14,8 +14,8 @@ $menu = [
                     [
                         'title'=>'',
                         'fields'=>[
-                            /* ['name'=>'PostMetas.sec_title','fname'=>'sec_title','col'=> 12, 'title'=>'عنوان سکشن '] ,
-                            [], */
+                            ['name'=>'PostMetas.sec_title','fname'=>'sec_title','col'=> 12, 'title'=>'عنوان سکشن '] ,
+                            [],
 
                             ['name'=>'PostMetas.topics',
                                 'fname'=>'topics',
@@ -28,63 +28,80 @@ $menu = [
                             ],
                             [],
 
-                            /* ['name'=>'PostMetas.scholars_name','fname'=>'scholars_name','col'=> 12, 'title'=>'پدیدآورندگان'] ,
+                            ['name'=>'PostMetas.scholars_name','fname'=>'scholars_name','col'=> 12, 'title'=>'پدیدآورندگان'] ,
                             [],
                             
                             ['name'=>'PostMetas.author','fname'=>'author','col'=> 6, 'title'=>'ناشر'] ,
-                            ['name'=>'PostMetas.year','fname'=>'year','col'=> 6, 'id'=>'pdpGregorian', 'title'=>'سال نشر','class'=>'ltr'] */
+                            ['name'=>'PostMetas.year','fname'=>'year','col'=> 6, 'id'=>'pdpGregorian', 'title'=>'سال نشر','class'=>'ltr'] 
+
                         ]
                     ],
                 ],
             ],
 
-            'asection'=>[
+            /* 'asection'=>[
                 'name'=>'asection' , 
                 'title'=>'سکشن ها', 
                 'submenu'=>[
                     [
-                        'title'=>'لیست سکشن متنی',
-                        'repeat'=>true,
+                        'title'=>'',
                         'fields'=>[
-                            [
-                                'name'=>'PostMetas.box2_title',
-                                'fname'=>'box2_title',
-                                'col'=> 12,
-                                'title'=>'عنوان باکس متنی',
-                            ] ,
-                            [
-                                'name'=>'PostMetas.box2_desc',
-                                'fname'=>'box2_desc',
+                            ['break'=>'سکشن ها'],
+                            ['name'=>'PostMetas.section_title1','fname'=>'section_title1','col'=> 12, 'title'=>'عنوان سکشن 1 '] ,
+                            ['name'=>'PostMetas.section_text1','fname'=>'section_text1','col'=> 12, 'title'=>'متن سکشن (*)',
+                                'style'=>'height:300px;',
                                 'type'=>'textarea',
-                                'col'=> 12,
-                                'title'=>'توضیحات مطلب',
-                            ] ,
+                                'ids'=>'edittextarea1'] ,
+                            [],
 
-                            ['name'=>'PostMetas.box2_image','fname'=>'box2_image','col'=> 12, 
-                                'title'=>'آدرس تصویر', 'pholder'=>'https://','class'=>'ltr', 'select_img'=> true,
-                            ] ,
+                            ['name'=>'PostMetas.section_title2','fname'=>'section_title2','col'=> 12, 'title'=>'عنوان سکشن 2'] ,
+                            ['name'=>'PostMetas.section_text2','fname'=>'section_text2','col'=> 12, 'title'=>'متن سکشن (*)',
+                                'style'=>'height:300px;',
+                                'type'=>'textarea',
+                                'ids'=>'edittextarea2'] ,
+                            [],
+
+                            ['name'=>'PostMetas.section_title3','fname'=>'section_title3','col'=> 12, 'title'=>'عنوان سکشن 3'] ,
+                            ['name'=>'PostMetas.section_text3','fname'=>'section_text3','col'=> 12, 'title'=>'متن سکشن (*)',
+                                'style'=>'height:300px;',
+                                'type'=>'textarea',
+                                'ids'=>'edittextarea3'] ,
+                            [],
+
+                            ['name'=>'PostMetas.section_title4','fname'=>'section_title4','col'=> 12, 'title'=>'عنوان سکشن 4'] ,
+                            ['name'=>'PostMetas.section_text4','fname'=>'section_text4','col'=> 12, 'title'=>'متن سکشن (*)',
+                                'style'=>'height:300px;',
+                                'type'=>'textarea',
+                                'ids'=>'edittextarea4'] ,
+                            [],
+
+                            ['name'=>'PostMetas.section_title5','fname'=>'section_title5','col'=> 12, 'title'=>'عنوان سکشن 5'] ,
+                            ['name'=>'PostMetas.section_text5','fname'=>'section_text5','col'=> 12, 'title'=>'متن سکشن (*)',
+                                'style'=>'height:300px;',
+                                'type'=>'textarea',
+                                'ids'=>'edittextarea5'] ,
                         ]
                     ],
                 ],
-            ],
+            ], */
 
-            /* 'secondary'=>[
+            'secondary'=>[
                 'name'=>'secondary' , 
                 'title'=>'ضمیمه', 
                 'submenu'=>[
                     [
                         'title'=>'',
                         'fields'=>[
-                            ['name'=>'PostMetas.sub_related','fname'=>'sub_related','col'=> 12,'id'=>'sub_related', 
+                            /* ['name'=>'PostMetas.sub_related','fname'=>'sub_related','col'=> 12,'id'=>'sub_related', 
                                 'title'=>'موضوعات مرتبط (بنویسید و اینتر بزنید)','class'=>'mb-2'],
-                            [],
+                            [], */
                             ['name'=>'PostMetas.header_image','fname'=>'header_image','col'=> 12, 
                                 'title'=>'تصویر  ساب هدر', 'pholder'=>'https://','class'=>'ltr', 'select_img'=> true,
                             ] ,
                         ]
                     ],
                 ],
-            ], */
+            ],
 
             /* 'social'=>[
                 'name'=>'social' , 
@@ -99,58 +116,39 @@ $menu = [
 
         ]
     ],
-    'item3'=>[
-        'title'=>'فیلدهای بیشتر',
+    'item2'=>[
+        'title'=>'فیلدهای مرتبط',
         'sublevel'=>[
-            'box3'=>[
-                'name'=>'box3' ,
-                'title'=>'مطالب مرتبط', 
+            'boxx3'=>[
+                'name'=>'boxx3' ,
+                'title'=>'', 
                 'submenu'=>[
                     [
-                        'title'=>'عنوان',
+                        'title'=>'',
                         'fields'=>[
-                            [
-                                'name'=>'PostMetas.topic_title',
-                                'fname'=>'topic_title',
+                            ['name'=>'PostMetas.dashboard',
+                                'fname'=>'dashboard',
                                 'col'=> 12,
-                                'title'=>'عنوان سکشن',
-                            ] ,
-                        ]
-                    ],
-                    [
-                        'title'=>'لیست مطالب',
-                        'repeat'=>true,
-                        'fields'=>[
-                            [
-                                'name'=>'PostMetas.tp_title',
-                                'fname'=>'tp_title',
+                                'title'=>'داشبورد های مرتبط',
+                                'class'=>'select2',
+                                'multiple'=>'multiple',
+                                'type'=>'select',
+                                'data'=>$this->Query->post("dashboard",['field'=>['id','title'],'limit'=>0, 'find_type'=>'list'])
+                            ],
+                            [],
+                            ['name'=>'PostMetas.organizations',
+                                'fname'=>'organizations',
                                 'col'=> 12,
-                                'title'=>'عنوان مطلب',
-                            ] ,
-                            [
-                                'name'=>'PostMetas.tp_desc',
-                                'fname'=>'tp_desc',
-                                'type'=>'textarea',
-                                'col'=> 12,
-                                'title'=>'توضیحات مطلب',
-                            ] ,
+                                'title'=>'نهاد مرتبط',
+                                'class'=>'select2',
+                                'multiple'=>'multiple',
+                                'type'=>'select',
+                                'data'=>$this->Query->post("organizations",['field'=>['id','title'],'limit'=>0, 'find_type'=>'list'])
+                            ],
 
-                            ['name'=>'PostMetas.tp_image','fname'=>'tp_image','col'=> 6, 
-                                'title'=>'آدرس تصویر', 'pholder'=>'https://','class'=>'ltr', 'select_img'=> true,
-                            ] ,
-
-                            ['name'=>'PostMetas.tp_link','fname'=>'tp_link','col'=> 6, 
-                                'title'=>'آدرس لینک مقصد', 'pholder'=>'https://','class'=>'ltr',
-                            ] ,
                         ]
                     ],
                 ],
-            ],
-
-            'boxx3'=>[
-                'name'=>'boxx3' ,
-                'title'=>'گالری تصاویر', 
-                'submenu'=> include_once('_sub_gallery.php'),
             ],
         ]
     ],

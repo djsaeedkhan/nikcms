@@ -53,7 +53,7 @@ class ProfilesTable extends Table
                 if(is_array($entity->{$v})){
                     //$entity->{$v} = ($entity->{$v});
                 }else{
-                    $entity->{$v} = strip_tags($entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
+                    $entity->{$v} = strip_tags( (string) $entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
                 }
             }
         }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sss\Model\Table;
+namespace SSS\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -11,75 +11,75 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \Sss\Model\Table\RolesTable&\Cake\ORM\Association\BelongsTo $Roles
- * @property \Sss\Model\Table\ChallengeblueticksTable&\Cake\ORM\Association\HasMany $Challengeblueticks
- * @property \Sss\Model\Table\ChallengefollowersTable&\Cake\ORM\Association\HasMany $Challengefollowers
- * @property \Sss\Model\Table\ChallengeforumsTable&\Cake\ORM\Association\HasMany $Challengeforums
- * @property \Sss\Model\Table\ChallengeqanswersTable&\Cake\ORM\Association\HasMany $Challengeqanswers
- * @property \Sss\Model\Table\ChallengesTable&\Cake\ORM\Association\HasMany $Challenges
- * @property \Sss\Model\Table\ChallengeuserformsTable&\Cake\ORM\Association\HasMany $Challengeuserforms
- * @property \Sss\Model\Table\ChallengeuserprofilesTable&\Cake\ORM\Association\HasMany $Challengeuserprofiles
- * @property \Sss\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
- * @property \Sss\Model\Table\FormbuilderDatasTable&\Cake\ORM\Association\HasMany $FormbuilderDatas
- * @property \Sss\Model\Table\LmsCertificatesTable&\Cake\ORM\Association\HasMany $LmsCertificates
- * @property \Sss\Model\Table\LmsCoursefilecansTable&\Cake\ORM\Association\HasMany $LmsCoursefilecans
- * @property \Sss\Model\Table\LmsCoursesTable&\Cake\ORM\Association\HasMany $LmsCourses
- * @property \Sss\Model\Table\LmsCoursesessionsTable&\Cake\ORM\Association\HasMany $LmsCoursesessions
- * @property \Sss\Model\Table\LmsCourseusersTable&\Cake\ORM\Association\HasMany $LmsCourseusers
- * @property \Sss\Model\Table\LmsExamresultlistsTable&\Cake\ORM\Association\HasMany $LmsExamresultlists
- * @property \Sss\Model\Table\LmsExamresultsTable&\Cake\ORM\Association\HasMany $LmsExamresults
- * @property \Sss\Model\Table\LmsExamsTable&\Cake\ORM\Association\HasMany $LmsExams
- * @property \Sss\Model\Table\LmsExamusersTable&\Cake\ORM\Association\HasMany $LmsExamusers
- * @property \Sss\Model\Table\LmsFactorsTable&\Cake\ORM\Association\HasMany $LmsFactors
- * @property \Sss\Model\Table\LmsPaymentsTable&\Cake\ORM\Association\HasMany $LmsPayments
- * @property \Sss\Model\Table\LmsUserfactorsTable&\Cake\ORM\Association\HasMany $LmsUserfactors
- * @property \Sss\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
- * @property \Sss\Model\Table\LmsUserprofilesTable&\Cake\ORM\Association\HasMany $LmsUserprofiles
- * @property \Sss\Model\Table\LogsTable&\Cake\ORM\Association\HasMany $Logs
- * @property \Sss\Model\Table\PollVotesTable&\Cake\ORM\Association\HasMany $PollVotes
- * @property \Sss\Model\Table\PostsTable&\Cake\ORM\Association\HasMany $Posts
- * @property \Sss\Model\Table\ProfilesTable&\Cake\ORM\Association\HasMany $Profiles
- * @property \Sss\Model\Table\ShopAddressesTable&\Cake\ORM\Association\HasMany $ShopAddresses
- * @property \Sss\Model\Table\ShopFavoritesTable&\Cake\ORM\Association\HasMany $ShopFavorites
- * @property \Sss\Model\Table\ShopLogesticusersTable&\Cake\ORM\Association\HasMany $ShopLogesticusers
- * @property \Sss\Model\Table\ShopOrderlogesticlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogesticlogs
- * @property \Sss\Model\Table\ShopOrderlogesticsTable&\Cake\ORM\Association\HasMany $ShopOrderlogestics
- * @property \Sss\Model\Table\ShopOrderlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogs
- * @property \Sss\Model\Table\ShopOrderrefundsTable&\Cake\ORM\Association\HasMany $ShopOrderrefunds
- * @property \Sss\Model\Table\ShopOrdersTable&\Cake\ORM\Association\HasMany $ShopOrders
- * @property \Sss\Model\Table\ShopOrdershippingsTable&\Cake\ORM\Association\HasMany $ShopOrdershippings
- * @property \Sss\Model\Table\ShopOrdertextsTable&\Cake\ORM\Association\HasMany $ShopOrdertexts
- * @property \Sss\Model\Table\ShopOrdertokensTable&\Cake\ORM\Association\HasMany $ShopOrdertokens
- * @property \Sss\Model\Table\ShopPaymentsTable&\Cake\ORM\Association\HasMany $ShopPayments
- * @property \Sss\Model\Table\ShopProfilesTable&\Cake\ORM\Association\HasMany $ShopProfiles
- * @property \Sss\Model\Table\ShopUseraddressesTable&\Cake\ORM\Association\HasMany $ShopUseraddresses
- * @property \Sss\Model\Table\SmsValidationsTable&\Cake\ORM\Association\HasMany $SmsValidations
- * @property \Sss\Model\Table\TicketauditsTable&\Cake\ORM\Association\HasMany $Ticketaudits
- * @property \Sss\Model\Table\TicketcommentsTable&\Cake\ORM\Association\HasMany $Ticketcomments
- * @property \Sss\Model\Table\TicketsTable&\Cake\ORM\Association\HasMany $Tickets
- * @property \Sss\Model\Table\TmpChallengeformsTable&\Cake\ORM\Association\HasMany $TmpChallengeforms
- * @property \Sss\Model\Table\TmpMembersTable&\Cake\ORM\Association\HasMany $TmpMembers
- * @property \Sss\Model\Table\TmpPersonlikesTable&\Cake\ORM\Association\HasMany $TmpPersonlikes
- * @property \Sss\Model\Table\TmpPersonsTable&\Cake\ORM\Association\HasMany $TmpPersons
- * @property \Sss\Model\Table\TmpProblemformsTable&\Cake\ORM\Association\HasMany $TmpProblemforms
- * @property \Sss\Model\Table\TmpProblemsTable&\Cake\ORM\Association\HasMany $TmpProblems
- * @property \Sss\Model\Table\UserMetasTable&\Cake\ORM\Association\HasMany $UserMetas
- * @property \Sss\Model\Table\ChallengetagsTable&\Cake\ORM\Association\BelongsToMany $Challengetags
- * @property \Sss\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
+ * @property \SSS\Model\Table\RolesTable&\Cake\ORM\Association\BelongsTo $Roles
+ * @property \SSS\Model\Table\ChallengeblueticksTable&\Cake\ORM\Association\HasMany $Challengeblueticks
+ * @property \SSS\Model\Table\ChallengefollowersTable&\Cake\ORM\Association\HasMany $Challengefollowers
+ * @property \SSS\Model\Table\ChallengeforumsTable&\Cake\ORM\Association\HasMany $Challengeforums
+ * @property \SSS\Model\Table\ChallengeqanswersTable&\Cake\ORM\Association\HasMany $Challengeqanswers
+ * @property \SSS\Model\Table\ChallengesTable&\Cake\ORM\Association\HasMany $Challenges
+ * @property \SSS\Model\Table\ChallengeuserformsTable&\Cake\ORM\Association\HasMany $Challengeuserforms
+ * @property \SSS\Model\Table\ChallengeuserprofilesTable&\Cake\ORM\Association\HasMany $Challengeuserprofiles
+ * @property \SSS\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
+ * @property \SSS\Model\Table\FormbuilderDatasTable&\Cake\ORM\Association\HasMany $FormbuilderDatas
+ * @property \SSS\Model\Table\LmsCertificatesTable&\Cake\ORM\Association\HasMany $LmsCertificates
+ * @property \SSS\Model\Table\LmsCoursefilecansTable&\Cake\ORM\Association\HasMany $LmsCoursefilecans
+ * @property \SSS\Model\Table\LmsCoursesTable&\Cake\ORM\Association\HasMany $LmsCourses
+ * @property \SSS\Model\Table\LmsCoursesessionsTable&\Cake\ORM\Association\HasMany $LmsCoursesessions
+ * @property \SSS\Model\Table\LmsCourseusersTable&\Cake\ORM\Association\HasMany $LmsCourseusers
+ * @property \SSS\Model\Table\LmsExamresultlistsTable&\Cake\ORM\Association\HasMany $LmsExamresultlists
+ * @property \SSS\Model\Table\LmsExamresultsTable&\Cake\ORM\Association\HasMany $LmsExamresults
+ * @property \SSS\Model\Table\LmsExamsTable&\Cake\ORM\Association\HasMany $LmsExams
+ * @property \SSS\Model\Table\LmsExamusersTable&\Cake\ORM\Association\HasMany $LmsExamusers
+ * @property \SSS\Model\Table\LmsFactorsTable&\Cake\ORM\Association\HasMany $LmsFactors
+ * @property \SSS\Model\Table\LmsPaymentsTable&\Cake\ORM\Association\HasMany $LmsPayments
+ * @property \SSS\Model\Table\LmsUserfactorsTable&\Cake\ORM\Association\HasMany $LmsUserfactors
+ * @property \SSS\Model\Table\LmsUsernotesTable&\Cake\ORM\Association\HasMany $LmsUsernotes
+ * @property \SSS\Model\Table\LmsUserprofilesTable&\Cake\ORM\Association\HasMany $LmsUserprofiles
+ * @property \SSS\Model\Table\LogsTable&\Cake\ORM\Association\HasMany $Logs
+ * @property \SSS\Model\Table\PollVotesTable&\Cake\ORM\Association\HasMany $PollVotes
+ * @property \SSS\Model\Table\PostsTable&\Cake\ORM\Association\HasMany $Posts
+ * @property \SSS\Model\Table\ProfilesTable&\Cake\ORM\Association\HasMany $Profiles
+ * @property \SSS\Model\Table\ShopAddressesTable&\Cake\ORM\Association\HasMany $ShopAddresses
+ * @property \SSS\Model\Table\ShopFavoritesTable&\Cake\ORM\Association\HasMany $ShopFavorites
+ * @property \SSS\Model\Table\ShopLogesticusersTable&\Cake\ORM\Association\HasMany $ShopLogesticusers
+ * @property \SSS\Model\Table\ShopOrderlogesticlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogesticlogs
+ * @property \SSS\Model\Table\ShopOrderlogesticsTable&\Cake\ORM\Association\HasMany $ShopOrderlogestics
+ * @property \SSS\Model\Table\ShopOrderlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogs
+ * @property \SSS\Model\Table\ShopOrderrefundsTable&\Cake\ORM\Association\HasMany $ShopOrderrefunds
+ * @property \SSS\Model\Table\ShopOrdersTable&\Cake\ORM\Association\HasMany $ShopOrders
+ * @property \SSS\Model\Table\ShopOrdershippingsTable&\Cake\ORM\Association\HasMany $ShopOrdershippings
+ * @property \SSS\Model\Table\ShopOrdertextsTable&\Cake\ORM\Association\HasMany $ShopOrdertexts
+ * @property \SSS\Model\Table\ShopOrdertokensTable&\Cake\ORM\Association\HasMany $ShopOrdertokens
+ * @property \SSS\Model\Table\ShopPaymentsTable&\Cake\ORM\Association\HasMany $ShopPayments
+ * @property \SSS\Model\Table\ShopProfilesTable&\Cake\ORM\Association\HasMany $ShopProfiles
+ * @property \SSS\Model\Table\ShopUseraddressesTable&\Cake\ORM\Association\HasMany $ShopUseraddresses
+ * @property \SSS\Model\Table\SmsValidationsTable&\Cake\ORM\Association\HasMany $SmsValidations
+ * @property \SSS\Model\Table\TicketauditsTable&\Cake\ORM\Association\HasMany $Ticketaudits
+ * @property \SSS\Model\Table\TicketcommentsTable&\Cake\ORM\Association\HasMany $Ticketcomments
+ * @property \SSS\Model\Table\TicketsTable&\Cake\ORM\Association\HasMany $Tickets
+ * @property \SSS\Model\Table\TmpChallengeformsTable&\Cake\ORM\Association\HasMany $TmpChallengeforms
+ * @property \SSS\Model\Table\TmpMembersTable&\Cake\ORM\Association\HasMany $TmpMembers
+ * @property \SSS\Model\Table\TmpPersonlikesTable&\Cake\ORM\Association\HasMany $TmpPersonlikes
+ * @property \SSS\Model\Table\TmpPersonsTable&\Cake\ORM\Association\HasMany $TmpPersons
+ * @property \SSS\Model\Table\TmpProblemformsTable&\Cake\ORM\Association\HasMany $TmpProblemforms
+ * @property \SSS\Model\Table\TmpProblemsTable&\Cake\ORM\Association\HasMany $TmpProblems
+ * @property \SSS\Model\Table\UserMetasTable&\Cake\ORM\Association\HasMany $UserMetas
+ * @property \SSS\Model\Table\ChallengetagsTable&\Cake\ORM\Association\BelongsToMany $Challengetags
+ * @property \SSS\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
- * @method \Sss\Model\Entity\User newEmptyEntity()
- * @method \Sss\Model\Entity\User newEntity(array $data, array $options = [])
- * @method \Sss\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \Sss\Model\Entity\User get($primaryKey, $options = [])
- * @method \Sss\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \Sss\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Sss\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \Sss\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Sss\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Sss\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \Sss\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \Sss\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \Sss\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \SSS\Model\Entity\User newEmptyEntity()
+ * @method \SSS\Model\Entity\User newEntity(array $data, array $options = [])
+ * @method \SSS\Model\Entity\User[] newEntities(array $data, array $options = [])
+ * @method \SSS\Model\Entity\User get($primaryKey, $options = [])
+ * @method \SSS\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \SSS\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \SSS\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \SSS\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \SSS\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \SSS\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \SSS\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \SSS\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \SSS\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -103,227 +103,227 @@ class UsersTable extends Table
 
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id',
-            'className' => 'Sss.Roles',
+            'className' => 'SSS.Roles',
         ]);
         $this->hasMany('Challengeblueticks', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengeblueticks',
+            'className' => 'SSS.Challengeblueticks',
         ]);
         $this->hasMany('Challengefollowers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengefollowers',
+            'className' => 'SSS.Challengefollowers',
         ]);
         $this->hasMany('Challengeforums', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengeforums',
+            'className' => 'SSS.Challengeforums',
         ]);
         $this->hasMany('Challengeqanswers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengeqanswers',
+            'className' => 'SSS.Challengeqanswers',
         ]);
         $this->hasMany('Challenges', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challenges',
+            'className' => 'SSS.Challenges',
         ]);
         $this->hasMany('Challengeuserforms', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengeuserforms',
+            'className' => 'SSS.Challengeuserforms',
         ]);
         $this->hasMany('Challengeuserprofiles', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Challengeuserprofiles',
+            'className' => 'SSS.Challengeuserprofiles',
         ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Comments',
+            'className' => 'SSS.Comments',
         ]);
         $this->hasMany('FormbuilderDatas', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.FormbuilderDatas',
+            'className' => 'SSS.FormbuilderDatas',
         ]);
         $this->hasMany('LmsCertificates', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsCertificates',
+            'className' => 'SSS.LmsCertificates',
         ]);
         $this->hasMany('LmsCoursefilecans', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsCoursefilecans',
+            'className' => 'SSS.LmsCoursefilecans',
         ]);
         $this->hasMany('LmsCourses', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsCourses',
+            'className' => 'SSS.LmsCourses',
         ]);
         $this->hasMany('LmsCoursesessions', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsCoursesessions',
+            'className' => 'SSS.LmsCoursesessions',
         ]);
         $this->hasMany('LmsCourseusers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsCourseusers',
+            'className' => 'SSS.LmsCourseusers',
         ]);
         $this->hasMany('LmsExamresultlists', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsExamresultlists',
+            'className' => 'SSS.LmsExamresultlists',
         ]);
         $this->hasMany('LmsExamresults', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsExamresults',
+            'className' => 'SSS.LmsExamresults',
         ]);
         $this->hasMany('LmsExams', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsExams',
+            'className' => 'SSS.LmsExams',
         ]);
         $this->hasMany('LmsExamusers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsExamusers',
+            'className' => 'SSS.LmsExamusers',
         ]);
         $this->hasMany('LmsFactors', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsFactors',
+            'className' => 'SSS.LmsFactors',
         ]);
         $this->hasMany('LmsPayments', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsPayments',
+            'className' => 'SSS.LmsPayments',
         ]);
         $this->hasMany('LmsUserfactors', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsUserfactors',
+            'className' => 'SSS.LmsUserfactors',
         ]);
         $this->hasMany('LmsUsernotes', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsUsernotes',
+            'className' => 'SSS.LmsUsernotes',
         ]);
         $this->hasMany('LmsUserprofiles', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.LmsUserprofiles',
+            'className' => 'SSS.LmsUserprofiles',
         ]);
         $this->hasMany('Logs', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Logs',
+            'className' => 'SSS.Logs',
         ]);
         $this->hasMany('PollVotes', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.PollVotes',
+            'className' => 'SSS.PollVotes',
         ]);
         $this->hasMany('Posts', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Posts',
+            'className' => 'SSS.Posts',
         ]);
         $this->hasMany('Profiles', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Profiles',
+            'className' => 'SSS.Profiles',
         ]);
         $this->hasMany('ShopAddresses', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopAddresses',
+            'className' => 'SSS.ShopAddresses',
         ]);
         $this->hasMany('ShopFavorites', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopFavorites',
+            'className' => 'SSS.ShopFavorites',
         ]);
         $this->hasMany('ShopLogesticusers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopLogesticusers',
+            'className' => 'SSS.ShopLogesticusers',
         ]);
         $this->hasMany('ShopOrderlogesticlogs', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrderlogesticlogs',
+            'className' => 'SSS.ShopOrderlogesticlogs',
         ]);
         $this->hasMany('ShopOrderlogestics', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrderlogestics',
+            'className' => 'SSS.ShopOrderlogestics',
         ]);
         $this->hasMany('ShopOrderlogs', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrderlogs',
+            'className' => 'SSS.ShopOrderlogs',
         ]);
         $this->hasMany('ShopOrderrefunds', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrderrefunds',
+            'className' => 'SSS.ShopOrderrefunds',
         ]);
         $this->hasMany('ShopOrders', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrders',
+            'className' => 'SSS.ShopOrders',
         ]);
         $this->hasMany('ShopOrdershippings', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrdershippings',
+            'className' => 'SSS.ShopOrdershippings',
         ]);
         $this->hasMany('ShopOrdertexts', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrdertexts',
+            'className' => 'SSS.ShopOrdertexts',
         ]);
         $this->hasMany('ShopOrdertokens', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopOrdertokens',
+            'className' => 'SSS.ShopOrdertokens',
         ]);
         $this->hasMany('ShopPayments', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopPayments',
+            'className' => 'SSS.ShopPayments',
         ]);
         $this->hasMany('ShopProfiles', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopProfiles',
+            'className' => 'SSS.ShopProfiles',
         ]);
         $this->hasMany('ShopUseraddresses', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.ShopUseraddresses',
+            'className' => 'SSS.ShopUseraddresses',
         ]);
         $this->hasMany('SmsValidations', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.SmsValidations',
+            'className' => 'SSS.SmsValidations',
         ]);
         $this->hasMany('Ticketaudits', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Ticketaudits',
+            'className' => 'SSS.Ticketaudits',
         ]);
         $this->hasMany('Ticketcomments', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Ticketcomments',
+            'className' => 'SSS.Ticketcomments',
         ]);
         $this->hasMany('Tickets', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.Tickets',
+            'className' => 'SSS.Tickets',
         ]);
         $this->hasMany('TmpChallengeforms', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpChallengeforms',
+            'className' => 'SSS.TmpChallengeforms',
         ]);
         $this->hasMany('TmpMembers', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpMembers',
+            'className' => 'SSS.TmpMembers',
         ]);
         $this->hasMany('TmpPersonlikes', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpPersonlikes',
+            'className' => 'SSS.TmpPersonlikes',
         ]);
         $this->hasMany('TmpPersons', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpPersons',
+            'className' => 'SSS.TmpPersons',
         ]);
         $this->hasMany('TmpProblemforms', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpProblemforms',
+            'className' => 'SSS.TmpProblemforms',
         ]);
         $this->hasMany('TmpProblems', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.TmpProblems',
+            'className' => 'SSS.TmpProblems',
         ]);
         $this->hasMany('UserMetas', [
             'foreignKey' => 'user_id',
-            'className' => 'Sss.UserMetas',
+            'className' => 'SSS.UserMetas',
         ]);
         $this->belongsToMany('Challengetags', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'challengetag_id',
             'joinTable' => 'challengetags_users',
-            'className' => 'Sss.Challengetags',
+            'className' => 'SSS.Challengetags',
         ]);
         $this->belongsToMany('Logs', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'log_id',
             'joinTable' => 'users_logs',
-            'className' => 'Sss.Logs',
+            'className' => 'SSS.Logs',
         ]);
     }
 

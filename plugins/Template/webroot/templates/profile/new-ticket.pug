@@ -1,0 +1,30 @@
+.modal.fade(id="newTicketModal" tabindex='-1')
+   .modal-dialog.modal-lg.modal-dialog-centered
+      .modal-content
+         .modal-header
+            h5.modal-title افزودن تیکت جدید
+            button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+
+         .modal-body
+            form.contribute-modal
+
+               .form-item.has-bg
+                  label.form-label عنوان تیکت
+                  input.form-control(type="text" name="title" required placeholder="عنوان تیکت")
+
+               .form-item
+                  label.form-label متن تیکت
+                  textarea.form-control(name="" rows="4" placeholder="متن تیکت را تایپ کنید" required)
+
+               .file-input-wrapper
+                  input(type="file" multiple).file-input
+                  .file-input-handler
+                     .text
+                        img(src="./css/icons/upload-circle.svg" alt="upload icon")
+                        span برای انتخاب فایل کلیک کنید
+                        span.pr-text آپلود فایل
+                  #files-preview.gap-2
+
+               .d-flex.justify-content-end
+                  button(type="submit").btn.btn-lg.btn-primary.btn-mobile-full ثبت تیکت
+            // end of form

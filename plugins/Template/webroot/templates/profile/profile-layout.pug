@@ -1,0 +1,14 @@
+extends ../../templates/partials/layout
+block main
+
+   .container.profile-page-wrapper
+      .row.align-items-start
+         .col-lg-3.d-none.d-lg-block.profile-sidebar-wrapper
+            include profile-sidebar
+
+         .col-lg-9.col-12
+            block profile-content
+
+      // .row
+
+   // .container

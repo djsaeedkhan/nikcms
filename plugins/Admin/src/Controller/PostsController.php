@@ -19,6 +19,14 @@ class PostsController extends AppController
         $user_id = $this->request->getAttribute('identity')->get('id');
         $this->set(['user_ids'=> $user_id]);
         ini_set('max_input_vars', 100000);
+
+        if ($this->request->getParam('action') === 'add' 
+            or
+            $this->request->getParam('action') === 'edit'
+            )
+            {
+            $this->FormProtection->setConfig('validate', false);
+        }
     }
     //----------------------------------------------------------------------------------
     public function index(){

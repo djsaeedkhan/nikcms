@@ -1142,7 +1142,7 @@ class FuncHelper extends Helper
     }
     //----1400/8/13-------------------------------------------------------------------------------------
     public function UniqId($max = 16){
-        return substr(  md5( microtime() ). base_convert( time(), 10, 36 ) , 0, $max );
+        return substr(md5(microtime()) . base_convert((string)time(), 10, 36), 0, $max);
     }
     //----1402/03/07-------------------------------------------------------------------------------------
     function Numconvert($string = null) {

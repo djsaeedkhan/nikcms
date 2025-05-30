@@ -16,7 +16,7 @@ class WgtMenuCell extends Cell
         $this->set([
             'field' => $field ,
             'value' => $value,
-            'AllMenu' => $this->getTableLocator()->get('Admin.Options')->find('list')
+            'AllMenu' => TableRegistry::getTableLocator()->get('Admin.Options')->find('list')
                 ->select(['id','name'])
                 ->contain(false)
                 ->where(['types' => 'nav_menu'])

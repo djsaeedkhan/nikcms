@@ -1,230 +1,219 @@
-<?php 
-use Cake\Routing\Router;
-use \Shop\View\Helper\CartHelper;
-?>
+<?php use Cake\Routing\Router;?>
+<footer id="main-footer">
+      <div class="container">
+        <div class="row">
+          <section class="col-12 col-lg-4">
+            <header>
+              <h4 class="footer-title"><?= setting['footer_title1']?></h4>
+              <h5 class="footer-subtitle"><?= setting['footer_title2']?></h5>
+            </header>
 
-<style>
-    .mobile-footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #ffffff;
-      border-top: 1px solid #ddd;
-      z-index: 999;
-    }
-    .mobile-footer .nav-link {
-      font-size: 12px;
-      color: #555;
-    }
-    .mobile-footer .nav-link.active {
-      color: #0d6efd;
-    }
-    @media screen and (max-width: 600px) {
-      #footer{
-        padding-bottom:80px;
-      }
-    }
-</style>
+            <p class="footer-description">
+              <?= setting['footer_desc']?>
+            </p>
 
-<!-- فوتر موبایل -->
-  <nav class="mobile-footer d-md-none">
-    <div class="d-flex justify-content-around py-2">
-      <a href="/" class="nav-link text-center">
-        <i class="icon-line-home fs-20"></i><br>
-        <small>خانه</small>
-      </a>
-      <a href="<?= CartHelper::Link('cart');?>" class="nav-link text-center">
-        <i class="icon-line-shopping-bag fs-20"></i><br>
-        <small>سبد خرید 
-          <?php $count = CartHelper::Cartcount();
-          if($count > 0):?>
-          <span class="rounded-6 fw-bold badge badge-success" style="background: #08B681;">
-            <?= CartHelper::Cartcount();?>
-          </span>
-          <?php endif?>
-        </small>
-      </a>
-      <a class="nav-link text-center" href="<?= CartHelper::Link('favorite');?>" title="لیست علاقه مندی ها">
-        <i class="icon-heart1 fs-20"></i><br>
-         علاقه مندی
-      </a>
-      <?php if ( $this->request->getAttribute('identity')->get('id') ):?>
-        <?= $this->html->link('<i class="icon-user-circle1 fs-20"></i><br><small>صفحه پروفایل</small>',
-              CartHelper::Link('profile'),
-              ['escape'=>false,'title'=>'مشاهده صفحه پروفایل','class'=>'nav-link text-center']);?>
-        
-      <?php else:?>
-        <a href="#modal-login-form" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" class="nav-link text-center">
-          <i class="icon-user1 fs-20"></i><br>
-          <small>ورود و ثبت نام</small>
-        </a>
-      <?php endif?>
-    </div>
-  </nav>
+            <div class="d-none d-lg-block">
+              <div class="social-networks-wrapper">
+                <p class="title">ما را در شبکه های اجتماعی دنبال کنید</p>
+                <ul class="social-networks">
 
-<footer id="footer" class="border-0 bg-transparent fs-13">
-			<div class="container">
-				<div class="footer-widgets-wrap pb-3 clearfix">
-					<div class="row">
-						<div class="col-lg-4 col-md-2 col-6">
-							<div class="widget clearfix">
-								<h4 class="ls0 mb-4 nott text-dark">
-									<?= setting['footer_title1']?>
-								</h4>
-								<?= $this->Query->Navmenu(isset(setting['footer_menu1'])?setting['footer_menu1']:null,[
-									'nav'=>false, 'nav_class'=>'',
-									'div'=>false,
-									'ul'=> true,'ul_class'=>'list-unstyled ms-0 fs-12',
-									'li_class'=>'mb-2',
-									'a_class'=>'' ]);?>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-2 col-6">
-							<div class="widget clearfix">
-								<h4 class="ls0 mb-4 nott text-dark">
-									<?= setting['footer_title2']?>
-								</h4>
-								<?= $this->Query->Navmenu(isset(setting['footer_menu2'])?setting['footer_menu2']:null,[
-									'nav'=>false, 'nav_class'=>'',
-									'div'=>false,
-									'ul'=> true, 'ul_class'=>'list-unstyled ms-0 fs-12',
-									'li_class'=>'mb-2',
-									'a_class'=>'' ]);?>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-2 col-12">
-							<div class="widget clearfix">
-								<h4 class="ls0 mb-4 nott text-dark">
-									<?= setting['footer_soc_title']?>
-								</h4>
-								<div>
-									<?php if(setting['footer_soc_insta']):?>
-									<a href="<?= setting['footer_soc_insta']?>" class="social-icon si-rounded si-small si-light si-instagram" 
-										title="<?= setting['footer_soc_insta']?>">
-										<i class="icon-instagram"></i>
-										<i class="icon-instagram"></i>
-									</a>
-									<?php endif?>
+                  <?php if(setting['footer_soc_insta'] != ""):?>
+                    <li><a href="<?= setting['footer_soc_insta']?>" target="_blank" title="اینستاگرام">
+                      <img src="<?=siteurl?>/css/icons/instagram.svg" alt="instagram"></a></li>
+                  <?php endif?>
 
-									<?php if(setting['footer_soc_twitt']):?>
-									<a href="<?= setting['footer_soc_twitt']?>" class="social-icon si-rounded si-small si-light si-twitter" 
-										title="<?= setting['footer_soc_twitt']?>">
-										<i class="icon-twitter"></i>
-										<i class="icon-twitter"></i>
-									</a>
-									<?php endif?>
+                  <?php if(setting['footer_soc_linked'] != ""):?>
+                    <li><a href="<?= setting['footer_soc_linked']?>" target="_blank" title="لینکدین">
+                      <img src="<?=siteurl?>/css/icons/linkedin.svg" alt="linkedin"></a></li>
+                  <?php endif?>
 
-									<?php if(setting['footer_soc_faceb']):?>
-									<a href="<?= setting['footer_soc_faceb']?>" class="social-icon si-rounded si-small si-light si-facebook" 
-										title="<?= setting['footer_soc_faceb']?>">
-										<i class="icon-facebook"></i>
-										<i class="icon-facebook"></i>
-									</a>
-									<?php endif?>
+                  <?php if(setting['footer_soc_faceb'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_faceb']?>" target="_blank" title="فیسبوک">
+                    <img src="<?=siteurl?>/css/icons/facebook.svg" alt="facebook"></a></li>
+                  <?php endif?>
 
-									<?php if(setting['footer_soc_teleg']):?>
-									<a href="<?= setting['footer_soc_teleg']?>" class="social-icon si-rounded si-small si-light si-telegram" 
-										title="<?= setting['footer_soc_teleg']?>">
-										<i class="icon-telegram"></i>
-										<i class="icon-telegram"></i>
-									</a>
-									<?php endif?>
+                  <?php if(setting['footer_soc_twitt'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_twitt']?>" target="_blank" title="توییتر">
+                    <img src="<?=siteurl?>/css/icons/twitter.svg" alt="twitter"></a></li>
+                  <?php endif?>
 
-									<?php if(setting['footer_soc_linked']):?>
-									<a href="<?= setting['footer_soc_linked']?>" class="social-icon si-rounded si-small si-light si-linkedin" 
-										title="<?= setting['footer_soc_linked']?>">
-										<i class="icon-linkedin"></i>
-										<i class="icon-linkedin"></i>
-									</a>
-									<?php endif?>
+                  <?php if(setting['footer_soc_teleg'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_teleg']?>" target="_blank" title="تلگرام">
+                    <img src="<?=siteurl?>/css/icons/telegram.svg" alt="telegram"></a></li>
+                  <?php endif?>
 
-									<?php if(setting['footer_soc_aprt']):?>
-									<a href="<?= setting['footer_soc_aprt']?>" class="social-icon si-rounded si-small si-light si-facebook" 
-										title="<?= setting['footer_soc_aprt']?>">
-										<i class="icon-facebook"></i>
-										<i class="icon-facebook"></i>
-									</a>
-									<?php endif?>
-									
-								</div>
-							</div>
+                  <?php if(setting['footer_soc_aprt'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_aprt']?>" target="_blank" title="آپارات">
+                    <img src="<?=siteurl?>/css/icons/aparat.svg" alt="aparat"></a></li>
+                  <?php endif?>
 
-							<div class="widget clearfix mt-4 fs-14">
-								<div class="widget subscribe-widget clearfix">
-									<p class="mb-3 mb-sm-0 fs-13">
-										<?= setting['footer_newst']?>
-										<!-- <strong>خبرنامه: </strong>از جدید ترین اخبار ما پیگیری کنید -->
-									</p>
-									<form id="form-subscribe-form" action="#" method="post" class="mb-0">
-										<div class="input-group mx-auto">
-											<input type="email" id="widget-subscribe-form-email" name="email" 
-												class="form-control required email" placeholder="<?= setting['footer_newspl']?>">
-											<button class="btn btn-success" type="submit"><?= setting['footer_news_btn']?></button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <!-- end of right section-->
+          <section class="col-12 col-lg-8 left-section">
+            <div class="row px-lg-4">
+              <div class="col-6">
+                <div class="footer-links">
+                  <header>
+                    <h6 class="title"><?= setting['footer_menut1']?></h6>
+                  </header>
+                  <nav>
+                    <?= $this->Query->Navmenu(setting['footer_menu1'],[
+                      'div'=>false,
+                      'nav'=>false,
+                      'ul'=> true,
+                      'ul_class'=>'',
+                      'li_class'=>'',
+                    ]);?>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="footer-links">
+                  <header>
+                    <h6 class="title"><?= setting['footer_menut2']?></h6>
+                  </header>
+                  <nav>
+                    <?= $this->Query->Navmenu(setting['footer_menu2'],[
+                      'div'=>false,
+                      'nav'=>false,
+                      'ul'=> true,
+                      'ul_class'=>'',
+                      'li_class'=>'',
+                    ]);?>
+                  </nav>
+                </div>
+              </div>
+            </div>
+            <div class="d-none d-lg-block">
+              <div class="footer-slider-wrapper">
+                <div class="footer-sliders">
+                  <div class="image-slider swiper-container">
+                    <div class="swiper-wrapper">
 
-					<div>
-						<div class="d-sm-flex f-dd">
-							<div>
-								<strong>
-									<?= setting['footer_info_title']?>
-								</strong>
-								<p class="mb-0 fs-13 text-justify lh-30">
-									<?= setting['footer_info_desc']?>
-								</p>
-							</div>
-							<div>
-								<a href="<?= setting['footer_call_link']?>" class="d-flex f-d1">
-									<div class="fs-18 f-d2">
-										<?= setting['footer_call_title1']?>
-										<div class="fs-13">
-											<?= setting['footer_call_title2']?>
-										</div>
-									</div>
-									<i class="icon-line-phone-call fs-20"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-							
-					<div class="row align-items-center col-mb-50 mt-5">
-						<div class="col-md-8 text-center text-md-start pb-1">
-							<div class="heading-block border-bottom-0 mb-2">
-								<h4><?= setting['footer_about_title']?></h4>
-							</div>
-							<p class="text-justify lh-30 fs-13">
-								<?= setting['footer_about_desc']?>
-							</p>
-						</div>
-						<div class="col-md-4 text-center">
-							<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=497643&Code=4fT3CetnS2m77trM8r2QUvVzIXUPM7tK'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=497643&Code=4fT3CetnS2m77trM8r2QUvVzIXUPM7tK' alt='' style='cursor:pointer' code='4fT3CetnS2m77trM8r2QUvVzIXUPM7tK'></a>
-						</div>
-					</div>
-					<div>
-						<div class="d-sm-flex f-d3">
-							<div class="mb-3 mb-sm-0 text-justify ls-0 fs-13">
-								<?=isset(setting['footer_copyt'])?setting['footer_copyt']:null?>
-							</div>
-							<div>
-								<?= $this->html->link($this->html->image('/template/img/logo.jpg',[
-									'alt'=>'گروه برنامه نویسی مهرگان سیستم',
-									'title'=>'گروه برنامه نویسی مهرگان سیستم']),
-									'http://mehregan-system.com/',['target'=>'_blank','escape'=>false])?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer><!-- #footer end -->
+                      <?php for($i=0;$i<maxrow;$i++):if(isset(setting['footer_slide_title'.$i]) and setting['footer_slide_title'.$i] != ""):?>
+                      <div class="swiper-slide">
+                        <figure>
+                          <img src="<?= setting['footer_slide_image'.$i]?>" alt="<?= setting['footer_slide_title'.$i]?>">
+                        </figure>
+                      </div>
+                      <?php endif;endfor?>
+                    </div>
+                  </div>
+                  <!-- .image-slider-->
+                  <div class="content-slider swiper-container">
+                    <div class="swiper-wrapper">
 
-	</div><!-- #wrapper end -->
+                      <?php for($i=0;$i<maxrow;$i++):if(isset(setting['footer_slide_title'.$i]) and setting['footer_slide_title'.$i] != ""):?>
+                      <div class="swiper-slide">
+                        <div class="slider-content">
+                          <p class="title">
+                            <?= setting['footer_slide_title'.$i]?>
+                          </p>
+                        </div>
+                      </div>
+                      <?php endif;endfor?>
 
-	<div id="gotoTop" class="icon-angle-up"></div>
-	
+                    </div>
+                    <div class="slider-details">
+                      <div class="footer-swiper-pagination"></div>
+                      <div class="swiper-navigation-wrapper"><span class="swiper-navigation swiper-button-prev"></span><span class="swiper-navigation swiper-button-next"></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- end of left section-->
+          <div class="d-block d-lg-none">
+            <div class="social-networks-wrapper">
+              <p class="title">ما را در شبکه های اجتماعی دنبال کنید</p>
+              <ul class="social-networks">
+                <?php if(setting['footer_soc_insta'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_insta']?>" target="_blank" title="اینستاگرام">
+                    <img src="<?=siteurl?>/css/icons/instagram.svg" alt="instagram"></a></li>
+                <?php endif?>
+
+                <?php if(setting['footer_soc_linked'] != ""):?>
+                  <li><a href="<?= setting['footer_soc_linked']?>" target="_blank" title="لینکدین">
+                    <img src="<?=siteurl?>/css/icons/linkedin.svg" alt="linkedin"></a></li>
+                <?php endif?>
+
+                <?php if(setting['footer_soc_faceb'] != ""):?>
+                <li><a href="<?= setting['footer_soc_faceb']?>" target="_blank" title="فیسبوک">
+                  <img src="<?=siteurl?>/css/icons/facebook.svg" alt="facebook"></a></li>
+                <?php endif?>
+
+                <?php if(setting['footer_soc_twitt'] != ""):?>
+                <li><a href="<?= setting['footer_soc_twitt']?>" target="_blank" title="توییتر">
+                  <img src="<?=siteurl?>/css/icons/twitter.svg" alt="twitter"></a></li>
+                <?php endif?>
+
+                <?php if(setting['footer_soc_teleg'] != ""):?>
+                <li><a href="<?= setting['footer_soc_teleg']?>" target="_blank" title="تلگرام">
+                  <img src="<?=siteurl?>/css/icons/telegram.svg" alt="telegram"></a></li>
+                <?php endif?>
+
+                <?php if(setting['footer_soc_aprt'] != ""):?>
+                <li><a href="<?= setting['footer_soc_aprt']?>" target="_blank" title="آپارات">
+                  <img src="<?=siteurl?>/css/icons/aparat.svg" alt="aparat"></a></li>
+                <?php endif?>
+              </ul>
+            </div>
+
+            <div class="footer-slider-wrapper">
+              <div class="footer-sliders">
+                <div class="image-slider swiper-container">
+                  <div class="swiper-wrapper">
+
+                    <?php for($i=0;$i<maxrow;$i++):if(isset(setting['footer_slide_title'.$i]) and setting['footer_slide_title'.$i] != ""):?>
+                    <div class="swiper-slide">
+                      <figure><img src="<?= setting['footer_slide_image'.$i]?>" alt="<?= setting['footer_slide_title'.$i]?>"></figure>
+                    </div>
+                    <?php endif;endfor?>
+
+                  </div>
+                </div>
+                <!-- .image-slider-->
+                <div class="content-slider swiper-container">
+                  <div class="swiper-wrapper">
+
+                    <?php for($i=0;$i<maxrow;$i++):if(isset(setting['footer_slide_title'.$i]) and setting['footer_slide_title'.$i] != ""):?>
+                    <div class="swiper-slide">
+                      <div class="slider-content">
+                        <p class="title"><?= setting['footer_slide_title'.$i]?></p>
+                      </div>
+                    </div>
+                    <?php endif;endfor?>
+
+                  </div>
+                  <div class="slider-details">
+                    <div class="footer-swiper-pagination"></div>
+                    <div class="swiper-navigation-wrapper"><span class="swiper-navigation swiper-button-prev"></span><span class="swiper-navigation swiper-button-next"></span></div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <?= $this->html->script([
+        '/template/js/packages/bootstrap.bundle.min.js',
+        '/template/js/packages/jquery-3.7.1.min.js',
+        '/template/js/packages/aos.js',
+        '/template/js/packages/swiper-bundle.min.js',
+        '/template/js/app.js',
+    ]);?>
+    <?= $this->Func->footer();?>
+
+
 <script>
 /* $(window).on('load', function() {
   $('#activeModal').modal('show');
@@ -469,12 +458,8 @@ function onRegister(){
   registerform();
 }
 </script>
-<?= $this->html->script([
-		'/template/js/plugins.min.js',
-		'/template/js/functions.js',
-    '/template/js/components/rangeslider.min.js',
-	]);?>
-  
-	<?php $this->Func->footer();?>
-</body>
+  </body>
 </html>
+
+
+

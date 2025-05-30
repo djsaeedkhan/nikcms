@@ -1,0 +1,95 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid;
+	@include border-radius(6px);
+	@include transition(300ms);
+}
+
+.btn-md {
+	height: 40px;
+	font-weight: 500;
+	padding: 10px $spacer*2;
+	@include font-size(14px);
+
+	@include media-breakpoint-down(md) {
+		height: 32px;
+		@include font-size(12px);
+	}
+
+	&.btn-just-icon {
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		@include media-breakpoint-down(md) {
+			width: 32px;
+			height: 32px;
+		}
+	}
+
+}
+.btn-lg {
+	height: 48px;
+	font-weight: 600;
+	padding: 10px $spacer*2;
+	@include font-size(14px);
+}
+
+
+.btn-primary {
+	background: $_primary;
+	color: #FFF;
+	border-color: $_primary;
+
+	&:hover {
+		background: $_primary-dark;
+		border-color: $_primary-dark;
+	}
+}
+
+.btn-white {
+	background: #FFF;
+	color: $_primary;
+	border-color: #FFF;
+
+	&:hover {
+		background: #FFF;
+		color: $_primary;
+		border-color: #FFF;
+	}
+}
+
+.btn-outline-white {
+	background: #FFF;
+	border-color: $_primary;
+	color: $_primary;
+
+	&:hover {
+		background: $_primary-lighter;
+		border-color: $_primary;
+		color: $_primary;
+	}
+}
+
+.btn-text {
+	border-color: transparent;
+	background: none;
+	color: $_primary;
+
+	&:hover {
+		border-color: $_primary;
+		background: $_primary-lighter;
+		color: $_primary;
+	}
+}
+
+.btn-mobile-full {
+	@include media-breakpoint-down(md) {
+		width: 100%;
+	}
+}

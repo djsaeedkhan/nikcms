@@ -1,0 +1,22 @@
+@import "general";
+@import "home";
+@import "posts";
+@import "other-pages";
+@import "profile";
+
+html,body {
+	background: $main-bg;
+	color: $_black;
+	font-family: "EpicPinar";
+	/*-moz-font-feature-settings: "ss02";
+	-webkit-font-feature-settings: "ss02";
+	font-feature-settings: "ss02";*/
+}
+#main-content {
+	padding-top: 112px;
+	min-height: 500px;
+
+	@include media-breakpoint-down(md) {
+		padding-top: 50px;
+	}
+}
