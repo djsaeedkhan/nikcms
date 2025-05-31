@@ -9,10 +9,9 @@ class ApiController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        
         //$this->loadComponent('Admin.Fileupload');
         //$this->viewBuilder()->setLayout("login");
-        $this->Authentication->addUnauthenticatedActions();
+        //$this->Authentication->addUnauthenticatedActions();
     }
     //-----------------------------------------------------
     public function index($ch_id = null){

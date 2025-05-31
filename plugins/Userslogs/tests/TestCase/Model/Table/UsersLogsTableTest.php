@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace UsersLogs\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use UsersLogs\Model\Table\UsersLogsTable;
 
@@ -15,14 +16,14 @@ class UsersLogsTableTest extends TestCase
      *
      * @var \UsersLogs\Model\Table\UsersLogsTable
      */
-    public $UsersLogs;
+    protected $UsersLogs;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.UsersLogs.UsersLogs',
         'plugin.UsersLogs.Users',
     ];
@@ -32,11 +33,11 @@ class UsersLogsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('UsersLogs') ? [] : ['className' => UsersLogsTable::class];
-        $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs', $config);
+        $config = $this->getTableLocator()->exists('UsersLogs') ? [] : ['className' => UsersLogsTable::class];
+        $this->UsersLogs = $this->getTableLocator()->get('UsersLogs', $config);
     }
 
     /**
@@ -44,7 +45,7 @@ class UsersLogsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->UsersLogs);
 
@@ -52,21 +53,12 @@ class UsersLogsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test validationDefault method
      *
      * @return void
+     * @uses \UsersLogs\Model\Table\UsersLogsTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -75,8 +67,9 @@ class UsersLogsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \UsersLogs\Model\Table\UsersLogsTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

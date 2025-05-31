@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace UsersLogs\Model\Table;
 
 use Cake\ORM\Query;
@@ -19,6 +21,7 @@ use Cake\Validation\Validator;
  * @property \UsersLogs\Model\Table\ChallengeuserprofilesTable&\Cake\ORM\Association\HasMany $Challengeuserprofiles
  * @property \UsersLogs\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
  * @property \UsersLogs\Model\Table\FormbuilderDatasTable&\Cake\ORM\Association\HasMany $FormbuilderDatas
+ * @property \UsersLogs\Model\Table\LmsCertificatesTable&\Cake\ORM\Association\HasMany $LmsCertificates
  * @property \UsersLogs\Model\Table\LmsCoursefilecansTable&\Cake\ORM\Association\HasMany $LmsCoursefilecans
  * @property \UsersLogs\Model\Table\LmsCoursesTable&\Cake\ORM\Association\HasMany $LmsCourses
  * @property \UsersLogs\Model\Table\LmsCoursesessionsTable&\Cake\ORM\Association\HasMany $LmsCoursesessions
@@ -38,6 +41,9 @@ use Cake\Validation\Validator;
  * @property \UsersLogs\Model\Table\ProfilesTable&\Cake\ORM\Association\HasMany $Profiles
  * @property \UsersLogs\Model\Table\ShopAddressesTable&\Cake\ORM\Association\HasMany $ShopAddresses
  * @property \UsersLogs\Model\Table\ShopFavoritesTable&\Cake\ORM\Association\HasMany $ShopFavorites
+ * @property \UsersLogs\Model\Table\ShopLogesticusersTable&\Cake\ORM\Association\HasMany $ShopLogesticusers
+ * @property \UsersLogs\Model\Table\ShopOrderlogesticlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogesticlogs
+ * @property \UsersLogs\Model\Table\ShopOrderlogesticsTable&\Cake\ORM\Association\HasMany $ShopOrderlogestics
  * @property \UsersLogs\Model\Table\ShopOrderlogsTable&\Cake\ORM\Association\HasMany $ShopOrderlogs
  * @property \UsersLogs\Model\Table\ShopOrderrefundsTable&\Cake\ORM\Association\HasMany $ShopOrderrefunds
  * @property \UsersLogs\Model\Table\ShopOrdersTable&\Cake\ORM\Association\HasMany $ShopOrders
@@ -61,14 +67,19 @@ use Cake\Validation\Validator;
  * @property \UsersLogs\Model\Table\ChallengetagsTable&\Cake\ORM\Association\BelongsToMany $Challengetags
  * @property \UsersLogs\Model\Table\LogsTable&\Cake\ORM\Association\BelongsToMany $Logs
  *
- * @method \UsersLogs\Model\Entity\User get($primaryKey, $options = [])
- * @method \UsersLogs\Model\Entity\User newEmptyEntity($data = null, array $options = [])
+ * @method \UsersLogs\Model\Entity\User newEmptyEntity()
+ * @method \UsersLogs\Model\Entity\User newEntity(array $data, array $options = [])
  * @method \UsersLogs\Model\Entity\User[] newEntities(array $data, array $options = [])
+ * @method \UsersLogs\Model\Entity\User get($primaryKey, $options = [])
+ * @method \UsersLogs\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \UsersLogs\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \UsersLogs\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \UsersLogs\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \UsersLogs\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \UsersLogs\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
+ * @method \UsersLogs\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -94,207 +105,13 @@ class UsersTable extends Table
             'foreignKey' => 'role_id',
             'className' => 'UsersLogs.Roles',
         ]);
-        $this->hasMany('Challengeblueticks', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengeblueticks',
-        ]);
-        $this->hasMany('Challengefollowers', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengefollowers',
-        ]);
-        $this->hasMany('Challengeforums', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengeforums',
-        ]);
-        $this->hasMany('Challengeqanswers', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengeqanswers',
-        ]);
-        $this->hasMany('Challenges', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challenges',
-        ]);
-        $this->hasMany('Challengeuserforms', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengeuserforms',
-        ]);
-        $this->hasMany('Challengeuserprofiles', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Challengeuserprofiles',
-        ]);
-        $this->hasMany('Comments', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Comments',
-        ]);
-        $this->hasMany('FormbuilderDatas', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.FormbuilderDatas',
-        ]);
-        $this->hasMany('LmsCoursefilecans', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsCoursefilecans',
-        ]);
-        $this->hasMany('LmsCourses', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsCourses',
-        ]);
-        $this->hasMany('LmsCoursesessions', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsCoursesessions',
-        ]);
-        $this->hasMany('LmsCourseusers', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsCourseusers',
-        ]);
-        $this->hasMany('LmsExamresultlists', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsExamresultlists',
-        ]);
-        $this->hasMany('LmsExamresults', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsExamresults',
-        ]);
-        $this->hasMany('LmsExams', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsExams',
-        ]);
-        $this->hasMany('LmsExamusers', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsExamusers',
-        ]);
-        $this->hasMany('LmsFactors', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsFactors',
-        ]);
-        $this->hasMany('LmsPayments', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsPayments',
-        ]);
-        $this->hasMany('LmsUserfactors', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsUserfactors',
-        ]);
-        $this->hasMany('LmsUsernotes', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsUsernotes',
-        ]);
-        $this->hasMany('LmsUserprofiles', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.LmsUserprofiles',
-        ]);
         $this->hasMany('Logs', [
             'foreignKey' => 'user_id',
             'className' => 'UsersLogs.Logs',
         ]);
-        $this->hasMany('PollVotes', [
+        $this->belongsToMany('Logs', [
             'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.PollVotes',
-        ]);
-        $this->hasMany('Posts', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Posts',
-        ]);
-        $this->hasMany('Profiles', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Profiles',
-        ]);
-        $this->hasMany('ShopAddresses', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopAddresses',
-        ]);
-        $this->hasMany('ShopFavorites', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopFavorites',
-        ]);
-        $this->hasMany('ShopOrderlogs', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrderlogs',
-        ]);
-        $this->hasMany('ShopOrderrefunds', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrderrefunds',
-        ]);
-        $this->hasMany('ShopOrders', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrders',
-        ]);
-        $this->hasMany('ShopOrdershippings', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrdershippings',
-        ]);
-        $this->hasMany('ShopOrdertexts', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrdertexts',
-        ]);
-        $this->hasMany('ShopOrdertokens', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopOrdertokens',
-        ]);
-        $this->hasMany('ShopPayments', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopPayments',
-        ]);
-        $this->hasMany('ShopProfiles', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopProfiles',
-        ]);
-        $this->hasMany('ShopUseraddresses', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.ShopUseraddresses',
-        ]);
-        $this->hasMany('SmsValidations', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.SmsValidations',
-        ]);
-        $this->hasMany('Ticketaudits', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Ticketaudits',
-        ]);
-        $this->hasMany('Ticketcomments', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Ticketcomments',
-        ]);
-        $this->hasMany('Tickets', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Tickets',
-        ]);
-        $this->hasMany('TmpChallengeforms', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpChallengeforms',
-        ]);
-        $this->hasMany('TmpMembers', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpMembers',
-        ]);
-        $this->hasMany('TmpPersonlikes', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpPersonlikes',
-        ]);
-        $this->hasMany('TmpPersons', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpPersons',
-        ]);
-        $this->hasMany('TmpProblemforms', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpProblemforms',
-        ]);
-        $this->hasMany('TmpProblems', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.TmpProblems',
-        ]);
-        $this->hasMany('UsersLogs', [
-            'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.UserMetas',
-        ]);
-        $this->belongsToMany('Challengetags', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'challengetag_id',
-            'joinTable' => 'challengetags_users',
-            'className' => 'UsersLogs.Challengetags',
-        ]);
-        $this->belongsToMany('UsersLogs', [
-            'foreignKey' => 'user_id',
-            //'targetForeignKey' => 'log_id',
+            'targetForeignKey' => 'log_id',
             'joinTable' => 'users_logs',
             'className' => 'UsersLogs.Logs',
         ]);
@@ -308,10 +125,6 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
         $validator
             ->scalar('username')
             ->maxLength('username', 50)
@@ -335,6 +148,11 @@ class UsersTable extends Table
             ->scalar('phone')
             ->maxLength('phone', 15)
             ->allowEmptyString('phone');
+
+        $validator
+            ->scalar('role_id')
+            ->maxLength('role_id', 20)
+            ->allowEmptyString('role_id');
 
         $validator
             ->boolean('enable')
@@ -361,9 +179,9 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['username']));
-        $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->existsIn(['role_id'], 'Roles'));
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn('role_id', 'Roles'), ['errorField' => 'role_id']);
 
         return $rules;
     }

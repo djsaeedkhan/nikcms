@@ -9,6 +9,13 @@ class OptionsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        if (
+            $this->request->getParam('action') === 'saveSetting' and
+            $this->request->getAttribute('identity') and
+            $this->request->getAttribute('identity')->get('role_id') == 1)
+        {
+            $this->FormProtection->setConfig('validate', false);
+        }
     }
     //-----------------------------------------------
     public function index() {
@@ -50,13 +57,14 @@ class OptionsController extends AppController
             $this->Options->find('list',['keyField'=>'name','valueField'=>'value'])->toArray() );
     }
     //-----------------------------------------------
-    public function SaveSetting($show_error = 1){
+    public function saveSetting ($show_error = 1){
         //$this->log($this->request->getData());
         $this->viewBuilder()->setLayout('ajax');
 		if($this->request->is('post')):
             Log::write('debug',json_encode($this->request->getData()));
+
             foreach($this->request->getData() as $key => $val):
-                $option = $this->Options->newEmptyEntity();
+                
                 $result = $this->Options->find('all')->where(['name' => $key]);
                 $tkey = $key;
                 if(substr( $tkey, 0, 8 ) === "setting_")
@@ -65,18 +73,19 @@ class OptionsController extends AppController
                     $val = is_array($val)?serialize($val):$val;
                     
                 if($result->count() == 0):
-                    $data = [
+                    $option = $this->Options->newEmptyEntity();
+                    $option = $this->Options->patchEntity($option, [
                         'name' => $key,
                         'value' => $val
-                    ];
+                    ]);
                 else:
-                    $data = [
+                    $option = $this->Options->patchEntity($this->Options->newEmptyEntity(),[
                         'id' => $result->first()['id'],
                         'name' => $key,
-                        'value' => $val];
+                        'value' => $val
+                    ]);
                 endif;
-
-                $option = $this->Options->newEmptyEntity($data);
+                
                 $option = $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))
@@ -87,9 +96,15 @@ class OptionsController extends AppController
             $response = $this->response->withStringBody('1');
             return $response;
         }else{
-            $this->redirect($this->referer());
+            return $this->redirect($this->referer());
         }
-        $this->render(false);
+        try {
+            $this->autoRender = false;
+            $this->render(false);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
     //-----------------------------------------------
     public function SaveSetting2($show_error = 1){

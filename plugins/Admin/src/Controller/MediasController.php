@@ -13,7 +13,6 @@ class MediasController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        //$this->loadModel('Files');
         $parentCategory = TableRegistry::getTableLocator()->get('Admin.Categories')
             ->find('treeList',['keyField'=>'id','valueField'=>'title','spacer' => '—'])
             ->where(['Categories.post_type'=>'media']);

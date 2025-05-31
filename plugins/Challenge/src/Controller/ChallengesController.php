@@ -19,7 +19,7 @@ class ChallengesController extends AppController
         parent::initialize();
         $this->loadComponent('Admin.Fileupload');
         $this->viewBuilder()->setLayout("login");
-        $this->Authentication->addUnauthenticatedActions();
+        //$this->Authentication->addUnauthenticatedActions();
     }
     //------------------------------------------------------------------------
     public function index(){

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace UsersLogs\Model\Table;
 
 use Cake\ORM\Query;
@@ -11,14 +13,19 @@ use Cake\Validation\Validator;
  *
  * @property \UsersLogs\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \UsersLogs\Model\Entity\UsersLog get($primaryKey, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog newEmptyEntity($data = null, array $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog newEmptyEntity()
+ * @method \UsersLogs\Model\Entity\UsersLog newEntity(array $data, array $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog[] newEntities(array $data, array $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog get($primaryKey, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \UsersLogs\Model\Entity\UsersLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[] patchEntities($entities, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog findOrCreate($search, callable $callback = null, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -55,8 +62,8 @@ class UsersLogsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('user_id')
+            ->allowEmptyString('user_id');
 
         $validator
             ->scalar('username')
@@ -78,8 +85,8 @@ class UsersLogsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['username']));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }

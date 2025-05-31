@@ -30,7 +30,7 @@ else
 
 $hsite = isset($hsite['hsite'])?$hsite['hsite']:[];
 $this->request->withData('setting'.(defined('template_slug')?'_'.template_slug :'').'.hsite',$hsite);
-@$this->request->data['setting'.(defined('template_slug')?'_'.template_slug :'')]['hsite'] = $hsite;
+//$this->request->data['setting'.(defined('template_slug')?'_'.template_slug :'')]['hsite'] = $hsite;
 if($this->elementExists($base.'.options'))
   echo $this->element($base.'.options',['menu'=>$menu ]);
 else

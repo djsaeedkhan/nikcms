@@ -262,7 +262,7 @@ class FuncHelper extends Helper
     /* --------------------------------------  */
     /* --------------------------------------  */
     public function OptionSave($name = null , $value = null , $action = null){
-        $model = TableRegistry::getTableLocator()->get('Options');
+        $model = TableRegistry::getTableLocator()->get('Admin.Options');
         $existing = $model->findByName($name);
 
         if($existing->count()) {
@@ -312,7 +312,7 @@ class FuncHelper extends Helper
             return false; 
     }
     public static function Option2Get($name = null){
-        $Options = TableRegistry::getTableLocator()->get('Options');
+        $Options = TableRegistry::getTableLocator()->get('Admin.Options');
         $existing = $Options->findByName($name);
         if($existing->count()) {
             return $existing->first()->toArray()['value'];
@@ -357,7 +357,7 @@ class FuncHelper extends Helper
             $call_id = 'categorie_id';
         }
         elseif($source == 'users'){
-            $PostMetas = TableRegistry::getTableLocator()->get('UserMetas');
+            $PostMetas = TableRegistry::getTableLocator()->get('Admin.UserMetas');
             $call_id = 'user_id';
         }
         else

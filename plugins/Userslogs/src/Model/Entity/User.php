@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace UsersLogs\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -29,6 +31,7 @@ use Cake\ORM\Entity;
  * @property \UsersLogs\Model\Entity\Challengeuserprofile[] $challengeuserprofiles
  * @property \UsersLogs\Model\Entity\Comment[] $comments
  * @property \UsersLogs\Model\Entity\FormbuilderData[] $formbuilder_datas
+ * @property \UsersLogs\Model\Entity\LmsCertificate[] $lms_certificates
  * @property \UsersLogs\Model\Entity\LmsCoursefilecan[] $lms_coursefilecans
  * @property \UsersLogs\Model\Entity\LmsCourse[] $lms_courses
  * @property \UsersLogs\Model\Entity\LmsCoursesession[] $lms_coursesessions
@@ -48,6 +51,9 @@ use Cake\ORM\Entity;
  * @property \UsersLogs\Model\Entity\Profile[] $profiles
  * @property \UsersLogs\Model\Entity\ShopAddress[] $shop_addresses
  * @property \UsersLogs\Model\Entity\ShopFavorite[] $shop_favorites
+ * @property \UsersLogs\Model\Entity\ShopLogesticuser[] $shop_logesticusers
+ * @property \UsersLogs\Model\Entity\ShopOrderlogesticlog[] $shop_orderlogesticlogs
+ * @property \UsersLogs\Model\Entity\ShopOrderlogestic[] $shop_orderlogestics
  * @property \UsersLogs\Model\Entity\ShopOrderlog[] $shop_orderlogs
  * @property \UsersLogs\Model\Entity\ShopOrderrefund[] $shop_orderrefunds
  * @property \UsersLogs\Model\Entity\ShopOrder[] $shop_orders
@@ -73,13 +79,13 @@ use Cake\ORM\Entity;
 class User extends Entity
 {
     /**
-     * Fields that can be mass assigned using newEmptyEntity() or patchEntity().
+     * Fields that can be mass assigned using newEntity() or patchEntity().
      *
      * Note that when '*' is set to true, this allows all unspecified fields to
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<string, bool>
      */
     protected $_accessible = [
         'username' => true,
@@ -103,6 +109,7 @@ class User extends Entity
         'challengeuserprofiles' => true,
         'comments' => true,
         'formbuilder_datas' => true,
+        'lms_certificates' => true,
         'lms_coursefilecans' => true,
         'lms_courses' => true,
         'lms_coursesessions' => true,
@@ -122,6 +129,9 @@ class User extends Entity
         'profiles' => true,
         'shop_addresses' => true,
         'shop_favorites' => true,
+        'shop_logesticusers' => true,
+        'shop_orderlogesticlogs' => true,
+        'shop_orderlogestics' => true,
         'shop_orderlogs' => true,
         'shop_orderrefunds' => true,
         'shop_orders' => true,
@@ -148,7 +158,7 @@ class User extends Entity
     /**
      * Fields that are excluded from JSON versions of the entity.
      *
-     * @var array
+     * @var array<string>
      */
     protected $_hidden = [
         'password',

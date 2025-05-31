@@ -16,7 +16,7 @@ class Shortcode
     use CellTrait;
     public function initialize(): void
     {
-        //$this->loadComponent('Auth');
+        parent::initialize();
     }
     public function work_on_shortcode($data){
         $shortcode = preg_match_all('/\[code (.*?) (.*?) (.*?)\](.*?)\[\/code\]/s', $data, $matches);

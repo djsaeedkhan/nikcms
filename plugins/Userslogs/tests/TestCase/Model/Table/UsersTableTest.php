@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace UsersLogs\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use UsersLogs\Model\Table\UsersTable;
 
@@ -15,14 +16,14 @@ class UsersTableTest extends TestCase
      *
      * @var \UsersLogs\Model\Table\UsersTable
      */
-    public $Users;
+    protected $Users;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.UsersLogs.Users',
         'plugin.UsersLogs.Roles',
         'plugin.UsersLogs.Challengeblueticks',
@@ -34,6 +35,7 @@ class UsersTableTest extends TestCase
         'plugin.UsersLogs.Challengeuserprofiles',
         'plugin.UsersLogs.Comments',
         'plugin.UsersLogs.FormbuilderDatas',
+        'plugin.UsersLogs.LmsCertificates',
         'plugin.UsersLogs.LmsCoursefilecans',
         'plugin.UsersLogs.LmsCourses',
         'plugin.UsersLogs.LmsCoursesessions',
@@ -53,6 +55,9 @@ class UsersTableTest extends TestCase
         'plugin.UsersLogs.Profiles',
         'plugin.UsersLogs.ShopAddresses',
         'plugin.UsersLogs.ShopFavorites',
+        'plugin.UsersLogs.ShopLogesticusers',
+        'plugin.UsersLogs.ShopOrderlogesticlogs',
+        'plugin.UsersLogs.ShopOrderlogestics',
         'plugin.UsersLogs.ShopOrderlogs',
         'plugin.UsersLogs.ShopOrderrefunds',
         'plugin.UsersLogs.ShopOrders',
@@ -81,11 +86,11 @@ class UsersTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Users') ? [] : ['className' => UsersTable::class];
-        $this->Users = TableRegistry::getTableLocator()->get('Users', $config);
+        $config = $this->getTableLocator()->exists('Users') ? [] : ['className' => UsersTable::class];
+        $this->Users = $this->getTableLocator()->get('Users', $config);
     }
 
     /**
@@ -93,7 +98,7 @@ class UsersTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->Users);
 
@@ -101,21 +106,12 @@ class UsersTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test validationDefault method
      *
      * @return void
+     * @uses \UsersLogs\Model\Table\UsersTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -124,8 +120,9 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \UsersLogs\Model\Table\UsersTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

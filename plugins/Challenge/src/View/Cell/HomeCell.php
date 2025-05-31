@@ -26,6 +26,7 @@ class HomeCell extends Cell
      */
     public function initialize(): void
     {
+        parent::initialize();
     }
 
     /**

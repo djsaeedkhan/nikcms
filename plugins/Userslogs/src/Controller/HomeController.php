@@ -5,12 +5,12 @@ use Cake\ORM\TableRegistry;
 use Userslogs\Controller\AppController;
 class HomeController extends AppController
 {
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
-        $this->loadModel('UsersLogs.UsersLogs');
-        $this->loadModel('UsersLogs.Users');
+        //$this->loadModel('UsersLogs.UsersLogs');
+        //$this->loadModel('UsersLogs.Users');
     }
     public function index($user_id = null, $limit = 15){
        
@@ -20,17 +20,17 @@ class HomeController extends AppController
         if($this->request->getQuery('last')){
             $user_id = null;
         }
-        
-        $results = $this->paginate(
-            TableRegistry::getTableLocator()->get('Userslogs.UsersLogs')->find('all')
-                ->where([$user_id!= null?['user_id' => $user_id] : false])
+
+        $table = TableRegistry::getTableLocator()->get('Userslogs.UsersLogs')->find('all')
+                ->where([ $user_id != null? ['user_id' => $user_id] : false ])
                 ->contain(['Users'])
-                ->order(['UsersLogs.id'=>'desc'])
-        );
+                ->order(['UsersLogs.id'=>'desc']);
+        $results = $this->paginate($table);
         
         $this->set(compact('results'));
         $this->set([
-            'user' => $user_id!= null?$this->Users->get($user_id) : false
+            'user' => $user_id!= null?
+                TableRegistry::getTableLocator()->get('Userslogs.Users')->get($user_id) : false
         ]);
     }
 }

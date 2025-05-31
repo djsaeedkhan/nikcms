@@ -12,11 +12,11 @@ class ViewController extends AppController
     //----------------------------------------------------------------------
     public function initialize(): void
     {
+        parent::initialize();
         $this->loadComponent('Admin.Fileupload');
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
         $this->viewBuilder()->setLayout('Template.default');
-        parent::initialize();
-        $this->Authentication->addUnauthenticatedActions();
+        //$this->Authentication->addUnauthenticatedActions();
     }
     //----------------------------------------------------------------------
     public function index($id = null){

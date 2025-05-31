@@ -94,21 +94,6 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function login(){
-
-
-        $ulog = new \Userslogs\UserLogg();
-            $p = $ulog->login_savelog([
-                'username'=>"admin",
-                'id' => "1"
-            ], 1); //1:succ 2:faild\
-        try {
-            
-        } catch (\Throwable $th) {
-            echo "asdasd";
-            //throw $th;
-        }
-
-        
         /* $ulog = new \Userlogs\UserLogg();
             $p = $ulog->login_check_failed([
             'username'=>"admin",
@@ -282,10 +267,6 @@ class UsersController extends AppController{
                     }
                 }
 
-                //if redirect pass in url
-                if($this->request->getQuery('redirect') == '')
-                    return $this->redirect($this->referer());
-
                 if($this->Func->OptionGet('login_redirecturl') !=''){
                     if($this->request->is('ajax')){
                         return $this->response->withType('application/json')->withStringBody(json_encode([
@@ -315,6 +296,10 @@ class UsersController extends AppController{
                 else{
                     return $this->redirect($redirect);
                 }
+
+                //if redirect pass in url
+                if($this->request->getQuery('redirect') == '')
+                    return $this->redirect($this->referer());
             }
             else{
                 if($this->Func->OptionGet('register_type') == 'mobile'){

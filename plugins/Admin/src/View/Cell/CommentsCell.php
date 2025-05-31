@@ -7,7 +7,9 @@ class CommentsCell extends Cell
 {
     protected $_validCellOptions = [];
     public function initialize(): void
-    {}
+    {
+        parent::initialize();
+    }
     public function display($ids = null, $attr = []){
         global $result;
         $id = null;

@@ -11,13 +11,11 @@ class UsersController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        //$this->loadComponent('Security');
     }
     //--------------------------------------------------------------------
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        //$this->Authentication->addUnauthenticatedActions();
     }
     //--------------------------------------------------------------------
     public function index(){

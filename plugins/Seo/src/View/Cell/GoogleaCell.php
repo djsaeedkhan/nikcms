@@ -9,6 +9,7 @@ class GoogleaCell extends Cell{
     public $FuncHelper;  
     public function initialize(): void
     {
+        parent::initialize();
         $view = new View();
         $this->FuncHelper = new FuncHelper($view);
         $options = [];

@@ -16,15 +16,18 @@ class PostsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $user_id = $this->request->getAttribute('identity')->get('id');
-        $this->set(['user_ids'=> $user_id]);
+        if($this->request->getAttribute('identity')){
+            $this->set([
+                'user_ids'=> ($user_id = $this->request->getAttribute('identity')->get('id'))
+            ]);
+        }
         ini_set('max_input_vars', 100000);
 
-        if ($this->request->getParam('action') === 'add' 
-            or
-            $this->request->getParam('action') === 'edit'
-            )
-            {
+        if (
+            in_array($this->request->getParam('action'),['add','edit']) and
+            $this->request->getAttribute('identity') and
+            $this->request->getAttribute('identity')->get('role_id') == 1 )
+        {
             $this->FormProtection->setConfig('validate', false);
         }
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Admin\Model\Table;
 
 use Cake\ORM\Query;
@@ -9,16 +11,21 @@ use Cake\Validation\Validator;
 /**
  * UserMetas Model
  *
- * @property \Admin\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \Admin\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \Admin\Model\Entity\UserMeta get($primaryKey, $options = [])
- * @method \Admin\Model\Entity\UserMeta newEmptyEntity($data = null, array $options = [])
+ * @method \Admin\Model\Entity\UserMeta newEmptyEntity()
+ * @method \Admin\Model\Entity\UserMeta newEntity(array $data, array $options = [])
  * @method \Admin\Model\Entity\UserMeta[] newEntities(array $data, array $options = [])
- * @method \Admin\Model\Entity\UserMeta|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Admin\Model\Entity\UserMeta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\UserMeta get($primaryKey, $options = [])
+ * @method \Admin\Model\Entity\UserMeta findOrCreate($search, ?callable $callback = null, $options = [])
  * @method \Admin\Model\Entity\UserMeta patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Admin\Model\Entity\UserMeta[] patchEntities($entities, array $data, array $options = [])
- * @method \Admin\Model\Entity\UserMeta findOrCreate($search, callable $callback = null, $options = [])
+ * @method \Admin\Model\Entity\UserMeta[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Admin\Model\Entity\UserMeta|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\UserMeta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Admin\Model\Entity\UserMeta[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\UserMeta[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\UserMeta[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Admin\Model\Entity\UserMeta[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
 class UserMetasTable extends Table
 {
@@ -39,7 +46,7 @@ class UserMetasTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
-            'className' => 'Admin.Users'
+            'className' => 'Admin.Users',
         ]);
     }
 
@@ -52,12 +59,13 @@ class UserMetasTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->allowEmptyString('id', 'create');
+            ->notEmptyString('user_id');
 
         $validator
             ->scalar('meta_type')
             ->maxLength('meta_type', 255)
-            ->allowEmptyString('meta_type');
+            ->requirePresence('meta_type', 'create')
+            ->notEmptyString('meta_type');
 
         $validator
             ->scalar('meta_key')
@@ -81,10 +89,11 @@ class UserMetasTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }
+
     public function beforeSave($event){
         $entity = $event->getData('entity');
         $modified = $entity->getDirty();

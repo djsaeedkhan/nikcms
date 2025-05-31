@@ -20,7 +20,7 @@ class ViewController extends AppController
         else
             $this->viewBuilder()->setLayout('login');
         //$this->Auth->allow();
-        $this->Authentication->addUnauthenticatedActions();
+        //$this->Authentication->addUnauthenticatedActions();
         $result = TableRegistry::getTableLocator()->get('Admin.Options')->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_sms'])->toArray();
         $this->setting = unserialize($result['plugin_sms']);
