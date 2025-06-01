@@ -42,6 +42,7 @@
             'class'=>'form-control mb-1 ltr']);
 
         echo $this->Form->control('parent_id', [
+            'required'=>false,
             'options' => $parentCategory,
             'empty'=>__d('Admin', '-- انتخاب کنید --'),
             'label'=>__d('Admin', 'والد'),
