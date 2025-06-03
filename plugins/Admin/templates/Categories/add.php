@@ -22,7 +22,7 @@
                     <?= $this->Form->control('parent_id', [
                         'options' => $parentCategory,'label'=>__d('Admin', 'والد'),
                         'empty'=>'--',
-                        'default'=>isset($this->request->getParam('?')['cur'])?$this->request->getParam('?')['cur']:'',
+                        'default'=> $this->request->getQuery('current'),
                         'class'=>'form-control']);?>
                 </div>
                 <div class="col-sm-6">
@@ -79,12 +79,11 @@
         </div>
     </div>
 </div>
-<?php $this->end(); ?>
-
-
 <?php $this->start('modal');?>
 <?= $this->cell('Admin.Favorite::upload',[]);?>
-<?php $this->end(); ?>
+<?php $this->end(); 
+
+echo $this->Form->end();?>
 
 <style>
 .img-thumbnail:hover{

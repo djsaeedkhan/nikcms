@@ -128,7 +128,7 @@ class ThemesController extends AppController
             ]);
     }
     //----------------------------------------------------------
-    public function Widget($id = null){
+    public function widget($id = null){
         $theme = $this->Themes->newEmptyEntity();
         if ($this->request->is('post')) {
             $theme = $this->Themes->patchEntity($theme, $this->request->getData());

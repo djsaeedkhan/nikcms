@@ -62,7 +62,7 @@ class PluginsController extends AppController
         return $this->redirect($this->referer());
     }
     //----------------------------------------------------------------
-    public function Enable($name = null,$action = 'enable'){
+    public function enable($name = null, $action = 'enable'){
         $this->render(false);
         if ($this->request->is('post')) {
             $data = $this->Func->OptionGet('plugin_available_list');

@@ -1,6 +1,4 @@
-<?php
-use Cake\Routing\Router;
-?>
+
 <div class="card-body ath_container">
     <div class="dropzone dropzone-area dz-clickable" id="drop-area">
         <br>

@@ -4,7 +4,7 @@ use Cake\Routing\Router;
 $path = $this->request->getAttribute("webroot") . $upload_path;
 function getMaximumFileUploadSize(){
     return min((ini_get('post_max_size')), (ini_get('upload_max_filesize')));  
-}?>
+}?> 
 <div class="content-header row">
     <div class="content-header-right col-md-8 col-12 mb-2">
         <div class="row breadcrumbs-top">
@@ -184,6 +184,11 @@ function uploadFile(file) {
     /* xhr.timeout = 10000; // Set timeout to 4 seconds (4000 milliseconds)
     xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); */
+
+    var csrfToken = document.querySelector('meta[name="csrfToken"]');
+    console.log(csrfToken);
+    //.getAttribute('content');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     xhr.getResponseHeader('Content-Type');
     xhr.withCredentials = true;
     xhr.onreadystatechange = function(){

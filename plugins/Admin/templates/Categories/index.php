@@ -46,7 +46,7 @@
             'options' => $parentCategory,
             'empty'=>__d('Admin', '-- انتخاب کنید --'),
             'label'=>__d('Admin', 'والد'),
-            'default'=>isset($this->request->getParam('?')['cur'])?$this->request->getParam('?')['cur']:'',
+            'default'=> $this->request->getQuery('current'),
             'class'=>'form-control mb-1']);
 
         echo $this->Form->control('description',[

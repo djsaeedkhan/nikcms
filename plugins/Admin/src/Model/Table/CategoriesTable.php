@@ -70,6 +70,10 @@ class CategoriesTable extends Table
             'joinTable' => 'posts_categories',
             'className' => 'Admin.Posts',
         ]);
+        $this->hasMany('CategorieMetas', [
+            'foreignKey' => 'categorie_id',
+            'className' => 'Admin.CategorieMetas'
+        ]);
     }
 
     /**
@@ -94,7 +98,7 @@ class CategoriesTable extends Table
 
         $validator
             ->integer('parent_id')
-            ->notEmptyString('parent_id');
+            ->allowEmptyString('parent_id');
 
         $validator
             ->scalar('post_type')
@@ -113,7 +117,7 @@ class CategoriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('parent_id', 'ParentCategories'), ['errorField' => 'parent_id']);
+        //$rules->add($rules->existsIn('parent_id', 'ParentCategories'), ['errorField' => 'parent_id']);
 
         return $rules;
     }

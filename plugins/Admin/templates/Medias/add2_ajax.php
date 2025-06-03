@@ -43,7 +43,8 @@ $path = $this->request->getAttribute("webroot") . $upload_path;
 
 <script nonce="<?=get_nonce?>">
 $('#upload').on('click', function() {
-        var file_data = $('#sortpicture').prop('files')[0];   
+        var file_data = $('#sortpicture').prop('files')[0];
+        const csrfToken = document.querySelector('meta[name="csrfToken"]').getAttribute('content');
         var form_data = new FormData();
         if ($('#sortpicture').get(0).files.length === 0) {
             alert("No files selected.");

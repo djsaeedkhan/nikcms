@@ -40,7 +40,7 @@ class MediasController extends AppController
         $this->set(compact('medias'));
     }
     //-----------------------------------------------
-    public function Gallery()
+    public function gallery()
     {
         $this->viewBuilder()->setLayout('ajax') ;
         $result = $this->Medias->find('all')

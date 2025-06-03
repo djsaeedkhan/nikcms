@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 use Admin\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 class CategoriesController extends AppController
 {
@@ -12,7 +13,6 @@ class CategoriesController extends AppController
 
     public function index(): void
     {
-       
         $cat = $this->Categories->newEmptyEntity();
         try {
              $this->Categories->recover();
@@ -80,7 +80,10 @@ class CategoriesController extends AppController
                     return $this->redirect($this->referer());
                 }
                 else
-                    return $this->redirect($this->referer().'&cur='.$category['parent_id']);
+                    return $this->redirect(['action'=>'index','?'=>[
+                            'post_type'=> strtolower($this->request->getData()['post_type']),
+                            'current'=>$category['parent_id'],
+                        ]]);
             }
             $this->Flash->error(__d('Admin', 'متاسفانه ثبت دسته بندی انجام نشد'));
         }

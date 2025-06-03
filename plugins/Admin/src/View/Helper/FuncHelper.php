@@ -353,7 +353,7 @@ class FuncHelper extends Helper
         $call_id = 'post_id';
 
         if($source == 'category'){
-            $PostMetas = TableRegistry::getTableLocator()->get('CategorieMetas');
+            $PostMetas = TableRegistry::getTableLocator()->get('Admin.CategorieMetas');
             $call_id = 'categorie_id';
         }
         elseif($source == 'users'){
