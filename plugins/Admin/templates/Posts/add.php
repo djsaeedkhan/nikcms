@@ -86,7 +86,8 @@ $("#myform").submit(function(){
 });
 </script>
 
-<?php if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'] == 1):?>
+<?php
+if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'] == 1):?>
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

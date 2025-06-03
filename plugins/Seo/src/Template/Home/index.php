@@ -5,8 +5,7 @@ use Cake\View\Helper\HtmlHelper;
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(count($result)):
     $hsite = unserialize($result['seo_plugin']);
-    $this->request->withData('seo_plugin.setting',$hsite['setting']);
-    @$this->request->data['seo_plugin']['setting'] = $hsite['setting'];
+    $this->request = $this->request->withData('seo_plugin.setting',$hsite['setting']);
 endif;
 
 function view_form( $sm = []){

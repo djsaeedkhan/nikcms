@@ -10,6 +10,7 @@ use Cake\View\CellTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Routing\Router;
+use Website\Controller\Component\FetchsComponent;
 
 class ContentController extends AppController
 {
@@ -20,6 +21,7 @@ class ContentController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+
         $this->template = $this->Func->OptionGet('website_template');
         $this->viewBuilder()->setTheme($this->template);
 
@@ -27,15 +29,18 @@ class ContentController extends AppController
             die ($this->render('Website.home'));
         } 
         $this->viewBuilder()->setLayout($this->template.'.default');
+
+        try {
+            $this->loadComponent('Website.Fetchs');
+        }
+        catch (\Throwable $th) {echo "Not FOund";}
+
         try {
             $this->loadComponent($this->template.'.Fetch');
         }
         catch (\Throwable $th) {$this->fetch_error = true;}
 
-        try {
-            $this->loadComponent('Website.Fetchs');
-        }
-        catch (\Throwable $th) {}
+        
         //$this->loadComponent('Captcha.Captcha');
 
     }
@@ -375,7 +380,10 @@ class ContentController extends AppController
             $id = null;
 
         try{
-            try{$this->Fetchs->single();}catch (\Exception $e){}
+            try{
+                $this->Fetchs->single();
+            }catch (\Exception $e){}
+
             try{
                 if($this->fetch_error == false)
                     $this->Fetch->single();

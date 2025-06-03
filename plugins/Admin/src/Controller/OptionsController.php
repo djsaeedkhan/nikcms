@@ -73,13 +73,15 @@ class OptionsController extends AppController
                     $val = is_array($val)?serialize($val):$val;
                     
                 if($result->count() == 0):
+                    //pr("first");
                     $option = $this->Options->newEmptyEntity();
                     $option = $this->Options->patchEntity($option, [
                         'name' => $key,
                         'value' => $val
                     ]);
                 else:
-                    $option = $this->Options->patchEntity($this->Options->newEmptyEntity(),[
+                    //pr("second");
+                    $option = $this->Options->patchEntity($result->first(),[
                         'id' => $result->first()['id'],
                         'name' => $key,
                         'value' => $val

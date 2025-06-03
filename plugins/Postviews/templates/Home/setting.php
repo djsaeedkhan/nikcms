@@ -2,8 +2,7 @@
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(count($result)):
     $hsite = unserialize($result['postviews_plugin']);
-    $this->request->withData('postviews_plugin',$hsite);
-    @$this->request->data['postviews_plugin'] = $hsite;
+    $this->request = $this->request->withData('postviews_plugin',$hsite);
 endif;
 ?>
 <h3 class="pb-2"><?= __d('Postviews','افزونه بازدید مطالب');?></h3>

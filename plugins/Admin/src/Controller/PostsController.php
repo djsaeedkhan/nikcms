@@ -117,7 +117,7 @@ class PostsController extends AppController
             $this->request = $this->request->withData('slug', $this->checkSlug($this->request->getData()) );
             $this->request = $this->request->withData('tags._ids', $this->SaveTags($this->request->getData('taglist')) );
 
-            if($this->request->getData()['created']!= ''){
+            if($this->request->getData()['created'] != '' ){
                 $time = explode(' ', $this->request->getData()['created'] );
                 if($this->Func->Optionget('admin_calender') !=1 and 
                     is_array($time) and count($time) == 2 and isset($time[0]) and isset($time[1])){
@@ -366,7 +366,7 @@ class PostsController extends AppController
 
         foreach(json_decode($taglist,true) as $tag){
             $tag = isset($tag['value'])?trim($tag['value']):'';
-            $this->Tags = TableRegistry::getTableLocator()->get('Tags');
+            $this->Tags = TableRegistry::getTableLocator()->get('Admin.Tags');
             $exists = $this->Tags->find('all')->where(['title'=>$tag,'post_type'=>$this->post_type]);
             if($exists->count() != 0){
                 array_push($temp1,$exists->first()->toarray()['id']);

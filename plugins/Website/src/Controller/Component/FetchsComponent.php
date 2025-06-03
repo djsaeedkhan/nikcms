@@ -10,7 +10,9 @@ use Admin\View\Helper\FuncHelper;
 class FetchsComponent extends Component {
     protected $_defaultConfig = [];
     public $components = ['Paginator','Session'];
-    public function initialize(array $config): void{}
+    public function initialize(array $config): void{
+        parent::initialize();
+    }
     public function home($id = null){}
     public function index() {
         
@@ -188,7 +190,7 @@ class FetchsComponent extends Component {
         $result = TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('all')
             ->where([
-                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')->get('id')?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
             ])

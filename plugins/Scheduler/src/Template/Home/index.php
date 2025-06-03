@@ -9,8 +9,7 @@ echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options'
 try {
     if($result and $result != ""):
         $hsite = unserialize($result);
-        $this->request->withData('plugin_scheduler',$hsite);
-        @$this->request->data['plugin_scheduler'] = $hsite;
+        $this->request = $this->request->withData('plugin_scheduler',$hsite);
     endif;
 } catch (\Throwable $th) {
     echo "تنظیمات دریافت نشد";

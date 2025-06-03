@@ -2,8 +2,7 @@
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(count($result)):
     $hsite = unserialize($result['coming_plugin']);
-    $this->request->withData('coming_plugin.setting',$hsite['setting']);
-    @$this->request->data['coming_plugin']['setting'] = $hsite['setting'];
+    $this->request = $this->request->withData('coming_plugin.setting',$hsite['setting']);
 endif;
 ?>
 

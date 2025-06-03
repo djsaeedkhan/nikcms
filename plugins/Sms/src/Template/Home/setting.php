@@ -43,8 +43,7 @@ $sms = new \Sms\Sms();
         echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
         if(count($result)):
             $hsite = unserialize($result['plugin_sms']);
-            $this->request->withData('plugin_sms',$hsite);
-            @$this->request->data['plugin_sms'] = $hsite;
+            $this->request = $this->request->withData('plugin_sms',$hsite);
         endif;
     ?>
     <div class="tab-content">

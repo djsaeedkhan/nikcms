@@ -84,7 +84,8 @@ echo $this->element('Template.header');
         <?php 
         echo $this->Form->create(null,['type'=>'get','id'=>'form1']);
         $param = $this->request->getQuery();
-        @$this->request->data = $param;
+        //@$this->request->data = $param;
+        $this->request = $this->request->withParsedBody($param);
         ?>
         
         <aside class="post-filters">

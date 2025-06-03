@@ -386,18 +386,26 @@ class FuncHelper extends Helper
   
         if($existing->count()) {
             $temp = $existing->first();
-            $temp->meta_value = $value;
-            $p = $PostMetas->save($temp);
-            return true;
+            //$temp->meta_value = $value;
+            $temp = $PostMetas->patchEntity($temp, [
+                    'meta_value' =>$value,
+                ]);
+            if($PostMetas->save($temp))
+                return true;
+            else
+                return false;
         }
-        if(!$existing->count() and $action =='create'){
-            $p = $PostMetas->save($PostMetas->newEmptyEntity([
+        if(!$existing->count() and $action == 'create'){
+            $option = $PostMetas->patchEntity($PostMetas->newEmptyEntity(), [
                 $call_id  => $id,
                 'meta_key'  => $name,
                 'meta_value' => $value,
                 'meta_type' => $type,
-            ]));
-            return true;
+            ]);
+            if( $PostMetas->save($option))
+                return true;
+            else
+                return false;
         }
         return false;
     }

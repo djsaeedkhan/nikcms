@@ -17,8 +17,7 @@
 <?= $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(count($result)):
     $hsite = unserialize($result['plugin_challenge']);
-    $this->request->withData('plugin_challenge',$hsite);
-    @$this->request->data['plugin_challenge'] = $hsite;
+    $this->request = $this->request->withData('plugin_challenge',$hsite);
 endif;?>
 
 <div class="card"><div class="card-body">

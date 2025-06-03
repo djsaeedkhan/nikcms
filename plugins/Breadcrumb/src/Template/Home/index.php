@@ -4,8 +4,7 @@ use \Admin\View\Helper\ModuleHelper;
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(count($result)):
     $hsite = unserialize($result['brcrumb_plugin']);
-    $this->request->withData('brcrumb_plugin',$hsite);
-    @$this->request->data['brcrumb_plugin'] = $hsite;
+    $this->request = $this->request->withData('brcrumb_plugin',$hsite);
 endif;?>
 
 <div class="content-header row">

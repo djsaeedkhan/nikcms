@@ -2,8 +2,7 @@
 <?php
 use Cake\Routing\Router;
 $setting = str_replace('.','_',$setting);
-$this->request->withData($setting,$data);
-@$this->request->data[$setting] = $data;
+$this->request = $this->request->withData($setting,$data);
 
 global $settings;
 global $datas;
@@ -31,8 +30,7 @@ if($element != null){
       <?php
       /* global $settings;
       global $datas; */
-      $this->request->withData($setting,$data);
-      @$this->request->data[$setting] = $data;
+      $this->request = $this->request->withData($setting, $data);
       echo $this->form->control($settings.'.id',[
           'label'=>'عنوان Class',
           'class'=>'form-control mb-1'
