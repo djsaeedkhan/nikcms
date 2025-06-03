@@ -102,13 +102,17 @@ class AdminController extends AppController
             'chnews' => $this->Query->post('chnews',[
                 'contain_where'=>[ 'meta_key'=>'challenge_id', 'meta_value'=>$id]
             ]),
-            'chresource' => $this->Query->post('chresource',[
-                'contain_where'=>[ 'meta_key'=>'challenge_id', 'meta_value'=>$id]
+            'chresource' => $p = $this->Query->post('chresource',[
+                'contain_where'=>[
+                    'meta_key'=>'challenge_id',
+                    'meta_value'=>$id
+                    ]
             ]),
             'chupdates' => $this->Query->post('chupdates',[
                 'contain_where'=>[ 'meta_key'=>'challenge_id', 'meta_value'=>$id]
             ]),
         ]);
+        pr($p);
     }
     //-----------------------------------------------------
     public function edit($id = null)
