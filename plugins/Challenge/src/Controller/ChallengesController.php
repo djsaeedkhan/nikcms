@@ -24,7 +24,6 @@ class ChallengesController extends AppController
     //------------------------------------------------------------------------
     public function index(){
         
-        
         if($this->request->getParam('?')){
             $param = $this->request->getQuery();
 
@@ -32,7 +31,7 @@ class ChallengesController extends AppController
                 ->order(['Challenges.priority'=>'asc'])
                 ->contain([
                     'Challengestatuses',
-                    'Challengefollowers' => function ($q) {
+                    'challengefollowers' => function ($q) {
                         return $q
                         ->select(['challenge_id', 'count' => $q->func()->count('*') ])
                         ->group(['challenge_id']);

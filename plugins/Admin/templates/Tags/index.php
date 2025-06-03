@@ -67,7 +67,7 @@
                     <td><?= $this->Number->format($i++); ?></td>
                     <td><?= $tags->title ?>
                         <div class="hidme">
-                            <?= $this->Auths->link(__d('Admin', 'نمایش'), ['action' => 'view', $tags->id]) ?>
+                            <?php /* $this->Auths->link(__d('Admin', 'نمایش'), ['action' => 'view', $tags->id]) */ ?>
                             <?= $this->Auths->link(__d('Admin', 'ویرایش'), ['action' => 'add', $tags->id]) ?>
                             <?= $this->Form->postLink(__d('Admin', 'حذف'), ['action' => 'delete', $tags->id], 
                                 ['confirm' => __d('Admin', 'Are you sure you want to delete # {0}?', $tags->id)]) ?>

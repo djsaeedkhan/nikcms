@@ -32,7 +32,7 @@ class PluginsController extends AppController
     //----------------------------------------------------------------
     private function _Favorite($name = null,$action = 'add'){
 
-        $this->render(false);
+        $this->autoRender = false;
         //if ($this->request->is('post')) {
             $data = $this->Func->OptionGet('plugin_favorite_list');
             $temp = array();
@@ -63,29 +63,39 @@ class PluginsController extends AppController
     }
     //----------------------------------------------------------------
     public function enable($name = null, $action = 'enable'){
-        $this->render(false);
+        
         if ($this->request->is('post')) {
             $data = $this->Func->OptionGet('plugin_available_list');
+            
             $temp = array();
             if($data != false)
                 $temp = unserialize($data);
+
             if($action == 'enable'){
                 if(!in_array($name,$temp))
                     $temp []= $name;
-                Plugin::getCollection()->get($name)->activation();
+                
+                //Plugin::getCollection()->get($name)->activation();
+                $plugin = Plugin::getCollection()->create($name);
+                $plugin->activation();
             }
-            else{
+            else
+            {
                 if(in_array($name,$temp))
                     unset($temp[array_search($name, $temp)]);
 
-                Plugin::getCollection()->get($name)->deactivation();
+                //Plugin::getCollection()->get($name)->deactivation();
+                $plugin = Plugin::getCollection()->create($name);
+                $plugin->deactivation();
             }
+
             $result = $this->Func->OptionSave('plugin_available_list', serialize($temp),'create');
             if( $result)
                 $this->Flash->success(__d('Admin', 'تغییرات با موفقیت اعمال شد'));
             else
                 $this->Flash->error(__d('Admin', 'متاسفانه تغییرات اعمال نشد. دوباره تلاش کنید'));
         }
+        $this->autoRender = false;
         return $this->redirect($this->referer());
     }
     //----------------------------------------------------------------

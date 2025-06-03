@@ -26,7 +26,7 @@
         if(! in_array($data['name'],$exc)):?> 
 
         <div class="col-lg-12 col-md-6 col-sm-12"><div class="card cart1">
-            <div class="p-2 mb-0 <?= (in_array($data['name'],$plugin_available))?'':'alert alert-danger';?>">
+            <div class="p-2 mb-0 <?= (is_array($plugin_available) and in_array($data['name'],$plugin_available))?'':'alert alert-danger';?>">
 
                 <div class="avatar bg-light-<?=$list[rand(0,4)]?> avatar-xl float-right" style="border-radius: 0;margin-left: 15px;">
                     <span class="avatar-content"><?=substr($data['name'],0,2)?></span>
@@ -39,7 +39,7 @@
                 <div class="float-left">
                     <div class="float-right">
                         <?php
-                        if(isset($plugin_available) and in_array($data['name'],$plugin_available)):
+                        if( is_array($plugin_available) and in_array($data['name'],$plugin_available)):
                             if(isset($data['path']['index']) and $data['path']['index']!= '') 
                                 echo $this->Auths->link(
                                     __d('Admin', 'صفحه افزونه'),
@@ -59,7 +59,7 @@
                     </div>
                     <div class="float-left">
                         <?php
-                        echo (in_array($data['name'],$plugin_available)?
+                        echo ((is_array($plugin_available) and in_array($data['name'],$plugin_available) )?
                             $this->Form->postlink('<span class="badge1 text-danger">غیرفعال شود</span>',
                                 ['action'=>'Enable',$data['name'],'disable'],
                                 ['escape'=>false,

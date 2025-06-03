@@ -171,21 +171,33 @@ class FuncHelper extends Helper
     public function plugin_total_list(){
         return explode(',',FuncHelper::OptionGet('st__plugin_avlist'));
     }
+
+    //update 1404-3-13
     public function plugin_available($name = null){
-        $data = (unserialize(FuncHelper::OptionGet('plugin_available_list')));
-        if($name != null)
-            return in_array($name ,$data)? true : false;
-        else
-            return ($data);
+        try {
+           $data = (unserialize(FuncHelper::OptionGet('plugin_available_list')));
+            if($name != null)
+                return in_array($name ,$data)? true : false;
+            else
+                return ($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
-    //1398-8-4
+
+    //create 1398-8-4
+    //update 1404-3-13
     public function plugin_data(){
         $data = [];
-        $available = FuncHelper::plugin_available();
-        foreach(Plugin::getCollection() as $k => $app){
-            if(in_array($app->getName(),$available)){
-                $data[$k] = $app;
+        try {
+           $available = FuncHelper::plugin_available();
+            foreach(Plugin::getCollection() as $k => $app){
+                if(in_array($app->getName(),$available)){
+                    $data[$k] = $app;
+                }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
         return $data;
     }
@@ -261,23 +273,28 @@ class FuncHelper extends Helper
     }
     /* --------------------------------------  */
     /* --------------------------------------  */
-    public function OptionSave($name = null , $value = null , $action = null){
+    public function OptionSave($name = null, $value = null, $action = null){
         $model = TableRegistry::getTableLocator()->get('Admin.Options');
         $existing = $model->findByName($name);
 
         if($existing->count()) {
-            $model->save($model->newEmptyEntity([
+            //pr("exists");
+            $option = $model->patchEntity($existing->first(), [
                 'id' => $existing->first()['id'],
                 'name'  => $name,
                 'value' => $value,
-            ]));
+            ]);
+            $model->save($option);
             return true;
         }
-        if(!$existing->count() and $action =='create'){
-            $model->save($model->newEmptyEntity([
+
+        if(!$existing->count() and $action == 'create'){
+            //pr("create");
+            $option = $model->patchEntity($model->newEmptyEntity(),[
                 'name'  => $name,
                 'value' => $value,
-            ]));
+            ]);
+            $model->save($option);
             return true;
         }
         return false;

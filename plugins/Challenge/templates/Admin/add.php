@@ -55,30 +55,32 @@ $predata = new Predata();?>
         <a href="#" data-toggle="modal" data-target="#exampleModal" data-action="select_src" title="انتخاب تصویر" data-dest="poster2" style="color:#9e9e9e"><i data-feather="camera"></i></a></div>';
         ?>
 
-        
-
     </div>
     <div class="col-sm-6">
         <?php
         echo $this->Form->control('challengecats._ids', [
-            'label'=>__d('Template','سطوح همیاری'),
+            'label'=>__d('Template','سطوح همیاری'). $this->html->link('مدیریت','/admin/challenge/challengecats/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
+            'escape'=>false,
             'options' => $challengecats,
             'class'=>'form-control mb-2 select2']).'<br>';
 
         echo $this->Form->control('challengetopics._ids', [
-            'label'=>'موضوع ها',
+            'label'=>'موضوع ها '. $this->html->link('مدیریت','/admin/challenge/challengetopics/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
             'options' => $challengetopics,
+            'escape'=>false,
             'class'=>'form-control select2 mb-2 mt-2'
             ]).'<br>';
 
         echo $this->Form->control('challengefields._ids', [
-            'label'=>'حوزه های ماموریتی',
+            'label'=>'حوزه های ماموریتی'. $this->html->link('مدیریت','/admin/challenge/challengefields/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
+            'escape'=>false,
             'options' => $challengefields,
             'class'=>'form-control select2 mb-2'
             ]).'<br>';
             
         echo $this->Form->control('challengetags._ids', [
-            'label'=>'برچسب ها',
+            'label'=>'برچسب ها'. $this->html->link('مدیریت','/admin/challenge/challengetags/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
+            'escape'=>false,
             'options' => $challengetags,
             'class'=>'form-control select2 mb-2'
             ]).'<br>';
@@ -100,7 +102,8 @@ $predata = new Predata();?>
 
             <div class="col-sm-6">
                 <?= $this->Form->control('challengestatus_id', [
-                    'label'=>'وضعیت',
+                    'label'=>'وضعیت '. $this->html->link('مدیریت','/admin/challenge/challengestatuses/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
+                    'escape'=>false,
                     'options' => $challengestatuses,
                     'class'=>'form-control mb-2']);?>
             </div>

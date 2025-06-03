@@ -574,7 +574,7 @@ class Plugin extends BasePlugin{
             'version'=>'1.0',
             'path' =>[
                 'index' =>'',
-                'admin' =>'/admin/challenge/index',
+                'admin' =>'/admin/challenge/',
                 'setting' =>'',
                 ]
         ];

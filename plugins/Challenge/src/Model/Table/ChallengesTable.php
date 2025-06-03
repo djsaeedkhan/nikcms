@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Challenge\Model\Table;
 
 use Cake\ORM\Query;
@@ -20,21 +22,26 @@ use Cake\Validation\Validator;
  * @property \Challenge\Model\Table\ChallengerelatedsTable&\Cake\ORM\Association\HasMany $Challengerelateds
  * @property \Challenge\Model\Table\ChallengetextsTable&\Cake\ORM\Association\HasMany $Challengetexts
  * @property \Challenge\Model\Table\ChallengetimelinesTable&\Cake\ORM\Association\HasMany $Challengetimelines
- * @property \CHallenge\Model\Table\ChallengeuserformsTable&\Cake\ORM\Association\HasMany $Challengeuserforms
+ * @property \Challenge\Model\Table\ChallengeuserformsTable&\Cake\ORM\Association\HasMany $Challengeuserforms
  * @property \Challenge\Model\Table\ChallengeviewsTable&\Cake\ORM\Association\HasMany $Challengeviews
  * @property \Challenge\Model\Table\ChallengecatsTable&\Cake\ORM\Association\BelongsToMany $Challengecats
  * @property \Challenge\Model\Table\ChallengefieldsTable&\Cake\ORM\Association\BelongsToMany $Challengefields
  * @property \Challenge\Model\Table\ChallengetagsTable&\Cake\ORM\Association\BelongsToMany $Challengetags
  * @property \Challenge\Model\Table\ChallengetopicsTable&\Cake\ORM\Association\BelongsToMany $Challengetopics
  *
- * @method \Challenge\Model\Entity\Challenge get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challenge newEmptyEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challenge newEmptyEntity()
+ * @method \Challenge\Model\Entity\Challenge newEntity(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challenge[] newEntities(array $data, array $options = [])
+ * @method \Challenge\Model\Entity\Challenge get($primaryKey, $options = [])
+ * @method \Challenge\Model\Entity\Challenge findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Challenge\Model\Entity\Challenge patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Challenge\Model\Entity\Challenge[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challenge|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challenge saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Challenge\Model\Entity\Challenge patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Challenge\Model\Entity\Challenge[] patchEntities($entities, array $data, array $options = [])
- * @method \Challenge\Model\Entity\Challenge findOrCreate($search, callable $callback = null, $options = [])
+ * @method \Challenge\Model\Entity\Challenge[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challenge[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challenge[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challenge[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -58,7 +65,7 @@ class ChallengesTable extends Table
 
         $this->belongsTo('Challengestatuses', [
             'foreignKey' => 'challengestatus_id',
-            //'joinType' => 'INNER',
+            'joinType' => 'INNER',
             'className' => 'Challenge.Challengestatuses',
         ]);
         $this->belongsTo('Users', [
@@ -144,10 +151,6 @@ class ChallengesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
-        $validator
             ->scalar('title')
             ->maxLength('title', 200)
             ->requirePresence('title', 'create')
@@ -160,19 +163,10 @@ class ChallengesTable extends Table
             ->notEmptyString('slug');
 
         $validator
-            ->integer('priority')
-            ->allowEmptyString('priority');
-            
-        $validator
             ->scalar('descr')
             ->maxLength('descr', 500)
             ->allowEmptyString('descr');
-            
-        $validator
-            ->scalar('password')
-            ->maxLength('password', 15)
-            ->allowEmptyString('password');
-            
+
         $validator
             ->scalar('img')
             ->maxLength('img', 200)
@@ -189,6 +183,9 @@ class ChallengesTable extends Table
             ->allowEmptyString('img2');
 
         $validator
+            ->notEmptyString('challengestatus_id');
+
+        $validator
             ->scalar('start_date')
             ->maxLength('start_date', 12)
             ->allowEmptyString('start_date');
@@ -199,17 +196,18 @@ class ChallengesTable extends Table
             ->allowEmptyString('end_date');
 
         $validator
+            ->integer('user_id')
+            ->allowEmptyString('user_id');
+
+        $validator
             ->boolean('enable')
             ->notEmptyString('enable');
-        
-        $validator
-            ->allowEmptyString('chtype');
 
         $validator
             ->scalar('price')
             ->maxLength('price', 50)
-            //->requirePresence('price', 'create')
-            ->allowEmptyString('price');
+            ->requirePresence('price', 'create')
+            ->notEmptyString('price');
 
         return $validator;
     }
@@ -221,28 +219,11 @@ class ChallengesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-
-    public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags( (string) $entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
-    } 
-    
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['challengestatus_id'], 'Challengestatuses'));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->isUnique(['slug']));
+        $rules->add($rules->existsIn('challengestatus_id', 'Challengestatuses'), ['errorField' => 'challengestatus_id']);
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
+
         return $rules;
     }
 }

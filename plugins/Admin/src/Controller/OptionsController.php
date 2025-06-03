@@ -100,7 +100,6 @@ class OptionsController extends AppController
         }
         try {
             $this->autoRender = false;
-            $this->render(false);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -137,7 +136,7 @@ class OptionsController extends AppController
                 $this->Flash->success(__d('Admin', 'اطلاعات بصورت موفقیت آمیز ذخیره شدند'));
 		endif;
 		$this->redirect($this->referer());
-        $this->render(false);
+        $this->autoRender = false;
     }
     //-----------------------------------------------
     public function DeleteSetting($show_error = null){
@@ -159,8 +158,8 @@ class OptionsController extends AppController
                 }
             }
 		endif;
-		$this->redirect($this->referer());
-        $this->render(false);
+		return $this->redirect($this->referer());
+        $this->autoRender = false;
 	}
     //-----------------------------------------------
 }

@@ -6,17 +6,14 @@ namespace Challenge\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Challengefollower Entity
+ * Challengestatus Entity
  *
  * @property int $id
- * @property int $challenge_id
- * @property int $user_id
- * @property \Cake\I18n\FrozenDate $created
+ * @property string $title
  *
- * @property \Challenge\Model\Entity\Challenge $challenge
- * @property \Challenge\Model\Entity\User $user
+ * @property \Challenge\Model\Entity\Challenge[] $challenges
  */
-class Challengefollower extends Entity
+class Challengestatus extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -28,10 +25,7 @@ class Challengefollower extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'challenge_id' => true,
-        'user_id' => true,
-        'created' => true,
-        'challenge' => true,
-        'user' => true,
+        'title' => true,
+        'challenges' => true,
     ];
 }

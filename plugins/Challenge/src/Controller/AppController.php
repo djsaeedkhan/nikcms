@@ -29,7 +29,7 @@ class AppController extends BaseController
             'group' => $predata->gettype('group'),
             'gender' => $predata->gettype('gender'),
             'center' => $predata->gettype('center'),
-            'user_ids'=> $this->request->getAttribute('identity')->get('id')
+            //'user_ids'=> $this->request->getAttribute('identity')->get('id')
         ]);
         
     }

@@ -1,5 +1,5 @@
 <div class="container" style="margin-top: 1em;">
-        <?= $this->Form->create($user,['url'=>['action'=>'edit']]) ?><br>
+        <?= $this->Form->create($user,['url'=>['action'=>'edit']]); $user['password']="" ?><br>
         <div class="card person-card">
             <div class="card-body">
             <?= $this->html->image('/admin/img/life_cycle.svg',['id'=>'img_sex','class'=>'person-img']);?>
@@ -38,7 +38,8 @@
                         <h4 class="card-title"><?= __d('Admin', 'تغییر رمز عبور')?></h4>
                         <div class="form-group">
                             <label for="password" class="col-form-label"><?= __d('Admin', 'رمز عبور')?></label>
-                            <?= $this->Form->control('password',['class'=>'form-control','label'=>false])?>
+                            <?= $this->Form->control('password',[
+                                'class'=>'form-control','label'=>false])?>
                             <div class="badge badge-secondary">
                                 <?= __d('Admin', 'اگر نمیخواهید رمز را عوض کنید چیزی وارد نکنید')?>
                                 (<?= __d('Admin', 'خالی باشد')?>)
@@ -47,6 +48,7 @@
                         
                     </div>
                 </div>
+                <?= $this->Form->button(__d('Admin', 'ثبت اطلاعات'),['class'=>'btn btn-primary btn-lg btn-block']);?>
             </div>
 
             <div class="col-md-6 pps">
@@ -60,9 +62,10 @@
                 </div>
             </div>
 
+            
         </div>
         <div style="margin-top: 1em;">
-            <?= $this->Form->button(__d('Admin', 'ثبت اطلاعات'),['class'=>'btn btn-primary btn-lg btn-block']);?>
+            
         </div><br><br>
         <?= $this->Form->end() ?>
 </div>

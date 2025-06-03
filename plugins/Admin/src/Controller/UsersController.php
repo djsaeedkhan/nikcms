@@ -100,11 +100,16 @@ class UsersController extends AppController
     }
     //--------------------------------------------------------------------
     public function profile($id = null){
+        
+        /* 
+        commented 1404/03/12
         if($this->request->getQuery('thumbnail')){
             $this->_Thumbnail($this->request->getQuery('thumbnail'));
-        }
+        } */
+
         if($id == null or $this->request->getAttribute('identity')->get('role_id') != 1) 
             $id = $this->request->getAttribute('identity')->get('id');
+
         try{
             $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
         }

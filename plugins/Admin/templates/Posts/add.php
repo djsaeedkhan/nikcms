@@ -299,14 +299,18 @@ $("#myform").submit(function(){
             
             <?=  $this->Form->control('published',[
                 'type'=>'select',
+                'empty'=>false,
+                'required',
                 'label'=>__d('Admin', 'وضعیت'),
                 'options' =>$this->Func->predata('post_publish_list'),
                 'class'=>'form-control mb-1']);?>
 
             <?=  $this->Form->control('post_status',[
-                'options' =>$this->Func->predata('post_show_list'),
+                'options' => $this->Func->predata('post_show_list'),
                 'type'=>'select',
                 'id'=>'post_status',
+                'empty'=>false,
+                'required',
                 'label'=>__d('Admin', 'نمایانی'),
                 'class'=>'form-control mb-1']);?>
 

@@ -18,7 +18,7 @@ class AdminController extends AppController
             $search = $this->request->getParam('?')['text'];
             $challenges = $this->paginate(
                 $this->Challenges->find('all')
-                ->contain(['Challengestatuses', 'Users','challengefollowers','challengeuserforms'])
+                ->contain(['Challengestatuses', 'Users','ChallengeFollowers','Challengeuserforms'])
                 ->where([
                     'OR'=>[
                         'Challenges.title LIKE'=>'%'.$search.'%',
@@ -28,7 +28,7 @@ class AdminController extends AppController
         }
         else{
             $this->paginate = [
-                'contain' => ['Challengestatuses', 'Users','challengefollowers','challengeuserforms'],
+                'contain' => ['Challengestatuses', 'Users','Challengefollowers','Challengeuserforms'],
                 'order'=>['id'=>'desc']
             ];
             $challenges = $this->paginate($this->Challenges);
