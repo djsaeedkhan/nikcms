@@ -2,7 +2,6 @@
 namespace Admin\Controller;
 use App\Controller\AppController as BaseController;
 use Cake\Event\EventInterface;
-use Cake\I18n\I18n;
 
 class AppController extends BaseController
 {

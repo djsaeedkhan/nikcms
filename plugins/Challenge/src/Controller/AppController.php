@@ -3,6 +3,7 @@ namespace Challenge\Controller;
 use App\Controller\AppController as BaseController;
 use Cake\ORM\TableRegistry;
 use Challenge\Predata;
+use Cake\Event\EventInterface;
 
 class AppController extends BaseController
 {
@@ -11,6 +12,7 @@ class AppController extends BaseController
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
+        $this->loadComponent('Authentication.Authentication');
 
         $setting = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
@@ -23,14 +25,26 @@ class AppController extends BaseController
             ]);
         }
 
+        $user_ids = [];
+        $identity = $this->request->getAttribute('identity');
+        if ($identity) {
+            $user_ids = $identity->get('id');
+        }
+
         $predata = new Predata();
         $this->set([
             'eductions' => $predata->gettype('eductions'),
             'group' => $predata->gettype('group'),
             'gender' => $predata->gettype('gender'),
             'center' => $predata->gettype('center'),
-            //'user_ids'=> $this->request->getAttribute('identity')->get('id')
+            'user_ids'=> $user_ids
         ]);
-        
     }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        //$this->Authentication->addUnauthenticatedActions();
+    }
+
 }

@@ -114,6 +114,7 @@ $predata = new Predata();?>
                         0=>'غیرفعال / آرشیو',
                         1 =>'فعال'],
                     'label'=>'نمایش',
+                    'empty'=>false,
                     'class'=>'form-control']);?>
             </div>
 
@@ -130,6 +131,7 @@ $predata = new Predata();?>
                     'empty'=>'- نمایش به همه -',
                     'options'=> $predata->gettype('chtype'),
                     'label'=>'نمایش به',
+                    'empty'=>false,
                     'class'=>'form-control']);?>
             </div>
 

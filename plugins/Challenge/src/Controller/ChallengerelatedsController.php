@@ -17,7 +17,7 @@ class ChallengerelatedsController extends AppController
             }
             $this->Flash->error(__('متاسفانه ثبت انجام نشد'));
         }
-        $challenges = $this->Challengerelateds->Challenges->find('list', ['limit' => 200]);
+        $challenges = $this->Challengerelateds->Challenges->find('list');
         $this->set(compact('challengerelated', 'challenges','id'));
     }
 

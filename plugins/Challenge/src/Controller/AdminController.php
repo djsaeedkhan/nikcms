@@ -60,18 +60,44 @@ class AdminController extends AppController
     //-----------------------------------------------------
     public function view($id = null){
         $challenge = $this->Challenges->get($id, [
-            'contain' => ['Challengestatuses', 
-                'Users','Challengetopics', 'Challengefields',
-                'Challengecats', 'Challengetags',
-                'Challengeforumtitles', 'Challengeimages',
-                'Challengepartners', 'Challengetexts', 
-                'Challengetimelines', 'Challengeviews',
+            'contain' => [
+                'Challengestatuses',
+                'Users',
+                'Challengecats',
+                'Challengefields',
+                'Challengetags',
+                'Challengetopics',
+                'Challengefollowers',
+                'Challengeforums',
+                'Challengeforumtitles',
+                'Challengeimages',
+                //'Challengemetas',
+                'Challengepartners',
+                'Challengerelateds'=>['Challenges'],
+                'Challengetexts',
+                'Challengetimelines',
                 'Challengeuserforms',
-                'Challengerelateds'=>['Challenges']],
+                'Challengeviews'
+            ],
+            /* 'contain' => [
+                'Challengestatuses', 
+                'Users',
+                'Challengetopics', 
+                'Challengefields',
+                'Challengecats', 
+                'Challengetags',
+                'Challengeforumtitles', 
+                'Challengeimages',
+                'Challengepartners', 
+                'Challengetexts', 
+                'Challengetimelines', 
+                'Challengeviews',
+                'Challengeuserforms',
+                'Challengerelateds'=>['Challenges']], */
         ]);
 
         $this->set([
-            'follower' => $this->Challenges->challengefollowers->find('all')->where(['challenge_id'=>$id])->count(),
+            'follower' => $this->Challenges->Challengefollowers->find('all')->where(['challenge_id'=>$id])->count(),
             'challenge' => $challenge,
             'chnews' => $this->Query->post('chnews',[
                 'contain_where'=>[ 'meta_key'=>'challenge_id', 'meta_value'=>$id]

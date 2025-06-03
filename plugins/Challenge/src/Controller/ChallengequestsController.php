@@ -59,7 +59,7 @@ class ChallengequestsController extends AppController
         //--------------------------------------------------------------------------------
         if ($this->request->is('post')) {
             $this->loadComponent('Admin.Fileupload');
-            foreach( $this->request->getdata() as $k => $item){
+            foreach( $this->request->getData() as $k => $item){
                 $temp = explode('_',$k );
                 if(isset($temp[0]) and $temp[0] == 'file' and $item != ''){
                     $fuConfig['upload_path'] = WWW_ROOT . 'challenge/';
@@ -92,7 +92,7 @@ class ChallengequestsController extends AppController
         }
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
-        if ($this->request->getQuery('ajax') and $this->request->getQuery('ajax') ==  1) {
+        if ($this->request->getQuery('ajax') ==  1) {
             /* if(!in_array($_SERVER["HTTP_HOST"],['najm.cfss.ir','localhost','hdf.ssnet.ir'])){
                 $response = $this->response->withType('application/json')->withStringBody('error07');
                 return $response;  
@@ -107,7 +107,7 @@ class ChallengequestsController extends AppController
                 ->enablehydration(false)
                 ->toarray();
 
-            if ($this->request->getQuery('parent') and $this->request->getQuery('parent') == "no" ) {
+            if ( $this->request->getQuery('parent') == "no" ) {
                 foreach($pp as $k=> $pps){
                     if(isset($pps['children'])){
                         foreach($pps['children'] as $k2=> $pps2){
@@ -178,7 +178,7 @@ class ChallengequestsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $challengequest = $this->Challengequests->patchEntity($challengequest, $this->request->getData());
 
-            if($this->request->getData()['parent_id'] == $id or $this->request->getData()['parent_id'] ==null)
+            if($this->request->getData()['parent_id'] == $id or $this->request->getData()['parent_id'] == null)
                 unset($challengequest->parent_id);
 
             if ($this->Challengequests->save($challengequest)) {

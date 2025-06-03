@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Challenge\Model\Table;
 
 use Cake\ORM\Query;
@@ -9,17 +11,22 @@ use Cake\Validation\Validator;
 /**
  * Challengerelateds Model
  *
- * @property \Challenge\Model\Table\ChallengesTable&\Cake\ORM\Association\BelongsTo $Challenges
- * @property \Challenge\Model\Table\ChallengesTable&\Cake\ORM\Association\BelongsTo $Challenges
+ * @property \App\Model\Table\ChallengesTable&\Cake\ORM\Association\BelongsTo $Challenges
+ * @property \App\Model\Table\ChallengesTable&\Cake\ORM\Association\BelongsTo $Challenges
  *
- * @method \Challenge\Model\Entity\Challengerelated get($primaryKey, $options = [])
- * @method \Challenge\Model\Entity\Challengerelated newEmptyEntity($data = null, array $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated newEmptyEntity()
+ * @method \Challenge\Model\Entity\Challengerelated newEntity(array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengerelated[] newEntities(array $data, array $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated get($primaryKey, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \Challenge\Model\Entity\Challengerelated|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \Challenge\Model\Entity\Challengerelated saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Challenge\Model\Entity\Challengerelated patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Challenge\Model\Entity\Challengerelated[] patchEntities($entities, array $data, array $options = [])
- * @method \Challenge\Model\Entity\Challengerelated findOrCreate($search, callable $callback = null, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Challenge\Model\Entity\Challengerelated[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
 class ChallengerelatedsTable extends Table
 {
@@ -37,22 +44,16 @@ class ChallengerelatedsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        /* $this->belongsTo('Challenges', [
+        $this->belongsTo('Challenges', [
             'foreignKey' => 'challenge_id',
+            'joinType' => 'INNER',
             'className' => 'Challenge.Challenges',
         ]);
         $this->belongsTo('Challenges', [
             'foreignKey' => 'challenges_id',
+            'joinType' => 'INNER',
             'className' => 'Challenge.Challenges',
-        ]); */
-
-        $this->belongsTo('Challenges', [
-            'className' => 'Challenges'
-        ])->setForeignKey('challenge_id');
-
-        $this->belongsTo('Challenges', [
-            'className' => 'Challenges'
-        ])->setForeignKey('challenges_id');
+        ]);
     }
 
     /**
@@ -64,28 +65,16 @@ class ChallengerelatedsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('challenge_id')
+            ->notEmptyString('challenge_id');
+
+        $validator
+            ->integer('challenges_id')
+            ->notEmptyString('challenges_id');
 
         return $validator;
     }
 
-    public function beforeSave($event){
-        $entity = $event->getData('entity');
-        $modified = $entity->getDirty();
-        foreach((array) $modified as $v) {
-            if(isset($entity->{$v}) and $entity->{$v} != null) {
-                if(in_array($v,['created','modified'])) return true;
-                if(is_array($entity->{$v})){
-                    //$entity->{$v} = ($entity->{$v});
-                }else{
-                    $entity->{$v} = strip_tags( (string) $entity->{$v},'<img><p><a><b><br><strong><br /><hr><i><span><div><ul><li><table><tr><td><thead><tbody>');
-                }
-            }
-        }
-        return true;
-    } 
-    
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -95,10 +84,9 @@ class ChallengerelatedsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['challenge_id'], 'Challenges'));
-        $rules->add($rules->existsIn(['challenges_id'], 'Challenges'));
+        $rules->add($rules->existsIn(['challenge_id'], 'Challenges'), ['errorField' => 'challenge_id']);
+        $rules->add($rules->existsIn(['challenges_id'], 'Challenges'), ['errorField' => 'challenge_id']);
         $rules->add($rules->isUnique(['challenge_id','challenges_id'],''.__d('Template', 'همیاری').' قبلا استفاده شده است'));
-
         return $rules;
     }
 }

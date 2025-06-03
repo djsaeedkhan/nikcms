@@ -6,15 +6,17 @@ namespace Challenge\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Challengerelated Entity
+ * UserMeta Entity
  *
  * @property int $id
- * @property int $challenge_id
- * @property int $challenges_id
+ * @property int $user_id
+ * @property string $meta_type
+ * @property string|null $meta_key
+ * @property string|null $meta_value
  *
- * @property \App\Model\Entity\Challenge $challenge
+ * @property \Challenge\Model\Entity\User $user
  */
-class Challengerelated extends Entity
+class UserMeta extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,8 +28,10 @@ class Challengerelated extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'challenge_id' => true,
-        'challenges_id' => true,
-        'challenge' => true,
+        'user_id' => true,
+        'meta_type' => true,
+        'meta_key' => true,
+        'meta_value' => true,
+        'user' => true,
     ];
 }

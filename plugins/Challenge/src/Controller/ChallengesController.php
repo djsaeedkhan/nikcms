@@ -659,7 +659,7 @@ class ChallengesController extends AppController
                 ->execute();
         }
         else{
-            $viewModel->save($viewModel->newEmptyEntity(([
+            $viewModel->save($viewModel->newEmptyEntity([
                 'challenge_id'  => $challenge['id'],
                 'views' => 1 ,
             ]));
