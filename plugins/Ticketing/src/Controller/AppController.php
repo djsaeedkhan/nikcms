@@ -11,6 +11,7 @@ class AppController extends BaseController
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
+        $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Admin.Fileupload');
         $this->set(['code' => 1]);
 

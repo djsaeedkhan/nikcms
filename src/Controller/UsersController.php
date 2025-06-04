@@ -39,7 +39,7 @@ class UsersController extends AppController{
     //----------------------------------------------------------
     public function profile(){
         $this->viewBuilder()->setLayout('Admin.default');
-        $id = $this->getRequest()->getSession()->read('Auth.User.id');
+        $id = $this->request->getAttribute('identity')->get('id');
         $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
         $this->set(['user'=>$user]);
         if ($this->request->is(['patch', 'put'])) {
@@ -76,8 +76,12 @@ class UsersController extends AppController{
                             'action' => 'create']);
                     }
                 endif;
+                
+                $user = $this->Users->get($this->request->getAttribute('identity')->get('id'));
+                //$this->Authentication->getResult()->getData()->offsetSet('role_list', $role_list);
+                $this->Authentication->setIdentity($user);
+
                 $this->Flash->success(__('بروز رسانی مشخصات با موفقیت انجام شد'));
-                $this->Auth->setUser($this->Users->get($this->request->getAttribute('identity')->get('id')));
             }
             else
                 $this->Flash->error(__('متاسفانه ثبت اطلاعات با موفقیت انجام نشد.'));

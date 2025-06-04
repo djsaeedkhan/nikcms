@@ -30,7 +30,7 @@
 				<header class="profile-section-header">
 					<div class="icon-text-wrapper">
 						<span class="icon-wrapper">
-							<img src="<?=siteurl?>/css/icons/profile-secondary.svg" alt="">
+							<img src="<?=siteurl?>/css/icons/profile-secondary.svg" alt="پروفایل">
 						</span>
 						<span class="text">
 							<?php
@@ -57,36 +57,7 @@
 				</header>
 				<?= $this->Flash->render() ?>
 				<?= $this->fetch('content');?>
-
-				<!-- <form class="row">
-				<div class="col-lg-4 col-12">
-					<div class="form-item select has-bg">
-					<label class="form-label">نهاد برگزار کننده</label>
-					<select class="form-control" name="">
-						<option value="">انتخاب کنید</option>
-						<option value="0">نهاد اول</option>
-						<option value="1">نهاد دوم</option>
-						<option value="2">نهاد سوم</option>
-					</select>
-					</div>
-				</div>
-				<div class="col-lg-4 col-12">
-					<div class="form-item select has-bg">
-					<label class="form-label">وضعیت جمع سپاری</label>
-					<select class="form-control" name="">
-						<option value="">انتخاب کنید</option>
-						<option value="0">وضعیت اول</option>
-						<option value="1">وضعیت دوم</option>
-						<option value="2">وضعیت سوم</option>
-					</select>
-					</div>
-				</div>
-				<div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-center mt-4">
-					<button class="btn btn-lg btn-primary btn-mobile-full" type="submit">جستجو</button>
-				</div>
-				</form> -->
 			</div>
-
 		</div>
 	</div>
 	<!-- .row-->

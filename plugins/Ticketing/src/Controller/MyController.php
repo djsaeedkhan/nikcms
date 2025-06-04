@@ -6,7 +6,8 @@ use Cake\ORM\TableRegistry;
 class MyController extends AppController
 {
     //-------------------------------------------------------------------------------
-    public function initialize() {
+    public function initialize(): void
+    {
         parent::initialize();
         if (isset($this->setting['client_webview']) and $this->setting['client_webview'] == 1) {
             try {

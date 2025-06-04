@@ -153,8 +153,8 @@ echo $this->element('Template.header');
           </div>
           <!-- end of one .filter-item-->
 
-          <?= $this->form->button(
-                '<span>جستجو</span><span class="icon icon-arrow-circle-left"></span>',
+          <?= $this->Form->button(
+                '<span>جستجوa</span><span class="icon icon-arrow-circle-left"></span>',
                 ['escape'=>false,'class'=>'btn btn-lg btn-primary w-100 mt-4']
               );?>
 

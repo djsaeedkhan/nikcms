@@ -120,10 +120,10 @@ class ChallengesController extends AppController
         
         $this->set([
             //'topics' => $this->getTableLocator()->get('Challengetags')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'cats' => $this->getTableLocator()->get('Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'status' => $this->getTableLocator()->get('Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'topics' => $this->getTableLocator()->get('Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'fields' => $this->getTableLocator()->get('Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'cats' => $this->getTableLocator()->get('Challenge.Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'status' => $this->getTableLocator()->get('Challenge.Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'topics' => $this->getTableLocator()->get('Challenge.Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'fields' => $this->getTableLocator()->get('Challenge.Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
         ]);
 
         try{
@@ -812,7 +812,9 @@ class ChallengesController extends AppController
                 //$this->request = $this->request->withData('single',1); //کاربر حقیقی ثبت شود همیش
             }
 
-            if(!empty($this->request->getData()['file']['name'])) {		
+            /* 
+            commented 1404-03-14
+            if( isset($this->request->getData()['file']['name']) ) {		
                 $fuConfig['upload_path']    = WWW_ROOT . 'profile/';	
                 if (!file_exists($fuConfig['upload_path'])) {
                     mkdir($fuConfig['upload_path'], 0777, true);
@@ -838,7 +840,7 @@ class ChallengesController extends AppController
                 }
             } else {
                 //$this->request = $this->request->withData('image',null );
-            }
+            } */
 
             $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
             if(isset($this->request->getData()['extra'])){
@@ -853,6 +855,9 @@ class ChallengesController extends AppController
                 $userp->center_name = null;
                 $userp->semat = null;
             } */
+            if( is_array($userp['extra']) ){
+                $userp['extra'] = serialize($userp['extra']);
+            }
             if ($this->userprofiles->save($userp)) {
                 //update profile image of site header
                 $this->request->getSession()->write('profile',
@@ -871,6 +876,7 @@ class ChallengesController extends AppController
             }
             else
                 $this->Flash->error(__('متاسفانه بروز رسانی با موفقیت انجام نشد'));
+            pr($userp);
 
         }
         $challengetopics = $this->userprofiles->Challengetopics->find('list', ['limit' => 200]);
