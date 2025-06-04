@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Test\TestCase\Model\Table;
+namespace Userslogs\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use UsersLogs\Model\Table\UsersLogsTable;
+use Userslogs\Model\Table\UsersLogsTable;
 
 /**
- * UsersLogs\Model\Table\UsersLogsTable Test Case
+ * Userslogs\Model\Table\UsersLogsTable Test Case
  */
 class UsersLogsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \UsersLogs\Model\Table\UsersLogsTable
+     * @var \Userslogs\Model\Table\UsersLogsTable
      */
     protected $UsersLogs;
 
@@ -24,8 +24,8 @@ class UsersLogsTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'plugin.UsersLogs.UsersLogs',
-        'plugin.UsersLogs.Users',
+        'plugin.Userslogs.UsersLogs',
+        'plugin.Userslogs.Users',
     ];
 
     /**
@@ -50,27 +50,5 @@ class UsersLogsTableTest extends TestCase
         unset($this->UsersLogs);
 
         parent::tearDown();
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     * @uses \UsersLogs\Model\Table\UsersLogsTable::validationDefault()
-     */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \UsersLogs\Model\Table\UsersLogsTable::buildRules()
-     */
-    public function testBuildRules(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
     }
 }

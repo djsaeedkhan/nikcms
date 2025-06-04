@@ -81,7 +81,7 @@ try {
         </thead>
         <tbody>
             <?php 
-            $results = $this->getTableLocator()->get('Scheduler.Cronjobs')->find('all')->toarray();
+            $results = TableRegistry::getTableLocator()->get('Scheduler.Cronjobs')->find('all')->toarray();
             $i = 1;
             $crons  = (array) ModuleHelper::register_cronjobs();
             foreach ($results as $res):?>

@@ -3,7 +3,7 @@ namespace Seo\Controller;
 use Seo\Controller\AppController;
 class UrlController extends AppController
 {
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         //$this->loadModel('Seo.Tinyurls');

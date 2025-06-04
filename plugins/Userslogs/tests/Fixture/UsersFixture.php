@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Test\Fixture;
+namespace Userslogs\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -28,9 +28,9 @@ class UsersFixture extends TestFixture
                 'role_id' => 'Lorem ipsum dolor ',
                 'enable' => 1,
                 'token' => 'Lorem ipsum dolor sit amet',
-                'created' => '2025-05-31 21:38:56',
-                'modified' => '2025-05-31 21:38:56',
-                'expired' => '2025-05-31 21:38:56',
+                'created' => '2025-06-04 18:42:30',
+                'modified' => '2025-06-04 18:42:30',
+                'expired' => '2025-06-04 18:42:30',
             ],
         ];
         parent::init();

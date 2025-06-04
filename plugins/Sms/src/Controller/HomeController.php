@@ -8,7 +8,7 @@ use Cake\I18n\Time;
 
 class HomeController extends AppController
 {
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');

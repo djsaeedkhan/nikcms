@@ -3,8 +3,8 @@ use Cake\View\Helper\FormHelper;
 use Cake\View\Helper\HtmlHelper;
 
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
-if(count($result)):
-    $hsite = unserialize($result['seo_plugin']);
+if($this->Func->is_serial($result)):
+    $hsite = unserialize($result);
     $this->request = $this->request->withData('seo_plugin.setting',$hsite['setting']);
 endif;
 

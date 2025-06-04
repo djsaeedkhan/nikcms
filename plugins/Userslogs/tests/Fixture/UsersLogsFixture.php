@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Test\Fixture;
+namespace Userslogs\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -23,7 +23,7 @@ class UsersLogsFixture extends TestFixture
                 'user_id' => 1,
                 'username' => 'Lorem ipsum dolor sit amet',
                 'types' => 1,
-                'created' => '2025-05-31 21:39:28',
+                'created' => '2025-06-04 18:43:10',
             ],
         ];
         parent::init();

@@ -2,8 +2,8 @@
 use \Admin\View\Helper\ModuleHelper;
 
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
-if(count($result)):
-    $hsite = unserialize($result['brcrumb_plugin']);
+if($this->Func->is_serial($result)):
+    $hsite = unserialize($result);
     $this->request = $this->request->withData('brcrumb_plugin',$hsite);
 endif;?>
 

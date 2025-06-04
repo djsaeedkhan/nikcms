@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Model\Entity;
+namespace Userslogs\Model\Entity;
 
 use Cake\ORM\Entity;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Model\Table;
+namespace Userslogs\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -11,21 +11,21 @@ use Cake\Validation\Validator;
 /**
  * UsersLogs Model
  *
- * @property \UsersLogs\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \Userslogs\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \UsersLogs\Model\Entity\UsersLog newEmptyEntity()
- * @method \UsersLogs\Model\Entity\UsersLog newEntity(array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[] newEntities(array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog get($primaryKey, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \UsersLogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog newEmptyEntity()
+ * @method \Userslogs\Model\Entity\UsersLog newEntity(array $data, array $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[] newEntities(array $data, array $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog get($primaryKey, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Userslogs\Model\Entity\UsersLog[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -49,7 +49,7 @@ class UsersLogsTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'className' => 'UsersLogs.Users',
+            'className' => 'Userslogs.Users',
         ]);
     }
 

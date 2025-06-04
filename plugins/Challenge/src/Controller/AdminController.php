@@ -112,7 +112,6 @@ class AdminController extends AppController
                 'contain_where'=>[ 'meta_key'=>'challenge_id', 'meta_value'=>$id]
             ]),
         ]);
-        pr($p);
     }
     //-----------------------------------------------------
     public function edit($id = null)

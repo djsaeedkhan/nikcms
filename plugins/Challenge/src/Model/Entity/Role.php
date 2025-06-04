@@ -1,22 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Userslogs\Model\Entity;
+namespace Challenge\Model\Entity;
 
 use Cake\ORM\Entity;
 
 /**
- * UsersLog Entity
+ * Role Entity
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $username
- * @property int|null $types
+ * @property string $title
+ * @property string $data
  * @property \Cake\I18n\FrozenTime $created
  *
- * @property \Userslogs\Model\Entity\User $user
+ * @property \Challenge\Model\Entity\User[] $users
  */
-class UsersLog extends Entity
+class Role extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -28,10 +27,9 @@ class UsersLog extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'username' => true,
-        'types' => true,
+        'title' => true,
+        'data' => true,
         'created' => true,
-        'user' => true,
+        'users' => true,
     ];
 }

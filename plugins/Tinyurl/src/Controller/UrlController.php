@@ -3,7 +3,7 @@ namespace Tinyurl\Controller;
 use Tinyurl\Controller\AppController;
 class UrlController extends AppController
 {
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->loadModel('Tinyurl.Tinyurls');

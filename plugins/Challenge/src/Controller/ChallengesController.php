@@ -876,8 +876,6 @@ class ChallengesController extends AppController
             }
             else
                 $this->Flash->error(__('متاسفانه بروز رسانی با موفقیت انجام نشد'));
-            pr($userp);
-
         }
         $challengetopics = $this->userprofiles->Challengetopics->find('list', ['limit' => 200]);
 

@@ -4,7 +4,7 @@ use Captcha\Controller\AppController;
 
 class CaptchaController extends AppController
 {
-    public function initialize()
+    public function initialize(): void
     {
       parent::initialize();
       //$this->loadComponent('Captcha.Captcha');

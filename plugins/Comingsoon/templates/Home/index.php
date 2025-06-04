@@ -1,7 +1,7 @@
 <?php
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
-if(count($result)):
-    $hsite = unserialize($result['coming_plugin']);
+if($this->Func->is_serial($result)):
+    $hsite = unserialize($result);
     $this->request = $this->request->withData('coming_plugin.setting',$hsite['setting']);
 endif;
 ?>

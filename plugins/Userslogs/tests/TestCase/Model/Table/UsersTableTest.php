@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace UsersLogs\Test\TestCase\Model\Table;
+namespace Userslogs\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use UsersLogs\Model\Table\UsersTable;
+use Userslogs\Model\Table\UsersTable;
 
 /**
- * UsersLogs\Model\Table\UsersTable Test Case
+ * Userslogs\Model\Table\UsersTable Test Case
  */
 class UsersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \UsersLogs\Model\Table\UsersTable
+     * @var \Userslogs\Model\Table\UsersTable
      */
     protected $Users;
 
@@ -24,61 +24,61 @@ class UsersTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'plugin.UsersLogs.Users',
-        'plugin.UsersLogs.Roles',
-        'plugin.UsersLogs.Challengeblueticks',
-        'plugin.UsersLogs.Challengefollowers',
-        'plugin.UsersLogs.Challengeforums',
-        'plugin.UsersLogs.Challengeqanswers',
-        'plugin.UsersLogs.Challenges',
-        'plugin.UsersLogs.Challengeuserforms',
-        'plugin.UsersLogs.Challengeuserprofiles',
-        'plugin.UsersLogs.Comments',
-        'plugin.UsersLogs.FormbuilderDatas',
-        'plugin.UsersLogs.LmsCertificates',
-        'plugin.UsersLogs.LmsCoursefilecans',
-        'plugin.UsersLogs.LmsCourses',
-        'plugin.UsersLogs.LmsCoursesessions',
-        'plugin.UsersLogs.LmsCourseusers',
-        'plugin.UsersLogs.LmsExamresultlists',
-        'plugin.UsersLogs.LmsExamresults',
-        'plugin.UsersLogs.LmsExams',
-        'plugin.UsersLogs.LmsExamusers',
-        'plugin.UsersLogs.LmsFactors',
-        'plugin.UsersLogs.LmsPayments',
-        'plugin.UsersLogs.LmsUserfactors',
-        'plugin.UsersLogs.LmsUsernotes',
-        'plugin.UsersLogs.LmsUserprofiles',
-        'plugin.UsersLogs.Logs',
-        'plugin.UsersLogs.PollVotes',
-        'plugin.UsersLogs.Posts',
-        'plugin.UsersLogs.Profiles',
-        'plugin.UsersLogs.ShopAddresses',
-        'plugin.UsersLogs.ShopFavorites',
-        'plugin.UsersLogs.ShopLogesticusers',
-        'plugin.UsersLogs.ShopOrderlogesticlogs',
-        'plugin.UsersLogs.ShopOrderlogestics',
-        'plugin.UsersLogs.ShopOrderlogs',
-        'plugin.UsersLogs.ShopOrderrefunds',
-        'plugin.UsersLogs.ShopOrders',
-        'plugin.UsersLogs.ShopOrdershippings',
-        'plugin.UsersLogs.ShopOrdertexts',
-        'plugin.UsersLogs.ShopOrdertokens',
-        'plugin.UsersLogs.ShopPayments',
-        'plugin.UsersLogs.ShopProfiles',
-        'plugin.UsersLogs.ShopUseraddresses',
-        'plugin.UsersLogs.SmsValidations',
-        'plugin.UsersLogs.Ticketaudits',
-        'plugin.UsersLogs.Ticketcomments',
-        'plugin.UsersLogs.Tickets',
-        'plugin.UsersLogs.TmpChallengeforms',
-        'plugin.UsersLogs.TmpMembers',
-        'plugin.UsersLogs.TmpPersonlikes',
-        'plugin.UsersLogs.TmpPersons',
-        'plugin.UsersLogs.TmpProblemforms',
-        'plugin.UsersLogs.TmpProblems',
-        'plugin.UsersLogs.UserMetas',
-        'plugin.UsersLogs.Challengetags',
+        'plugin.Userslogs.Users',
+        'plugin.Userslogs.Roles',
+        'plugin.Userslogs.Challengeblueticks',
+        'plugin.Userslogs.Challengefollowers',
+        'plugin.Userslogs.Challengeforums',
+        'plugin.Userslogs.Challengeqanswers',
+        'plugin.Userslogs.Challenges',
+        'plugin.Userslogs.Challengeuserforms',
+        'plugin.Userslogs.Challengeuserprofiles',
+        'plugin.Userslogs.Comments',
+        'plugin.Userslogs.FormbuilderDatas',
+        'plugin.Userslogs.LmsCertificates',
+        'plugin.Userslogs.LmsCoursefilecans',
+        'plugin.Userslogs.LmsCourses',
+        'plugin.Userslogs.LmsCoursesessions',
+        'plugin.Userslogs.LmsCourseusers',
+        'plugin.Userslogs.LmsExamresultlists',
+        'plugin.Userslogs.LmsExamresults',
+        'plugin.Userslogs.LmsExams',
+        'plugin.Userslogs.LmsExamusers',
+        'plugin.Userslogs.LmsFactors',
+        'plugin.Userslogs.LmsPayments',
+        'plugin.Userslogs.LmsUserfactors',
+        'plugin.Userslogs.LmsUsernotes',
+        'plugin.Userslogs.LmsUserprofiles',
+        'plugin.Userslogs.Logs',
+        'plugin.Userslogs.PollVotes',
+        'plugin.Userslogs.Posts',
+        'plugin.Userslogs.Profiles',
+        'plugin.Userslogs.ShopAddresses',
+        'plugin.Userslogs.ShopFavorites',
+        'plugin.Userslogs.ShopLogesticusers',
+        'plugin.Userslogs.ShopOrderlogesticlogs',
+        'plugin.Userslogs.ShopOrderlogestics',
+        'plugin.Userslogs.ShopOrderlogs',
+        'plugin.Userslogs.ShopOrderrefunds',
+        'plugin.Userslogs.ShopOrders',
+        'plugin.Userslogs.ShopOrdershippings',
+        'plugin.Userslogs.ShopOrdertexts',
+        'plugin.Userslogs.ShopOrdertokens',
+        'plugin.Userslogs.ShopPayments',
+        'plugin.Userslogs.ShopProfiles',
+        'plugin.Userslogs.ShopUseraddresses',
+        'plugin.Userslogs.SmsValidations',
+        'plugin.Userslogs.Ticketaudits',
+        'plugin.Userslogs.Ticketcomments',
+        'plugin.Userslogs.Tickets',
+        'plugin.Userslogs.TmpChallengeforms',
+        'plugin.Userslogs.TmpMembers',
+        'plugin.Userslogs.TmpPersonlikes',
+        'plugin.Userslogs.TmpPersons',
+        'plugin.Userslogs.TmpProblemforms',
+        'plugin.Userslogs.TmpProblems',
+        'plugin.Userslogs.UserMetas',
+        'plugin.Userslogs.Challengetags',
     ];
 
     /**
@@ -103,27 +103,5 @@ class UsersTableTest extends TestCase
         unset($this->Users);
 
         parent::tearDown();
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     * @uses \UsersLogs\Model\Table\UsersTable::validationDefault()
-     */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \UsersLogs\Model\Table\UsersTable::buildRules()
-     */
-    public function testBuildRules(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
     }
 }
