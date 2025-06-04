@@ -992,7 +992,7 @@ class QueryHelper extends Helper
     {
         //pr(urldecode(Router::url($link,'true')));
 
-        if(strcmp(urldecode(Router::url($link,'true')), urldecode(Router::url($current,'true'))) === 0)
+        if(strcmp(urldecode(Router::url($link,true)), urldecode(Router::url($current,true))) === 0)
             return 'active';
         else
             return null;

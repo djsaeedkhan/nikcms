@@ -18,12 +18,18 @@ class ChallengesController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Admin.Fileupload');
+        $this->Authentication->allowUnauthenticated([
+            'view','index','follow', 'profile',
+            '_profile_challenge', '_profile_default', '_profile_edit', '_challengequests']);
+        $this->Challengequests = TableRegistry::getTableLocator()->get('Challenge.Challengequests');
+        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
+        $this->Challengeuserforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
+        $this->Challengeforums = $this->getTableLocator()->get('Challenge.Challengeforums');
+
         $this->viewBuilder()->setLayout("login");
-        //$this->Authentication->addUnauthenticatedActions();
     }
     //------------------------------------------------------------------------
     public function index(){
-        
         if($this->request->getParam('?')){
             $param = $this->request->getQuery();
 
@@ -132,8 +138,8 @@ class ChallengesController extends AppController
     //------------------------------------------------------------------------
     public function follow($id = null){
         $id = null;
-        if($this->request->getParam(['slug'])){
-            $id = $this->request->getParam(['slug']);
+        if($this->request->getParam('slug')){
+            $id = $this->request->getParam('slug');
         }
         if ( $this->request->is('post') ) {
 
@@ -177,7 +183,8 @@ class ChallengesController extends AppController
         return $this->redirect($this->referer());
     }
     //------------------------------------------------------------------------
-    public function view($id = null,$page = 'overview'){
+    public function view($id = null, $page = 'overview')
+    {
         $list = [];
         try{
             $this->viewBuilder()->setLayout('Template.challenge-single');
@@ -186,11 +193,11 @@ class ChallengesController extends AppController
             $this->viewBuilder()->setLayout("challenge-single");
         }
 
-        if($this->request->getParam(['slug'])){
-            $id = $this->request->getParam(['slug']);
+        if($this->request->getParam('slug')){
+            $id = $this->request->getParam('slug');
         }
-        if($this->request->getParam(['method'])){
-            $page = $this->request->getParam(['method']);
+        if($this->request->getParam('method')){
+            $page = $this->request->getParam('method');
         }       
 
         try{
@@ -241,23 +248,26 @@ class ChallengesController extends AppController
                 else $this->Flash->error('برای مشاهده این '.__d('Template', 'همیاری').' میبایست رمز عبور را وارد نمایید');
             }
         }
-        $this->set(['can_password'=> $can_password]);
 
-        $user = $this->Challenges->Users->find('all')
-            ->where(['Users.id' => $this->request->getAttribute('identity')->get('id')])
-            ->contain(['Challengeuserprofiles',
-            'Challengefollowers' => function ($q) use($challenge_id) {
-                return $q->where([
-                    'challenge_id'=> $challenge_id
-                ]);
-            }])->first();
+        $user = false;
+        $userform = false;
+        if( $this->request->getAttribute('identity')){
+            $user = $this->Challenges->Users->find('all')
+                ->where(['Users.id' => $this->request->getAttribute('identity')->get('id')])
+                ->contain(['Challengeuserprofiles',
+                'Challengefollowers' => function ($q) use($challenge_id) {
+                    return $q->where([
+                        'challenge_id'=> $challenge_id
+                    ]);
+                }])->first();
+        }
 
         $this->set([
+            'can_password'=> $can_password,
             'users'=> $user,
             'challenge_ids' , $challenge_id,
             'challenge_slug' , $challenge_slug,
             ]);
-        
         
         $challenge = $this->Challenges->find('all')
             ->where([is_numeric($id)?['Challenges.id'=>$id]:['Challenges.slug'=>$id] ])
@@ -285,18 +295,14 @@ class ChallengesController extends AppController
                         return $q->order(['dates'=>'asc']);
                     },
                 ]);
-                $render  = 'timeline';
+                $render = 'timeline';
                 break;
 
             case 'partners':
-                $render  = 'partners';
+                $render = 'partners';
                 break;
 
             case 'solution':
-                
-                
-                $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
-
                 if($this->request->getQuery('ajax') and $this->request->getQuery('ajax') == 1 ){
 
                     if(! $this->request->is('ajax')){
@@ -321,7 +327,6 @@ class ChallengesController extends AppController
                     $this->autoRender = false;
                 }
 
-                $this->Challengequests = TableRegistry::getTableLocator()->get('Challenge.Challengequests');
                 $this->Challengequests->recover();
                 $forms = $this->Challengequests
                     ->find('threaded')
@@ -330,171 +335,172 @@ class ChallengesController extends AppController
                     ->toarray();
                 $this->set('forms',$forms);
 
-                $this->Challengeuserforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
                 /* $this->set(['forms'=> 
                     $this->Challengeuserforms->find('all')
                         ->where(['challenge_id' => $challenge_id,'user_id'=> $this->request->getAttribute('identity')->get('id')])
                         ->first(),
                 ]); */
 
-                $user_formlist = $this->Challengeuserforms
-                    ->find('all')
-                    ->where([
-                        'challenge_id' => $challenge_id , 
-                        'user_id'=> $this->request->getAttribute('identity')->get('id')]);
-                
-                $this->set(['formlist_count' => $user_formlist->count()]);
-
-                if($this->request->getQuery('edit')){
-                    $userform = $user_formlist->first() ;
-                    $id = $this->Challengeqanswers
-                        ->find('list',['keyField' => 'challengequest_id','valueField' => 'value'])
+                if($this->request->getAttribute('identity')){
+                    $user_formlist = $this->Challengeuserforms
+                        ->find('all')
                         ->where([
-                            'user_id'=> $this->request->getAttribute('identity')->get('id'), 
-                            'challenge_id' => $challenge_id ])
-                        ->toarray();
-                    $this->set([
-                        'editform' => $id ,
-                    ]);
-                    //$render = 'solution_edit';
-                }
-                elseif($user_formlist->first() and $this->request->getQuery('edit')){
-                    $userform = $user_formlist->first() ;
-                }
-                else
-                {
-                    $userform = $this->Challengeuserforms->newEmptyEntity();
-                    if($temp['challengestatus_id'] != 1){
-                        $this->Flash->error('مدت زمان شرکت در این '.__d('Template', 'همیاری').' به پایان رسیده است');
-                        return $this->redirect($this->referer()); 
-                    }
-                }
+                            'challenge_id' => $challenge_id , 
+                            'user_id'=> $this->request->getAttribute('identity')->get('id')]);
+                    $this->set(['formlist_count' => $user_formlist->count()]);
 
-                if ($this->request->is(['post','put','patch']) and $this->request->getAttribute('identity')->get('id') ) {
-
-                    $id_list = $this->Challengeuserforms->find('list',['keyField' => 'id','valueField' => 'id'])
-                        ->where([
-                            'user_id'=> $this->request->getAttribute('identity')->get('id'), 
-                            'challenge_id' => $challenge_id ])
-                        ->count();
-
-                    if($id_list)
-                        $this->Challengeuserforms->deleteAll(['id IN'=>$id_list]);
-                        
-                    $count = $this->Challengeuserforms->find('all')->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])->count();
-                    $token = 
-                        jdate('y','','','','en').'.'.
-                        substr("000000".$challenge_id,-3).'.'.
-                        substr("000000".$this->request->getAttribute('identity')->get('id'),-6).'.'.
-                        substr("000000".($count==0?1:$count),-3);
-
-                    $this->request = $this->request->withData('Challengeuserforms.token1', $token );
-                    $this->request = $this->request->withData('Challengeuserforms.user_id',$this->request->getAttribute('identity')->get('id') );
-                    $this->request = $this->request->withData('Challengeuserforms.challenge_id', $challenge_id );
-
-                    $userform = $this->Challengeuserforms->patchEntity($userform, $this->request->getData()['Challengeuserforms']);
-                    
-                    if ($userform = $this->Challengeuserforms->save($userform)) {
-
-                        
-                        foreach( $this->request->getdata() as $k => $item){if($k != 'Challengeuserforms'):
-                            $tmp = explode('_',$k );
-                            if(isset($tmp[0]) and $tmp[0] == 'file' and $item != ''){
-                                $item =  'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);
-                               /*  $fuConfig['upload_path'] = WWW_ROOT . 'challenge/';
-                                if (!file_exists($fuConfig['upload_path'])) {
-                                    mkdir($fuConfig['upload_path'], 0777, true);
-                                }
-                                $fuConfig['allowed_types'] = 'zip';
-                                $fuConfig['file_name'] = 'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
-                                $fuConfig['max_size'] = 20000;			
-                                $this->Fileupload->init($fuConfig);	
-                                if (!$this->Fileupload->upload($k)){
-                                    $fError = $this->Fileupload->errors();
-                                    $item = '';
-                                } else {
-                                    $item = $this->Fileupload->output('file_name');
-                                } */
-                            }
-                            $list[] = [
-                                'challenge_id' => $challenge_id,
-                                'user_id' => $this->request->getAttribute('identity')->get('id'),
-                                'types' => isset($tmp[0])?$tmp[0]:'-',
-                                'challengequest_id' => isset($tmp[1])?$tmp[1]:'0',
-                                'value' => is_array($item)?implode(',',$item):$item,
-                            ];
-                        endif;}
-                        
-                        
-                        $id = $this->Challengeqanswers->find('list',['keyField' => 'id','valueField' => 'id'])
+                    if($this->request->getQuery('edit')){
+                        $userform = $user_formlist->first() ;
+                        $id = $this->Challengeqanswers
+                            ->find('list',['keyField' => 'challengequest_id','valueField' => 'value'])
                             ->where([
                                 'user_id'=> $this->request->getAttribute('identity')->get('id'), 
                                 'challenge_id' => $challenge_id ])
                             ->toarray();
-
-                        if($id)
-                            $this->Challengeqanswers->deleteAll(['id IN'=>$id]);
-
-                        $answer = $this->Challengeqanswers->newEmptyEntity();
-                        $answer = $this->Challengeqanswers->patchEntities($answer,$list);
-                        if($this->Challengeqanswers->saveMany($answer)){
-                            $currentuser = $this->getTableLocator()->get('Challenge.Challengeuserprofiles') 
-                                ->find('all')
-                                ->where(['user_id'=>  $this->request->getAttribute('identity')->get('id') ])
-                                ->first();
-                               
-                            if($this->request->getQuery('edit')){
-                                if(isset($this->setting_challenge['sms_edit_challenge']) and 
-                                    $this->setting_challenge['sms_edit_challenge']!=''){
-                                        if($currentuser and $currentuser['mobile'] != ''){
-                                            $sms = new Sms();
-                                            $sms->sendsingle([
-                                                'mobile' => $currentuser['mobile'],
-                                                'text' =>$this->setting_challenge['sms_edit_challenge'],
-                                            ]);
-                                        }
-                                }
-                            }
-                            else{
-                                if(isset($this->setting_challenge['sms_new_challenge']) and 
-                                    $this->setting_challenge['sms_new_challenge']!=''){
-                                        if($currentuser and $currentuser['mobile'] != ''){
-                                            $sms = new Sms();
-                                            $sms->sendsingle([
-                                                'mobile' => $currentuser['mobile'],
-                                                'text' =>$this->setting_challenge['sms_new_challenge'],
-                                            ]);
-                                        }
-                                }
-                            }
-                            
-                            $this->Flash->success('فرم مشارکت شما با موفقیت ثبت گردید.'."<br>".
-                                'برای مشاهده لیست مشارکت ها به پنل کاربری تان مراجعه نمایید.'."<br><br>".
-                                '<a class="mt-2 button button-rounded button-reveal button-small button-green text-right  ml-2" href="'.Router::url('/challenge/').'">
-                                برای مشاهده و مشارکت در دیگر '.__d('Template', 'همیاری').'  اینجا کلیک کنید</a>');
-
-                            //$export = new Export();
-                            //$url = $export->getword($userform->id,$this->Auth->user());
-                            //$url = $export->getpdf($userform->id,$this->Auth->user(),0);
-                        }
-                        else{
-                            $this->Flash->error('متاسفانه ثبت اطلاعات با موفقیت انجام نشد.');
-                        }
-                        return $this->redirect('/challenge/'.$challenge_slug);
+                        $this->set([
+                            'editform' => $id ,
+                        ]);
+                        //$render = 'solution_edit';
+                    }
+                    elseif($user_formlist->first() and $this->request->getQuery('edit')){
+                        $userform = $user_formlist->first() ;
                     }
                     else
-                        $this->Flash->error(__('متاسفانه فرم مشارکت ثبت نشد'));
+                    {
+                        $userform = $this->Challengeuserforms->newEmptyEntity();
+                        if($temp['challengestatus_id'] != 1){
+                            $this->Flash->error('مدت زمان شرکت در این '.__d('Template', 'همیاری').' به پایان رسیده است');
+                            return $this->redirect($this->referer()); 
+                        }
+                    }
+
+                    if ($this->request->is(['post','put','patch']) and $this->request->getAttribute('identity')->get('id') ) {
+
+                        $id_list = $this->Challengeuserforms->find('list',['keyField' => 'id','valueField' => 'id'])
+                            ->where([
+                                'user_id'=> $this->request->getAttribute('identity')->get('id'), 
+                                'challenge_id' => $challenge_id ])
+                            ->count();
+
+                        if($id_list)
+                            $this->Challengeuserforms->deleteAll(['id IN'=>$id_list]);
+                            
+                        $count = $this->Challengeuserforms->find('all')->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])->count();
+                        $token = 
+                            jdate('y','','','','en').'.'.
+                            substr("000000".$challenge_id,-3).'.'.
+                            substr("000000".$this->request->getAttribute('identity')->get('id'),-6).'.'.
+                            substr("000000".($count==0?1:$count),-3);
+
+                        $this->request = $this->request->withData('Challengeuserforms.token1', $token );
+                        $this->request = $this->request->withData('Challengeuserforms.user_id',$this->request->getAttribute('identity')->get('id') );
+                        $this->request = $this->request->withData('Challengeuserforms.challenge_id', $challenge_id );
+
+                        $userform = $this->Challengeuserforms->patchEntity($userform, $this->request->getData()['Challengeuserforms']);
+                        
+                        if ($userform = $this->Challengeuserforms->save($userform)) {
+
+                            
+                            foreach( $this->request->getdata() as $k => $item){if($k != 'Challengeuserforms'):
+                                $tmp = explode('_',$k );
+                                if(isset($tmp[0]) and $tmp[0] == 'file' and $item != ''){
+                                    $item =  'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);
+                                /*  $fuConfig['upload_path'] = WWW_ROOT . 'challenge/';
+                                    if (!file_exists($fuConfig['upload_path'])) {
+                                        mkdir($fuConfig['upload_path'], 0777, true);
+                                    }
+                                    $fuConfig['allowed_types'] = 'zip';
+                                    $fuConfig['file_name'] = 'ch'.$challenge_id.'_'.$this->request->getAttribute('identity')->get('id').'_'.$k.'_'.date('m-d-h').'_'.rand(1000,9999);			
+                                    $fuConfig['max_size'] = 20000;			
+                                    $this->Fileupload->init($fuConfig);	
+                                    if (!$this->Fileupload->upload($k)){
+                                        $fError = $this->Fileupload->errors();
+                                        $item = '';
+                                    } else {
+                                        $item = $this->Fileupload->output('file_name');
+                                    } */
+                                }
+                                $list[] = [
+                                    'challenge_id' => $challenge_id,
+                                    'user_id' => $this->request->getAttribute('identity')->get('id'),
+                                    'types' => isset($tmp[0])?$tmp[0]:'-',
+                                    'challengequest_id' => isset($tmp[1])?$tmp[1]:'0',
+                                    'value' => is_array($item)?implode(',',$item):$item,
+                                ];
+                            endif;}
+                            
+                            
+                            $id = $this->Challengeqanswers->find('list',['keyField' => 'id','valueField' => 'id'])
+                                ->where([
+                                    'user_id'=> $this->request->getAttribute('identity')->get('id'), 
+                                    'challenge_id' => $challenge_id ])
+                                ->toarray();
+
+                            if($id)
+                                $this->Challengeqanswers->deleteAll(['id IN'=>$id]);
+
+                            $answer = $this->Challengeqanswers->newEmptyEntity();
+                            $answer = $this->Challengeqanswers->patchEntities([], $list);
+                            if($this->Challengeqanswers->saveMany($answer)){
+                                $currentuser = $this->getTableLocator()->get('Challenge.Challengeuserprofiles') 
+                                    ->find('all')
+                                    ->where(['user_id'=>  $this->request->getAttribute('identity')->get('id') ])
+                                    ->first();
+                                
+                                if($this->request->getQuery('edit')){
+                                    if(isset($this->setting_challenge['sms_edit_challenge']) and 
+                                        $this->setting_challenge['sms_edit_challenge']!=''){
+                                            if($currentuser and $currentuser['mobile'] != ''){
+                                                $sms = new Sms();
+                                                $sms->sendsingle([
+                                                    'mobile' => $currentuser['mobile'],
+                                                    'text' =>$this->setting_challenge['sms_edit_challenge'],
+                                                ]);
+                                            }
+                                    }
+                                }
+                                else{
+                                    if(isset($this->setting_challenge['sms_new_challenge']) and 
+                                        $this->setting_challenge['sms_new_challenge']!=''){
+                                            if($currentuser and $currentuser['mobile'] != ''){
+                                                $sms = new Sms();
+                                                $sms->sendsingle([
+                                                    'mobile' => $currentuser['mobile'],
+                                                    'text' =>$this->setting_challenge['sms_new_challenge'],
+                                                ]);
+                                            }
+                                    }
+                                }
+                                
+                                $this->Flash->success('فرم مشارکت شما با موفقیت ثبت گردید.'."<br>".
+                                    'برای مشاهده لیست مشارکت ها به پنل کاربری تان مراجعه نمایید.'."<br><br>".
+                                    '<a class="mt-2 button button-rounded button-reveal button-small button-green text-right  ml-2" href="'.Router::url('/challenge/').'">
+                                    برای مشاهده و مشارکت در دیگر '.__d('Template', 'همیاری').'  اینجا کلیک کنید</a>');
+
+                                //$export = new Export();
+                                //$url = $export->getword($userform->id,$this->Auth->user());
+                                //$url = $export->getpdf($userform->id,$this->Auth->user(),0);
+                            }
+                            else{
+                                $this->Flash->error('متاسفانه ثبت اطلاعات با موفقیت انجام نشد.');
+                            }
+                            return $this->redirect('/challenge/'.$challenge_slug);
+                        }
+                        else
+                            $this->Flash->error(__('متاسفانه فرم مشارکت ثبت نشد'));
+                    }
+                    elseif($this->request->is('post') and !$this->request->getAttribute('identity')->get('id')){
+                        $this->Flash->error('برای ثبت مشارکت در '.__d('Template', 'همیاری').'، ابتدا در سایت وارد شوید');
+                    }
                 }
-                elseif($this->request->is('post') and !$this->request->getAttribute('identity')->get('id')){
-                    $this->Flash->error('برای ثبت مشارکت در '.__d('Template', 'همیاری').'، ابتدا در سایت وارد شوید');
-                }
+                
                 $this->set(compact('userform','challenge_id','challenge_slug','forms'));
                 $render  = 'solution';
                 break;
 
             case 'forum':
-                if(isset($this->request->getQuery()['section'])){
-                    $section = intval($this->request->getQuery()['section']);
+                if($this->request->getQuery('section')){
+                    $section = intval($this->request->getQuery('section'));
                     $challenge = $challenge->contain([
                         'Challengeforums'=> function ($q) use($section) {
                             return $q
@@ -512,7 +518,6 @@ class ChallengesController extends AppController
                         }]);
                     $render  = 'forum_list';
 
-                    $this->Challengeforums = $this->getTableLocator()->get('Challenge.Challengeforums');
                     $challengeforum = $this->Challengeforums->newEmptyEntity();
                     if ($this->request->is('post')) {
                         $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id') );
@@ -550,7 +555,7 @@ class ChallengesController extends AppController
                 $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chupdates'])
                     ->order(['created'=>'desc'])
-                    ->contain(['Postmetas'])
+                    ->contain(['PostMetas'])
                     ->join([
                         'table' => 'post_metas','alias' => "pm1",'type' => 'LEFT',
                         'conditions' => ["pm1.post_id = Posts.id"] ])
@@ -607,7 +612,7 @@ class ChallengesController extends AppController
                 $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chnews'])
                     ->order(['created'=>'desc'])
-                    ->contain(['Postmetas'])
+                    ->contain(['PostMetas'])
                     ->join([
                         'table' => 'post_metas','alias' => "pm1",'type' => 'LEFT',
                         'conditions' => ["pm1.post_id = Posts.id"] ])
@@ -624,7 +629,7 @@ class ChallengesController extends AppController
                 $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chresource'])
                     ->order(['created'=>'desc'])
-                    ->contain(['Postmetas'])
+                    ->contain(['PostMetas'])
                     ->join([
                         'table' => 'post_metas','alias' => "pm1",'type' => 'LEFT',
                         'conditions' => ["pm1.post_id = Posts.id"] ])
@@ -652,8 +657,7 @@ class ChallengesController extends AppController
         $viewModel = $this->getTableLocator()->get('Challenge.Challengeviews');
         if(isset($challenge->challengeviews[0]['views'])){
             $views = ($challenge->challengeviews[0]['views']);
-            $query = $viewModel->query();
-            $query->update()
+            $query = $viewModel->query()->update()
                 ->set(["views = $views+ 1"])
                 ->where(['id' => $challenge->challengeviews[0]['id'] ])
                 ->execute();
@@ -673,7 +677,6 @@ class ChallengesController extends AppController
         }
     }
     //-----------------------------------------------------------------------------
-
     public function profile($num = null, $num2 = null){
         try{
             $this->viewBuilder()->setLayout('Template.profile');
@@ -682,7 +685,7 @@ class ChallengesController extends AppController
             $this->viewBuilder()->setLayout("profile");
         }
         
-        if( !$this->Auth->user()){
+        if( !$this->request->getAttribute('identity')){
             return $this->redirect(['plugin'=>false,'controller'=>'users','action'=>'login']);
         }
         $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
@@ -740,6 +743,7 @@ class ChallengesController extends AppController
                 break;
         }
     }
+    //-----------------------------------------------------------------------------
     function _profile_challenge($id = null){
         $this->Userforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
         $results = $this->Userforms->find('all')
@@ -760,29 +764,29 @@ class ChallengesController extends AppController
                 ->toarray();
         $this->set(compact('results'));
 
-        if ($this->request->is(['post','put','patch']) and isset($this->request->getParam('?')['getword']) ) {
+        if ($this->request->is(['post','put','patch']) and $this->request->getQuery('getword') ) {
             $export = new Export();
             $url = $export->getword($id,$this->Auth->user());
             $this->redirect($url);
         }
         ///----------------------------------------------------------------
-        if ($this->request->is(['post','put','patch']) and isset($this->request->getParam('?')['getpdf']) ) {
+        if ($this->request->is(['post','put','patch']) and $this->request->getQuery('getpdf') ) {
             $this->autoRender = false;
             $export = new Export();
             $url = $export->getpdf($id,$this->Auth->user());
             //$this->redirect($url);
         }
     }
-    //####################
+    //-----------------------------------------------------------------------------
     function _profile_default(){
         $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
             ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics'])
             ->first();
-        $public = $this->Auth->user();
+        $public = $this->request->getAttribute('identity');
         $this->set(compact('user','public'));
     }
-    //####################
+    //-----------------------------------------------------------------------------
     function _profile_edit(){
         $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
             ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
@@ -874,11 +878,10 @@ class ChallengesController extends AppController
         $this->set(compact('userprofiles','challengetopics'));
 
     }
-    //####################
+    //-----------------------------------------------------------------------------
     public function api($ch_id = null){
-        
     }
-    //####################
+    //-----------------------------------------------------------------------------
     private function _challengequests($ch_id = null){
         
         $this->Challengequests = $this->getTableLocator()->get('Challenge.Challengequests');
@@ -923,5 +926,5 @@ class ChallengesController extends AppController
             return $response;
         }
     }
-    //####################
+    //-----------------------------------------------------------------------------
 }

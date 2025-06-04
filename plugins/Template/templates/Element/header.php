@@ -33,7 +33,7 @@ global $is_status;
   <header id="main-header">
     <div class="container">
       <div class="top-header">
-        <?= $this->html->image('/template/css/images/amoozesh-logo-white.png');?>
+        <?= $this->html->image('/template/css/images/amoozesh-logo-white.png',['alt'=> $this->Query->Title() ]);?>
       </div>
       <div class="logo-navbar-wrapper"><a class="logo" href="/">
         <?= $this->html->image(setting['header_logow'],['alt' => $this->Query->Title() ]);?>
@@ -51,14 +51,16 @@ global $is_status;
             ]);?>
           </nav>
 
-          <?php if ($this->request->getSession()->read('Auth.User')):?>
+          <?php if ($this->request->getAttribute('identity')):
+            $Fullname = ($this->request->getAttribute('identity')->get('family') != ""?
+              $this->request->getAttribute('identity')->get("family"):
+              $this->request->getAttribute('identity')->get('username'));
+            ?>
             <div class="user-dropdown-toggler">
               <?= $this->html->image('/template/css/icons/user-square.svg',['class'=>'user-icon']);?>
 
               <span class="name">
-                <?= ($this->request->getSession()->read('Auth.User.family') !=""?
-                    $this->request->getSession()->read('Auth.User.family'):
-                    $this->request->getSession()->read('Auth.User.username'))?>
+                <?= $Fullname ?>
               </span>
               <?= $this->html->image('/template/css/icons/arrow-down.svg',['class'=>'arrow-down']);?>
 
@@ -66,11 +68,7 @@ global $is_status;
 
                 <li class="active">
                   <?= $this->html->link(
-                    $this->html->image('/template/css/icons/user-octagon.svg',['alt'=>'صفحه پروفایل']).
-                    ($this->request->getSession()->read('Auth.User.family') !=""?
-                      $this->request->getSession()->read('Auth.User.family'):
-                      $this->request->getSession()->read('Auth.User.username'))
-                    ,
+                    $this->html->image('/template/css/icons/user-octagon.svg',['alt'=>'صفحه پروفایل']). $Fullname ,
                     '/challenge/profile',
                     ['escape'=>false,'title'=>'صفحه پروفایل']);?>
                   
@@ -109,27 +107,25 @@ global $is_status;
   </header>
 
   <header id="mobile-header">
-    <div><span class="bars">
-      <?= $this->html->image('/template/css/icons/hamburger.svg',['class'=>'hamburger']);?>
-      <?= $this->html->image('/template/css/icons/close-white.svg',['class'=>'close']);?>
+    <div>
+      <span class="bars">
+        <?= $this->html->image('/template/css/icons/hamburger.svg',['class'=>'hamburger']);?>
+        <?= $this->html->image('/template/css/icons/close-white.svg',['class'=>'close']);?>
       </span>
       <a class="logo" href="/">
-      <?= $this->html->image(setting['header_logow'],['alt' => $this->Query->Title() ]);?>
+        <?= $this->html->image(setting['header_logow'],['alt' => $this->Query->Title() ]);?>
       </a>
     </div>
 
-    <!-- TODO show this button before login-->
     <?php 
-    if ($this->request->getSession()->read('Auth.User')):?>
+    if ( $this->request->getAttribute('identity') ):?>
       <div class="user-dropdown-toggler">
         <?= $this->html->image('/template/css/icons/user-square.svg',[
           'style'=>'filter: invert(1);',
           'class'=>'user-icon']);?>
 
         <span class="name">
-          <?= ($this->request->getSession()->read('Auth.User.family') !=""?
-              $this->request->getSession()->read('Auth.User.family'):
-              $this->request->getSession()->read('Auth.User.username'))?>
+          <?= $Fullname;?>
         </span>
         <?= $this->html->image('/template/css/icons/arrow-down.svg',[
           'style'=>'filter: invert(1);',
@@ -138,10 +134,7 @@ global $is_status;
         <ul class="user-dropdown">
           <li class="active">
             <?= $this->html->link(
-              $this->html->image('/template/css/icons/user-octagon.svg',['alt'=>'صفحه پروفایل']).
-              ($this->request->getSession()->read('Auth.User.family') !=""?
-                $this->request->getSession()->read('Auth.User.family'):
-                $this->request->getSession()->read('Auth.User.username')),
+              $this->html->image('/template/css/icons/user-octagon.svg',['alt'=>'صفحه پروفایل']). $Fullname,
               '/challenge/profile',
               ['escape'=>false,'title'=>'صفحه پروفایل']);?>
             
@@ -183,7 +176,6 @@ global $is_status;
               ['escape'=>false,'title'=>'خروج از سایت'])?>
           </li>
 
-            
         </ul>
       </div>
     <?php else:?>

@@ -249,8 +249,10 @@ class FileuploadComponent extends Component {
 	 * @param	array	$config
 	 * @return	void
 	 */
-	public function initialize(array $config = array())
+	public function initialize(array $config): void
 	{
+		parent::initialize($config);
+
 		//Load Configure File
 		Configure::load('fileupload');
 		//Read Default Configure

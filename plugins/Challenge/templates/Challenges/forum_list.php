@@ -31,7 +31,7 @@
 <div id="respond">
 	<h4 class="mb-2">یک <span>پاسخ</span> ارسال کنید </h4>
 	<?php
-	if( $this->request->getAttribute('identity')->get('id') ):
+	if( $this->request->getAttribute('identity')):
 
 		if(isset($users['challengeuserprofile']) and $users['challengeuserprofile']['user_id']!= '' ):
 			echo '<div class="text-center">';

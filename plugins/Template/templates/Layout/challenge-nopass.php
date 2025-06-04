@@ -77,7 +77,7 @@ $solution = ($this->request->getParam('method') == "solution")?true:false;
 					$posts = \Cake\ORM\TableRegistry::get('Admin.Posts')->find('all')
 						->where(['post_type'=>'chresource'])
 						->order(['created'=>'desc'])
-						->contain(['Postmetas'])
+						->contain(['PostMetas'])
 						->join([
 							'table' => 'post_metas','alias' => "pm1",'type' => 'LEFT',
 							'conditions' => ["pm1.post_id = Posts.id"] ])
@@ -193,7 +193,7 @@ $solution = ($this->request->getParam('method') == "solution")?true:false;
 					$news = TableRegistry::get('Admin.Posts')->find('all')
 						->where(['post_type'=>'chupdates'])
 						->order(['created'=>'desc'])
-						->contain(['Postmetas'])
+						->contain(['PostMetas'])
 						->join([
 							'table' => 'post_metas','alias' => "pm1",'type' => 'LEFT',
 							'conditions' => ["pm1.post_id = Posts.id"] ])
