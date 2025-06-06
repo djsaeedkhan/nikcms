@@ -6,7 +6,7 @@ class UrlController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('Tinyurl.Tinyurls');
+        $this->Tinyurls = TableRegistry::getTableLocator()->get('Tinyurl.Tinyurls');
     }
     public function index($id=null)
     {

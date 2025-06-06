@@ -100,21 +100,24 @@ class ChallengesController extends AppController
             }
             $challenges = $this->paginate($result->distinct(),['limit'=>100]);
 
-        }else{
-            $this->paginate = [
-                'contain' => [
-                    'Challengestatuses',
-                    'Challengefollowers' => function ($q) {
-                        return $q
-                            ->select(['challenge_id','count' => $q->func()->count('*')])
-                            ->group(['challenge_id']);
-                    },
-                    'Challengecats',
-                    'Challengetopics',
-                    'Challengetags'],
-                'order'=>['priority'=>'asc'],
-            ];
-            $challenges = $this->paginate($this->Challenges->find('all')->where(['enable'=>1]));
+        }
+        else
+        {
+            $challenges = $this->paginate(
+                $this->Challenges->find('all')
+                    ->where(['enable' => 1])
+                    ->contain([
+                        'Challengestatuses',
+                        'Challengefollowers' => function ($q) {
+                            return $q
+                                ->select(['challenge_id','count' => $q->func()->count('*')])
+                                ->group(['challenge_id']);
+                        },
+                        'Challengecats',
+                        'Challengetopics',
+                        'Challengetags'])
+                    ->order(['priority'=>'asc'])
+            );
         }
         $this->set(compact('challenges'));
         
@@ -657,7 +660,7 @@ class ChallengesController extends AppController
         $viewModel = $this->getTableLocator()->get('Challenge.Challengeviews');
         if(isset($challenge->challengeviews[0]['views'])){
             $views = ($challenge->challengeviews[0]['views']);
-            $query = $viewModel->query()->update()
+            $query = $viewModel->updateQuery()
                 ->set(["views = $views+ 1"])
                 ->where(['id' => $challenge->challengeviews[0]['id'] ])
                 ->execute();

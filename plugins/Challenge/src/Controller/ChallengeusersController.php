@@ -42,11 +42,11 @@ class ChallengeusersController extends AppController
             $users = $this->paginate($temp);
         }
         else{
-            $this->paginate = [
-                'contain' => ['Challengeuserprofiles','UserMetas'],
-                'order'=>['id'=>'desc']
-            ];
-            $users = $this->paginate($this->Users);
+            $users = $this->paginate(
+                $this->Users->find('all')
+                    ->contain(['Challengeuserprofiles','UserMetas'])
+                    ->order(['Users.id'=>'desc'])
+            );
         }
         $this->set(compact('users'));
 

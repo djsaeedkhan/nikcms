@@ -26,15 +26,15 @@ class ChallengeforumsController extends AppController
             $challenge_id = $this->request->getQuery('challenge_id');
         }
 
-        $this->paginate = [
-            'contain' => ['Challenges', 'Challengeforumtitles', 'Users'],
-            'order'=>['id'=>'desc'],
-            'conditions'=>[
-                $challenge_id?['Challengeforums.challenge_id'=> $challenge_id]:null,
-                $enable != 2?['Challengeforums.enable'=> $enable]:null,
-            ]
-        ];
-        $challengeforums = $this->paginate($this->Challengeforums);
+        $challengeforums = $this->paginate(
+            $this->Challengeforums->find('all')
+                ->contain(['Challenges', 'Challengeforumtitles', 'Users'])
+                ->order(['Challengeforums.id'=>'desc'])
+                ->where([
+                    $challenge_id?['Challengeforums.challenge_id'=> $challenge_id]:null,
+                    $enable != 2?['Challengeforums.enable'=> $enable]:null,
+                ])
+        );
         $this->set(compact('challengeforums'));
     }
 

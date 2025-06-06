@@ -189,9 +189,9 @@ class Plugin extends BasePlugin {
             'Ticketing',
             ['path' => '/tickets/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/submit/:id', ['controller' => 'My','action'=>'submit'])->setPass(['id']);
+                $routes->connect('/submit/{id}', ['controller' => 'My','action'=>'submit'], ['pass' => ['id']])->setPass(['id']);
                 $routes->connect('/question/', ['controller' => 'My','action'=>'query']);
-                $routes->connect('/:id', ['controller' => 'My', 'action' => 'index'])->setPass(['id']);
+                $routes->connect('/{id}', ['controller' => 'My', 'action' => 'index'], ['pass' => ['id']])->setPass(['id']);
                 $routes->connect('/', ['controller' => 'My','action'=>'index']);
                 $routes->fallbacks(DashedRoute::class);
             }

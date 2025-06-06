@@ -20,7 +20,6 @@ class ChallengecatsController extends AppController
     public function index()
     {
         $challengecats = $this->paginate($this->Challengecats);
-
         $this->set(compact('challengecats'));
     }
 

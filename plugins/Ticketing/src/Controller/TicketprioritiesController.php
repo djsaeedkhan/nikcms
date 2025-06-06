@@ -8,6 +8,7 @@ class TicketprioritiesController extends AppController
     public function index()
     {
         $ticketpriorities = $this->paginate($this->Ticketpriorities);
+        
         $this->set(compact('ticketpriorities'));
     }
    

@@ -24,13 +24,12 @@ class CommentsController extends AppController
     }
     //-----------------------------------------------------------------------------
     public function index(){
-        //Deprecated
-        $this->paginate = [
-            'contain' => ['Posts', 'Users','ParentComments'],
-            'order'=> ['id'=>'desc']
-        ];
         $users = $this->Comments->Users->find('list')->toarray();
-        $comments = $this->paginate($this->Comments);
+        $comments = $this->paginate(
+            $this->Comments->find('all')
+                ->contain(['Posts', 'Users','ParentComments'])
+                ->order(['id'=>'desc'])
+        );
         $this->set(compact('comments','users'));
     }
     //-----------------------------------------------------------------------------

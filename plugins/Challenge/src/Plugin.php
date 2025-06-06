@@ -535,10 +535,10 @@ class Plugin extends BasePlugin{
             ['path' => '/challenge'],
             function (RouteBuilder $routes) {
                 $routes->connect('/profile/*', ['controller' => 'Challenges','action'=>'profile']);
-                $routes->connect('/:slug/', ['controller' => 'Challenges','action'=>'View']);
+                $routes->connect('/{slug}/', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug']]);
                 //$routes->connect('/:slug/solution', ['controller' => 'Challenges','action'=>'solution']);
-                $routes->connect('/:slug/:method', ['controller' => 'Challenges','action'=>'View']);
-                $routes->connect('/follow/:slug/', ['controller' => 'Challenges','action'=>'follow']);
+                $routes->connect('/{slug}/{method}', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug','method']]);
+                $routes->connect('/follow/{slug}/', ['controller' => 'Challenges','action'=>'follow'], ['pass' => ['slug']]);
                 $routes->connect('/', ['controller' => 'Challenges']);
                 $routes->fallbacks(DashedRoute::class);
             }

@@ -173,11 +173,13 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                             ->where(['name LIKE'=> 'alert_%'])->toarray();
                         if($list and is_array($list)){
                             foreach($list as $lst){
-                                $temp = unserialize($lst);
-                                if(is_array($temp)){
-                                    foreach($temp as $v){
-                                        $count += $v['count'];
-                                        $alarm[] = $v;
+                                if($this->Func->is_serial($lst)){
+                                    $temp = unserialize($lst);
+                                    if(is_array($temp)){
+                                        foreach($temp as $v){
+                                            $count += $v['count'];
+                                            $alarm[] = $v;
+                                        }
                                     }
                                 }
                             }

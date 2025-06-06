@@ -8,11 +8,11 @@ class TicketcommentsController extends AppController
 {
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users', 'Tickets'],
-            'order'=>['created'=>'desc']
-        ];
-        $ticketcomments = $this->paginate($this->Ticketcomments);
+        $ticketcomments = $this->paginate(
+            $this->Ticketcomments->find('all')
+                ->contain(['Users', 'Tickets'])
+                ->order(['created'=>'desc'])
+        );
         $this->set(compact('ticketcomments'));
     }
 
@@ -84,7 +84,7 @@ class TicketcommentsController extends AppController
         $this->Tickets = $this->getTableLocator()->get('Ticketing.Tickets');
         $this->request->allowMethod(['post']);
         $ticketcomment = $this->Tickets->get($id);
-        if ($this->Tickets->query()->update()
+        if ($this->Tickets->updateQuery()
             ->set(['completed' => date('Y-m-d h:i:s') ])
             ->where(['id' => $ticketcomment['id'] ])
             ->execute()) {

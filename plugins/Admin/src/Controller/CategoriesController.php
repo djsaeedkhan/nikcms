@@ -30,12 +30,11 @@ class CategoriesController extends AppController
                 ->where(['post_type'=>$this->post_type])
             ,['limit' => 2000]); */
 
-        $query = $this->Categories->find('treeList', ['spacer' => '—'])
-            ->contain(['Posts'])
-            ->order(['lft' => 'asc'])
-            ->where(['post_type' => $this->post_type]);
-
-        $categories = $this->paginate($query, ['limit' => 2000]);
+        $categories = $this->paginate(
+            $this->Categories->find('treeList', ['spacer' => '—'])
+                ->contain(['Posts'])
+                ->order(['lft' => 'asc'])
+                ->where(['post_type' => $this->post_type]));
 
         $this->set(compact('cat','categories','parentCategory'));
     }

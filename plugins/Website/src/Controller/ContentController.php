@@ -33,7 +33,7 @@ class ContentController extends AppController
         try {
             $this->loadComponent('Website.Fetchs');
         }
-        catch (\Throwable $th) {echo "Not FOund";}
+        catch (\Throwable $th) {}
 
         try {
             $this->loadComponent($this->template.'.Fetch');

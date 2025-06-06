@@ -3,13 +3,14 @@ namespace Tinyurl\Controller;
 
 use Tinyurl\Controller\AppController;
 use Cake\ORM\TableRegistry;
+
 class HomeController extends AppController
 {
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('Tinyurl.Tinyurls');
         $this->viewBuilder()->setLayout('Admin.default');
+        $this->Tinyurls = TableRegistry::getTableLocator()->get('Tinyurl.Tinyurls');
     }
     
     public function index($id = null)
@@ -20,6 +21,7 @@ class HomeController extends AppController
         $this->set(compact('results'));
     }
     public function add($id = null){
+
         if($id != null) $result = $this->Tinyurls->get($id);
         else $result = $this->Tinyurls->newEmptyEntity();
 

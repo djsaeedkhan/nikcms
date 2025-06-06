@@ -19,10 +19,10 @@ class ChallengeuserprofilesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users'],
-        ];
-        $challengeuserprofiles = $this->paginate($this->Challengeuserprofiles);
+        $challengeuserprofiles = $this->paginate(
+            $this->Challengeuserprofiles->find('all')
+                ->contain(['Users'])
+        );
 
         $this->set(compact('challengeuserprofiles'));
     }

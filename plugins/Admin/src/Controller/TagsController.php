@@ -13,9 +13,11 @@ class TagsController extends AppController
 
     public function index(){
         $tag = $this->Tags->newEmptyEntity();
-        $tags = $this->paginate($this->Tags->find('all')
-            ->contain(['Posts'])
-            ->where(['post_type'=>$this->post_type]));
+        $tags = $this->paginate(
+            $this->Tags->find('all')
+                ->contain(['Posts'])
+                ->where(['post_type'=>$this->post_type])
+            );
         $this->set(compact('tag','tags'));
     }
 

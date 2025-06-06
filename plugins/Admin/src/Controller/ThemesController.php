@@ -52,9 +52,9 @@ class ThemesController extends AppController
         }
         
         if( $this->Func->Optionget('lang_enable') == 1)
-            $model = TableRegistry::get("Admin.Options2");
+            $model = TableRegistry::getTableLocator()->get("Admin.Options2");
         else
-            $model = TableRegistry::get("Admin.Options");
+            $model = TableRegistry::getTableLocator()->get("Admin.Options");
             
         $setting['setting'] = $model->find('all')
             ->where(['name'=> 'setting'.(defined('template_slug')?'_'.template_slug :'')  ])
@@ -90,13 +90,13 @@ class ThemesController extends AppController
                 'types'=>'nav_menu',
                 'value'=> isset($this->request->getData()['data'])?serialize($this->request->getData()['data']):null,
             ];
-            if(strtolower($id) == 'new')
+            if($id != null and strtolower($id) == 'new')
                 unset($data['id'],$data['value']);
 
             $option = $this->Themes->patchEntity($option,$data);
             if ($this->Themes->save($option)) {
                 $this->Flash->success(__d('Admin', 'The theme has been saved.'));
-                if(strtolower($id) == 'new')
+                if($id != null and strtolower($id) == 'new')
                     return $this->redirect(['?'=>['id'=>$option['id']]]);
                 else
                     return $this->redirect($this->referer());
@@ -106,7 +106,7 @@ class ThemesController extends AppController
 		//----------------------------
         $nav =[];
         $current = null;
-        if(strtolower($id) == 'new'){
+        if($id != null and strtolower() == 'new'){
            $this->set('new_menu',1) ;
         }
         elseif($this->request->getQuery('menu')){

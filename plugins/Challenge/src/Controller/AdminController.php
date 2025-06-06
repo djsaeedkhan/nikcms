@@ -27,11 +27,11 @@ class AdminController extends AppController
                 ]));
         }
         else{
-            $this->paginate = [
-                'contain' => ['Challengestatuses', 'Users','Challengefollowers','Challengeuserforms'],
-                'order'=>['id'=>'desc']
-            ];
-            $challenges = $this->paginate($this->Challenges);
+            $challenges = $this->paginate(
+                $this->Challenges->find('all')
+                    ->contain(['Challengestatuses', 'Users','Challengefollowers','Challengeuserforms'])
+                    ->order(['Challenges.id'=>'desc'])
+            );
         }
         $this->set(compact('challenges'));
     }

@@ -81,11 +81,11 @@ class ChallengeuserformsController extends AppController
             $challengeuserforms = $this->paginate($temp);
         }
         else{
-            $this->paginate = [
-                'contain' => ['Challenges', 'Users'],
-                'order'=>['id'=>'desc']
-            ];
-            $challengeuserforms = $this->paginate($this->Challengeuserforms);
+            $challengeuserforms = $this->paginate(
+                $this->Challengeuserforms->find('all')
+                    ->contain(['Challenges', 'Users'])
+                    ->order(['id'=>'desc'])
+            );
         }
 
         $this->set(compact('challengeuserforms'));
