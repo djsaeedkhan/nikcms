@@ -65,7 +65,6 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/profile',['controller' => 'Users','action'=>'profile']);
         $builder->connect('/users/thumbnail/*',['controller' => 'Users','action'=>'thumbnail']);
 
-
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
@@ -84,7 +83,7 @@ return function (RouteBuilder $routes): void {
          * You can remove these routes once you've connected the
          * routes you want in your application.
          */
-        $builder->fallbacks();
+        $builder->fallbacks(DashedRoute::class);
     });
 
     /*

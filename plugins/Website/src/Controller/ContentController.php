@@ -368,6 +368,7 @@ class ContentController extends AppController
     //------------------------------------------------------------------
     public function single()
     {
+        die("Hello");
         //pr("single");
         global $is_status;
         global $id;

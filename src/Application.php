@@ -57,7 +57,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Authentication');
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
-        $this->addPlugin('Website');
+        $this->addPlugin('Website', ['routes' => true]);
         //$this->addPlugin('Lms');
         $this->addPlugin('Ticketing');
         $this->addPlugin('Formbuilder');
