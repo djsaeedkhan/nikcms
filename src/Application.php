@@ -58,11 +58,11 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
         $this->addPlugin('Website');
-        $this->addPlugin('Lms');
+        //$this->addPlugin('Lms');
         $this->addPlugin('Ticketing');
         $this->addPlugin('Formbuilder');
         $this->addPlugin('Challenge');
-        $this->addPlugin('Shop');
+        //$this->addPlugin('Shop');
         $this->addPlugin('Sms');
         $this->addPlugin('Role');
         $this->addPlugin('Seo');

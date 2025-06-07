@@ -13,7 +13,7 @@ class Plugin extends BasePlugin
     public $name= 'Website';
     public function preload(){}
     public function activation(){}
-    public function deactivation( $drop = false){}
+    public function deactivation(){}
     public function config(){
         return [
             'name'=>'Website',
@@ -36,97 +36,105 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Website',
             ['path' => '/'],
-            function (RouteBuilder $routes) {
-
+            function (RouteBuilder $builder) {
+                $builder->setRouteClass(DashedRoute::class);
+        
+                //$routes->get('/contacts', ['controller' => 'Contacts']);
+                //$routes->get('/contacts/{id}', ['controller' => 'Contacts', 'action' => 'view']);
+                //$routes->put('/contacts/{id}', ['controller' => 'Contacts', 'action' => 'update']);
+                
+                $builder->connect(
+                    '/{postType}/{slug}/*',
+                    ['plugin'=>'Website','controller' => 'Content', 'action' => 'single'],
+                    ['pass' => ['postType','slug']]
+                );
                 //home
-                $routes->connect('/', ['controller' => 'Content', 'action' => 'home']);
-                $routes->connect('/{posttype}-sitemap.xml', ['controller' => 'Content', 'action' => 'sitemap_index'])->setPass(['posttype']);
-                $routes->connect('/sitemap.xml', ['controller' => 'Content', 'action' => 'sitemap']);
-                $routes->connect('/sitemap_index.xml', ['controller' => 'Content', 'action' => 'sitemap_index']);
-                $routes->connect('/robots.txt', ['controller' => 'Content', 'action' => 'robots']);
-                $routes->connect('/home/*',['controller' => 'Content', 'action' => 'home']);
-                $routes->connect('/content/Getdata',['controller' => 'Content', 'action' => 'Getdata']);
-                $routes->connect(
+                $builder->connect('/', ['controller' => 'Content', 'action' => 'home']);
+                $builder->connect('/{posttype}-sitemap.xml', ['controller' => 'Content', 'action' => 'sitemap_index'])->setPass(['posttype']);
+                $builder->connect('/sitemap.xml', ['controller' => 'Content', 'action' => 'sitemap']);
+                $builder->connect('/sitemap_index.xml', ['controller' => 'Content', 'action' => 'sitemap_index']);
+                $builder->connect('/robots.txt', ['controller' => 'Content', 'action' => 'robots']);
+                $builder->connect('/home/*',['controller' => 'Content', 'action' => 'home']);
+                $builder->connect('/content/Getdata',['controller' => 'Content', 'action' => 'Getdata']);
+                $builder->connect(
                     '/ajax/{posttype}/{catid}/{catslug}/*',
                     ['controller' => 'Content', 'action' => 'ajax'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect('/ajax/{posttype}/*',['controller' => 'Content', 'action' => 'ajax'], ['pass' => ['posttype']]);
-                $routes->connect('/ajax',['controller' => 'Content', 'action' => 'ajax'],['[a-z]']);
-                $routes->connect('/p/{id}',['controller' => 'Content', 'action' => 'single'], ['pass' => ['id']]);
+                $builder->connect('/ajax/{posttype}/*',['controller' => 'Content', 'action' => 'ajax'], ['pass' => ['posttype']]);
+                $builder->connect('/ajax',['controller' => 'Content', 'action' => 'ajax'],['[a-z]']);
+                $builder->connect('/p/{id}',['controller' => 'Content', 'action' => 'single'], ['pass' => ['id']]);
 
                 //index
-                $routes->connect(
+                $builder->connect(
                     '/{posttype}/index/{catid}/{catslug}',
                     ['controller' => 'Content', 'action' => 'index'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect(
+                $builder->connect(
                     '/index/{posttype}/{catid}/{catslug}/*',
                     ['controller' => 'Content', 'action' => 'index'],
                     ['pass' => ['posttype','catid','catslug']]);
 
-                $routes->connect(
+                $builder->connect(
                     '/index/{posttype}/*',
                     ['controller' => 'Content', 'action' => 'index'],
                     ['pass' => ['posttype']],
                     ['_name' => 'product-page',]);
-                $routes->connect(
+                $builder->connect(
                     '/index',
                     ['controller' => 'Content', 'action' => 'index'],
                     ['[a-z]']);
-                $routes->connect(
+                $builder->connect(
                     '/{posttype}/index/*',
                     ['controller' => 'Content', 'action' => 'index'],
                     ['pass' => ['posttype']]);
                 
                 //category single
-                $routes->connect(
+                $builder->connect(
                     '/category/{posttype}/single/{catid}/{catslug}/*',
                     ['controller' => 'Content', 'action' => 'catsingle'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect('/category/{posttype}/single/*',['controller' => 'Content', 'action' => 'catsingle'], ['pass' => ['posttype']]);
+                $builder->connect('/category/{posttype}/single/*',['controller' => 'Content', 'action' => 'catsingle'], ['pass' => ['posttype']]);
                 
                 //category index
-                $routes->connect('/category/{posttype}/{catid}/{catslug}/*',
+                $builder->connect('/category/{posttype}/{catid}/{catslug}/*',
                     ['controller' => 'Content', 'action' => 'category'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect('/category/{catid}/{catslug}/*',['controller' => 'Content', 'action' => 'category'], ['pass' => ['catid','catslug']]);
-                $routes->connect('/category/{posttype}/',['controller' => 'Content', 'action' => 'category'], ['pass' => ['id']]);
-                $routes->connect(
+                $builder->connect('/category/{catid}/{catslug}/*',['controller' => 'Content', 'action' => 'category'], ['pass' => ['catid','catslug']]);
+                $builder->connect('/category/{posttype}/',['controller' => 'Content', 'action' => 'category'], ['pass' => ['id']]);
+                $builder->connect(
                     '/{posttype}/category/{catid}/{catslug/',
                     ['controller' => 'Content', 'action' => 'category'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect(
+                $builder->connect(
                     '/{posttype}/category/{catid}/{catslug}/*',
                     ['controller' => 'Content', 'action' => 'category'],
                     ['pass' => ['posttype','catid','catslug']]);
-                $routes->connect('/category/{catid}/{catslug}/*',['controller' => 'Content', 'action' => 'category'], ['pass' => ['catid','catslug']]);
-                $routes->connect('/{posttype}/category/',['controller' => 'Content', 'action' => 'category'], ['pass' => ['posttype']]);
-                $routes->connect('/uploadss/*',['controller' => 'Content', 'action' => 'image'],['[a-z]','[a-z]']);
+                $builder->connect('/category/{catid}/{catslug}/*',['controller' => 'Content', 'action' => 'category'], ['pass' => ['catid','catslug']]);
+                $builder->connect('/{posttype}/category/',['controller' => 'Content', 'action' => 'category'], ['pass' => ['posttype']]);
+                $builder->connect('/uploadss/*',['controller' => 'Content', 'action' => 'image'],['[a-z]','[a-z]']);
 
                 //single
-                $routes->connect('/{posttype}/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype','id','slug']]);
-                $routes->connect('/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['id','slug']]);
-                $routes->connect(
-                    '/{posttype}/{slug}/*',
-                    ['controller' => 'Content', 'action' => 'single'],
-                    [
-                        'pass' => ['posttype','slug'],
-                        'routeClass' => DashedRoute::class
-                    ]);
+                $builder->connect('/{posttype}/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype','id','slug']]);
+                $builder->connect('/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['id','slug']]);
+                
+                
+                
 
-                $routes->connect('/{posttype}',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);
-                //$routes->connect('/product/:slug/*',['controller' => 'Content', 'action' => 'single','product'],['[a-z]']);
-                $routes->connect('/{posttype}/single/*',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);
+                $builder->connect('/{posttype}',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);
+                //$builder->connect('/product/:slug/*',['controller' => 'Content', 'action' => 'single','product'],['[a-z]']);
+                $builder->connect('/{posttype}/single/*',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);
 
                 //other page
-                $routes->connect('/archive/*',['controller' => 'Content', 'action' => 'archive']);
-                $routes->connect('/tag/*',['controller' => 'Content', 'action' => 'tag'],['[a-z]']);
-                $routes->connect('/tags/*',['controller' => 'Content', 'action' => 'tag'],['[a-z]']);
-                $routes->connect('/search/*',['controller' => 'Content', 'action' => 'search']);
-                $routes->fallbacks(DashedRoute::class);
+                $builder->connect('/archive/*',['controller' => 'Content', 'action' => 'archive']);
+                $builder->connect('/tag/*',['controller' => 'Content', 'action' => 'tag'],['[a-z]']);
+                $builder->connect('/tags/*',['controller' => 'Content', 'action' => 'tag'],['[a-z]']);
+                $builder->connect('/search/*',['controller' => 'Content', 'action' => 'search']);
+                
+                $builder->fallbacks(DashedRoute::class);
+
             }
         );
-
+        
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void
