@@ -106,7 +106,14 @@ class Plugin extends BasePlugin
                 //single
                 $routes->connect('/{posttype}/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype','id','slug']]);
                 $routes->connect('/single/{id}/{slug}/',['controller' => 'Content', 'action' => 'single'], ['pass' => ['id','slug']]);
-                $routes->connect('/{posttype}/{slug}/*',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype','slug']]);
+                $routes->connect(
+                    '/{posttype}/{slug}/*',
+                    ['controller' => 'Content', 'action' => 'single'],
+                    [
+                        'pass' => ['posttype','slug'],
+                        'routeClass' => DashedRoute::class
+                    ]);
+
                 $routes->connect('/{posttype}',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);
                 //$routes->connect('/product/:slug/*',['controller' => 'Content', 'action' => 'single','product'],['[a-z]']);
                 $routes->connect('/{posttype}/single/*',['controller' => 'Content', 'action' => 'single'], ['pass' => ['posttype']]);

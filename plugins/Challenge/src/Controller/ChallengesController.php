@@ -37,7 +37,7 @@ class ChallengesController extends AppController
                 ->order(['Challenges.priority'=>'asc'])
                 ->contain([
                     'Challengestatuses',
-                    'challengefollowers' => function ($q) {
+                    'Challengefollowers' => function ($q) {
                         return $q
                         ->select(['challenge_id', 'count' => $q->func()->count('*') ])
                         ->group(['challenge_id']);
