@@ -41,17 +41,17 @@ class Plugin extends BasePlugin
             'Website',
             ['path' => '/'],
             function (RouteBuilder $builder) {
-                //$builder->setRouteClass(DashedRoute::class);
+                $builder->setRouteClass(DashedRoute::class);
 
                 // روت پویا برای /post/single یا /post/single/
                 $builder->connect(
-                    '/{posttype}/{slug}{trailingSlash}/*',
+                    '{posttype}/{slug}/',
                     ['controller' => 'Content', 'action' => 'single'],
                     [
                         'pass' => ['posttype', 'slug'],
                         'posttype' => '[a-zA-Z]+',
                         'slug' => '[a-zA-Z0-9\-]+',
-                        'trailingSlash' => '/?'
+                        //'trailingSlash' => '/?'
                     ]
                 );
 
@@ -62,7 +62,7 @@ class Plugin extends BasePlugin
                         'pass' => ['posttype', 'slug'],
                         'posttype' => '[a-zA-Z]+',
                         'slug' => '[a-zA-Z0-9\-]+',
-                        'trailingSlash' => '/?'
+                        //'trailingSlash' => '/?'
                     ]
                 );
                 $builder->connect(
@@ -96,7 +96,7 @@ class Plugin extends BasePlugin
                $builder->connect('/content/Getdata', ['controller' => 'Content', 'action' => 'Getdata']);
 
                // فال‌بک برای بقیه کنترلرها (بعد از روت‌های خاص)
-               $builder->fallbacks();
+               //$builder->fallbacks();
            }
        );
         parent::routes($routes);

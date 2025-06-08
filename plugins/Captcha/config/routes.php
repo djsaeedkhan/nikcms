@@ -7,7 +7,4 @@
  * @version 3.0 - Tested with Cakephp 3.5.x
  */
 
-use Cake\Routing\Route\DashedRoute;
-use Cake\Routing\Router;
 
-Router::defaultRouteClass(DashedRoute::class);

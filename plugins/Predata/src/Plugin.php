@@ -190,7 +190,7 @@ class Plugin extends BasePlugin
             ['path' => '/admin/Predata/'],
             function (RouteBuilder $builder) {
                 $builder->connect('/', ['controller' => 'Home']);
-                $builder->fallbacks();
+                //$builder->fallbacks();
             }
         );
         parent::routes($routes);

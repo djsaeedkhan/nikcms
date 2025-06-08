@@ -99,7 +99,7 @@ class Plugin extends BasePlugin
                 $builder->connect('/savecomments', ['controller' => 'Comments', 'action' => 'save'])
                     //->setMethods(['POST'])
                     ;
-                $builder->fallbacks();
+                //$builder->fallbacks();
             }
         );
 
