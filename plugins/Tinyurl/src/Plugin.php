@@ -70,12 +70,26 @@ class Plugin extends BasePlugin
     {
         $routes->plugin(
             'Tinyurl',
-            ['path' => '/admin/'],
-            function (RouteBuilder $builder) {
-                $builder->connect('/url/', ['controller' => 'Url', 'action' => 'index']);
-                $builder->connect('/tinyurl/', ['controller' => 'Home', 'action' => 'index']);
-                //$builder->connect('/', ['controller' => 'Url', 'action' => 'index']);
-                $builder->fallbacks();
+            ['path' => '/admin/url/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Tinyurl',
+            ['path' => '/admin/tinyurl/'],
+            function (RouteBuilder $routes) {
+                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $routes->fallbacks(DashedRoute::class);
+            }
+        )
+        ->plugin(
+            'Tinyurl', 
+            ['path' => '/url/*'], 
+            function ($routes) {
+                $routes->connect('/', ['controller' => 'Url', 'action' => 'index']);
+                $routes->fallbacks(DashedRoute::class);
             }
         );
 

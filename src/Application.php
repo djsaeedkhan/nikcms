@@ -57,8 +57,31 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Authentication');
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
+        $this->addPlugin('Website');
+        //$this->addPlugin('Lms');
+        $this->addPlugin('Ticketing');
+        $this->addPlugin('Formbuilder');
+        $this->addPlugin('Challenge');
+        //$this->addPlugin('Shop');
+        $this->addPlugin('Sms');
+        $this->addPlugin('Role');
+        $this->addPlugin('Seo');
+        $this->addPlugin('Captcha');
+        $this->addPlugin('Breadcrumb');
+        $this->addPlugin('Tinyurl');
+        $this->addPlugin('Postviews');
+        $this->addPlugin('Widget');
+        $this->addPlugin('Comingsoon');
+        //$this->addPlugin('Backup');
+        $this->addPlugin('Elementor');
+        $this->addPlugin('RegisterField');
+        $this->addPlugin('Thumbnail');
+        $this->addPlugin('Mpdfs');
+        //$this->addPlugin('Filemanager');
+        $this->addPlugin('Scheduler');
+        $this->addPlugin('Userslogs',['console' => true]);
+        //$this->addPlugin('Security',['console' => true]);
         $this->addPlugin('Template');
-        $this->addPlugin('Website', ['routes' => true]);
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();

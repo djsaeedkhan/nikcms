@@ -80,8 +80,7 @@ class Plugin extends BasePlugin
                 $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
                 $builder->fallbacks();
             }
-        )
-        ;
+        );
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

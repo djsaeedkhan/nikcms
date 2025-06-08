@@ -155,7 +155,7 @@
           <header class="header"><span class="title">فیلترها</span><span class="del-filters">حذف فیلترها</span></header>
           <?= $this->Form->create(null,['type'=>'get','id'=>'form1']);
             //@$this->request->data = $param;
-            $this->request = $this->request->withParsedBody($param);?>
+            //$this->request = $this->request->withParsedBody($param);?>
 
           <div class="filter-item active" data--aos="fade-up" data-aos--duration="700">
             <header class="filter-title">

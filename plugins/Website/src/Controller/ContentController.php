@@ -39,11 +39,8 @@ class ContentController extends AppController
         try {
             $this->loadComponent($this->template.'.Fetch');
         }
-        catch (\Throwable $th) {$this->fetch_error = true;}
-
-        
+        catch (\Throwable $th) {$this->fetch_error = true;echo "No0";}
         //$this->loadComponent('Captcha.Captcha');
-
     }
     //------------------------------------------------------------------
     public function home() {
@@ -166,7 +163,7 @@ class ContentController extends AppController
 
             if( count($pin_list) > 0 ){
                 foreach($list_id as $k_ls => $v_ls){
-                    if(in_array($kls , $pin_list))
+                    if(in_array($k_ls , $pin_list))
                         unset($list_id[$k_ls]);
                 }
                 $list_id = $pin_list + $list_id;

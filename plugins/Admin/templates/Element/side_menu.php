@@ -7,7 +7,7 @@ use \Admin\View\Helper\ModuleHelper;
 $posttype_title = unserialize($this->Func->OptionGet('posttype_title'));
 $hidden = unserialize($this->Func->OptionGet('hide_posttype'));
 $menu = ModuleHelper::admin_sidemenu();
-ksort($menu);
+//ksort($menu);
 foreach($menu as $k_menu => $v_menu):
 
     if(isset($v_menu['post_type']) and isset($posttype_title[$v_menu['post_type']]) and $posttype_title[$v_menu['post_type']] != ''){
