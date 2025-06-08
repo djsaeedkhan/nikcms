@@ -104,9 +104,9 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Role',
             ['path' => '/admin/role/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home']);
+                $builder->fallbacks();
             }
         );
 

@@ -206,18 +206,6 @@ class Plugin extends BasePlugin
         ];
     }
 
-    public function routes(RouteBuilder $routes): void
-    {
-        $routes->plugin(
-            'Template',
-            ['path' => '/template'],
-            function (RouteBuilder $routes) {
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ;
-        parent::routes($routes);
-    }
     public function bootstrap(PluginApplicationInterface $app): void
     {
     }

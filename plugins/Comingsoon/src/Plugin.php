@@ -52,9 +52,9 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Comingsoon',
             ['path' => '/admin/comingsoon/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $builder->fallbacks();
             }
         );
         parent::routes($routes);

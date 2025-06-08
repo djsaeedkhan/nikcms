@@ -104,7 +104,7 @@ class AssetTest extends TestCase
      */
     public function testAssetUrl(): void
     {
-        $this->builder->connect('/{controller}/{action}/*');
+        //$this->builder->connect('/{controller}/{action}/*');
 
         $result = Asset::url('js/post.js', ['fullBase' => true]);
         $this->assertSame(Router::fullBaseUrl() . '/js/post.js', $result);

@@ -74,8 +74,8 @@ class PaginatorHelperTest extends TestCase
         Router::reload();
         $builder = Router::createRouteBuilder('/');
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
-        $builder->connect('/{controller}/{action}/*');
-        $builder->connect('/{plugin}/{controller}/{action}/*');
+        //$builder->connect('/{controller}/{action}/*');
+       // $builder->connect('/{plugin}/{controller}/{action}/*');
         Router::setRequest($request);
     }
 
@@ -925,7 +925,7 @@ class PaginatorHelperTest extends TestCase
         Router::reload();
         $builder = Router::createRouteBuilder('/');
         $builder->connect('/members/{controller}/{action}/*', ['prefix' => 'Members']);
-        $builder->connect('/{controller}/{action}/*');
+        //$builder->connect('/{controller}/{action}/*');
 
         $request = new ServerRequest([
             'url' => '/Posts/index',
@@ -1001,7 +1001,7 @@ class PaginatorHelperTest extends TestCase
         Router::reload();
         $builder = Router::createRouteBuilder('/');
         $builder->connect('/members/{controller}/{action}/*', ['prefix' => 'Members']);
-        $builder->connect('/{controller}/{action}/*');
+        //$builder->connect('/{controller}/{action}/*');
 
         $request = new ServerRequest([
             'params' => [

@@ -108,31 +108,25 @@ public function routes(RouteBuilder $routes): void
         $routes->plugin(
             'Sms',
             ['path' => '/admin/sms/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->connect('/log', ['controller' => 'Home','action'=>'logs']);
-                $routes->connect('/setting', ['controller' => 'Home','action'=>'setting']);
-                $routes->connect('/sendsms', ['controller' => 'Home','action'=>'sendsms']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'Sms',
-            ['path' => '/sms/activation'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/activate', ['controller' => 'View','action'=>'active']);
-                $routes->connect('/', ['controller' => 'View']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home']);
+                $builder->connect('/log', ['controller' => 'Home','action'=>'logs']);
+                $builder->connect('/setting', ['controller' => 'Home','action'=>'setting']);
+                $builder->connect('/sendsms', ['controller' => 'Home','action'=>'sendsms']);
+                $builder->fallbacks();
             }
         )
         ->plugin(
             'Sms',
             ['path' => '/sms/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/autoactivate', ['controller' => 'View','action'=>'autoactivate']);
-                $routes->connect('/', ['controller' => 'View']);
-                $routes->fallbacks(DashedRoute::class);
-            });
+            function (RouteBuilder $builder) {
+                $builder->connect('/activation/activate', ['controller' => 'View','action'=>'active']);
+                $builder->connect('/activation/', ['controller' => 'View']);
+                $builder->connect('/autoactivate', ['controller' => 'View','action'=>'autoactivate']);
+                $builder->connect('/', ['controller' => 'View']);
+                $builder->fallbacks();
+            }
+        );
 
         parent::routes($routes);
     }

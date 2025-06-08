@@ -17,8 +17,9 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Captcha',
             ['path' => '/'],
-            function ($routes) {
-                $routes->connect('/create-captcha', ['controller' => 'Captcha', 'action' => 'create']);
+            function (RouteBuilder $builder) {
+                $builder->connect('/create-captcha', ['controller' => 'Captcha', 'action' => 'create']);
+                $builder->fallbacks();
             }
         );
         parent::routes($routes);

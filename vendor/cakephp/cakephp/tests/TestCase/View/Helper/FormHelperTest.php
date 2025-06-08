@@ -122,7 +122,7 @@ class FormHelperTest extends TestCase
         Security::setSalt('foo!');
         $builder = Router::createRouteBuilder('/');
         $builder->connect('/{controller}', ['action' => 'index']);
-        $builder->connect('/{controller}/{action}/*');
+       // $builder->connect('/{controller}/{action}/*');
     }
 
     /**

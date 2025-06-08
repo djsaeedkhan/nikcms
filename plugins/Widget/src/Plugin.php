@@ -71,19 +71,19 @@ class Plugin extends BasePlugin
                 ]
         ];
     }
-    /* public function routes(RouteBuilder $routes): void
+    public function routes(RouteBuilder $routes): void
     {
         $routes->plugin(
             'Widget',
             ['path' => '/admin/widget/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
+                $builder->fallbacks();
             }
         )
         ;
         parent::routes($routes);
-    } */
+    }
     public function bootstrap(PluginApplicationInterface $app): void
     {
     }

@@ -73,22 +73,16 @@ class Plugin extends BasePlugin
 
     public function routes(RouteBuilder $routes): void
     {
-        $routes->plugin(
-            'Postviews',
-            ['path' => '/admin/postviews/setting/*'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home','action'=>'setting']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'Postviews',
-            ['path' => '/admin/postviews/*'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home','action'=>'index']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        );
+        $routes
+            ->plugin(
+                'Postviews',
+                ['path' => '/admin/postviews/'],
+                function (RouteBuilder $builder) {
+                    $builder->connect('/setting/', ['controller' => 'Home','action'=>'setting']);
+                    $builder->connect('/',  ['controller' => 'Home','action'=>'index']);
+                    $builder->fallbacks();
+                }
+            );
 
         parent::routes($routes);
     }

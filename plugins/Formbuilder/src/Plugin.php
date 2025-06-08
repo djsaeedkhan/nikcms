@@ -45,17 +45,17 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Formbuilder',
             ['path' => '/admin/formbuilder/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home']);
+                //$builder->fallbacks();
             }
         )
         ->plugin(
             'Formbuilder',
             ['path' => '/form/*'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'View','action'=>'index']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'View','action'=>'index']);
+                $builder->fallbacks();
             }
         );
         parent::routes($routes);

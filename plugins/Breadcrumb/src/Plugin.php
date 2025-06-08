@@ -29,9 +29,9 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Breadcrumb',
             ['path' => '/admin/breadcrumb/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home']);
+                $builder->fallbacks();
             }
         );
         parent::routes($routes);

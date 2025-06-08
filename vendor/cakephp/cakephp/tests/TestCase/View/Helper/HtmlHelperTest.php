@@ -106,7 +106,7 @@ class HtmlHelperTest extends TestCase
         Router::reload();
         $builder = Router::createRouteBuilder('/');
         $builder->connect('/{controller}', ['action' => 'index']);
-        $builder->connect('/{controller}/{action}/*');
+        //$builder->connect('/{controller}/{action}/*');
         Router::setRequest(new ServerRequest());
 
         $this->View->setRequest($this->View->getRequest()->withAttribute('webroot', ''));

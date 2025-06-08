@@ -521,28 +521,28 @@ class Plugin extends BasePlugin{
 
     public function routes(RouteBuilder $routes): void
     {
-     
-        $routes->plugin(
-            'Challenge',
-            ['path' => '/admin/challenge/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Admin']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'Challenge',
-            ['path' => '/challenge'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/profile/*', ['controller' => 'Challenges','action'=>'profile']);
-                $routes->connect('/{slug}/', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug']]);
-                //$routes->connect('/:slug/solution', ['controller' => 'Challenges','action'=>'solution']);
-                $routes->connect('/{slug}/{method}', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug','method']]);
-                $routes->connect('/follow/{slug}/', ['controller' => 'Challenges','action'=>'follow'], ['pass' => ['slug']]);
-                $routes->connect('/', ['controller' => 'Challenges']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        );
+        $routes
+            ->plugin(
+                'Challenge',
+                ['path' => '/admin/challenge/'],
+                function (RouteBuilder $builder) {
+                    $builder->connect('/', ['controller' => 'Admin']);
+                    $builder->fallbacks();
+                }
+            )
+            ->plugin(
+                'Challenge',
+                ['path' => '/challenge'],
+                function (RouteBuilder $builder) {
+                    $builder->connect('/profile/*', ['controller' => 'Challenges','action'=>'profile']);
+                    $builder->connect('/{slug}/', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug']]);
+                    //$builder->connect('/:slug/solution', ['controller' => 'Challenges','action'=>'solution']);
+                    $builder->connect('/{slug}/{method}', ['controller' => 'Challenges','action'=>'View'], ['pass' => ['slug','method']]);
+                    $builder->connect('/follow/{slug}/', ['controller' => 'Challenges','action'=>'follow'], ['pass' => ['slug']]);
+                    $builder->connect('/', ['controller' => 'Challenges']);
+                    $builder->fallbacks();
+                }
+            );
         parent::routes($routes);
     }
     public function bootstrap(PluginApplicationInterface $app): void

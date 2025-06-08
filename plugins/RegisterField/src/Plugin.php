@@ -51,18 +51,11 @@ class Plugin extends BasePlugin {
     {
         $routes->plugin(
             'RegisterField',
-            ['path' => '/admin/registerfield/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'RegisterField',
-            ['path' => '/admin/register-field/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
+            ['path' => '/admin/'],
+            function (RouteBuilder $builder) {
+                $builder->connect('/registerfield/', ['controller' => 'Home']);
+                $builder->connect('/register-field/', ['controller' => 'Home']);
+                $builder->fallbacks();
             }
         );
 

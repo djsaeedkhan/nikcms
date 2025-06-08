@@ -76,7 +76,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->builder->get('/get/{controller}/{action}', []);
         $this->builder->head('/head/{controller}/{action}', []);
         $this->builder->options('/options/{controller}/{action}', []);
-        $this->builder->connect('/{controller}/{action}/*', []);
+        //$this->builder->connect('/{controller}/{action}/*', []);
 
         $this->builder->scope('/cookie-csrf/', ['csrf' => 'cookie'], function (RouteBuilder $routes): void {
             $routes->registerMiddleware('cookieCsrf', new CsrfProtectionMiddleware());

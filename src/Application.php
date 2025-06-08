@@ -57,9 +57,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Authentication');
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
-        $this->addPlugin('Website');
-        
         $this->addPlugin('Template');
+        $this->addPlugin('Website', ['routes' => true]);
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();

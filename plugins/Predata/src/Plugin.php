@@ -188,9 +188,9 @@ class Plugin extends BasePlugin
         $routes->plugin(
             'Predata',
             ['path' => '/admin/Predata/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Home']);
-                $routes->fallbacks(DashedRoute::class);
+            function (RouteBuilder $builder) {
+                $builder->connect('/', ['controller' => 'Home']);
+                $builder->fallbacks();
             }
         );
         parent::routes($routes);

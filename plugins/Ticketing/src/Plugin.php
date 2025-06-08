@@ -175,29 +175,30 @@ class Plugin extends BasePlugin {
                 ]
         ];
     }
-    /* public function routes(RouteBuilder $routes): void
+    public function routes(RouteBuilder $routes): void
     {
-        $routes->plugin(
-            'Ticketing',
-            ['path' => '/admin/ticketing/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Tickets']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
-        ->plugin(
-            'Ticketing',
-            ['path' => '/tickets/'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/submit/{id}', ['controller' => 'My','action'=>'submit'], ['pass' => ['id']])->setPass(['id']);
-                $routes->connect('/question/', ['controller' => 'My','action'=>'query']);
-                $routes->connect('/{id}', ['controller' => 'My', 'action' => 'index'], ['pass' => ['id']])->setPass(['id']);
-                $routes->connect('/', ['controller' => 'My','action'=>'index']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        );
+        $routes
+            ->plugin(
+                'Ticketing',
+                ['path' => '/admin/ticketing/'],
+                function (RouteBuilder $builder) {
+                    $builder->connect('/', ['controller' => 'Tickets']);
+                    $builder->fallbacks();
+                }
+            )
+            ->plugin(
+                'Ticketing',
+                ['path' => '/tickets/'],
+                function (RouteBuilder $builder) {
+                    $builder->connect('/submit/{id}', ['controller' => 'My','action'=>'submit'], ['pass' => ['id']])->setPass(['id']);
+                    $builder->connect('/question/', ['controller' => 'My','action'=>'query']);
+                    $builder->connect('/{id}', ['controller' => 'My', 'action' => 'index'], ['pass' => ['id']])->setPass(['id']);
+                    $builder->connect('/', ['controller' => 'My','action'=>'index']);
+                    $builder->fallbacks();
+                }
+            );
         parent::routes($routes);
-    } */
+    }
     public function bootstrap(PluginApplicationInterface $app): void
     {
     }

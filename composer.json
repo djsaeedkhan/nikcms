@@ -28,7 +28,6 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "Website\\": "plugins/Website/src/",
             "Admin\\": "plugins/Admin/src/",
             "Shop\\": "plugins/Shop/src/",
             "Predata\\": "plugins/Predata/src/",
@@ -55,7 +54,8 @@
             "RegisterField\\": "plugins/RegisterField/src/",
             "Captcha\\": "plugins/Captcha/src/",
             "Elementor\\": "./plugins/Elementor/src/",
-            "Template\\": "./plugins/Template/src/"
+            "Template\\": "./plugins/Template/src/",
+            "Website\\": "plugins/Website/src/"
         }
     },
     "autoload-dev": {
