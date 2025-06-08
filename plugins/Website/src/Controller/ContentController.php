@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Website\Controller;
 
 use Website\Controller\AppController;
+
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Core\Plugin;
@@ -368,7 +369,7 @@ class ContentController extends AppController
     //------------------------------------------------------------------
     public function single()
     {
-        die("Hello");
+        //("Hello");
         //pr("single");
         global $is_status;
         global $id;
@@ -555,7 +556,7 @@ class ContentController extends AppController
         }
     }
     //------------------------------------------------------------------
-    public function Getdata(){ //last edit : 1398.7.15
+    public function getdata(){ //last edit : 1398.7.15
         /* 
             type : post , category , tags
             ret  : list , all , first

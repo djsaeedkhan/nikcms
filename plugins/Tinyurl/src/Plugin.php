@@ -66,11 +66,8 @@ class Plugin extends BasePlugin
                 ]
         ];
     }
-    public function routes(RouteBuilder $routes): void
+    /* public function routes(RouteBuilder $routes): void
     {
-
-       
-
         $routes->plugin(
             'Tinyurl',
             ['path' => '/admin/url/'],
@@ -97,7 +94,7 @@ class Plugin extends BasePlugin
         );
 
         parent::routes($routes);
-    }
+    } */
     public function bootstrap(PluginApplicationInterface $app): void
     {
     }

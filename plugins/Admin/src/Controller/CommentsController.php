@@ -15,7 +15,7 @@ class CommentsController extends AppController
     {
         if($this->request->getParam('action') == 'save'){
             //$this->Auth->allow();
-            $this->Authentication->addUnauthenticatedActions();
+            //$this->Authentication->addUnauthenticatedActions();
         }
         /* else{
             $this->viewBuilder()->setLayout('Admin.default');
@@ -91,6 +91,7 @@ class CommentsController extends AppController
     }
     //-----------------------------------------------------------------------------
     public function save($id = null){
+		die("show die");
         $data = $this->request->getData();
         $post = $this->Query->post('',['id'=> $data['post_id'],'get_type'=>'first']);
         if ($this->request->is(['post']) and isset($post['id'])) {

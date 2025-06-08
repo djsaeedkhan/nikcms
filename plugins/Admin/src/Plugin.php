@@ -90,19 +90,15 @@ class Plugin extends BasePlugin
     }
     public function routes(RouteBuilder $routes): void
     {
-        $routes->plugin(
-            'Admin',
-            ['path' => '/admin'],
-            function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
-                $routes->fallbacks(DashedRoute::class);
-            }
-        )
+        $routes
         ->plugin(
             'Admin',
-            ['path' => '/savecomments'],
+            ['path' => '/'],
             function (RouteBuilder $routes) {
-                $routes->connect('/', ['controller' => 'Comments', 'action' => 'save'])->setMethods(['POST']);
+                $routes->connect('/admin', ['controller' => 'Dashboard', 'action' => 'index', 'home']);
+                $routes->connect('/savecomments', ['controller' => 'Comments', 'action' => 'save'])
+                    //->setMethods(['POST'])
+                    ;
                 $routes->fallbacks(DashedRoute::class);
             }
         );

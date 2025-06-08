@@ -28,10 +28,10 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
+            "Website\\": "plugins/Website/src/",
             "Admin\\": "plugins/Admin/src/",
             "Shop\\": "plugins/Shop/src/",
             "Predata\\": "plugins/Predata/src/",
-            "Website\\": "plugins/Website/src/",
             "Tinyurl\\": "plugins/Tinyurl/src/",
             "Postviews\\": "plugins/Postviews/src/",
             "Breadcrumb\\": "plugins/Breadcrumb/src/",
