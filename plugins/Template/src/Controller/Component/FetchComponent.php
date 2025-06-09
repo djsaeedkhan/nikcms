@@ -19,7 +19,10 @@ class FetchComponent extends Component {
         global $cond;
         global $results;
         global $model;
-        $param = $this->request->getparam('?');
+        $param = $this->_registry->getController()->getRequest()->getQuery();
+        //$param = $this->request->getQuery();
+
+        $this->request = $this->_registry->getController()->getRequest();
         $j = 1;
         
         if(isset($param['search']) and $param['search'] != ''){

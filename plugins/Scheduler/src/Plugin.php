@@ -44,18 +44,26 @@ class Plugin extends BasePlugin {
 
     public function routes(RouteBuilder $routes): void
     {
-        $routes->plugin(
-            'Scheduler',
-            ['path' => '/'],
-            function (RouteBuilder $builder) {
-                $builder->connect('/admin/scheduler/', ['controller' => 'Home']);
-                $builder->connect('/dowithcronjobs/', ['controller' => 'Cron']);
-                $builder->fallbacks();
-            }
-        );
+        $routes
+            ->plugin(
+                'Scheduler',
+                ['path' => '/admin/scheduler/'],
+                function (RouteBuilder $routes) {
+                    $routes->connect('/', ['controller' => 'Home']);
+                    $routes->fallbacks(DashedRoute::class);
+                }
+            )
+            ->plugin(
+                'Scheduler',
+                ['path' => '/dowithcronjobs/'],
+                function (RouteBuilder $routes) {
+                    $routes->connect('/', ['controller' => 'Cron']);
+                    $routes->fallbacks(DashedRoute::class);
+                }
+            );
 
-        parent::routes($routes);
-    }
+            parent::routes($routes);
+        }
     public function bootstrap(PluginApplicationInterface $app): void
     {
     }

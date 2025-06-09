@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Website\Controller\Component;
 
 use Cake\Controller\Component;
@@ -11,7 +13,7 @@ class FetchsComponent extends Component {
     protected $_defaultConfig = [];
     public $components = ['Paginator','Session'];
     public function initialize(array $config): void{
-        parent::initialize();
+        //parent::initialize();
     }
     public function home($id = null){}
     public function index() {
@@ -26,7 +28,9 @@ class FetchsComponent extends Component {
         global $model;
         global $limit;
 
-        $param = $this->request->getQuery();
+
+        $param = $this->_registry->getController()->getRequest()->getQuery();
+        $this->request = $this->_registry->getController()->getRequest();
 
         $is_status = 'index';
         $id = ($this->request->getParam('catid'))?strip_tags($this->request->getParam('catid')):null;
@@ -63,7 +67,7 @@ class FetchsComponent extends Component {
         $results = $model
             ->find('all')
             ->where([
-                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
                 ])
@@ -187,10 +191,14 @@ class FetchsComponent extends Component {
         global $is_status;
         global $id;
         global $result;
+
+        $param = $this->_registry->getController()->getRequest()->getQuery();
+        $this->request = $this->_registry->getController()->getRequest();
+
         $result = TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('all')
             ->where([
-                $this->request->getAttribute('identity')->get('id')?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
             ])
@@ -200,14 +208,14 @@ class FetchsComponent extends Component {
             $result = $result->where([
                 'slug' => strip_tags($this->request->getParam('slug')),
                 'Posts.published' => 1 ,
-                $this->request->getAttribute('identity')->get('id') != 'NULL'?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity') != NULL?[]:['Posts.post_status !=' => 2],
             ]);
         }
         elseif($id != null){
             $result = $result->where([
                 'Posts.id' => intval($id),
                 'Posts.published' => 1 ,
-                $this->request->getAttribute('identity')->get('id') != 'NULL'?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity')!= NULL?[]:['Posts.post_status !=' => 2],
             ]);
         }else{
             $result = false;
@@ -218,22 +226,23 @@ class FetchsComponent extends Component {
 
         if(isset($result['id'])){
             $id = $result['id'];
-            $this->request = $this->request->withParam('id',$id);
+            $this->request = $this->request->withParam('id', $id);
         }
 
         if($this->request->getParam('id'))
-            $id = strip_tags($this->request->getParam('id'));
+            $id = intval($this->request->getParam('id'));
 
         if (empty($id)) {
             //throw new NotFoundException(__d('Website', 'Page not found11'));
         }
         
         try{
-            if(! $this->request->getSession()->read('postviews.'.$id)){
+            $session = $this->_registry->getController()->getRequest()->getSession();
+            if (! $session->read('postviews.' . $id)) {
                 $temp = new \Postviews\PostCount();
                 $temp->post_id = $id;
                 $temp->visit_save();
-                $this->request->getSession()->write('postviews.'.$id, $id);
+                $session->write('postviews.'.$id, $id);
             }
         }
         catch (\Exception $e){}
@@ -253,7 +262,7 @@ class FetchsComponent extends Component {
         $results = $model->find('all')
             ->contain(['Categories','Tags','PostMetas','PostsI18n'])//,'Users'
             ->where([
-                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s')
                 ])
@@ -280,7 +289,7 @@ class FetchsComponent extends Component {
             ->order(['Posts.created'=>'desc'])
             ->contain(['Categories','Tags','PostMetas','PostsI18n'])//,'Users'
             ->where([
-                $this->request->getAttribute('identity')->get('id') != NULL?[]:['Posts.post_status !=' => 2],
+                $this->request->getAttribute('identity') != NULL?[]:['Posts.post_status !=' => 2],
                 'Posts.published' => 1,
                 'Posts.created <=' => date('Y-m-d H:i:s'),
                 'Posts.post_type !=' => 'media',
