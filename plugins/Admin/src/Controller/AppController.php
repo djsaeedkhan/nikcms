@@ -10,9 +10,9 @@ class AppController extends BaseController
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
-        $this->loadComponent('FormProtection', [
+        /* $this->loadComponent('FormProtection', [
             'unlockedFields' => ['nav']
-        ]);
+        ]); */
         $this->post_type = $this->request->getQuery('post_type')?
             $this->request->getQuery('post_type'):'post';
         

@@ -102,7 +102,7 @@ class MediasController extends AppController
                 return $this->add_manual($id);
                 break;
 
-            default: // multi_select
+            default: // multi_select //3
                 return $this->add_multi();
                 break;
         } ;
@@ -111,6 +111,7 @@ class MediasController extends AppController
     private function before_upload(){
         $fileName = $this->uploadfile($this->request->getData()['file']);
         if( $fileName != "0" ){
+            $fileName = $image->getClientFilename();
             $this->request = $this->request->withData('title',$fileName['filename']);
             $this->request = $this->request->withData('image',$fileName['filename']);
             $this->request = $this->request->withData('published',1 );
@@ -188,9 +189,9 @@ class MediasController extends AppController
         if ($this->request->is(['post','ajax'])) {
             //Log::write('debug',$this->request);
             $this->autoRender = false;
-
-            if(!empty($this->request->getData()['file'])){
-                $fileName = $this->request->getData()['file']['name'];
+            $image = $this->request->getUploadedFile('file');
+            if ($image !== null && $image->getError() !== UPLOAD_ERR_NO_FILE){
+                $fileName = $image->getClientFilename();
                 if($this->request->getQuery('parent_id'))
                     $this->request = $this->request->withData('categories._ids',[$this->request->getQuery('parent_id')]);
 

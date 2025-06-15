@@ -135,7 +135,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([
-                'httpOnly' => true,
+                'httponly' => true,
             ]))
 
             // Add the AuthenticationMiddleware. It should be

@@ -64,12 +64,23 @@ function getMaximumFileUploadSize(){
                         <div id="success-message-info" class="message success display-none"></div>
                         <br><br><br>
                     </div>
-                    <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
+                    <?= $this->Form->create(null, ['type' => 'file']); ?>
+                    <?php // $this->Form->control('csrfToken',['type'=>'hidden','value'=>$this->request->getAttribute('csrfToken')])?>
+                    <?php // $this->Form->control('_csrfToken',['type'=>'hidden','value'=>$this->request->getAttribute('csrfToken')])?>
                     <div class=" tile-container text-center" style="display: flex;justify-content: center;">
                             <div id="uploadStatus"></div>
-                            <input type="file" id="fileUpload" required multiple placeholder="choose file or browse" /><br>
-                            <button class="btn btn-success" onclick="uploadFiles()">شروع آپلود</button>
+                            <?= $this->Form->control('fileUpload',[
+                                'id'=>'fileUpload',
+                                'label'=>false,
+                                'type'=>'file',
+                                'placeholder'=>'choose file or browse',
+                                'required'=> true,
+                                'multiple'
+                            ])?>
+                            <!-- <input type="file" id="fileUpload" required multiple placeholder="choose file or browse" /> --><br>
+                            <a class="btn btn-success" onclick="uploadFiles()">شروع آپلود</a>
                     </div>
+                    <?= $this->Form->end(); ?>
                 </div>
 
                 <div class="show_result"><Br>
@@ -125,9 +136,9 @@ function uploadFile(file) {
     token = Math.floor((Math.random() * 100000000) + 1);
     var formData = new FormData();
     formData.append('file', file);
-    var csrfToken = document.querySelector('meta[name="csrfToken"]').getAttribute('content');
-    formData.append('_csrfToken', csrfToken);
-    formData.append('token', token);
+    var csrfToken = $('[name="_csrfToken"]').val();
+    formData.append('_csrfToken', csrfToken );
+    formData.append('_Token', $('[name="_Token"]').val());
     var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
     progressBarContainer.className = 'progress-container';
     progressBarContainer.setAttribute("id", "upload_"+ token);
