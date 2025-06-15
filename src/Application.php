@@ -153,7 +153,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Define where users should be redirected to when they are not authenticated
         $service->setConfig([
             'unauthenticatedRedirect' => Router::url('/users/login'),
-            'queryParam' => 'redirect',
+            //'queryParam' => 'redirect',
             'requireIdentity' => false,
             'skipRedirectForAjax' => true, // ⬅ مهم برای جلوگیری از 302 در Ajax
         ]);
@@ -167,11 +167,11 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
             'loginUrl' => Router::url('/users/login'),
+            'logoutRedirect' => Router::url('/admin/'),
         ]);
 
         // Load identifiers
         //$service->loadIdentifier('Authentication.Password', compact('fields'));
-
         $service->loadIdentifier('Authentication.Password', [
             'fields' => [
                 'username' => 'username',

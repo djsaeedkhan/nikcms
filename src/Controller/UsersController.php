@@ -98,6 +98,7 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function login(){
+        
         try{
             if($this->Func->OptionGet('template_layout') == 1)
                 $this->viewBuilder()->setLayout('Template.login');
@@ -114,12 +115,21 @@ class UsersController extends AppController{
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-        if ($this->request->getAttribute('identity'))
-            $this->redirect(['action'=>'index']);
-        
-        if ($this->request->is(['ajax','post'])) {
 
-            pr($this->request);
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            // کاربر لاگین کرده است، به داشبورد هدایت شود
+            return $this->redirect('/admin/');
+            // یا
+            // return $this->redirect(['prefix' => 'Admin', 'controller' => 'Dashboard', 'action' => 'index']);
+        }
+        /* if ($this->request->getAttribute('identity') and $this->request->getAttribute('identity')->get('id')){
+            //die(pr($this->request->getAttribute('identity')));
+            return $this->redirect(['controller'=>'Users','action'=>'index']);
+        } */
+            
+
+        if ($this->request->is(['ajax','post'])) {
 
             $session = $this->getRequest()->getSession();
             if ($this->request->is('ajax')) {
@@ -190,10 +200,10 @@ class UsersController extends AppController{
             if ($result && $result->isValid()) {
                 $user = $this->request->getAttribute('identity');
 
-                return $this->response->withType('application/json')->withStatus(401)->withStringBody(json_encode([
+                /* return $this->response->withType('application/json')->withStatus(401)->withStringBody(json_encode([
                     'type' => 'error',
                     'alert' => 'نام کاربری یا رمز عبور اشتباه است'
-                ]));
+                ])); */
                 
                 
                 //فعلا غیرفعال شد 1404.03.07
@@ -247,24 +257,10 @@ class UsersController extends AppController{
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
-                
+
                 //if redirect pass in url
-                if($this->request->getQuery('redirect'))
+                if($this->request->getQuery('redirect') and $this->request->getQuery('redirect') != "/users/index")
                     return $this->redirect($this->request->getQuery('redirect'));
-
-
-                if($this->Func->OptionGet('login_redirecturl') != ''){
-                    if($this->request->is('ajax')){
-                        return $this->response->withType('application/json')->withStringBody(json_encode([
-                            'code'=>'F5',
-                            'type'=>'success',
-                            'alert'=>__('ورود انجام شد، لطفا منتظر بمانید'),
-                            'referer'=> $this->Func->OptionGet('login_redirecturl'),
-                        ]));
-                    }
-                    else
-                        return $this->redirect($this->Func->OptionGet('login_redirecturl'));
-                }
 
                 //check for first visit to complete profile
                 if( $this->Func->OptionGet('complete_profile') == 1 
@@ -294,17 +290,31 @@ class UsersController extends AppController{
                             return $this->redirect(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']);
                 }
                 
-                if( $user->get('role_id') == 1)
-                    $redirect = $this->request->getQuery('redirect', [
-                        'plugin' => 'Admin',
-                        'controller' => 'Dashboard',
-                        'action' => 'index',
-                    ]);
-                else
-                    $redirect = $this->request->getQuery('redirect', [
-                        'controller' => 'Users',
-                        'action' => 'index',
-                    ]);
+                if( $user->get('role_id') == 1 ){
+                    $redirect = '/admin/';
+                }
+                else{
+                    if($this->Func->OptionGet('login_redirecturl') != "")
+                        $redirect = $this->Func->OptionGet('login_redirecturl');
+                    else
+                        $redirect = [
+                            'controller' => 'Users',
+                            'action' => 'index',
+                        ];
+                }
+                
+                if($this->Func->OptionGet('login_redirecturl') != ''){
+                    if($this->request->is('ajax')){
+                        return $this->response->withType('application/json')->withStringBody(json_encode([
+                            'code'=>'F5',
+                            'type'=>'success',
+                            'alert'=>__('ورود انجام شد، لطفا منتظر بمانید'),
+                            'referer'=> $this->Func->OptionGet('login_redirecturl'),
+                        ]));
+                    }
+                    else
+                        return $this->redirect($this->Func->OptionGet('login_redirecturl'));
+                }
                 
                 if($this->request->is('ajax')){
                     return $this->response->withType('application/json')->withStringBody(json_encode([
@@ -317,6 +327,7 @@ class UsersController extends AppController{
                 else{
                     return $this->redirect($redirect);
                 }
+                
             }
             else{
                 if($this->Func->OptionGet('register_type') == 'mobile'){
@@ -877,7 +888,7 @@ class UsersController extends AppController{
 
             return $this->Func->OptionGet('logout_url')!= ""?
                 $this->redirect($this->Func->OptionGet('logout_url')):
-                $this->redirect($this->Auth->logout());
+                $this->redirect($this->Authentication->logout());
         }
         return $this->redirect($this->referer());
     }
