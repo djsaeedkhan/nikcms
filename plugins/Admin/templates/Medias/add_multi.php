@@ -64,7 +64,7 @@ function getMaximumFileUploadSize(){
                         <div id="success-message-info" class="message success display-none"></div>
                         <br><br><br>
                     </div>
-
+                    <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
                     <div class=" tile-container text-center" style="display: flex;justify-content: center;">
                             <div id="uploadStatus"></div>
                             <input type="file" id="fileUpload" required multiple placeholder="choose file or browse" /><br>
@@ -125,6 +125,8 @@ function uploadFile(file) {
     token = Math.floor((Math.random() * 100000000) + 1);
     var formData = new FormData();
     formData.append('file', file);
+    var csrfToken = document.querySelector('meta[name="csrfToken"]').getAttribute('content');
+    formData.append('_csrfToken', csrfToken);
     formData.append('token', token);
     var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
     progressBarContainer.className = 'progress-container';
@@ -155,7 +157,7 @@ function uploadFile(file) {
             progressBar.style.width = percent + '%';
             progressBar.innerHTML = percent + '%';
             if(percent == 100){
-                progressBar.innerHTML = "در حال پردازش اطلاعات";
+                progressBar.innerHTML = "در حال پردازش اطلاعات ...";
             }
         }
     });
@@ -185,10 +187,13 @@ function uploadFile(file) {
     xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); */
 
-    var csrfToken = document.querySelector('meta[name="csrfToken"]');
     console.log(csrfToken);
-    //.getAttribute('content');
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
     xhr.getResponseHeader('Content-Type');
     xhr.withCredentials = true;
     xhr.onreadystatechange = function(){
