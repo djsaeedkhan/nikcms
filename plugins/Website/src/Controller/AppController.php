@@ -10,8 +10,9 @@ class AppController extends BaseController
     public function initialize(): void
     {
         parent::initialize();
+        /* $this->loadComponent('Authentication.Authentication');
         $this->Authentication->addUnauthenticatedActions(['*']);
-        /* $this->Authentication->allowUnauthenticated([
+        $this->Authentication->allowUnauthenticated([
             '*' // همه اکشن‌ها
         ]);  */
     }

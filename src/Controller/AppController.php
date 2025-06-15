@@ -38,7 +38,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-        //$this->loadComponent('Captcha.Captcha'); //load on the fly!
+        $this->loadComponent('Captcha.Captcha'); //load on the fly!
         
         $view = new View();
 
@@ -86,8 +86,8 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions([
-            'login', 'register','Website.index']);
+        /* $this->Authentication->addUnauthenticatedActions([
+            'login', 'registers','Website.home']); */
         //$this->Authentication->allowUnauthenticated([]);
     }
     //----------------------------------------------------

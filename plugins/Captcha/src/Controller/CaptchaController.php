@@ -1,17 +1,20 @@
 <?php
 namespace Captcha\Controller;
 use Captcha\Controller\AppController;
+use Cake\Event\EventInterface;
 
 class CaptchaController extends AppController
 {
     public function initialize(): void
     {
-      parent::initialize();
-      //$this->loadComponent('Captcha.Captcha');
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication');
     }
-    public function beforeFilter(\Cake\Event\Event $event)
+    public function beforeFilter(EventInterface $event)
     {
-        if(isset($this->Auth) && is_object($this->Auth)) $this->Auth->allow(['create']);
+        parent::beforeFilter($event);
+        //if(isset($this->Auth) && is_object($this->Auth)) $this->Auth->allow(['create']);
+        $this->Authentication->allowUnauthenticated(['create']);
     }
     function create()	{
         $this->autoRender = false;

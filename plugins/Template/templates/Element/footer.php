@@ -212,8 +212,6 @@
         '/template/js/app.js',
     ]);?>
     <?= $this->Func->footer();?>
-
-
 <script>
 /* $(window).on('load', function() {
   $('#activeModal').modal('show');
@@ -225,6 +223,7 @@ function Captcha(){
   $('.captcha_img').attr('src', mySrc + glue + new Date().getTime());
 }
 function loginform(){
+
   var all_data='...';
   let myform = document.getElementById("loginFormModal");
   let fd = new FormData(myform);
@@ -232,9 +231,11 @@ function loginform(){
   $.ajax({
       type : 'POST',dataType: 'html',cache: false,contentType: false,processData: false,async: true,data: fd,
       url : '<?= Router::url('/users/login')?>' ,
-      beforeSend: function(){
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         //$('.'+mclass).html('درحال دریافت اطلاعات');
-        $('.btnlogin').prop('disabled', true);
+        // $('.btnlogin').prop('disabled', true);
         $('.btnlogin').text('ورود ...');
       },
       complete: function(){
@@ -242,6 +243,7 @@ function loginform(){
         //$('.btnlogin').prop('disabled', false);
       },
       success : function(data){
+        //console.log(data);
         var retdata = JSON.parse(data);
         console.log(retdata);
         if(typeof retdata['type'] !== 'undefined' && retdata['type'] == "error" ){
@@ -281,10 +283,13 @@ function loginform(){
         $('.btnlogin').text('ورود');
       }
   });
+
   return all_data;
 }
 function onLogin(){
+  
   loginform();
+  event.preventDefault();
 }
 function onActive(){
   $('.activebox').html('');
@@ -302,8 +307,6 @@ function onActive(){
       $('.btnActive').prop('disabled', false);
     },
     success : function(data){
-
-      
       $('.activebox').html('');
       $('.btnActive').prop('disabled', false);
       $('.btnActive').text('ثبت کد');

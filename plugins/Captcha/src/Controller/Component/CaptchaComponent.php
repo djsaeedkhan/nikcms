@@ -5,6 +5,7 @@ namespace Captcha\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
+use Cake\Event\EventInterface;
 
 class CaptchaComponent extends Component	{
 
@@ -102,7 +103,7 @@ class CaptchaComponent extends Component	{
      * Checks the given setup for support
      * @param (void) 
      */
-    private function __init() {
+    private function __init() :void {
         
         //Check to see if the TTF support is enabled
         $this->__checkTTFSupport();
@@ -127,10 +128,31 @@ class CaptchaComponent extends Component	{
      *
      * @param ($instance of Controller) 
      */
-    public function beforeRender() {
-        $this->Controller->helpers['Captcha.Captcha'] = array_merge($this->__getSettings(), array('plugin'=>'Captcha', 'controller'=>'Captcha', 'action'=>'create'));
-    }
+    /* public function beforeRender() :void {
+      $this->Controller->helpers['Captcha.Captcha'] = array_merge($this->__getSettings(), array('plugin'=>'Captcha', 'controller'=>'Captcha', 'action'=>'create'));
+    } */
 
+    public function implementedEvents(): array
+    {
+        return [
+            'Controller.beforeRender' => 'beforeRender'
+        ];
+    }
+    
+    public function beforeRender(EventInterface $event): void
+    {
+        $controller = $event->getSubject(); // کنترلر فعال
+
+        // افزودن Helper به ViewBuilder
+        $controller->viewBuilder()->addHelper('Captcha.Captcha', array_merge(
+            $this->__getSettings(),
+            [
+                'plugin' => 'Captcha',
+                'controller' => 'Captcha',
+                'action' => 'create'
+            ]
+        ));
+    }
     /**
      * Set Helper generated params
      *

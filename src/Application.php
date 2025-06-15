@@ -97,7 +97,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
          * Debug Kit should not be installed on a production system
          */
         if (Configure::read('debug')) {
-            $this->addPlugin('DebugKit');
+            //$this->addPlugin('DebugKit');
         }
 
         // Load more plugins here
@@ -154,6 +154,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $service->setConfig([
             'unauthenticatedRedirect' => Router::url('/users/login'),
             'queryParam' => 'redirect',
+            'requireIdentity' => false,
+            'skipRedirectForAjax' => true, // ⬅ مهم برای جلوگیری از 302 در Ajax
         ]);
 
         $fields = [
@@ -164,12 +166,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
-            'loginUrl' => Router::url([
-                'prefix' => false,
-                'plugin' => null,
-                'controller' => 'Users',
-                'action' => 'login',
-            ]),
+            'loginUrl' => Router::url('/users/login'),
         ]);
 
         // Load identifiers

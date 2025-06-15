@@ -1,7 +1,8 @@
 <?php
 use Cake\Routing\Router;
 use Cake\ORM\TableRegistry;
-if($this->Func->OptionGet('role'.$this->request->getAttribute('identity')->get('role_id')) === "0"){
+if($this->request->getAttribute('identity') and 
+    $this->Func->OptionGet('role'.$this->request->getAttribute('identity')->get('role_id')) === 0 ){
     echo $this->Func->Redirect(Router::url('/'));
 }
 $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
@@ -163,7 +164,7 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                 </li>
                 <li class="nav-item nav-moon"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
 
-                <?php if( $this->request->getAttribute('identity')->get('role_id') == 1):?>
+                <?php if( $this->request->getAttribute('identity') and $this->request->getAttribute('identity')->get('role_id') == 1):?>
                     <li class="nav-item dropdown dropdown-notification mr-25">
                         <?php
                         $temp = null;
@@ -231,6 +232,8 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                         </ul>
                     </li>
                 <?php endif?>
+
+                <?php if( $this->request->getAttribute('identity') ):?>
                 <li class="nav-item dropdown dropdown-user">
                     <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-nav d-sm-flex d-none">
@@ -248,7 +251,6 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                         <div class="dropdown-item d-sm-none d-block">
                             <span class="user-name font-weight-bolder"><?= $this->request->getAttribute('identity')->get('family');?></span>
                             <span class="user-status"><?= $this->request->getAttribute('identity')->get('username');?></span>
-                        
                         </div>
                         <div class="dropdown-divider d-sm-none d-block"></div>
 
@@ -268,6 +270,7 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
                             'confirm'=>__d('Admin', 'برای خروج از پنل کاربری مطمئن هستید؟')]);?>
                     </div>
                 </li>
+                <?php endif?>
             </ul>
         </div>
     </nav>

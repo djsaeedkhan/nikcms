@@ -75,7 +75,7 @@ $predata = new Predata();
                         ));
                         echo '</div>';
 
-                        pr(\Admin\View\Helper\ModuleHelper::options_registerform());
+                        //pr(\Admin\View\Helper\ModuleHelper::options_registerform());
                         echo '<div class="register_fields">'.
                             $this->Func->create_form(\Admin\View\Helper\ModuleHelper::options_registerform());
                         echo '</div><div class="clearfix"></div>';

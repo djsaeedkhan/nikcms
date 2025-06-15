@@ -98,11 +98,6 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function login(){
-        /* $ulog = new \Userlogs\UserLogg();
-            $p = $ulog->login_check_failed([
-            'username'=>"admin",
-        ], 1); //1:succ 2:faild */
-
         try{
             if($this->Func->OptionGet('template_layout') == 1)
                 $this->viewBuilder()->setLayout('Template.login');
@@ -123,6 +118,9 @@ class UsersController extends AppController{
             $this->redirect(['action'=>'index']);
         
         if ($this->request->is(['ajax','post'])) {
+
+            pr($this->request);
+
             $session = $this->getRequest()->getSession();
             if ($this->request->is('ajax')) {
                 $this->autoRender = false;
@@ -140,13 +138,16 @@ class UsersController extends AppController{
                 }
             } */
 
-            if ($session->read('show_recaptcha') == 1 and !isset($this->request->getData()['securitycode'])) {
+            if ( $session->read('show_recaptcha') == 1  and 
+                !isset($this->request->getData()['securitycode']) and
+                empty($this->request->getData()['securitycode'])
+            ){
                 if ($this->request->is('ajax')) {
                     return $this->response->withType('application/json')->withStringBody(json_encode([
                         'code'=>'F1',
                         'type'=>'error',
                         'alert'=>__('کد امنیتی به درستی وارد نشده است'),
-                        'referer'=>null,
+                        'referer' => null,
                     ]));
                 }
                 else{
@@ -154,8 +155,11 @@ class UsersController extends AppController{
                     return $this->redirect($this->referer());
                 }
             }
-            if ($session->read('show_recaptcha') == 1 and
-                $this->Captcha->getCode('securitycode') != $this->request->getData()['securitycode']) {
+            if (
+                $session->read('show_recaptcha') == 1 
+                and
+                $this->Captcha->getCode('securitycode') != $this->request->getData()['securitycode'])
+                {
                     if ($this->request->is('ajax')) {
                         return $this->response->withType('application/json')->withStringBody(json_encode([
                             'code'=>'F2',
@@ -166,7 +170,6 @@ class UsersController extends AppController{
                     }
                     else {
                         return $this->Flash->error(__('کدامنیتی اشتباه هست، لطفا دوباره وارد کنید'));
-                        return;
                     }    
             }
             if (!isset($this->request->getData()['username']) or !isset($this->request->getData()['password'])) {
@@ -183,10 +186,15 @@ class UsersController extends AppController{
                 } 
             }
             
-            //
             $result = $this->Authentication->getResult();
             if ($result && $result->isValid()) {
                 $user = $this->request->getAttribute('identity');
+
+                return $this->response->withType('application/json')->withStatus(401)->withStringBody(json_encode([
+                    'type' => 'error',
+                    'alert' => 'نام کاربری یا رمز عبور اشتباه است'
+                ]));
+                
                 
                 //فعلا غیرفعال شد 1404.03.07
                 /* if ($this->Func->OptionGet('login_expired_check') == 1 and $user->get('expired') != null ) {
@@ -240,38 +248,12 @@ class UsersController extends AppController{
                     //throw $th;
                 }
                 
+                //if redirect pass in url
+                if($this->request->getQuery('redirect'))
+                    return $this->redirect($this->request->getQuery('redirect'));
 
-                //check for first visit to complete profile
-                if( $ulog->login_firstvisit([
-                        'id' => $user->get('id'),
-                        'username'=>$user->get('username')]) == false 
-                    ){
-                    if($this->request->is('ajax')){
-                        $this->response->withType('application/json')->withStringBody(json_encode([
-                            'code'=>'F6',
-                            'type'=>'info',
-                            'alert'=>__('ورود انجام شد. لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید'),
-                            'referer'=> null,
-                        ]));
-                    }
-                    else
-                        $this->Flash->success(__('لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید'));
 
-                    if($this->Func->OptionGet('complete_profile') =='1'){
-                        if($this->request->is('ajax')){
-                            return $this->response->withType('application/json')->withStringBody(json_encode([
-                                'code'=>'F7',
-                                'type'=>'success',
-                                'alert'=>'ورود انجام شد، لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید',
-                                'referer'=> Router::url(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']),
-                            ]));
-                        }
-                        else
-                            return $this->redirect(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']);
-                    }
-                }
-
-                if($this->Func->OptionGet('login_redirecturl') !=''){
+                if($this->Func->OptionGet('login_redirecturl') != ''){
                     if($this->request->is('ajax')){
                         return $this->response->withType('application/json')->withStringBody(json_encode([
                             'code'=>'F5',
@@ -283,11 +265,46 @@ class UsersController extends AppController{
                     else
                         return $this->redirect($this->Func->OptionGet('login_redirecturl'));
                 }
+
+                //check for first visit to complete profile
+                if( $this->Func->OptionGet('complete_profile') == 1 
+                    and 
+                    $ulog->login_firstvisit(['id' => $user->get('id'),'username'=>$user->get('username')]) == false 
+                    ){
+                        /* if($this->request->is('ajax')){
+                            $this->response->withType('application/json')->withStringBody(json_encode([
+                                'code'=>'F6',
+                                'type'=>'info',
+                                'alert'=>__('ورود انجام شد. لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید'),
+                                'referer'=> null,
+                            ]));
+                        }
+                        else
+                            $this->Flash->success(__('لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید')); */
+                    
+                        if($this->request->is('ajax')){
+                            return $this->response->withType('application/json')->withStringBody(json_encode([
+                                'code'=>'F7',
+                                'type'=>'success',
+                                'alert'=>'ورود انجام شد، لطفا مشخصات کاربری اکانت خود را تکمیل فرمایید',
+                                'referer'=> Router::url(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']),
+                            ]));
+                        }
+                        else
+                            return $this->redirect(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']);
+                }
                 
-                $redirect = $this->request->getQuery('redirect', [
-                    'controller' => 'Users',
-                    'action' => 'index',
-                ]);
+                if( $user->get('role_id') == 1)
+                    $redirect = $this->request->getQuery('redirect', [
+                        'plugin' => 'Admin',
+                        'controller' => 'Dashboard',
+                        'action' => 'index',
+                    ]);
+                else
+                    $redirect = $this->request->getQuery('redirect', [
+                        'controller' => 'Users',
+                        'action' => 'index',
+                    ]);
                 
                 if($this->request->is('ajax')){
                     return $this->response->withType('application/json')->withStringBody(json_encode([
@@ -300,10 +317,6 @@ class UsersController extends AppController{
                 else{
                     return $this->redirect($redirect);
                 }
-
-                //if redirect pass in url
-                if($this->request->getQuery('redirect') == '')
-                    return $this->redirect($this->referer());
             }
             else{
                 if($this->Func->OptionGet('register_type') == 'mobile'){
@@ -339,10 +352,8 @@ class UsersController extends AppController{
                     //throw $th;
                 }
 
-
-                //stemp
-                //$session->write('show_recaptcha', '1');
-                $session->write('show_recaptcha', '0');
+                // if user-pass was incorrect, show recaptcha for new login
+                $session->write('show_recaptcha', 1 );
 
                 if($this->request->is('ajax')){
                     return $this->response->withType('application/json')->withStringBody(json_encode([
@@ -488,7 +499,11 @@ class UsersController extends AppController{
                         // Send Remember Sms
                         $this->sms = new Sms();
                         $text = $this->sms->setting;
-                        if(isset($text['smstext_remember']) and $text['smstext_remember'] != ''){
+                        if(
+                            isset($text['smstext_remember']) 
+                            and 
+                            $text['smstext_remember'] != '')
+                        {
                             $this->sms->sendsingle([
                                 'mobile' =>  $user['username'],
                                 'text' => $this->sms->create_text($text['smstext_remember'], [
@@ -632,7 +647,11 @@ class UsersController extends AppController{
             }
 
             $activate = $this->Func->OptionGet('register_activation');
-            if( ($month = $this->Func->OptionGet('reg_expired_month')) != null and $month!= 0){
+            if( 
+                ($month = $this->Func->OptionGet('reg_expired_month')) != null 
+                and 
+                $month!= 0)
+            {
                 $time = new Time('now');
                 $time->addDays($month);
                 $this->request = $this->request->withData('expired', $time->format('Y-m-d'));

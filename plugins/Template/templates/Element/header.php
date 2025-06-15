@@ -22,6 +22,18 @@ global $is_status;
     <?= $this->html->script([
       '/template/js/packages/jquery-3.7.1.min.js',
     ]);?>
+    <style>
+      #securitycode{
+        direction: ltr;
+        text-align: left;
+        font-family: sans-serif;
+      }
+      .captcha_img {
+        margin-bottom: -77px;
+        margin-right: 5px;
+        border-radius: 5px;
+      }
+    </style>
     
     <?php $this->Func->header()?>
     <?php if(isset(setting['morecss']) and setting['morecss'] != ''):?>
@@ -233,7 +245,7 @@ global $is_status;
                 
                 <div class="form-group captcha">
                   <div class="d-none">
-                    <?= $this->html->image(null,['class'=>'captcha_img'])?>
+                    <?= $this->html->image(null,[ 'class'=>'captcha_img'])?>
                     <?= $this->form->control('securitycode',['type'=>'text','class'=>'form-control captcha_field','dir'=>'ltr','label'=>false,'autocomplete'=>'off'])?>
                   </div>
                 </div>
