@@ -124,6 +124,7 @@ function uploadFiles() {
         var fileExtension = files[i].name.substring(files[i].name.lastIndexOf('.')).toLowerCase();
 
         if (allowedExtensions.includes(fileExtension)) {
+            //console.log(files[i]);
             uploadFile(files[i]);
         } else {
             alert('Invalid file type: ' + fileExtension);
@@ -137,8 +138,8 @@ function uploadFile(file) {
     var formData = new FormData();
     formData.append('file', file);
     var csrfToken = $('[name="_csrfToken"]').val();
-    formData.append('_csrfToken', csrfToken );
-    formData.append('_Token', $('[name="_Token"]').val());
+    //formData.append('_csrfToken', csrfToken );
+    //formData.append('_Token', $('[name="_Token"]').val());
     var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
     progressBarContainer.className = 'progress-container';
     progressBarContainer.setAttribute("id", "upload_"+ token);
@@ -183,7 +184,7 @@ function uploadFile(file) {
             progressBar.className = 'progress-bar d-none';
             if(typeof result['token'] != 'undefined') {
                 var uploadStatus = document.getElementById( "upload_" + result['token']);
-                uploadStatus.innerHTML += '<div class="alert"><a target="_blank" href="<?=  Cake\Routing\Router::url('/'.$upload_path, true);?>' + result['filename']+'"><?=  Cake\Routing\Router::url('/'.$upload_path, true);?>' + result['filename']+"</div>";
+                uploadStatus.innerHTML += '<div class="alert"><a target="_blank" href="<?=  Cake\Routing\Router::url('/', true);?>' + result['file_fullname']+'"><?=  Cake\Routing\Router::url('/', true);?>' + result['file_fullname']+"</div>";
             }
             if(typeof result['thumbnail']['fulladdr'] != 'undefined') {
                 var up_image = document.getElementById( "up_" + result['token']);
@@ -194,17 +195,18 @@ function uploadFile(file) {
     xhr.addEventListener('load', function(event) {});
     xhr.addEventListener("error", function(event) {console.log(event);});
     xhr.open('POST', "<?=  Cake\Routing\Router::url(null, true);?>", true);
-    /* xhr.timeout = 10000; // Set timeout to 4 seconds (4000 milliseconds)
-    xhr.setRequestHeader("Content-Type", "multipart/form-data");
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); */
 
-    console.log(csrfToken);
+    /* xhr.timeout = 10000; // Set timeout to 4 seconds (4000 milliseconds)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    xhr.setRequestHeader("Content-Type", "multipart/form-data");
+    */
+
+    //console.log(csrfToken);
     if (!csrfToken) {
         console.error('CSRF token not found');
         return;
     }
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
     xhr.getResponseHeader('Content-Type');
     xhr.withCredentials = true;
     xhr.onreadystatechange = function(){

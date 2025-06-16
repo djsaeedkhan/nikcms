@@ -109,30 +109,38 @@ class MediasController extends AppController
     }
     //-----------------------------------------------
     private function before_upload(){
-        $fileName = $this->uploadfile($this->request->getData()['file']);
-        if( $fileName != "0" ){
-            $fileName = $image->getClientFilename();
-            $this->request = $this->request->withData('title',$fileName['filename']);
-            $this->request = $this->request->withData('image',$fileName['filename']);
-            $this->request = $this->request->withData('published',1 );
-            $this->request = $this->request->withData('post_type',$this->media_ptype );
-            $this->request = $this->request->withData('user_id',$this->request->getAttribute('identity')->get('id'));
+
+        $file = $this->request->getData('file');
+        $filename = $file->getClientFilename();
+        $size = $file->getSize();
+        $type = $file->getClientMediaType();
+        $tmpName = $file->getStream()->getMetadata('uri');
+
+        $fileName = $this->uploadfile($this->request->getData('file'));
+ 
+        if( $fileName != 0 ){
+            //$fileName = $image->getClientFilename();
+            $this->request = $this->request->withData('title', $file->getClientFilename());
+            $this->request = $this->request->withData('image', $file->getClientFilename());
+            $this->request = $this->request->withData('published', 1);
+            $this->request = $this->request->withData('post_type', $this->media_ptype);
+            $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
 
             $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity(),$this->request->getData());
             if ($media = $this->Medias->save($media)){
 
                 $fileName['media_id'] = $media->id;
-                $fileName['filename_miniaddr'] = $this->upload_path. $fileName['filename'];
-                $fileName['filename_fulladdr'] = router::url(DS.$this->upload_path. $fileName['filename'],true);
+                $fileName['filename_miniaddr'] = $this->upload_path. $file->getClientFilename();
+                $fileName['filename_fulladdr'] = router::url(DS.$this->upload_path. $file->getClientFilename(),true);
                 $fileName['token'] = isset($this->request->getData()['token'])?$this->request->getData()['token']:"";
 
                 $this->Func->PostMetaSave($media->id,[
                     'type' => 'url',
                     'name' => 'full',
-                    'value' => $fileName['filename'],
+                    'value' => $file->getClientFilename(),
                     'action' => 'create']);
 
-                $p = $this->save_image_size($fileName['filename'], $media->id);
+                $p = $this->save_image_size($file->getClientFilename(), $media->id);
                 if($p != 0)
                     $fileName += $p;
 
@@ -142,7 +150,7 @@ class MediasController extends AppController
                     try {
                         $watermarkImage = imagecreatefrompng($watermark); 
                         $file_fullname = $fileName['file_fullname'];
-                        $extension = mb_strtolower(strtolower(pathinfo($fileName['filename'], PATHINFO_EXTENSION)));
+                        $extension = mb_strtolower(strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION)));
                         if($extension == 'jpg'){
                             $im = imagecreatefromjpeg($file_fullname); 
                         }elseif($extension == 'jpeg'){
@@ -184,14 +192,13 @@ class MediasController extends AppController
     }
     //-----------------------------------------------
 
-    public function add_multi($id = null){
-
+    public function add_multi($id = null)
+    {
         if ($this->request->is(['post','ajax'])) {
             //Log::write('debug',$this->request);
             $this->autoRender = false;
             $image = $this->request->getUploadedFile('file');
             if ($image !== null && $image->getError() !== UPLOAD_ERR_NO_FILE){
-                $fileName = $image->getClientFilename();
                 if($this->request->getQuery('parent_id'))
                     $this->request = $this->request->withData('categories._ids',[$this->request->getQuery('parent_id')]);
 
@@ -300,18 +307,27 @@ class MediasController extends AppController
     }
     //-----------------------------------------------
     private function uploadfile($file = null){
-		if(!empty($file['tmp_name'])){
-            $extension = mb_strtolower(strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)));
+        $file = $this->request->getData('file');
+        $filename = $file->getClientFilename();
+        $size = $file->getSize();
+        $type = $file->getClientMediaType();
+        $tmpName = $file->getStream()->getMetadata('uri');
+        $extension = mb_strtolower(strtolower(pathinfo($filename, PATHINFO_EXTENSION)));
+
+		if(!empty( $tmpName )){
+            
             if($this->Func->OptionGet('media_renamefile') == 1)
                 $file_name = $this->Func->UniqId(16).'.'.$extension ;
             else
-                $file_name = $this->Func->Numconvert($file['name']);
-            //$file_name = iconv('utf-8','windows-1256', str_replace('ی', 'ي', $file_name));
-            //$file_name = strtolower(str_replace(' ','_',$file_name));
+                $file_name = $this->Func->Numconvert( $filename );
+
+            /* $file_name = iconv('utf-8','windows-1256', str_replace('ی', 'ي', $file_name));
+            $file_name = strtolower(str_replace(' ','_',$file_name)); */
+
             $file_name = str_ireplace(['/','(',')','<',',','>',' '],'_',$file_name);
             $file_name = str_replace('__','_',$file_name);
 			$ext = array('webp','svg','zip','rar','jpg','jpeg','png','gif','pdf','docx','doc','xls','xlsx','mp4','mov','mp3','avi');
-			if(!in_array($extension,$ext))
+			if(!in_array($extension, $ext))
                 return '0';
 
             if (!file_exists($this->upload_path)) {
@@ -321,12 +337,11 @@ class MediasController extends AppController
             $file_name = $this->_file_not_exists($file_name,$extension);
             $file_name = mb_strtolower($file_name);//.'.'.$extension;
             $file_fullname = $this->upload_path . $file_name;
-			if (move_uploaded_file($file['tmp_name'], $file_fullname)){
-                
+			if (move_uploaded_file( $tmpName , $file_fullname)){
                 return [
                     'filename' => $file_name,
                     'file_fullname' => $file_fullname,
-                    'filename_real' => $file['name'],
+                    'filename_real' => $filename,
                     'ext' => $extension,
                     'status'=>true,
                 ];

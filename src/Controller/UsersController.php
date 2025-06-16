@@ -115,13 +115,9 @@ class UsersController extends AppController{
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-            // کاربر لاگین کرده است، به داشبورد هدایت شود
             return $this->redirect('/admin/');
-            // یا
-            // return $this->redirect(['prefix' => 'Admin', 'controller' => 'Dashboard', 'action' => 'index']);
         }
         /* if ($this->request->getAttribute('identity') and $this->request->getAttribute('identity')->get('id')){
             //die(pr($this->request->getAttribute('identity')));
@@ -259,7 +255,7 @@ class UsersController extends AppController{
                 }
 
                 //if redirect pass in url
-                if($this->request->getQuery('redirect') and $this->request->getQuery('redirect') != "/users/index")
+                if($this->request->getQuery('redirect'))
                     return $this->redirect($this->request->getQuery('redirect'));
 
                 //check for first visit to complete profile
