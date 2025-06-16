@@ -144,7 +144,6 @@ class MediasController extends AppController
                 if($p != 0)
                     $fileName += $p;
 
-                
                 if( $this->Func->OptionGet('watermark_enable') == 1 and ($watermark = $this->Func->OptionGet('watermark_url')) != "" ){
                     
                     try {
@@ -389,39 +388,49 @@ class MediasController extends AppController
                     'mode'=>$size_value['mode'],//(options: exact, portrait, landscape, auto, crop)
                     'quality'=>'100',
                 ));
-                $newimg = str_replace($this->upload_path,'',$result);
-                $result_size[$size_key] = [
-                    'size' => $size_key,
-                    'name' => $newimg,
-                    'miniaddr' => $this->upload_path. $newimg,
-                    'fulladdr' => router::url(DS.$this->upload_path. $newimg,true),
-                    'id' => $media_id];
 
-                $this->Func->PostMetaSave($media_id,[
-                    'type' => 'image-size',
-                    'name' => $size_key,
-                    'value' => $newimg,
-                    'action' => 'create']);
+                if($result != null){
+                    $newimg = str_replace($this->upload_path,'',$result);
+                    $result_size[$size_key] = [
+                        'size' => $size_key,
+                        'name' => $newimg,
+                        'miniaddr' => $this->upload_path. $newimg,
+                        'fulladdr' => router::url(DS.$this->upload_path. $newimg,true),
+                        'id' => $media_id];
+
+                    $this->Func->PostMetaSave($media_id,[
+                        'type' => 'image-size',
+                        'name' => $size_key,
+                        'value' => $newimg,
+                        'action' => 'create']);
+                }
+                
             }
         endforeach;
         return $result_size;
     }
     //-----------------------------------------------
-    private function ImageCreateTHumbnail($opt=null){
-        try {
-            $resizeObj = new Resize($opt['url'], [
+    private function ImageCreateTHumbnail( $opt = null)
+    {
+        $save_path = null;
+        $resizeObj = new Resize($opt['url'], [
                 'white_png_background' => $this->Func->OptionGet('white_png_background')
             ]);
+        try {
+            
         } catch (\Throwable $th) {
         }
+
         $ext = strtolower(pathinfo($opt['url'], PATHINFO_EXTENSION));
         $name = explode('/',str_replace('.'.$ext,'',$opt['url']).'-'.$opt['width'].'x'.$opt['height'].'.'.$ext);
         $name = end($name);
 
-        $resizeObj -> resizeImage($opt['width'], $opt['height'], $opt['mode']);
-        $resizeObj -> saveImage($save_path = ($opt['dest_path'].'/'.$name), $opt['quality']);
+        if($resizeObj != null){
+            $resizeObj -> resizeImage($opt['width'], $opt['height'], $opt['mode']);
+            $resizeObj -> saveImage($save_path = ($opt['dest_path'].'/'.$name), $opt['quality']);
+        }
+ 
         return ($save_path);
-        
         
     }
     //-----------------------------------------------

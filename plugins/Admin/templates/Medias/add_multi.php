@@ -137,6 +137,7 @@ function uploadFile(file) {
     token = Math.floor((Math.random() * 100000000) + 1);
     var formData = new FormData();
     formData.append('file', file);
+    formData.append('token', token);
     var csrfToken = $('[name="_csrfToken"]').val();
     //formData.append('_csrfToken', csrfToken );
     //formData.append('_Token', $('[name="_Token"]').val());
