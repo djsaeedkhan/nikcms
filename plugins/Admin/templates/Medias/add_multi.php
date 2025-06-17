@@ -65,8 +65,6 @@ function getMaximumFileUploadSize(){
                         <br><br><br>
                     </div>
                     <?= $this->Form->create(null, ['type' => 'file']); ?>
-                    <?php // $this->Form->control('csrfToken',['type'=>'hidden','value'=>$this->request->getAttribute('csrfToken')])?>
-                    <?php // $this->Form->control('_csrfToken',['type'=>'hidden','value'=>$this->request->getAttribute('csrfToken')])?>
                     <div class=" tile-container text-center" style="display: flex;justify-content: center;">
                             <div id="uploadStatus"></div>
                             <?= $this->Form->control('fileUpload',[
@@ -77,7 +75,6 @@ function getMaximumFileUploadSize(){
                                 'required'=> true,
                                 'multiple'
                             ])?>
-                            <!-- <input type="file" id="fileUpload" required multiple placeholder="choose file or browse" /> --><br>
                             <a class="btn btn-success" onclick="uploadFiles()">شروع آپلود</a>
                     </div>
                     <?= $this->Form->end(); ?>
@@ -124,7 +121,6 @@ function uploadFiles() {
         var fileExtension = files[i].name.substring(files[i].name.lastIndexOf('.')).toLowerCase();
 
         if (allowedExtensions.includes(fileExtension)) {
-            //console.log(files[i]);
             uploadFile(files[i]);
         } else {
             alert('Invalid file type: ' + fileExtension);
@@ -195,14 +191,7 @@ function uploadFile(file) {
     });
     xhr.addEventListener('load', function(event) {});
     xhr.addEventListener("error", function(event) {console.log(event);});
-    xhr.open('POST', "<?=  Cake\Routing\Router::url(null, true);?>", true);
-
-    /* xhr.timeout = 10000; // Set timeout to 4 seconds (4000 milliseconds)
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
-    xhr.setRequestHeader("Content-Type", "multipart/form-data");
-    */
-
-    //console.log(csrfToken);
+    xhr.open('POST', "<?=  Cake\Routing\Router::url('/admin/medias/add', true);?>", true);
     if (!csrfToken) {
         console.error('CSRF token not found');
         return;

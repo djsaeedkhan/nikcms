@@ -83,8 +83,20 @@
                         
                         <div class=" tile-container text-center" style="display: flex;justify-content: center;">
                             <div id="uploadStatus"></div>
-                            <input type="file" id="fileUpload" required multiple placeholder="choose file or browse" /><br>
-                            <button class="btn btn-success" onclick="uploadFiles()">شروع آپلود</button>
+                            <?= $this->Form->create(null, ['type' => 'file']); ?>
+                            <div class=" tile-container text-center" style="display: flex;justify-content: center;">
+                                    <div id="uploadStatus"></div>
+                                    <?= $this->Form->control('fileUpload',[
+                                        'id'=>'fileUpload',
+                                        'label'=>false,
+                                        'type'=>'file',
+                                        'placeholder'=>'choose file or browse',
+                                        'required'=> true,
+                                        'multiple'
+                                    ])?>
+                                    <a class="btn btn-success" onclick="uploadFiles()">شروع آپلود</a>
+                            </div>
+                            <?= $this->Form->end(); ?>
                         </div>
                     </div>
 
@@ -291,13 +303,15 @@ function uploadFiles() {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('token', token);
+        var csrfToken = $('[name="_csrfToken"]').val();
+        //formData.append('_csrfToken', csrfToken );
+        //formData.append('_Token', $('[name="_Token"]').val());
         var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
         progressBarContainer.className = 'progress-container';
         progressBarContainer.setAttribute("id", "upload_"+ token);
         var fileName = document.createElement('div'); // Display file name
         fileName.className = 'file-name';
         fileName.setAttribute("id", "up_"+ token);
-        fileName.setAttribute("width", "200");
         fileName.textContent = file.name;
         var progressBar = document.createElement('div'); // Create a new progress bar element
         progressBar.className = 'progress-bar';
@@ -321,38 +335,17 @@ function uploadFiles() {
                 progressBar.style.width = percent + '%';
                 progressBar.innerHTML = percent + '%';
                 if(percent == 100){
-                    progressBar.innerHTML = "در حال پردازش اطلاعات";
+                    progressBar.innerHTML = "در حال پردازش اطلاعات ...";
                 }
             }
         });
-        xhr.addEventListener("loadstart", function(event) {/* console.log(event); */});
+        xhr.addEventListener("loadstart", function(event) {console.log(event);});
         xhr.addEventListener("loadend", function(event) {
             result = JSON.parse(event.target.responseText);
             if( typeof result['token'] === 'undefined' ){
                 progressBar.innerHTML = "متاسفانه عملیات با شکست انجام شد";
             }
             else{
-
-                /* 
-                if(typeof result['thumbnail'] === 'undefined') {
-                    $(".ajax_upload_box").html(''+
-                    '<div class="alert alert-warning col-sm-12" style="padding: 4px;">'+
-                            '<img class="rounded" imgfull="'+result['filename_fulladdr']+'" style="background:#FFF;width:30px;height:30px;" '+
-                            ' srcfull="'+result['media_id']+'" '+
-                            'src="'+result['fulladdr']+'" > '+ result['filename_fulladdr']+
-                        ' <a href="#" class="card2-img-top pull-left" style="padding: 5px;">[<?=__d('Admin', 'انتخاب تصویر')?>]</a>'+
-                    '</div>'+$(".ajax_upload_box").html());
-                }
-                else {
-                    $(".ajax_upload_box").html(''+
-                    '<div class="alert alert-warning col-sm-12" style="padding: 4px;">'+
-                            '<img class="rounded" imgfull="'+result['filename_fulladdr']+'" style="background:#FFF;width:30px;height:30px;" '+
-                            ' srcfull="'+result['media_id']+'" '+
-                            'src="' + result['thumbnail']['fulladdr'] + '" > '+ result['filename_fulladdr']+
-                        ' <a href="#" class="card2-img-top pull-left" style="padding: 5px;">[<?=__d('Admin', 'انتخاب تصویر')?>]</a>'+
-                    '</div>'+$(".ajax_upload_box").html());
-                } */
-                
                 progressBar.innerHTML = "عملیات انجام شد";
                 progressBar.className = 'progress-bar d-none';
                 if(typeof result['token'] != 'undefined') {
@@ -373,16 +366,18 @@ function uploadFiles() {
             }
         });
         xhr.addEventListener('load', function(event) {});
-        xhr.addEventListener("error", function(event) {/* console.log(event); */});
+        xhr.addEventListener("error", function(event) {console.log(event);});
         xhr.open('POST', "<?=  Cake\Routing\Router::url('/admin/medias/add', true);?>", true);
-        /* xhr.timeout = 10000; // Set timeout to 4 seconds (4000 milliseconds)
-        xhr.setRequestHeader("Content-Type", "multipart/form-data");
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); */
+        if (!csrfToken) {
+            console.error('CSRF token not found');
+            return;
+        }
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
         xhr.getResponseHeader('Content-Type');
         xhr.withCredentials = true;
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4){
-                /* console.log(this.responseText); */
+                console.log(this.responseText);
             }
         }
         xhr.send(formData);

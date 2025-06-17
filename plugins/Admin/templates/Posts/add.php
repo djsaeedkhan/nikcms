@@ -664,8 +664,10 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
             <div class="card cart1"><div class="card-body text-center">
             <br>
             <?php
+            pr($post_meta_list);
             if(isset($post_meta_list['thumbnail'])){
                 $temp = $this->Func->PostGet($post_meta_list['thumbnail']);
+                pr($temp);
                 if(isset($temp['post_metas']['thumbnail'])){
                     echo $this->Html->link('[انتخاب تصویر شاخص]<br>',false,[
                         'id'=>'upload2','data-toggle'=>'modal','data-target'=>'#exampleModal','data-action'=>'select_thumbnail','escape'=>false]);

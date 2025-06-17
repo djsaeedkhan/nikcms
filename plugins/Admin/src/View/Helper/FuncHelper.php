@@ -342,6 +342,7 @@ class FuncHelper extends Helper
     //admin plugin, post add , get thumbnail
     //review 1398-8-12
     public function PostGet($id = null){ 
+        pr($id);
         $existing = [];
         try{
             $existing = TableRegistry::getTableLocator()->get('Posts')->find('all')

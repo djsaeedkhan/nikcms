@@ -28,7 +28,11 @@ class PostsController extends AppController
             $this->request->getAttribute('identity') and
             $this->request->getAttribute('identity')->get('role_id') == 1 )
         {
-            $this->FormProtection->setConfig('validate', false);
+            try {
+                @$this->FormProtection->setConfig('validate', false);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
     }
     //----------------------------------------------------------------------------------
