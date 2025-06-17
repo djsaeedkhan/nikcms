@@ -79,7 +79,7 @@ class MediasController extends AppController
         $this->set(compact('media', 'categories'));
     }
     //-----------------------------------------------
-    public function Add2($id = null) //add_manual
+    public function add2($id = null) //add_manual
     {
         if ($this->request->is('post')) {
             if(!empty($this->request->getData('file.name'))){
@@ -116,12 +116,11 @@ class MediasController extends AppController
         $type = $file->getClientMediaType();
         $tmpName = $file->getStream()->getMetadata('uri');
 
-        $fileName = $this->uploadfile($this->request->getData('file'));
- 
-        if( $fileName != 0 ){
+        $file_uploaded = $this->uploadfile($this->request->getData('file'));
+        if( $file_uploaded != 0 ){
             //$fileName = $image->getClientFilename();
-            $this->request = $this->request->withData('title', $file->getClientFilename());
-            $this->request = $this->request->withData('image', $file->getClientFilename());
+            $this->request = $this->request->withData('title', $filename);
+            $this->request = $this->request->withData('image', $filename);
             $this->request = $this->request->withData('published', 1);
             $this->request = $this->request->withData('post_type', $this->media_ptype);
             $this->request = $this->request->withData('user_id', $this->request->getAttribute('identity')->get('id'));
@@ -129,27 +128,28 @@ class MediasController extends AppController
             $media = $this->Medias->patchEntity($this->Medias->newEmptyEntity(),$this->request->getData());
             if ($media = $this->Medias->save($media)){
 
-                $fileName['media_id'] = $media->id;
-                $fileName['filename_miniaddr'] = $this->upload_path. $file->getClientFilename();
-                $fileName['filename_fulladdr'] = router::url(DS.$this->upload_path. $file->getClientFilename(),true);
-                $fileName['token'] = isset($this->request->getData()['token'])?$this->request->getData()['token']:"";
+                $filename = $file_uploaded['filename_real']; // replace old name to new name
+                $file_uploaded['media_id'] = $media->id;
+                $file_uploaded['filename_miniaddr'] = $this->upload_path. $filename;
+                $file_uploaded['filename_fulladdr'] = router::url(DS.$this->upload_path. $filename,true);
+                $file_uploaded['token'] = isset($this->request->getData()['token'])?$this->request->getData()['token']:"";
 
                 $this->Func->PostMetaSave($media->id,[
                     'type' => 'url',
                     'name' => 'full',
-                    'value' => $file->getClientFilename(),
+                    'value' => $filename,
                     'action' => 'create']);
 
-                $p = $this->save_image_size($file->getClientFilename(), $media->id);
+                $p = $this->save_image_size($filename, $media->id);
                 if($p != 0)
-                    $fileName += $p;
+                    $file_uploaded += $p;
 
                 if( $this->Func->OptionGet('watermark_enable') == 1 and ($watermark = $this->Func->OptionGet('watermark_url')) != "" ){
                     
                     try {
                         $watermarkImage = imagecreatefrompng($watermark); 
-                        $file_fullname = $fileName['file_fullname'];
-                        $extension = mb_strtolower(strtolower(pathinfo($file->getClientFilename(), PATHINFO_EXTENSION)));
+                        $file_fullname = $file_uploaded['file_fullname'];
+                        $extension = mb_strtolower(strtolower(pathinfo($filename, PATHINFO_EXTENSION)));
                         if($extension == 'jpg'){
                             $im = imagecreatefromjpeg($file_fullname); 
                         }elseif($extension == 'jpeg'){
@@ -179,9 +179,9 @@ class MediasController extends AppController
                     }
                 }
                 $this->set([
-                    'filename' =>$fileName
+                    'filename' =>$file_uploaded
                 ]);
-                return $this->response->withStringBody(json_encode($fileName));
+                return $this->response->withStringBody(json_encode($file_uploaded));
             }
             else
                 $this->Flash->error(__d('Admin', 'آپلود فایل امکان پذیر نمی باشد. لطفا دوباره تلاش کنید (1)'));
@@ -307,7 +307,7 @@ class MediasController extends AppController
     //-----------------------------------------------
     private function uploadfile($file = null){
         $file = $this->request->getData('file');
-        $filename = $file->getClientFilename();
+        $filename = str_replace(' ', '-', $file->getClientFilename());
         $size = $file->getSize();
         $type = $file->getClientMediaType();
         $tmpName = $file->getStream()->getMetadata('uri');
@@ -413,11 +413,11 @@ class MediasController extends AppController
     private function ImageCreateTHumbnail( $opt = null)
     {
         $save_path = null;
-        $resizeObj = new Resize($opt['url'], [
+        
+        try {
+            $resizeObj = new Resize($opt['url'], [
                 'white_png_background' => $this->Func->OptionGet('white_png_background')
             ]);
-        try {
-            
         } catch (\Throwable $th) {
         }
 

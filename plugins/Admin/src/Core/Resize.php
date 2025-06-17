@@ -18,8 +18,7 @@ class Resize
 
     public function __construct($fileName = null, $options = [])
     {
-        pr($fileName);
-        die("dd");
+
         // *** Open up the file
         $this->image = $this->openImage($fileName);
         $this->white_png_background = false;
