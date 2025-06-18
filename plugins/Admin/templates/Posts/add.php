@@ -86,8 +86,7 @@ $("#myform").submit(function(){
 });
 </script>
 
-<?php
-if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'] == 1):?>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -99,6 +98,7 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
                 </button>
             </div>
             <div class="modal-body" style="width:100%;">
+                <?php //if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'] == 1):?>
                 <?php
                 echo $this->Form->control('PostMetas.slider_title',[
                     'default'=>(isset($post_meta_list['slider_title'])?$post_meta_list['slider_title']:''),
@@ -123,6 +123,7 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
                     'label'=>'لیبل نمایش (اختیاری)',]);
                     
                 ?>
+                <?php //endif?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">ثبت</button>
@@ -131,7 +132,7 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
     </div>
 </div>
 <!-- Vertical modal end-->
-<?php endif?>
+
 
 <div class="row">
     <div class="col-sm-8">
@@ -506,6 +507,12 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
                 </div>
 
                 <script>
+                    document.getElementById('show_in_slider').addEventListener('change', function () {
+                        if (!this.checked) {
+                            const inputs = document.querySelectorAll('#exampleModalCenter input, #exampleModalCenter textarea, #exampleModalCenter select');
+                            inputs.forEach(input => input.value = '');
+                        }
+                    });
                     $('#show_in_slider').change(function(){
                         if($(this).prop('checked') == true){
                             $('#show_in_slider').prop( "checked", true );
@@ -664,10 +671,8 @@ if(isset($post_meta_list['show_in_slider']) and $post_meta_list['show_in_slider'
             <div class="card cart1"><div class="card-body text-center">
             <br>
             <?php
-            pr($post_meta_list);
             if(isset($post_meta_list['thumbnail'])){
                 $temp = $this->Func->PostGet($post_meta_list['thumbnail']);
-                pr($temp);
                 if(isset($temp['post_metas']['thumbnail'])){
                     echo $this->Html->link('[انتخاب تصویر شاخص]<br>',false,[
                         'id'=>'upload2','data-toggle'=>'modal','data-target'=>'#exampleModal','data-action'=>'select_thumbnail','escape'=>false]);

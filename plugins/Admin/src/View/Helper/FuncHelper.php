@@ -93,7 +93,7 @@ class FuncHelper extends Helper
                 break;
 
             case 'user_role':
-                return TableRegistry::getTableLocator()->get('roles')
+                return TableRegistry::getTableLocator()->get('Roles.roles')
                     ->find('list',['keyField'=>'id','valueField'=>'title']);
                 break;
             case 'role_list':
@@ -342,24 +342,20 @@ class FuncHelper extends Helper
     //admin plugin, post add , get thumbnail
     //review 1398-8-12
     public function PostGet($id = null){ 
-        pr($id);
         $existing = [];
         try{
-            $existing = TableRegistry::getTableLocator()->get('Posts')->find('all')
+            $existing = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
                 ->select(['id','image','title'])
-                ->where(['id'=>$id])
+                ->where(['Posts.id'=>$id])
                 ->first();
-                /* ->toarray() */
-
-            $existing['post_metas'] = TableRegistry::getTableLocator()->get('PostMetas')
+            $existing['post_metas'] = TableRegistry::getTableLocator()->get('Admin.PostMetas')
                 ->find('list', ['keyField' => 'meta_key','valueField' => 'meta_value'])
-                ->where(['post_id'=>$id])
+                ->where(['PostMetas.post_id'=>$id])
                 ->toarray();
         }
         catch (\Exception $e) {
             $existing = [];
         }
-
         return ($existing);
     }
     public function PostMetaSave($id = null , $options = array()){
@@ -773,7 +769,7 @@ class FuncHelper extends Helper
     //-----------------------------------------------------------------------------------------
     public function SliderListGet(){
         $slider = [];
-        $temp = TableRegistry::getTableLocator()->get('PostMetas')
+        $temp = TableRegistry::getTableLocator()->get('Admin.PostMetas')
             ->find('list', ['keyField' => 'post_id','valueField' => 'post_id'])
             ->where([
                 'meta_key' => 'show_in_slider',

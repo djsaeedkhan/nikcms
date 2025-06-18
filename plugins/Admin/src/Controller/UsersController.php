@@ -130,7 +130,7 @@ class UsersController extends AppController
     public function add(){
         $user = $this->Users->newEmptyEntity();
         
-        $this->Users = TableRegistry::getTableLocator()->get('Users');
+        $this->Users = TableRegistry::getTableLocator()->get('Admin.Users');
         $user = $this->Users->newEmptyEntity();
 
         if ($this->request->is('post') and $this->request->getQuery('get')) {
@@ -220,7 +220,7 @@ class UsersController extends AppController
                 $this->request = $this->request->withParsedBody($data);
             }
             else{
-                $this->Users = TableRegistry::getTableLocator()->get('Users');
+                $this->Users = TableRegistry::getTableLocator()->get('Admin.Users');
             }
 
             if($this->request->getAttribute('identity')->get('role_id') != 1){

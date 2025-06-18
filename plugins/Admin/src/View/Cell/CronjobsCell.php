@@ -16,7 +16,7 @@ class CronjobsCell extends Cell
         $this->sms = new Sms();
         $text = $this->sms->setting;
         if($text['smstext_10dayexpire'] != ''){
-            $users =  TableRegistry::getTableLocator()->get('Users')
+            $users =  TableRegistry::getTableLocator()->get('Admin.Users')
                 ->find('all')
                 ->where(['expired IS NOT NULL'])
                 ->toarray();
@@ -51,7 +51,7 @@ class CronjobsCell extends Cell
         $this->sms = new Sms();
         $text = $this->sms->setting;
         if($text['smstext_expire'] != ''){
-            $users =  TableRegistry::getTableLocator()->get('Users')
+            $users =  TableRegistry::getTableLocator()->get('Admin.Users')
                 ->find('all')
                 ->where(['expired IS NOT NULL'])
                 ->toarray();
