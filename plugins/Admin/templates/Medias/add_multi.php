@@ -134,6 +134,11 @@ function uploadFile(file) {
     var formData = new FormData();
     formData.append('file', file);
     formData.append('token', token);
+    formData.append('_Token[fields]', $('[name="_Token[fields]"]').val());
+    formData.append('_Token[unlocked]', $('[name="_Token[unlocked]"]').val());
+    formData.append('_Token[debug]', $('[name="_Token[debug]"]').val());
+    //formData.append('_csrfToken', $('[name="_csrfToken"]').val());
+    
     var csrfToken = $('[name="_csrfToken"]').val();
     //formData.append('_csrfToken', csrfToken );
     //formData.append('_Token', $('[name="_Token"]').val());

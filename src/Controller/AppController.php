@@ -41,11 +41,9 @@ class AppController extends Controller
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
         
         $view = new View();
-
         global $upload_path;
         $upload_path = $this->upload_path;
 
-        
         $this->Query = new QueryHelper($view);
         $this->Func = new FuncHelper($view);
         //$this->FormCsp = new FormHelper(new \Cake\View\View());

@@ -307,7 +307,9 @@ class PostsController extends AppController
             $this->request = $this->request->withData('tags._ids',$this->SaveTags($this->request->getData('taglist')));
             //$this->request = $this->request->withData('slug',strtolower($this->request->getData()['slug']));
             $this->request = $this->request->withData('id',$post_id);
-            $this->request = $this->request->withData('slug',$this->checkSlug($this->request->getData()));
+
+            if($this->request->getData()['slug'] == "" or $this->request->getData()['slug'] != $post['slug'] )
+                $this->request = $this->request->withData('slug',$this->checkSlug($this->request->getData()));
 
             if($create_change == false and $this->request->getData()['created']!= ''){
                 $time = explode(' ', str_replace('/','-',$this->request->getData()['created']) );
@@ -433,9 +435,13 @@ class PostsController extends AppController
         $text = strip_tags($text);
         $text = stripslashes($text);
         $text = str_replace('/', '-', $text);
-
-        $p = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
-            ->where(['slug'=> $text,(isset($data['id'])?['Posts.id !='=>$data['id']]:false)])
+        $text = str_ireplace(['-----','----','---','--'],'-',$text);
+        $p = TableRegistry::getTableLocator()->get('Admin.Posts')
+            ->find('all')
+            ->where([
+                'slug' => $text,
+                (isset($data['id'])?['Posts.id !=' => $data['id']]:false)
+                ])
             ->toarray();
         if(count($p)){
             return $this->checkSlug([

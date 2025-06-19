@@ -749,7 +749,7 @@ class FuncHelper extends Helper
     /* --------------------------------------  */
     public function PageListGet(){
         $template = FuncHelper::OptionGet('website_template');
-        $files = glob(current(\Cake\Core\App::path('Template', $template)).'Content'.DS.'*.{php}', GLOB_BRACE);
+        $files = glob(current(\Cake\Core\App::classPath('Template', $template)).'Content'.DS.'*.{php}', GLOB_BRACE);
         $list = [];
         foreach($files as $file) {
             $fname = basename($file,'.php');
