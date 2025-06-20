@@ -11,7 +11,7 @@ class AppController extends BaseController
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('FormProtection', [
-            'unlockedFields' => ['nav','fileUpload']
+            'unlockedFields' => ['nav','tokn_id']
         ]);
         $this->post_type = $this->request->getQuery('post_type')?
             $this->request->getQuery('post_type'):'post';

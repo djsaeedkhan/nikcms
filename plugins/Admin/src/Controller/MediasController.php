@@ -132,7 +132,7 @@ class MediasController extends AppController
                 $file_uploaded['media_id'] = $media->id;
                 $file_uploaded['filename_miniaddr'] = $this->upload_path. $filename;
                 $file_uploaded['filename_fulladdr'] = router::url(DS.$this->upload_path. $filename,true);
-                $file_uploaded['token'] = isset($this->request->getData()['token'])?$this->request->getData()['token']:"";
+                $file_uploaded['tokn_id'] = isset($this->request->getData()['tokn_id'])?intval($this->request->getData()['tokn_id']):"";
 
                 $this->Func->PostMetaSave($media->id,[
                     'type' => 'url',

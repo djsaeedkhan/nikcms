@@ -66,38 +66,38 @@
 			
             
 
-                <div class="card-body ath_container">
+                <div class="card-body ath_container pb-0">
                     <div class="dropzone dropzone-area dz-clickable">
                         
-                        <?= $this->Form->create(null, ['type' => 'file']);?>
+                        <?= $this->Form->create(null, ['type' => 'file', 'url' => ['controller' => 'Medias', 'action' => 'add'] ]);?>
                         <div id="drop-area">
                             <div class="dz-message" style="flex-direction: column;;position: inherit;font-size:20px;"> <br>
                                 <?= __d('Admin', 'پرونده (فایل) ها را کشیده و در صفحه رها کنید<br> 
                                 و یا از فرم زیر بصورت تکی یا چندتایی انتخاب کرده و سپس  کلید شروع آپلود را بزنید')?>
                                 <div id="success-message-info" class="message success display-none"></div>
-                                <br>
+                                <br><br>
+
+                                <div class=" tile-container text-center" style="display: flex;justify-content: center;font-size:14px;">
+                                    <div id="uploadStatus"></div>
+                                    <?php // $this->Form->create(null, ['type' => 'file','url' => ['controller' => 'Medias', 'action' => 'add']]); ?>
+                                    <div class=" tile-container text-center" style="display: flex;justify-content: center;">
+                                            <div id="uploadStatus"></div>
+                                            <?= $this->Form->control('file',[
+                                                'id'=>'file',
+                                                'label'=>false,
+                                                'type'=>'file',
+                                                'style'=>'padding: 4px;',
+                                                'placeholder'=>'choose file or browse',
+                                                'required'=> true,
+                                                'multiple'
+                                            ])?>
+                                            <a class="btn btn-success" onclick="uploadFiles()">شروع آپلود</a>
+                                    </div>
+                                    <?php // $this->Form->end(); ?>
+                                </div>
                             </div>
                         </div>
                         <?= $this->Form->end(); ?>
-                        <br>
-                        
-                        <div class=" tile-container text-center" style="display: flex;justify-content: center;">
-                            <div id="uploadStatus"></div>
-                            <?= $this->Form->create(null, ['type' => 'file']); ?>
-                            <div class=" tile-container text-center" style="display: flex;justify-content: center;">
-                                    <div id="uploadStatus"></div>
-                                    <?= $this->Form->control('fileUpload',[
-                                        'id'=>'fileUpload',
-                                        'label'=>false,
-                                        'type'=>'file',
-                                        'placeholder'=>'choose file or browse',
-                                        'required'=> true,
-                                        'multiple'
-                                    ])?>
-                                    <a class="btn btn-success" onclick="uploadFiles()">شروع آپلود</a>
-                            </div>
-                            <?= $this->Form->end(); ?>
-                        </div>
                     </div>
 
                     <div class="show_result">
@@ -148,7 +148,7 @@
 
 <script nonce="<?=get_nonce?>">
 function uploadFiles() {
-    var fileInput = document.getElementById('fileUpload');
+    var fileInput = document.getElementById('file');
     var files = fileInput.files;
 
     for (var i = 0; i < files.length; i++) {
@@ -298,20 +298,25 @@ function uploadFiles() {
     }
 
     function uploadFile(file) {
-        var token;
-        token = Math.floor((Math.random() * 100000000) + 1);
+        var tokn_id;
+        tokn_id = Math.floor((Math.random() * 100000000) + 1);
         var formData = new FormData();
         formData.append('file', file);
-        formData.append('token', token);
+        formData.append('tokn_id', tokn_id);
+        formData.append('_Token[fields]', $('[name="_Token[fields]"]').val());
+        formData.append('_Token[unlocked]', $('[name="_Token[unlocked]"]').val());
+        formData.append('_Token[debug]', $('[name="_Token[debug]"]').val());
+        formData.append('_csrfToken', $('[name="_csrfToken"]').val());
+        
         var csrfToken = $('[name="_csrfToken"]').val();
         //formData.append('_csrfToken', csrfToken );
         //formData.append('_Token', $('[name="_Token"]').val());
         var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
         progressBarContainer.className = 'progress-container';
-        progressBarContainer.setAttribute("id", "upload_"+ token);
+        progressBarContainer.setAttribute("id", "upload_"+ tokn_id);
         var fileName = document.createElement('div'); // Display file name
         fileName.className = 'file-name';
-        fileName.setAttribute("id", "up_"+ token);
+        fileName.setAttribute("id", "up_"+ tokn_id);
         fileName.textContent = file.name;
         var progressBar = document.createElement('div'); // Create a new progress bar element
         progressBar.className = 'progress-bar';
@@ -329,7 +334,7 @@ function uploadFiles() {
         var xhr = new XMLHttpRequest();
         xhr.upload.addEventListener('progress', function(event) {
             // Reset the input field of type "file"
-            document.getElementById('fileUpload').value = '';
+            document.getElementById('file').value = '';
             if (event.lengthComputable) {
                 var percent = Math.round((event.loaded / event.total) * 100);
                 progressBar.style.width = percent + '%';
@@ -342,18 +347,18 @@ function uploadFiles() {
         xhr.addEventListener("loadstart", function(event) {console.log(event);});
         xhr.addEventListener("loadend", function(event) {
             result = JSON.parse(event.target.responseText);
-            if( typeof result['token'] === 'undefined' ){
+            if( typeof result['tokn_id'] === 'undefined' ){
                 progressBar.innerHTML = "متاسفانه عملیات با شکست انجام شد";
             }
             else{
                 progressBar.innerHTML = "عملیات انجام شد";
                 progressBar.className = 'progress-bar d-none';
-                if(typeof result['token'] != 'undefined') {
-                    var uploadStatus = document.getElementById( "upload_" + result['token']);
+                if(typeof result['tokn_id'] != 'undefined') {
+                    var uploadStatus = document.getElementById( "upload_" + result['tokn_id']);
                     uploadStatus.innerHTML += '<div class="alert"><a target="_blank" href="<?=  Cake\Routing\Router::url('/'.$upload_path, true);?>' + result['filename']+'"><?=  Cake\Routing\Router::url('/'.$upload_path, true);?>' + result['filename']+"</div>";
                 }
                 if(typeof result['thumbnail']['fulladdr'] != 'undefined') {
-                    var up_image = document.getElementById( "up_" + result['token']);
+                    var up_image = document.getElementById( "up_" + result['tokn_id']);
                     up_image.innerHTML = 
                         '<div style="padding: 4px;line-break: anywhere;">'+
                                 '<img class="rounded" imgfull="'+result['filename_fulladdr']+'" style="background:#FFF;width:30px;height:30px;" '+

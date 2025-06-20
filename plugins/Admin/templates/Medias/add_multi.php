@@ -67,8 +67,8 @@ function getMaximumFileUploadSize(){
                     <?= $this->Form->create(null, ['type' => 'file']); ?>
                     <div class=" tile-container text-center" style="display: flex;justify-content: center;">
                             <div id="uploadStatus"></div>
-                            <?= $this->Form->control('fileUpload',[
-                                'id'=>'fileUpload',
+                            <?= $this->Form->control('file',[
+                                'id'=>'file',
                                 'label'=>false,
                                 'type'=>'file',
                                 'placeholder'=>'choose file or browse',
@@ -113,7 +113,7 @@ function getMaximumFileUploadSize(){
 
 <script nonce="<?=get_nonce?>" type="text/javascript">
 function uploadFiles() {
-    var fileInput = document.getElementById('fileUpload');
+    var fileInput = document.getElementById('file');
     var files = fileInput.files;
 
     for (var i = 0; i < files.length; i++) {
@@ -129,25 +129,25 @@ function uploadFiles() {
 }
 
 function uploadFile(file) {
-    var token;
-    token = Math.floor((Math.random() * 100000000) + 1);
+    var tokn_id;
+    tokn_id = Math.floor((Math.random() * 100000000) + 1);
     var formData = new FormData();
     formData.append('file', file);
-    formData.append('token', token);
+    formData.append('tokn_id', tokn_id);
     formData.append('_Token[fields]', $('[name="_Token[fields]"]').val());
     formData.append('_Token[unlocked]', $('[name="_Token[unlocked]"]').val());
     formData.append('_Token[debug]', $('[name="_Token[debug]"]').val());
-    //formData.append('_csrfToken', $('[name="_csrfToken"]').val());
+    formData.append('_csrfToken', $('[name="_csrfToken"]').val());
     
     var csrfToken = $('[name="_csrfToken"]').val();
     //formData.append('_csrfToken', csrfToken );
     //formData.append('_Token', $('[name="_Token"]').val());
     var progressBarContainer = document.createElement('div'); // Container for progress bar and file name
     progressBarContainer.className = 'progress-container';
-    progressBarContainer.setAttribute("id", "upload_"+ token);
+    progressBarContainer.setAttribute("id", "upload_"+ tokn_id);
     var fileName = document.createElement('div'); // Display file name
     fileName.className = 'file-name';
-    fileName.setAttribute("id", "up_"+ token);
+    fileName.setAttribute("id", "up_"+ tokn_id);
     fileName.textContent = file.name;
     var progressBar = document.createElement('div'); // Create a new progress bar element
     progressBar.className = 'progress-bar';
@@ -165,7 +165,7 @@ function uploadFile(file) {
     var xhr = new XMLHttpRequest();
     xhr.upload.addEventListener('progress', function(event) {
         // Reset the input field of type "file"
-        document.getElementById('fileUpload').value = '';
+        document.getElementById('file').value = '';
         if (event.lengthComputable) {
             var percent = Math.round((event.loaded / event.total) * 100);
             progressBar.style.width = percent + '%';
@@ -178,18 +178,18 @@ function uploadFile(file) {
     xhr.addEventListener("loadstart", function(event) {console.log(event);});
     xhr.addEventListener("loadend", function(event) {
         result = JSON.parse(event.target.responseText);
-        if( typeof result['token'] === 'undefined' ){
+        if( typeof result['tokn_id'] === 'undefined' ){
             progressBar.innerHTML = "متاسفانه عملیات با شکست انجام شد";
         }
         else{
             progressBar.innerHTML = "عملیات انجام شد";
             progressBar.className = 'progress-bar d-none';
-            if(typeof result['token'] != 'undefined') {
-                var uploadStatus = document.getElementById( "upload_" + result['token']);
+            if(typeof result['tokn_id'] != 'undefined') {
+                var uploadStatus = document.getElementById( "upload_" + result['tokn_id']);
                 uploadStatus.innerHTML += '<div class="alert"><a target="_blank" href="<?=  Cake\Routing\Router::url('/', true);?>' + result['file_fullname']+'"><?=  Cake\Routing\Router::url('/', true);?>' + result['file_fullname']+"</div>";
             }
             if(typeof result['thumbnail']['fulladdr'] != 'undefined') {
-                var up_image = document.getElementById( "up_" + result['token']);
+                var up_image = document.getElementById( "up_" + result['tokn_id']);
                 up_image.innerHTML = '<img src="'+result['thumbnail']['fulladdr']+'">' + result['filename'];
             }
         }
