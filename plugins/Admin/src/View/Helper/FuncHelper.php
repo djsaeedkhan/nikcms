@@ -295,6 +295,7 @@ class FuncHelper extends Helper
                 'value' => $value,
             ]);
             $model->save($option);
+            //pr($option);
             return true;
         }
         return false;

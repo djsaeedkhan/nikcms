@@ -2,13 +2,13 @@
 <div class="card setting-card"><div class="card-body">
     <div class="nav-vertical">
         <ul class="nav nav-tabs nav-left flex-column" role="tablist">
-            <?php $i=0;foreach($menu as $mnu):?>
+            <?php $i=0;if(is_array($menu)):foreach($menu as $mnu):?>
                 <li class="nav-item">
                     <a href="#<?=$mnu['name']?>" class="nav-link <?=$i==0?'active':''?>" data-toggle="tab" role="tab" aria-controls="<?=$mnu['name']?>">
                         <?=$mnu['title']?>
                     </a>
                 </li>
-            <?php $i+=1;endforeach?> 
+            <?php $i+=1;endforeach;endif;?> 
             <br><br>
 
             <?= $this->Form->submit(
@@ -22,7 +22,7 @@
         </ul>
         <div class="tab-content">
         <!- ----------------------- -->
-            <?php $i=0;foreach($menu as $mnu):?>
+            <?php $i=0;if(is_array($menu)):foreach($menu as $mnu):?>
                 <div class="tab-pane fade <?=$i==0?'show active':''?>" id="<?=$mnu['name']?>" role="tabpanel" style="overflow: inherit;">
                     <div class="row">
                     <?php
@@ -70,7 +70,7 @@
                     endif;?>
                     </div>
                 </div>
-            <?php $i+=1;endforeach?>
+            <?php $i+=1;endforeach;endif;?>
         </div>
     </div>
 </div></div>

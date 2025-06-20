@@ -149,7 +149,7 @@ $dir = 'rtl';// = $this->Func->language_list($current_lang,'arr_dir');?>
             
                 <li class="nav-item dropdown dropdown-language d-none d-lg-block nav-lang">
                     <a class="nav-link dropdown-toggle" id="dropdown-flag" href="javascript:void(0);" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="<?= $this->Func->language_list($current_lang);?>">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="<?= (isset($current_lang) && $current_lang !="")?$this->Func->language_list($current_lang):'';?>">
                         <i class="flag-icon flag-icon-<?php
                         switch ($current_lang) {
                             case 'fa':echo 'ir'; break;

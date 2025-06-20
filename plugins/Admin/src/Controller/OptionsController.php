@@ -87,7 +87,6 @@ class OptionsController extends AppController
                         'value' => $val
                     ]);
                 endif;
-                
                 $option = $this->Options->save($option);
             endforeach;
             if($show_error == 1 and !$this->request->is('ajax'))

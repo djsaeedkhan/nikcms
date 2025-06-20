@@ -11,6 +11,13 @@ class ThemesController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        if (
+            $this->request->getParam('action') === 'menu' and
+            $this->request->getAttribute('identity') and
+            $this->request->getAttribute('identity')->get('role_id') == 1)
+        {
+            $this->FormProtection->setConfig('validate', false);
+        }
     }
     //----------------------------------------------------------
     public function index(){

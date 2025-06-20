@@ -24,10 +24,10 @@ else
     echo $this->Form->create(null ,array('id'=>'settings', 'url'=>array('controller'=>'Options', 'action'=>'SaveSetting')));
 
 if($this->Func->is_serial($result['setting']))
-    $hsite = unserialize($result['setting']);
+    $hsite = isset($result['setting'])? unserialize($result['setting']): [];
 else
-    $hsite = json_decode($result['setting'],true);
-
+    $hsite = isset($result['setting'])? json_decode($result['setting'], true):[];
+    
 $hsite = isset($hsite['hsite'])?$hsite['hsite']:[];
 $this->request = $this->request->withData('setting'.(defined('template_slug')?'_'.template_slug :'').'.hsite',$hsite);
 

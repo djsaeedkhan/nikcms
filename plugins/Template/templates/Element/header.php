@@ -45,12 +45,14 @@ global $is_status;
   <header id="main-header">
     <div class="container">
       <div class="top-header">
-        <?= $this->html->image('/template/css/images/amoozesh-logo-white.png',['alt'=> $this->Query->Title() ]);?>
+        <?= $this->html->image('/template/css/images/amoozesh-logo-white.png',
+          ['alt'=> $this->Query->Title() ]);?>
       </div>
       <div class="logo-navbar-wrapper"><a class="logo" href="/">
-        <?= $this->html->image(setting['header_logow'],[
+        <?= setting['header_logow'] != ""?$this->html->image(setting['header_logow'],[
           'style'=>'height:100%;',
-          'alt' => $this->Query->Title() ]);?>
+          'alt' => $this->Query->Title()
+          ]):'';?>
         </a>
         <div class="navbar-wrapper">
           <nav class="main-navbar">
@@ -127,7 +129,8 @@ global $is_status;
         <?= $this->html->image('/template/css/icons/close-white.svg',['class'=>'close']);?>
       </span>
       <a class="logo" href="/">
-        <?= $this->html->image(setting['header_logow'],['alt' => $this->Query->Title() ]);?>
+        <?= setting['header_logow'] != ""?
+          $this->html->image(setting['header_logow'],['alt' => $this->Query->Title() ]):'';?>
       </a>
     </div>
 

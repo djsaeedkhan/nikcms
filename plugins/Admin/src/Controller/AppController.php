@@ -20,6 +20,8 @@ class AppController extends BaseController
        // $this->_activity();//save user activity
     }
 
+    
+
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);

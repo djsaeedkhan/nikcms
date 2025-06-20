@@ -463,6 +463,3 @@ function onRegister(){
 </script>
   </body>
 </html>
-
-
-

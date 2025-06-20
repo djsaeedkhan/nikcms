@@ -1,6 +1,4 @@
 <?php use Admin\View\Helper\ModuleHelper; ?>
-<!-- <?= __('saeed') ?><br>
-<?= __d( 'admin', 'saeeds' ) ?> -->
 <div class="row">
     <div class="col-lg-3 col-sm-6 col-12">
         <div class="card">
@@ -66,7 +64,6 @@
 
 <div class="animated fadeIn">
     <div class="row match-height">
-
     <?php 
     $list  = (array) ModuleHelper::admin_dashboard();
     while( count($list) > 0 ){
@@ -131,25 +128,31 @@
             <div class="card-body p-0">
                 <div class="list-group">
                     <ul class="list-group">
-                    <?php 
-                    $news = [];
-                    try {
-                        $news = @json_decode(file_get_contents("https://mahancms.ir/update/news.php"));
-                    }catch(Exception $e) {
-                        echo __d('Admin', 'متاسفانه خبری برای نمایش وجود ندارد');
-                    }
-                    if(is_array($news) and count($news) > 0):foreach($news as $news):?>
-                    <a class="list-group-item list-group-item-action flex-column align-items-start" 
-                        href="<?= $news->link;?>" target="_blank">
-                        <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1"><?= $news->title;?></h6>
-                        <small><?= $news->date;?></small>
-                        </div>
-                        <p class="mb-1">
-                            <?= $news->body;?>
-                        </p> 
-                    </a>
-                    <?php endforeach;endif;?>
+                        <?php 
+                        $news = [];
+                        try {
+                            $news = @json_decode(file_get_contents("https://mahancms.ir/update/news.php", 0, stream_context_create(["http"=>["timeout"=>1]])));
+                        }catch(Exception $e) {
+                            echo __d('Admin', 'متاسفانه خبری برای نمایش وجود ندارد');
+                        }
+                        if(is_array($news) and count($news) > 0):foreach($news as $news):?>
+                        <a class="list-group-item list-group-item-action flex-column align-items-start" 
+                            href="<?= $news->link;?>" target="_blank">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?= $news->title;?></h6>
+                            <small><?= $news->date;?></small>
+                            </div>
+                            <p class="mb-1">
+                                <?= $news->body;?>
+                            </p> 
+                        </a>
+                        <?php endforeach;else:?>
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <?= __d('Admin', 'متاسفانه خبری برای نمایش وجود ندارد'); ?>
+                            </div>
+                        </a>
+                        <?php endif;?>
                     </ul>
                 </div>
             </div>
