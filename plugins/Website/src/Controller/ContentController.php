@@ -111,7 +111,7 @@ class ContentController extends AppController
             foreach($results->toarray() as $tmp){
                 $list_id[$tmp['id']] = $tmp['id'];
             }
-            $p = $this->getTableLocator()->get('Admin.PostMetas')
+            $p = TableRegistry::getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([ "meta_key"=>'pin' ,'post_id IN '=> $list_id])
                 ->order(['meta_value' => 'desc'])
@@ -151,7 +151,7 @@ class ContentController extends AppController
                 $list_id[$tmp['id']] = $tmp['id'];
             }
 
-            $pin_list = $this->getTableLocator()->get('Admin.PostMetas')
+            $pin_list = TableRegistry::getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([
                     "meta_key"=>'pin' ,
@@ -214,7 +214,7 @@ class ContentController extends AppController
             foreach($results->toarray() as $tmp){
                 $list_id[$tmp['id']] = $tmp['id'];
             }
-            $p = $this->getTableLocator()->get('Admin.PostMetas')
+            $p = TableRegistry::getTableLocator()->get('Admin.PostMetas')
                 ->find('list',['keyField'=>'post_id','valueField'=>'meta_value'])
                 ->where([ "meta_key"=>'pin' ,'post_id IN '=> $list_id])
                 ->order(['meta_value' => 'desc'])

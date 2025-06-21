@@ -37,8 +37,8 @@ class PostsCategoriesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('PostsCategories') ? [] : ['className' => PostsCategoriesTable::class];
-        $this->PostsCategories = $this->getTableLocator()->get('PostsCategories', $config);
+        $config = TableRegistry::getTableLocator()->exists('PostsCategories') ? [] : ['className' => PostsCategoriesTable::class];
+        $this->PostsCategories = TableRegistry::getTableLocator()->get('PostsCategories', $config);
     }
 
     /**

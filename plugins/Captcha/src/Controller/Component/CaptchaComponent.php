@@ -165,7 +165,10 @@ class CaptchaComponent extends Component	{
         $request = $controller->getRequest();
         $q = $request->getQuery();
         if(!$q) return;
-        $q['length'] = intval($q['length']) <5 ? 5 : $q['length'];
+
+        if(isset($q['length']))
+          $q['length'] = intval($q['length']) <5 ? 5 : $q['length'];
+        
         //Preference is given the settings parameter passed through helper
         foreach($this->settings as $k=>$v)  {
             if(isset($q[$k]) && $q[$k]) $this->settings[$k] = $q[$k];

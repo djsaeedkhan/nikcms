@@ -59,7 +59,7 @@ class HomeController extends AppController{
     //-------------------------------------------------------------------
     public function edit($id = null) {
         $this->viewBuilder()->setLayout('Admin.default');
-        $this->Formbuilders = $this->getTableLocator()->get('Formbuilder.Formbuilders');
+        $this->Formbuilders = TableRegistry::getTableLocator()->get('Formbuilder.Formbuilders');
         $result = $this->Formbuilders
             ->find('all')
             ->where(['Formbuilders.id'=>$id])

@@ -209,9 +209,9 @@ class PostsController extends AppController
 
                 $pv = TableRegistry::getTableLocator()->get('Admin.Posts')->get($this->request->getData()['move_id']);
 
-                /* $temp = $this->getTableLocator()->get('Admin.Posts')->get($pv->id);
+                /* $temp = TableRegistry::getTableLocator()->get('Admin.Posts')->get($pv->id);
                 $temp->created = $post->created;
-                $this->getTableLocator()->get('Admin.Posts')->save($temp); */
+                TableRegistry::getTableLocator()->get('Admin.Posts')->save($temp); */
                 switch ($this->request->getData()['move_status']) {
                     case 'same':
                         $this->request = $this->request->withData('created',$pv->created);

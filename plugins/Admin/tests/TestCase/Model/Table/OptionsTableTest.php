@@ -35,8 +35,8 @@ class OptionsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Options') ? [] : ['className' => OptionsTable::class];
-        $this->Options = $this->getTableLocator()->get('Options', $config);
+        $config = TableRegistry::getTableLocator()->exists('Options') ? [] : ['className' => OptionsTable::class];
+        $this->Options = TableRegistry::getTableLocator()->get('Options', $config);
     }
 
     /**

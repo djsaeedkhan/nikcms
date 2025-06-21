@@ -37,8 +37,8 @@ class ChallengefollowersTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Challengefollowers') ? [] : ['className' => ChallengefollowersTable::class];
-        $this->Challengefollowers = $this->getTableLocator()->get('Challengefollowers', $config);
+        $config = TableRegistry::getTableLocator()->exists('Challengefollowers') ? [] : ['className' => ChallengefollowersTable::class];
+        $this->Challengefollowers = TableRegistry::getTableLocator()->get('Challengefollowers', $config);
     }
 
     /**

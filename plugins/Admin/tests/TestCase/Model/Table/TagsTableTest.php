@@ -38,8 +38,8 @@ class TagsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Tags') ? [] : ['className' => TagsTable::class];
-        $this->Tags = $this->getTableLocator()->get('Tags', $config);
+        $config = TableRegistry::getTableLocator()->exists('Tags') ? [] : ['className' => TagsTable::class];
+        $this->Tags = TableRegistry::getTableLocator()->get('Tags', $config);
     }
 
     /**

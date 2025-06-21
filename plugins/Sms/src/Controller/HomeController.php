@@ -20,16 +20,16 @@ class HomeController extends AppController
         $time = $time->addDays("-{$date}");
 
         $this->set([
-            'total_sms' => $this->getTableLocator()->get('Sms.SmsLogs')->find('all')
+            'total_sms' => TableRegistry::getTableLocator()->get('Sms.SmsLogs')->find('all')
                 ->count(),
 
-            'today_sms' => $this->getTableLocator()->get('Sms.SmsLogs')->find('all')
+            'today_sms' => TableRegistry::getTableLocator()->get('Sms.SmsLogs')->find('all')
                 ->where([
                     'DATE(created)' => date('Y-m-d')
                 ])
                 ->count(),
 
-            'month_sms' => $this->getTableLocator()->get('Sms.SmsLogs')->find('all')
+            'month_sms' => TableRegistry::getTableLocator()->get('Sms.SmsLogs')->find('all')
                 ->where([
                     'DATE(created) >= ' => $time->format('Y-m-d'),
                 ])

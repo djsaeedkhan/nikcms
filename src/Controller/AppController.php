@@ -212,7 +212,7 @@ class AppController extends Controller
     }
     //----------------------------------------------------
     private function _preSetting(){
-        if($this->Func->OptionGet('install') == false ){
+        if($this->Func->OptionGet('install') == false && $this->Func->OptionGet('name') == false ){
             $arr = json_decode('[
                 {"name":"name","value":"سامانه ماهان"},
                 {"name":"description","value":""},
@@ -243,7 +243,7 @@ class AppController extends Controller
                 {"name":"login_style","value":".col-lg-8{\r\n    background: #181b20;\r\n}","types":null},
                 {"name":"register_linkurl","value":"","types":null},
                 {"name":"register_backimg","value":"","types":null},
-                {"name":"postviews_plugin","value":"a:3:{s:11:\"title_view0\";s:19:\"بدون نمایش\";s:11:\"title_view1\";s:12:\"1 نمایش\";s:11:\"title_view2\";s:11:\" نمایش\";}","types":null},
+                {"name":"postviews_plugin","value":"a:0:{}","types":null},
                 {"name":"brcrumb_plugin","value":"a:5:{s:10:\"title_home\";s:17:\"صفحه نخست\";s:12:\"title_single\";s:19:\"ادامه مطلب\";s:12:\"title_search\";s:10:\"جستجو\";s:9:\"title_tag\";s:10:\"برچسب\";s:14:\"title_category\";s:17:\"دسته بندی\";}","types":null},
                 {"name":"register_with_sms","value":"1","types":null},
                 {"name":"فهرست جدید","value":"","types":"nav_menu"},
@@ -281,14 +281,14 @@ class AppController extends Controller
                 {"name":"posts_per_page","value":"2","types":null},
                 {"name":"hide_posttype","value":"","types":null},
                 {"name":"register_toptext","value":"","types":null},
-                {"name":"register_username_text","value":"نام کاربری می بایست این که من میگم باشه","types":null},
-                {"name":"register_password_text","value":"رمز عبور باید فلان چیزهایی که من میگم باشه","types":null},
+                {"name":"register_username_text","value":"","types":null},
+                {"name":"register_password_text","value":"","types":null},
                 {"name":"security_scp_view","value":"0","types":null},
                 {"name":"logout_url","value":"","types":null},
                 {"name":"logout_alert","value":"","types":null},
                 {"name":"sitetoken","value":"booksoc","types":null},
                 {"name":"excerpt_from_content","value":"1","types":null},
-                {"name":"sidemenu","value":"a:6:{i:1;a:5:{s:2:\"id\";s:3:\"255\";s:5:\"title\";s:18:\"درباره ما2\";s:4:\"type\";s:4:\"post\";s:4:\"link\";s:0:\"\";s:9:\"post_type\";s:4:\"post\";}i:3;a:5:{s:2:\"id\";s:2:\"77\";s:5:\"title\";s:34:\"رد پای فرش بر زندگی\";s:4:\"type\";s:4:\"post\";s:4:\"link\";s:0:\"\";s:9:\"post_type\";s:4:\"post\";}i:4;a:5:{s:2:\"id\";s:3:\"251\";s:5:\"title\";s:19:\"درباره ماا\";s:4:\"type\";s:4:\"post\";s:4:\"link\";s:0:\"\";s:9:\"post_type\";s:4:\"page\";}i:6;a:5:{s:2:\"id\";s:3:\"222\";s:5:\"title\";s:17:\"درباره ما\";s:4:\"type\";s:4:\"post\";s:4:\"link\";s:0:\"\";s:9:\"post_type\";s:4:\"post\";}i:5;a:5:{s:2:\"id\";s:3:\"255\";s:5:\"title\";s:18:\"درباره ما2\";s:4:\"type\";s:4:\"post\";s:4:\"link\";s:0:\"\";s:9:\"post_type\";s:4:\"post\";}s:6:\"serial\";s:59:\"[{\"id\":1},{\"id\":3},{\"id\":4,\"children\":[{\"id\":6},{\"id\":5}]}]\";}","types":"nav_menu"},
+                {"name":"sidemenu","value":"a:0:{}","types":"nav_menu"},
                 {"name":"site_widgetdata","value":"[\r\n [\r\n  {\r\n   \"sidebars\": \"sidebar_home\"\r\n  },\r\n  {\r\n   \"widget\": \"Template.post_list\",\r\n   \"widgetname\": \"post_list\",\r\n   \"name\": \"wigt81677\",\r\n   \"id\": \"wigt81677\"\r\n  },\r\n  {\r\n   \"widget\": \"Template.post_calendar\",\r\n   \"widgetname\": \"post_calendar\",\r\n   \"name\": \"wigt77186\",\r\n   \"id\": \"wigt77186\"\r\n  },\r\n  {\r\n   \"widget\": \"Template.post_bigimg\",\r\n   \"widgetname\": \"post_bigimg\",\r\n   \"name\": \"wigt98219\",\r\n   \"id\": \"wigt98219\"\r\n  }\r\n ],\r\n [\r\n  {\r\n   \"sidebars\": \"sidebar_index\"\r\n  }\r\n ],\r\n [\r\n  {\r\n   \"sidebars\": \"sidebar_single\"\r\n  }\r\n ]\r\n]","types":null},
                 {"name":"lang_alt","value":"","types":null},
                 {"name":"lang_redirect","value":"0","types":null},
@@ -303,6 +303,7 @@ class AppController extends Controller
                 {"name":"marge_bottom","value":"","types":null},
                 {"name":"watermark_enable","value":"0","types":null},
                 {"name":"white_png_background","value":"1","types":null},
+                {"name":"plugin_registerfield","value":"a:0:{}","types":null},
                 {"name":"install","value":"1"}
             ]',true);
             foreach($arr as $value){

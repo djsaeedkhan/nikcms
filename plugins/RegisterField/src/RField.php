@@ -9,12 +9,11 @@ class RField
     public $enable = true;
     protected $data = [];
     public function __construct(){
-        $data = $this->getTableLocator()->get('Admin.Options')
+        $data = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_registerfield'])
             ->toArray();
         //$data = $this->Func->OptionGet('plugin_registerfield');
-
         if(! isset($data['plugin_registerfield']))
             $this->enable = false;
         else

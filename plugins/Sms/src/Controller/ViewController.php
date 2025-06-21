@@ -3,7 +3,7 @@ namespace Sms\Controller;
 use Sms\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use \Sms\Sms;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\Routing\Router;
 
 class ViewController extends AppController
@@ -23,12 +23,13 @@ class ViewController extends AppController
         //$this->Authentication->addUnauthenticatedActions();
         $result = TableRegistry::getTableLocator()->get('Admin.Options')->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name' => 'plugin_sms'])->toArray();
+        if( !isset($result['plugin_sms']))
+            return;
         $this->setting = unserialize($result['plugin_sms']);
         $this->sms = new Sms();
         $this->max_time = 1; //min
         $this->max_count = 6;
         $this->token = rand(100000,999999);
-        $this->SmsValidations= TableRegistry::getTableLocator()->get('Sms.SmsValidations');
     }
     //-----------------------------------------------------------------------------
     public function autoactivate(){
@@ -52,15 +53,16 @@ class ViewController extends AppController
             }
 
             //check last send sms time
+            $this->SmsValidations= TableRegistry::getTableLocator()->get('Sms.SmsValidations');
             $last = $this->SmsValidations->find('all')
                 ->where(['mobile'=>$data['data']['username']])
                 ->order(['id'=>'desc'])
                 ->first();
             if($last){
-                $time = new Time($last['created']);
+                $time = new FrozenTime($last['created']);
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 $time->addMinutes($this->max_time);
-                if(Time::now() < $time){
+                if(FrozenTime::now() < $time){
                     if($this->request->is('ajax')){
                         return $this->response->withType('application/json')->withStringBody(json_encode([
                             'code'=>'AC2',
@@ -94,6 +96,12 @@ class ViewController extends AppController
                     $this->Flash->error(__d('Sms','ارسال پیامک تایید از تعداد دفعات مجاز بیشتر شده است، لطفا با پشتیبانی سایت ارتباط بگیرید'));
                     return $this->redirect($this->referer());
                 }
+            }
+
+            if(!is_array($this->setting) or count($this->setting) == 0)
+            {
+                $this->Flash->error(__d('Sms','تنظیمات مربوط به سامانه پیامک پیدا نشد'));
+                return $this->redirect('/');
             }
 
             if($this->setting['sendbysingle_sender'] == 'number'){
@@ -280,6 +288,7 @@ class ViewController extends AppController
         if ($this->request->is(['post', 'put']) and isset($this->request->getData()['mobile'])) {
             if(intval($this->request->getData()['mobile']) == $data['activate']['code'] ){
 
+                $this->SmsValidations= TableRegistry::getTableLocator()->get('Sms.SmsValidations');
                 $temp = $this->SmsValidations->newEmptyEntity();
                 $temp = $this->SmsValidations->patchEntity($temp,[
                     'status' => 1 ,

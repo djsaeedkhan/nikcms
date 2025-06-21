@@ -18,6 +18,7 @@ use \Sms\Sms;
 use \RegisterField\RField;
 use Cake\Utility\Security;
 use Cake\Event\EventInterface;
+use Cake\Log\Log;
 
 class UsersController extends AppController{
 
@@ -128,6 +129,15 @@ class UsersController extends AppController{
             return $this->redirect(['controller'=>'Users','action'=>'index']);
         } */
             
+        try {
+                $ulog = new \Userslogs\UserLogg();
+                echo $ulog->login_check_failed([
+                    'username' => "admin11"
+                ], 2); //1:succ 2:faild
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
         if ($this->request->is(['ajax','post'])) {
             $session = $this->getRequest()->getSession();
             if ($this->request->is('ajax')) {
@@ -192,6 +202,15 @@ class UsersController extends AppController{
                 else{
                     return $this->Flash->error(__('فیلدهای نام کاربری و پسورد پیدا نشد'));
                 } 
+            }
+
+            try {
+                $ulog = new \Userslogs\UserLogg();
+                $ulog->login_check_failed([
+                    'username' => $this->request->getData()['username']
+                ], 2); //1:succ 2:faild
+            } catch (\Throwable $th) {
+                //throw $th;
             }
             
             $result = $this->Authentication->getResult();
@@ -356,6 +375,7 @@ class UsersController extends AppController{
                         }
                     }
                 }
+
                 try {
                     $ulog = new \Userslogs\UserLogg();
                     $ulog->login_savelog([
@@ -816,9 +836,8 @@ class UsersController extends AppController{
                     }
                 }
 
-                if($this->request->is('ajax')){
-                    
-                }
+                if($this->request->is('ajax'))
+                {}
                 else{
                     if($this->Func->OptionGet('template_regt') == 1){
                         try {
@@ -831,7 +850,9 @@ class UsersController extends AppController{
                 }
             }
             else{
-                ///pr($user->geterrors());
+                //pr($user->geterrors());
+                Log::error('Something horrible happened');
+
                 if($this->request->is('ajax')){
                     $err = '';
                     foreach($user->geterrors() as $error){

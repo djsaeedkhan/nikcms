@@ -36,8 +36,8 @@ class RolesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Roles') ? [] : ['className' => RolesTable::class];
-        $this->Roles = $this->getTableLocator()->get('Roles', $config);
+        $config = TableRegistry::getTableLocator()->exists('Roles') ? [] : ['className' => RolesTable::class];
+        $this->Roles = TableRegistry::getTableLocator()->get('Roles', $config);
     }
 
     /**

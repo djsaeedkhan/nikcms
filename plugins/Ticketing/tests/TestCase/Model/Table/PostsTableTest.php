@@ -50,8 +50,8 @@ class PostsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
-        $this->Posts = $this->getTableLocator()->get('Posts', $config);
+        $config = TableRegistry::getTableLocator()->exists('Posts') ? [] : ['className' => PostsTable::class];
+        $this->Posts = TableRegistry::getTableLocator()->get('Posts', $config);
     }
 
     /**

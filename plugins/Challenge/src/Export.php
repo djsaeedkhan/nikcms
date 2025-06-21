@@ -11,16 +11,16 @@ use ZipArchive;
 class Export {
 	//--------------------------------------------------------------------------------
 	public function getpdf($id = null,$auth = null, $download = 1){
-		$form = $this->getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
+		$form = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
 		
-		$answ = $this->getTableLocator()->get('Challenge.Challengeqanswers')->find('all')
+		$answ = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers')->find('all')
 			->where(['Challengeqanswers.user_id'=>$auth['id'],'Challengeqanswers.challenge_id'=>$form->challenge_id])
 			->contain(['Challengequests'])
 			->order(['Challengeqanswers.id'=>'asc'])
 			->toarray();
 		
 			
-		$challenge = $this->getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
+		$challenge = TableRegistry::getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
 		$token = $form->token1 != ''?explode('.',$form->token1):[];
 		$rep = [
 			'{t1}' => isset($token[0])?$token[0]:'-',
@@ -94,8 +94,8 @@ class Export {
 	}
 	//--------------------------------------------------------------------------------
 	public function getword($id = null,$auth = null){
-		$form = $this->getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
-		$challenge = $this->getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
+		$form = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
+		$challenge = TableRegistry::getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
 
 		$zip = new clsTbsZip();
 
@@ -153,8 +153,8 @@ class Export {
 	}
 	//--------------------------------------------------------------------------------
 	public function getAllword($id = null,$auth = null){
-		$form = $this->getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
-		$challenge = $this->getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
+		$form = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms')->get($id);
+		$challenge = TableRegistry::getTableLocator()->get('Challenge.Challenges')->get($form->challenge_id);
 
 		$zip = new clsTbsZip();
 

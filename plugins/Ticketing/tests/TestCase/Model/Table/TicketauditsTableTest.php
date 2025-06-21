@@ -37,8 +37,8 @@ class TicketauditsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Ticketaudits') ? [] : ['className' => TicketauditsTable::class];
-        $this->Ticketaudits = $this->getTableLocator()->get('Ticketaudits', $config);
+        $config = TableRegistry::getTableLocator()->exists('Ticketaudits') ? [] : ['className' => TicketauditsTable::class];
+        $this->Ticketaudits = TableRegistry::getTableLocator()->get('Ticketaudits', $config);
     }
 
     /**

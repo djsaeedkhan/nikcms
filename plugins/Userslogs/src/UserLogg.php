@@ -1,7 +1,7 @@
 <?php
 namespace Userslogs;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 
 class UserLogg
 {
@@ -13,12 +13,13 @@ class UserLogg
     public function __construct(){}
     public function login_savelog($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
-        $r = $this->UsersLogs->patchEntity($this->UsersLogs->newEmptyEntity() , [
-            'user_id' => isset($user['id'])? $user['id'] :false,
-            'username' => isset($user['username'])? $user['username'] :false,
-            'types' => $types , //1:succ 2:faild
-            'created' => date('Y-m-d h:i:s'),
-        ]);
+        $r = $this->UsersLogs->patchEntity(
+            $this->UsersLogs->newEmptyEntity() , [
+                'user_id' => isset($user['id'])?$user['id'] : null,
+                'username' => isset($user['username'])? $user['username'] : null,
+                'types' => $types , //1:succ 2:faild
+                'created' => date('Y-m-d h:i:s'),
+            ]);
         try {
             $p = $this->UsersLogs->save($r);
             return $p;
@@ -30,7 +31,7 @@ class UserLogg
     public function login_firstvisit($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
         $r = $this->UsersLogs->find('all')
-            ->where(['user_id' => isset($user['id'])?$user['id']:false]);
+            ->where(['user_id' => isset($user['id'])?$user['id']:null]);
         if($r->count() > 1)
             return true;
         else 
@@ -39,20 +40,20 @@ class UserLogg
     public function login_check_failed($user = [], $types = null){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
 
-        $res = $this->UsersLogs->find('all')
+        try {
+            return $this->UsersLogs->find('all')
             ->where([
-                'username' => isset($user['username'])? $user['username'] :false,
-                'types'=>2
+                'username' => isset($user['username'])? $user['username'] :null,
+                'types'=> 2
             ])
             ->andWhere(function($exp) {
-                $now = Time::now();
-                $now->modify('-100 minutes');
-                $exp->lte('created', Time::now() );
+                $now = FrozenTime::now();
+                $now->modify('-10 minutes');
+                $exp->lte('created', FrozenTime::now() );
                 $exp->gte('created', $now->format('Y-m-d h:i:s'));
                 return $exp;
-            })->count();
-        try {
-            //pr($res);
+            })
+            ->count();
         } catch (\Throwable $th) {
             return false;
         }

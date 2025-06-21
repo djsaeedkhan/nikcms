@@ -36,8 +36,8 @@ class ChallengerelatedsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Challengerelateds') ? [] : ['className' => ChallengerelatedsTable::class];
-        $this->Challengerelateds = $this->getTableLocator()->get('Challengerelateds', $config);
+        $config = TableRegistry::getTableLocator()->exists('Challengerelateds') ? [] : ['className' => ChallengerelatedsTable::class];
+        $this->Challengerelateds = TableRegistry::getTableLocator()->get('Challengerelateds', $config);
     }
 
     /**

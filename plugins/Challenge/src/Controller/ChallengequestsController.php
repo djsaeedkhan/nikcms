@@ -26,14 +26,14 @@ class ChallengequestsController extends AppController
     //-----------------------------------------------------
     public function index($ch_id = null)
     {
-        $challenge= $this->getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
+        $challenge= TableRegistry::getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
         if(! $challenge){
             $this->Flash->error('چنین '.__d('Template', 'همیاری').' پیدا نشد');
             return $this->redirect($this->referer());
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = $this->getTableLocator()->get('Challenge.Challengeqanswers');
+        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {
@@ -210,14 +210,14 @@ class ChallengequestsController extends AppController
 
     public function report($ch_id = null)
     {
-        $challenge= $this->getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
+        $challenge= TableRegistry::getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
         if(! $challenge){
             $this->Flash->error('چنین '.__d('Template', 'همیاری').' پیدا نشد');
             return $this->redirect($this->referer());
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = $this->getTableLocator()->get('Challenge.Challengeqanswers');
+        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {

@@ -19,7 +19,7 @@ class MenuCell extends Cell
     }
 
     public function post($post_type = 'post', $menu = []){
-        $data = $this->getTableLocator()->get('Admin.Posts')->find('list')
+        $data = TableRegistry::getTableLocator()->get('Admin.Posts')->find('list')
             ->contain(['PostsI18n'])
             ->select(['id','title'])
             ->order(['Posts.id'=>'desc'])
@@ -33,7 +33,7 @@ class MenuCell extends Cell
     }
 
     public function category($post_type = null,  $menu = []){
-        $data = $this->getTableLocator()->get('Admin.Categories')
+        $data = TableRegistry::getTableLocator()->get('Admin.Categories')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type'=>$post_type])
             ->order(['lft'=>'asc'])

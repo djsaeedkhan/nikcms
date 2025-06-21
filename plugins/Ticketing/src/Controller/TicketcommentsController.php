@@ -81,7 +81,7 @@ class TicketcommentsController extends AppController
 
     public function close($id = null)
     {
-        $this->Tickets = $this->getTableLocator()->get('Ticketing.Tickets');
+        $this->Tickets = TableRegistry::getTableLocator()->get('Ticketing.Tickets');
         $this->request->allowMethod(['post']);
         $ticketcomment = $this->Tickets->get($id);
         if ($this->Tickets->updateQuery()

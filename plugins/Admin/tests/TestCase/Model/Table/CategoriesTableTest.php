@@ -42,8 +42,8 @@ class CategoriesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Categories') ? [] : ['className' => CategoriesTable::class];
-        $this->Categories = $this->getTableLocator()->get('Categories', $config);
+        $config = TableRegistry::getTableLocator()->exists('Categories') ? [] : ['className' => CategoriesTable::class];
+        $this->Categories = TableRegistry::getTableLocator()->get('Categories', $config);
     }
 
     /**

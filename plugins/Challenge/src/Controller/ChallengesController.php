@@ -23,8 +23,8 @@ class ChallengesController extends AppController
             '_profile_challenge', '_profile_default', '_profile_edit', '_challengequests']);
         $this->Challengequests = TableRegistry::getTableLocator()->get('Challenge.Challengequests');
         $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
-        $this->Challengeuserforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
-        $this->Challengeforums = $this->getTableLocator()->get('Challenge.Challengeforums');
+        $this->Challengeuserforms = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms');
+        $this->Challengeforums = TableRegistry::getTableLocator()->get('Challenge.Challengeforums');
 
         $this->viewBuilder()->setLayout("login");
     }
@@ -122,11 +122,11 @@ class ChallengesController extends AppController
         $this->set(compact('challenges'));
         
         $this->set([
-            //'topics' => $this->getTableLocator()->get('Challengetags')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'cats' => $this->getTableLocator()->get('Challenge.Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'status' => $this->getTableLocator()->get('Challenge.Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'topics' => $this->getTableLocator()->get('Challenge.Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
-            'fields' => $this->getTableLocator()->get('Challenge.Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            //'topics' => TableRegistry::getTableLocator()->get('Challengetags')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'cats' => TableRegistry::getTableLocator()->get('Challenge.Challengecats')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'status' => TableRegistry::getTableLocator()->get('Challenge.Challengestatuses')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'topics' => TableRegistry::getTableLocator()->get('Challenge.Challengetopics')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
+            'fields' => TableRegistry::getTableLocator()->get('Challenge.Challengefields')->find('list',['keyField' => 'id','valueField' => 'title'])->toarray(), 
         ]);
 
         try{
@@ -445,7 +445,7 @@ class ChallengesController extends AppController
                             $answer = $this->Challengeqanswers->newEmptyEntity();
                             $answer = $this->Challengeqanswers->patchEntities([], $list);
                             if($this->Challengeqanswers->saveMany($answer)){
-                                $currentuser = $this->getTableLocator()->get('Challenge.Challengeuserprofiles') 
+                                $currentuser = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles') 
                                     ->find('all')
                                     ->where(['user_id'=>  $this->request->getAttribute('identity')->get('id') ])
                                     ->first();
@@ -555,7 +555,7 @@ class ChallengesController extends AppController
                 break; 
 
             case 'updates':
-                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
+                $result = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chupdates'])
                     ->order(['created'=>'desc'])
                     ->contain(['PostMetas'])
@@ -580,7 +580,7 @@ class ChallengesController extends AppController
                     ->where(['Challenge_id'=>$challenge_id ])
                     ->toarray();
 
-                $this->Challengeuserprofiles = $this->getTableLocator()->get('Challenge.Challengeuserprofiles');
+                $this->Challengeuserprofiles = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles');
                 $query = $this->Challengeuserprofiles->find('list',['keyField' => 'provice','valueField' => 'count']);
                 if(count($users)){
                     $all = $query->select([
@@ -612,7 +612,7 @@ class ChallengesController extends AppController
                 break;
 
             case 'press':    
-                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
+                $result = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chnews'])
                     ->order(['created'=>'desc'])
                     ->contain(['PostMetas'])
@@ -629,7 +629,7 @@ class ChallengesController extends AppController
                 break;
 
             case 'resources':    
-                $result = $this->getTableLocator()->get('Admin.Posts')->find('all')
+                $result = TableRegistry::getTableLocator()->get('Admin.Posts')->find('all')
                     ->where(['post_type'=>'chresource'])
                     ->order(['created'=>'desc'])
                     ->contain(['PostMetas'])
@@ -657,7 +657,7 @@ class ChallengesController extends AppController
             'page' => $page
             ]);
             
-        $viewModel = $this->getTableLocator()->get('Challenge.Challengeviews');
+        $viewModel = TableRegistry::getTableLocator()->get('Challenge.Challengeviews');
         if(isset($challenge->challengeviews[0]['views'])){
             $views = ($challenge->challengeviews[0]['views']);
             $query = $viewModel->updateQuery()
@@ -691,7 +691,7 @@ class ChallengesController extends AppController
         if( !$this->request->getAttribute('identity')){
             return $this->redirect(['plugin'=>false,'controller'=>'users','action'=>'login']);
         }
-        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+        $user = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
             ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics'])
             ->first();
@@ -729,7 +729,7 @@ class ChallengesController extends AppController
 
             case 'password':
                 $id = $this->request->getAttribute('identity')->get('id');
-                $this->set(['users'=> $this->getTableLocator()->get('Admin.Users')->get($id, ['contain' => ['UserMetas']])]);
+                $this->set(['users'=> TableRegistry::getTableLocator()->get('Admin.Users')->get($id, ['contain' => ['UserMetas']])]);
                 $this->set(['page'=>'profile/password']);
                 $this->render('/Challenges/profile/password');
                 break;
@@ -748,7 +748,7 @@ class ChallengesController extends AppController
     }
     //-----------------------------------------------------------------------------
     function _profile_challenge($id = null){
-        $this->Userforms = $this->getTableLocator()->get('Challenge.Challengeuserforms');
+        $this->Userforms = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms');
         $results = $this->Userforms->find('all')
                 ->where(['Challengeuserforms.user_id'=>$this->request->getAttribute('identity')->get('id')])
                 ->order(['Challengeuserforms.id'=>'desc'])
@@ -782,7 +782,7 @@ class ChallengesController extends AppController
     }
     //-----------------------------------------------------------------------------
     function _profile_default(){
-        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+        $user = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
             ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics'])
             ->first();
@@ -791,10 +791,10 @@ class ChallengesController extends AppController
     }
     //-----------------------------------------------------------------------------
     function _profile_edit(){
-        $user = $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+        $user = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
             ->where(['user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['Users','Challengetopics']);
-        $this->userprofiles = $this->getTableLocator()->get('Challenge.Challengeuserprofiles');
+        $this->userprofiles = TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles');
         $tmp = null;
         if($user->first()){
             $userprofiles = $user->first();
@@ -864,7 +864,7 @@ class ChallengesController extends AppController
             if ($this->userprofiles->save($userp)) {
                 //update profile image of site header
                 $this->request->getSession()->write('profile',
-                    $this->getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
+                    TableRegistry::getTableLocator()->get('Challenge.Challengeuserprofiles')->find('all')
                         ->where([
                             'user_id'=> $this->request->getAttribute('identity')->get('id')
                             ])->first()
@@ -891,7 +891,7 @@ class ChallengesController extends AppController
     //-----------------------------------------------------------------------------
     private function _challengequests($ch_id = null){
         
-        $this->Challengequests = $this->getTableLocator()->get('Challenge.Challengequests');
+        $this->Challengequests = TableRegistry::getTableLocator()->get('Challenge.Challengequests');
 
         if(! $this->request->is('ajax')){
             $response = $this->response->withType('application/json')->withStringBody(json_encode('error07'));

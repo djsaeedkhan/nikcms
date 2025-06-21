@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace Sms\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Sms\Model\Table\SmsValidationsTable;
 
@@ -15,14 +16,14 @@ class SmsValidationsTableTest extends TestCase
      *
      * @var \Sms\Model\Table\SmsValidationsTable
      */
-    public $SmsValidations;
+    protected $SmsValidations;
 
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
+    protected $fixtures = [
         'plugin.Sms.SmsValidations',
         'plugin.Sms.Users',
     ];
@@ -32,11 +33,11 @@ class SmsValidationsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('SmsValidations') ? [] : ['className' => SmsValidationsTable::class];
-        $this->SmsValidations = TableRegistry::getTableLocator()->get('SmsValidations', $config);
+        $config = $this->getTableLocator()->exists('SmsValidations') ? [] : ['className' => SmsValidationsTable::class];
+        $this->SmsValidations = $this->getTableLocator()->get('SmsValidations', $config);
     }
 
     /**
@@ -44,7 +45,7 @@ class SmsValidationsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->SmsValidations);
 
@@ -52,11 +53,12 @@ class SmsValidationsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test beforeSave method
      *
      * @return void
+     * @uses \Sms\Model\Table\SmsValidationsTable::beforeSave()
      */
-    public function testInitialize()
+    public function testBeforeSave(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -65,8 +67,9 @@ class SmsValidationsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \Sms\Model\Table\SmsValidationsTable::validationDefault()
      */
-    public function testValidationDefault()
+    public function testValidationDefault(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -75,8 +78,9 @@ class SmsValidationsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \Sms\Model\Table\SmsValidationsTable::buildRules()
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -37,7 +37,7 @@ class Predata {
         if(! is_numeric ($id))
             $id = null;
 
-		$arr = $this->getTableLocator()->get('Template.TmpProvinces')
+		$arr = TableRegistry::getTableLocator()->get('Template.TmpProvinces')
 			->find('list',['keyField'=>'province','valueField'=>'pid'])
 			//->group('TmpProvinces.province')
 			->order(['pid'=>'asc'])

@@ -26,15 +26,15 @@ class HomeController extends AppController
             }
         }
 
-        $result = $this->getTableLocator()->get('Admin.Posts')
+        $result = TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.jpg'])
             ->toArray();
-        $result = $result + $this->getTableLocator()->get('Admin.Posts')
+        $result = $result + TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.png'])
             ->toArray();
-        $result = $result + $this->getTableLocator()->get('Admin.Posts')
+        $result = $result + TableRegistry::getTableLocator()->get('Admin.Posts')
             ->find('list',['keyField'=>'id','valueField'=>'title'])
             ->where(['post_type' => 'media','title LIKE'=>'%.jpeg'])
             ->toArray();

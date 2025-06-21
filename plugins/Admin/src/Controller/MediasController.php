@@ -366,7 +366,7 @@ class MediasController extends AppController
         if(! in_array($extension,$ext))
             return 0;
 
-        /* $option_media = $this->getTableLocator()->get('Admin.Options')
+        /* $option_media = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])
             ->where(['name'=>'gallery_size'])
             ->first(); */

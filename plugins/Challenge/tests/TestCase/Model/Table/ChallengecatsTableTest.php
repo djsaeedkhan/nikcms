@@ -36,8 +36,8 @@ class ChallengecatsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Challengecats') ? [] : ['className' => ChallengecatsTable::class];
-        $this->Challengecats = $this->getTableLocator()->get('Challengecats', $config);
+        $config = TableRegistry::getTableLocator()->exists('Challengecats') ? [] : ['className' => ChallengecatsTable::class];
+        $this->Challengecats = TableRegistry::getTableLocator()->get('Challengecats', $config);
     }
 
     /**

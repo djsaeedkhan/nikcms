@@ -37,8 +37,8 @@ class LogsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Logs') ? [] : ['className' => LogsTable::class];
-        $this->Logs = $this->getTableLocator()->get('Logs', $config);
+        $config = TableRegistry::getTableLocator()->exists('Logs') ? [] : ['className' => LogsTable::class];
+        $this->Logs = TableRegistry::getTableLocator()->get('Logs', $config);
     }
 
     /**

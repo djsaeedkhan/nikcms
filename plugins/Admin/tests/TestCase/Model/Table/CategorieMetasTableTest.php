@@ -36,8 +36,8 @@ class CategorieMetasTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('CategorieMetas') ? [] : ['className' => CategorieMetasTable::class];
-        $this->CategorieMetas = $this->getTableLocator()->get('CategorieMetas', $config);
+        $config = TableRegistry::getTableLocator()->exists('CategorieMetas') ? [] : ['className' => CategorieMetasTable::class];
+        $this->CategorieMetas = TableRegistry::getTableLocator()->get('CategorieMetas', $config);
     }
 
     /**

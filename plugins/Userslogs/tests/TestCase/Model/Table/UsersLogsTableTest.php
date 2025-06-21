@@ -36,8 +36,8 @@ class UsersLogsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('UsersLogs') ? [] : ['className' => UsersLogsTable::class];
-        $this->UsersLogs = $this->getTableLocator()->get('UsersLogs', $config);
+        $config = TableRegistry::getTableLocator()->exists('UsersLogs') ? [] : ['className' => UsersLogsTable::class];
+        $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs', $config);
     }
 
     /**
