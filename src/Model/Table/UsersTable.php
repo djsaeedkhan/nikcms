@@ -145,6 +145,71 @@ class UsersTable extends Table
         return $validator;
     }
 
+    public function CodemeliAsUsername($value,$context){
+        if(!preg_match('/^[0-9]{10}$/',$value))
+            return false;
+        for($i=0;$i<10;$i++)
+            if(preg_match('/^'.$i.'{10}$/',$value))
+                return false;
+        for($i=0,$sum=0;$i<9;$i++)
+            $sum+=((10-$i)*intval(substr($value, $i,1)));
+        $ret=$sum%11;
+        $parity=intval(substr($value, 9,1));
+        if(($ret<2 && $ret==$parity) || ($ret>=2 && $ret==11-$parity))
+            return true;
+        return false;
+    }
+    public function validationCodemeli(Validator $validator) {
+        $validator->add('username',[
+            'CodemeliAsUsername'=>[
+                'rule'=>'CodemeliAsUsername',
+                'provider'=>'table',
+                'message'=>__('کدملی وارد شده اشتباه می باشد.')
+            ]
+        ]);
+        $validator->add('password', [
+            'minLength' => [
+                'rule' => ['minLength', 8],
+                'last' => true,
+                'message' => __('رمز عبور میبایست بیشتر از 8 کاراکتر باشد')
+            ],
+            'maxLength' => [
+                'rule' => ['maxLength', 255],
+                'message' => __('رمز عبور طولانی است')
+            ]
+        ]);
+        return $validator;
+    }
+    
+    public function MobileAsUsername($value,$context){
+
+        if(! preg_match("/^09[0-9]{9}$/", $value)) {
+            return false;
+        }
+        return true;
+    }
+    public function validationMobile(Validator $validator) {
+        $validator->add('username',[
+            'MobileAsUsername'=>[
+                'rule'=>'MobileAsUsername',
+                'provider'=>'table',
+                'message'=> __('شماره موبایل وارد شده اشتباه می باشد.')
+            ]
+        ]);
+        $validator->add('password', [
+            'minLength' => [
+                'rule' => ['minLength', 8],
+                'last' => true,
+                'message' => __('رمز عبور میبایست بیشتر از 8 کاراکتر باشد')
+            ],
+            'maxLength' => [
+                'rule' => ['maxLength', 255],
+                'message' => __('رمز عبور طولانی است')
+            ]
+        ]);
+        return $validator;
+    }
+    
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.

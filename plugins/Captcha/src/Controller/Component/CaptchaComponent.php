@@ -165,7 +165,7 @@ class CaptchaComponent extends Component	{
         $request = $controller->getRequest();
         $q = $request->getQuery();
         if(!$q) return;
-
+        $q['length'] = intval($q['length']) <5 ? 5 : $q['length'];
         //Preference is given the settings parameter passed through helper
         foreach($this->settings as $k=>$v)  {
             if(isset($q[$k]) && $q[$k]) $this->settings[$k] = $q[$k];
@@ -348,8 +348,8 @@ class CaptchaComponent extends Component	{
             }
 
             $textbox = imagettfbbox($font_size, $angle, $this->settings['font'], $code) or die('Error in imagettfbbox function');
-            $x = ($width - $textbox[4])/2;
-            $y = ($height - $textbox[5])/2;
+            $x = intval(($width - $textbox[4])/2);
+            $y = intval(($height - $textbox[5])/2);
             $y -= 5;
             imagettftext($image, $font_size, $angle, $x, $y, $text_color, $this->settings['font'] , $code) or die('Error in imagettftext function');
         } else if(function_exists("imagestring"))  {

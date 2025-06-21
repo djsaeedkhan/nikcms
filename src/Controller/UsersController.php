@@ -12,7 +12,7 @@ use Cake\Auth\DefaultPasswordHasher;
 use App\Controller\AppController;
 use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\Routing\Router;
 use \Sms\Sms;
 use \RegisterField\RField;
@@ -115,18 +115,20 @@ class UsersController extends AppController{
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-        $result = $this->Authentication->getResult();
-        if ($result->isValid()) {
-            return $this->redirect('/admin/');
+
+        if(!$this->request->is(['ajax','post'])){
+            $result = $this->Authentication->getResult();
+            if ($result->isValid()) {
+                return $this->redirect('/admin/');
+            }
         }
+        
         /* if ($this->request->getAttribute('identity') and $this->request->getAttribute('identity')->get('id')){
             //die(pr($this->request->getAttribute('identity')));
             return $this->redirect(['controller'=>'Users','action'=>'index']);
         } */
             
-
         if ($this->request->is(['ajax','post'])) {
-
             $session = $this->getRequest()->getSession();
             if ($this->request->is('ajax')) {
                 $this->autoRender = false;
@@ -255,8 +257,10 @@ class UsersController extends AppController{
                 }
 
                 //if redirect pass in url
-                if($this->request->getQuery('redirect'))
+                if($this->request->getQuery('redirect')){
                     return $this->redirect($this->request->getQuery('redirect'));
+                }
+                    
 
                 //check for first visit to complete profile
                 if( $this->Func->OptionGet('complete_profile') == 1 
@@ -282,8 +286,9 @@ class UsersController extends AppController{
                                 'referer'=> Router::url(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']),
                             ]));
                         }
-                        else
+                        else{
                             return $this->redirect(['plugin'=>'Admin','controller'=>'Users','action'=>'profile']);
+                        }
                 }
                 
                 if( $user->get('role_id') == 1 ){
@@ -308,8 +313,9 @@ class UsersController extends AppController{
                             'referer'=> $this->Func->OptionGet('login_redirecturl'),
                         ]));
                     }
-                    else
+                    else{
                         return $this->redirect($this->Func->OptionGet('login_redirecturl'));
+                    }
                 }
                 
                 if($this->request->is('ajax')){
@@ -659,8 +665,8 @@ class UsersController extends AppController{
                 and 
                 $month!= 0)
             {
-                $time = new Time('now');
-                $time->addDays($month);
+                $time = new FrozenTime('now');
+                $time->addDays(intval($month));
                 $this->request = $this->request->withData('expired', $time->format('Y-m-d'));
             }
             $this->request = $this->request->withData('role_id', intval($this->Func->OptionGet('register_default_role')));

@@ -235,7 +235,7 @@ function loginform(){
         xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         //$('.'+mclass).html('درحال دریافت اطلاعات');
-        // $('.btnlogin').prop('disabled', true);
+        $('.btnlogin').prop('disabled', true);
         $('.btnlogin').text('ورود ...');
       },
       complete: function(){

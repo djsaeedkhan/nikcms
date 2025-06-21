@@ -173,7 +173,8 @@ body{
         margin-right: 5px;
     }
     .secimg img{
-        margin-bottom: -112px !important;
+        margin-bottom: -110px !important;
+        border-radius:5px;
     }
 }
 .input label{
