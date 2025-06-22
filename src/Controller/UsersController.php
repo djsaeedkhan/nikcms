@@ -128,26 +128,6 @@ class UsersController extends AppController{
             //die(pr($this->request->getAttribute('identity')));
             return $this->redirect(['controller'=>'Users','action'=>'index']);
         } */
-            
-        try {
-                $ulog = new \Userslogs\UserLogg();
-                if($ulog->login_check_failed(['username' => $this->request->getData()['username'] , 'time'=>'30']) > 5){
-                    if ($this->request->is('ajax')) {
-                        return $this->response->withType('application/json')->withStringBody(json_encode([
-                            'code'=>'F11',
-                            'type'=>'error',
-                            'alert'=>__('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('در حال حاضر امکان ورود تا 30 دقیقه دیگر محدود شده است'),
-                            'referer' => null,
-                        ]));
-                    }
-                    else{
-                        $this->Flash->error(__('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('در حال حاضر امکان ورود تا 30 دقیقه دیگر محدود شده است'),);
-                        return $this->redirect($this->referer());
-                    }
-                }
-            } catch (\Throwable $th) {
-                //throw $th;
-            }
 
         if ($this->request->is(['ajax','post'])) {
             $session = $this->getRequest()->getSession();
@@ -184,6 +164,7 @@ class UsersController extends AppController{
                     return $this->redirect($this->referer());
                 }
             }
+
             if (
                 $session->read('show_recaptcha') == 1 
                 and
@@ -217,9 +198,24 @@ class UsersController extends AppController{
 
             try {
                 $ulog = new \Userslogs\UserLogg();
-                $ulog->login_check_failed([
-                    'username' => $this->request->getData()['username']
-                ], 2); //1:succ 2:faild
+                if($ulog->login_check_failed([
+                    'username' => $this->request->getData()['username'], [
+                        'limit' => 3,
+                        'time'=> 30
+                    ] ]) == false){
+                    if ($this->request->is('ajax')) {
+                        return $this->response->withType('application/json')->withStringBody(json_encode([
+                            'code' => 'F11',
+                            'type' => 'error',
+                            'alert' => __('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('امکان ورود تا 30 دقیقه دیگر محدود می باشد'),
+                            'referer' => null,
+                        ]));
+                    }
+                    else{
+                        $this->Flash->error(__('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('امکان ورود تا 30دقیقه دیگر محدود میباشد'));
+                        return $this->redirect($this->referer());
+                    }
+                }
             } catch (\Throwable $th) {
                 //throw $th;
             }

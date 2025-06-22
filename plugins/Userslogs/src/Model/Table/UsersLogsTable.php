@@ -85,8 +85,8 @@ class UsersLogsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
-        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
+        //$rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        //$rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }
