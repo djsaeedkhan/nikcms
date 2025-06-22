@@ -134,14 +134,14 @@ class UsersController extends AppController{
                 if($ulog->login_check_failed(['username' => $this->request->getData()['username'] , 'time'=>'30']) > 5){
                     if ($this->request->is('ajax')) {
                         return $this->response->withType('application/json')->withStringBody(json_encode([
-                            'code'=>'F1',
+                            'code'=>'F11',
                             'type'=>'error',
-                            'alert'=>__('کد امنیتی به درستی وارد نشده است'),
+                            'alert'=>__('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('در حال حاضر امکان ورود تا 30 دقیقه دیگر محدود شده است'),
                             'referer' => null,
                         ]));
                     }
                     else{
-                        $this->Flash->error(__('کد امنیتی به درستی وارد نشده است'));
+                        $this->Flash->error(__('تعداد دفعات ورود شما از حد مجاز گذشته است.') . __('در حال حاضر امکان ورود تا 30 دقیقه دیگر محدود شده است'),);
                         return $this->redirect($this->referer());
                     }
                 }
