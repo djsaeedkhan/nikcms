@@ -122,6 +122,12 @@ class ModuleHelper extends Helper
         else return static::$name7;
     }
     // -------------------------------- 
+    public static $var_notif = [];	
+	public static function plugin_notification($n = null){
+        if($n != null) static::$var_notif += $n;
+        else return static::$var_notif;
+    }
+    // -------------------------------- 
     public static $name8 = [];	
 	public static function site_preload($n = null){
         if($n != null) static::$name8 += $n;

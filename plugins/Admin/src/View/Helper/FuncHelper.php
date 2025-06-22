@@ -859,6 +859,13 @@ class FuncHelper extends Helper
         }
     }
 
+    //1404-03-31
+    public function notification(){
+        foreach(ModuleHelper::plugin_notification() as $c){
+            echo $this->_View->cell($c);
+        }
+    }
+
     //1398-8-14
     public function header(){
         foreach(ModuleHelper::site_header() as $c)

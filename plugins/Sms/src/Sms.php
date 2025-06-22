@@ -6,6 +6,8 @@ use SoapFault;
 use Cake\Log\Log;
 use Exception;
 use nusoap_client;
+use Cake\Routing\Router;
+use Cake\Http\Session;
 
 class Sms
 {
@@ -24,6 +26,19 @@ class Sms
         }
         else
             $this->setting = unserialize($data['plugin_sms']);
+
+        /* try {
+            $currentRoute = Router::getRequest();
+            if(
+                strtolower($currentRoute?->getParam('plugin')) == "admin" and 
+                strtolower($currentRoute?->getParam('controller')) == "dashboard" and 
+                strtolower($currentRoute?->getParam('action')) == "index"){
+
+                }
+            //echo $controllerName;
+        } catch (\Throwable $th) {
+            //throw $th;
+        } */
     }
     //------------------------------------------------------------
     public function __call($name, array $arguments){

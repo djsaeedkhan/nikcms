@@ -37,22 +37,16 @@ class UserLogg
         else 
             return false;
     }
-    public function login_check_failed($user = [], $types = null){
+    public function login_check_failed($user = [], $option = []){
         $this->UsersLogs = TableRegistry::getTableLocator()->get('UsersLogs');
-
         try {
+            $time = (isset($option['types'])?$option['types'] : 15);
             return $this->UsersLogs->find('all')
             ->where([
                 'username' => isset($user['username'])? $user['username'] :null,
-                'types'=> 2
+                'types'=> isset($option['types'])?$option['types'] : 2,
+                'created >=' => FrozenTime::now()->modify('-'.$time.' minutes')
             ])
-            ->andWhere(function($exp) {
-                $now = FrozenTime::now();
-                $now->modify('-10 minutes');
-                $exp->lte('created', FrozenTime::now() );
-                $exp->gte('created', $now->format('Y-m-d h:i:s'));
-                return $exp;
-            })
             ->count();
         } catch (\Throwable $th) {
             return false;

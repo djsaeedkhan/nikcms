@@ -131,9 +131,20 @@ class UsersController extends AppController{
             
         try {
                 $ulog = new \Userslogs\UserLogg();
-                echo $ulog->login_check_failed([
-                    'username' => "admin11"
-                ], 2); //1:succ 2:faild
+                if($ulog->login_check_failed(['username' => $this->request->getData()['username'] , 'time'=>'30']) > 5){
+                    if ($this->request->is('ajax')) {
+                        return $this->response->withType('application/json')->withStringBody(json_encode([
+                            'code'=>'F1',
+                            'type'=>'error',
+                            'alert'=>__('کد امنیتی به درستی وارد نشده است'),
+                            'referer' => null,
+                        ]));
+                    }
+                    else{
+                        $this->Flash->error(__('کد امنیتی به درستی وارد نشده است'));
+                        return $this->redirect($this->referer());
+                    }
+                }
             } catch (\Throwable $th) {
                 //throw $th;
             }

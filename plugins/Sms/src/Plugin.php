@@ -8,6 +8,7 @@ use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Sms\sms;
 
 class Plugin extends BasePlugin
 {
@@ -42,6 +43,9 @@ class Plugin extends BasePlugin
                     ],
                 ];
         }
+    }
+    public function notification() {
+        $class = new Sms();
     }
     public function preload() {
         FuncHelper::do_action('options_register', self::options('register'));
