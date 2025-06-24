@@ -102,7 +102,7 @@ foreach ($medias as $media):
                 data-type="<?= $media->title;?>" 
                 data-size="<?= $file_size;?>" 
                 data-date="<?= str_replace('-','/',$this->Query->the_time($media))?>" 
-                style="height1:150px; width: 100%; background:#FFF;cursor:pointer;">
+                style="width: 100%; background:#FFF;cursor:pointer;">
                 <img 
                     class="card-img-top img-thumbnail" 
                     style="background:#FFF;font-size: 12px;" 
@@ -208,7 +208,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
             $("#exampleModal").modal("show");  
         }
     }); */
-    $('form').prop('action',$("form").attr("action") +'/'+button.data('id'));
+    //$('form').prop('action',$("form").attr("action") +'/'+button.data('id'));
     $('#viewitm').prop('href',button.data('srcfull'));
     $('#edititm').prop('href','<?= Router::url(['action'=>'edit','?'=>['type'=>'editor']])?>'+'&id=' + button.data('id'));
 

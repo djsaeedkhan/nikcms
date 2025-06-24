@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<?= $this->Form->create($user) ?>
+<?= $this->Form->create($user); ?>
 <div class="row">
     <div class="col-sm-6">
         <div class="card"><div class="card-body">
@@ -67,7 +67,7 @@
                     'autocomplete'=>'off',
                     'label'=>__d('Admin', 'تاریخ انقضای ورود') ]).'<hr>';
 
-                echo $this->Func->create_form(\Admin\View\Helper\ModuleHelper::options_registerform());
+                echo $this->Func->create_form(\Admin\View\Helper\ModuleHelper::options_registerform(), $meta_list);
                 echo $this->Form->control('enable', [
                     'options' =>$this->Func->predata('enable'),
                     'empty'=>' -- '.__d('Admin', 'انتخاب').' --',
@@ -78,7 +78,7 @@
     </div>
     <div class="col-sm-6">
         <div class="card"><div class="card-body">
-            <?= $this->Func->create_form(Admin\View\Helper\ModuleHelper::options_userfield())?>
+            <?= $this->Func->create_form(Admin\View\Helper\ModuleHelper::options_userfield(),$meta_list)?>
         </div></div>
     </div>
 </div>

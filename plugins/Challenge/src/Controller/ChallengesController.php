@@ -666,10 +666,11 @@ class ChallengesController extends AppController
                 ->execute();
         }
         else{
-            $viewModel->save($viewModel->newEmptyEntity([
+            $data = $viewModel->patchEntity($viewModel->newEmptyEntity(), [
                 'challenge_id'  => $challenge['id'],
                 'views' => 1 ,
-            ]));
+            ]);
+            $viewModel->save($data);
             $challenge->challengeviews[0]['views'] = 1;
         }
         try{

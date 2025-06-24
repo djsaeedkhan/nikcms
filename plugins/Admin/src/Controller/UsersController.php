@@ -251,16 +251,17 @@ class UsersController extends AppController
             $this->Flash->error(__d('Admin', 'The user could not be saved. Please, try again.'));
         }
 
-        $meta_list = array();
-        if(isset($user->user_metas))
-            $meta_list = $this->Func->MetaList($user,'users');
+        //$meta_list = array();
+        if(isset($user->user_metas)){
+            $meta_list = $this->Func->MetaList($user, 'users');
+            $user['UserMetas'] = $meta_list;
+        }
 
-        $this->set(compact('user'));
         $this->set([
+            'user' => $user,
             'action' => 'edit',
             'meta_list' => $meta_list,
             ]);
-        $this->set('action','edit');
         $this->render('add');
     }
     //--------------------------------------------------------------------

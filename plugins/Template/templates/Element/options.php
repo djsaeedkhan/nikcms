@@ -5,6 +5,16 @@ global $maxrow;
 $knowledge = $this->Query->post('knowledge',['field'=>['id','title'],'limit'=>0, 'find_type'=>'list']);
 $topics = $this->Query->post('topics',['field'=>['id','title'],'limit'=>0, 'find_type'=>'list']);
 
+try {
+   $challenge_list = \Cake\ORM\tableregistry::getTableLocator()
+        ->get('Challenge.Challenges')
+        ->find('list',['keyField'=>'id','valueField'=>'title'])
+        ->where(['Challenges.enable'=>1])
+        ->order(['Challenges.priority'=>'asc'])
+        ->toarray();
+} catch (\Throwable $th) {
+    $challenge_list = [];
+}
 
 $maxrow = 15;
 $version = 2;
@@ -74,13 +84,7 @@ $menu = [
                     ['name'=>'bx2_posts', 'title'=>'انتخاب از لیست جمع سپاریها', 
                         'multiple'=>'multiple',
                         'class'=>'select2',
-                        'col'=> 12,'type'=>'select','data'=> 
-                        \Cake\ORM\tableregistry::getTableLocator()
-                            ->get('Challenge.Challenges')
-                            ->find('list',['keyField'=>'id','valueField'=>'title'])
-                            ->where(['Challenges.enable'=>1])
-                            ->order(['Challenges.priority'=>'asc'])
-                            ->toarray()] ,
+                        'col'=> 12,'type'=>'select','data'=> $challenge_list] ,
 
                 ]
             ],

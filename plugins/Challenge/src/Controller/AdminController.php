@@ -152,9 +152,13 @@ class AdminController extends AppController
     }
     //-----------------------------------------------------
     public function report(){
-        
-        $query =  TableRegistry::getTableLocator()->get('Challenge.Challengeviews')->find('list',['keyField' => 'challenge_id','valueField' => 'count']);
-        $view = $query->select(['count' => $query->func()->sum('views'),])->toarray();
+        $view = 0;
+        try {
+            $query =  TableRegistry::getTableLocator()->get('Challenge.Challengeviews')->find('all');
+            $view = $query->select(['count' => $query->func()->sum('views'),])->toarray();
+        } catch (\Throwable $th) {
+            $view = 0;
+        }
 
         $query =  TableRegistry::getTableLocator()->get('Challenge.challengeuserprofiles')
             ->find('list',['keyField' => 'gender','valueField' => 'count'])
@@ -175,7 +179,7 @@ class AdminController extends AppController
             'userform_today' => TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->where(['DATE(Challengeuserforms.created)' => date('Y-m-d')])->count(),
             'user_userforms_all' => TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms')->find('all')->select(['user_id'])->group(['user_id'])->count(),
             'follower_all' => TableRegistry::getTableLocator()->get('Challenge.Challengefollowers')->find('all')->count(),
-            'views_all' => isset($view[0])?$view[0]:'-',
+            'views_all' => isset($view[0]['count'])?$view[0]['count']:'-',
             'user_all' => TableRegistry::getTableLocator()->get('Users')->find('all')->count(),
             //'challenge_all' => TableRegistry::getTableLocator()->get('Challenge.Challenges')->find('all')->toarray(),
 

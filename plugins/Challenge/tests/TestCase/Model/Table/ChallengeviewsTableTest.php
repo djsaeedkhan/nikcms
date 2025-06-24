@@ -36,8 +36,8 @@ class ChallengeviewsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Challengeviews') ? [] : ['className' => ChallengeviewsTable::class];
-        $this->Challengeviews = TableRegistry::getTableLocator()->get('Challengeviews', $config);
+        $config = $this->getTableLocator()->exists('Challengeviews') ? [] : ['className' => ChallengeviewsTable::class];
+        $this->Challengeviews = $this->getTableLocator()->get('Challengeviews', $config);
     }
 
     /**
