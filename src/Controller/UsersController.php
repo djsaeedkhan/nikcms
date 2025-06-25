@@ -2,12 +2,6 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\Http\Response;
-use Cake\View\Exception\MissingTemplateException;
-
 use Cake\Auth\DefaultPasswordHasher;
 use App\Controller\AppController;
 use Cake\Mailer\Email;
@@ -17,6 +11,8 @@ use Cake\Routing\Router;
 use \Sms\Sms;
 use \RegisterField\RField;
 use Cake\Utility\Security;
+use Cake\Http\Cookie\Cookie;
+use Cake\I18n\DateTime;
 use Cake\Event\EventInterface;
 use Cake\Log\Log;
 
@@ -32,6 +28,38 @@ class UsersController extends AppController{
         parent::beforeFilter($event);
         //$this->Authentication->addUnauthenticatedActions([]);
         $this->Authentication->allowUnauthenticated(['login', 'register','Website.index','logout','remember','rememberToken','thumbnail']);
+
+        // Check for remember me cookie
+        $token = $this->request->getCookie('remember_me');
+        if ($token && !$this->Authentication->getIdentity()) {
+            $usersTable = $this->fetchTable('Users');
+            $user = $usersTable->find()
+                ->where([
+                    'remember_token' => $token,
+                    'remember_token_expiry >' => new FrozenTime(),
+                ])
+                ->first();
+
+            if ($user) {
+
+                $role_list = [];
+                try {
+                    $role_array = $user->get('role');
+                    if(isset($role_array['data']))
+                        $role_list = unserialize($role_array['data']);
+                } catch (\Throwable $th) {}
+                $this->Authentication->getResult()->getData()->offsetSet('role_list', $role_list);
+                $this->Authentication->getResult()->getData()->offsetSet('session_hash', $this->_hashGenerator() );
+                
+                // Log the user in
+                $this->Authentication->setIdentity($user);
+
+
+            } else {
+                // Clear invalid/expired cookie
+                $this->response = $this->response->withExpiredCookie(new Cookie('remember_me'));
+            }
+        }
     }
     //----------------------------------------------------------
     public function isAuthorized($user){
@@ -116,18 +144,12 @@ class UsersController extends AppController{
             print_r ((new DefaultPasswordHasher)->hash("123456"));
         }
 
-
         if(!$this->request->is(['ajax','post'])){
             $result = $this->Authentication->getResult();
             if ($result->isValid()) {
                 return $this->redirect('/admin/');
             }
         }
-        
-        /* if ($this->request->getAttribute('identity') and $this->request->getAttribute('identity')->get('id')){
-            //die(pr($this->request->getAttribute('identity')));
-            return $this->redirect(['controller'=>'Users','action'=>'index']);
-        } */
 
         if ($this->request->is(['ajax','post'])) {
             $session = $this->getRequest()->getSession();
@@ -224,11 +246,32 @@ class UsersController extends AppController{
             if ($result && $result->isValid()) {
                 $user = $this->request->getAttribute('identity');
 
-                /* return $this->response->withType('application/json')->withStatus(401)->withStringBody(json_encode([
-                    'type' => 'error',
-                    'alert' => 'نام کاربری یا رمز عبور اشتباه است'
-                ])); */
-                
+                //1404/04/04 // Handle "Remember Me" functionality
+                if ( $this->request->getData('remember') ) {
+                    if(isset($user['remember_token'])){
+                        // Generate a secure token
+                        $token = Security::hash(uniqid() . time(), 'sha256');
+                        
+                        // Save token to user record
+                        $usersTable = $this->fetchTable('Users');
+                        $userEntity = $usersTable->get($user->id);
+                        $userEntity->remember_token = $token;
+                        $userEntity->remember_token_expiry = new FrozenTime('+30 days');
+                        $usersTable->save($userEntity);
+
+                        // Set secure cookie
+                        $cookie = (new Cookie('remember_me'))
+                            ->withValue($token)
+                            ->withExpiry(new FrozenTime('+30 days'))
+                            ->withSecure(true) // Only send over HTTPS
+                            ->withHttpOnly(true); // Prevent JavaScript access
+                        
+                        $this->response = $this->response->withCookie($cookie);
+                    }
+                    else{
+                        $this->Flash->error(__('امکان "مرا به خاطر بسپار" در حال حاضر مقدور نمیباشد'));
+                    }
+                }
                 
                 //فعلا غیرفعال شد 1404.03.07
                 /* if ($this->Func->OptionGet('login_expired_check') == 1 and $user->get('expired') != null ) {
@@ -263,12 +306,13 @@ class UsersController extends AppController{
                     $this->Flash->success(__('ورود شما به پنل کاربری با موفقیت انجام شد'));
                 }
 
-                $role_array = $user->get('role');
-                if(isset($role_array['data']))
-                    $role_list = unserialize($role_array['data']);
-                else
-                    $role_list = [];
-
+                $role_list = [];
+                try {
+                    $role_array = $user->get('role');
+                    if(isset($role_array['data']))
+                        $role_list = unserialize($role_array['data']);
+                } catch (\Throwable $th) {
+                }
                 $this->Authentication->getResult()->getData()->offsetSet('role_list', $role_list);
                 $this->Authentication->getResult()->getData()->offsetSet('session_hash', $this->_hashGenerator() );
 
@@ -287,7 +331,6 @@ class UsersController extends AppController{
                     return $this->redirect($this->request->getQuery('redirect'));
                 }
                     
-
                 //check for first visit to complete profile
                 if( $this->Func->OptionGet('complete_profile') == 1 
                     and 
@@ -495,7 +538,6 @@ class UsersController extends AppController{
         else
             $this->viewBuilder()->setLayout('login');
 
-        //echo ((new DefaultPasswordHasher)->hash("123456"));
         if ($user = $this->request->getAttribute('identity'))
             $this->redirect(['action'=>'index']);
             
@@ -906,12 +948,22 @@ class UsersController extends AppController{
     public function logout(){
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-            $this->Authentication->logout();
-
-            //$this->_activity('delete');
-            $this->request->getSession()->destroy();
-            //$this->Cookie->delete('connects');
             
+            $user = $this->Authentication->getIdentity();
+            //$this->_activity('delete');
+            
+            if ($this->request->getCookie('remember_me') and isset($user['remember_token'])) {
+                if ($user) {
+                    $usersTable = $this->fetchTable('Users');
+                    $userEntity = $usersTable->get($user->id);
+                    $userEntity->remember_token = null;
+                    $userEntity->remember_token_expiry = null;
+                    $usersTable->save($userEntity);
+                }
+                $this->response = $this->response->withExpiredCookie(new Cookie('remember_me'));
+            }
+            $this->Authentication->logout();
+            $this->request->getSession()->destroy();
             $this->Func->OptionGet('logout_alert')!= ""?
                 $this->Flash->success($this->Func->OptionGet('logout_alert')):
                 $this->Flash->success(__('شما با موفقیت از سایت خارج شدید'));
@@ -922,6 +974,8 @@ class UsersController extends AppController{
         }
         return $this->redirect($this->referer());
     }
+    //----------------------------------------------------------
+    
     //----------------------------------------------------------
     //فعلا غیرفعال شد 1404.03.07
     function _autoLogin(){

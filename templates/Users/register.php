@@ -106,15 +106,13 @@ $predata = new Predata();
                         <div class="row">
                             <div class="col-sm-7">
                                 <button type="submit" class="btn btn-primary px-2">
-                                    <?=__d('Template','تایید اطلاعات')?>
+                                    <?=__d('Template','تایید ثبت نام')?>
                                 </button>
                             </div>
-                            <div class="col-sm-5">
-                                <p class="mt-0" style="text-align: left;">
-                                    <?= ( ($link = $this->Func->OptionGet('login_linkurl')) !='')?
-                                        $this->html->link(__('ورود'), $link):
-                                        $this->html->link(__('ورود'), ['action'=>'login']);?>
-                                </p>
+                            <div class="col-sm-5" style="padding: 10px;text-align: left;">
+                                <?= ( $link = $this->Func->OptionGet('login_linkurl') !='')?
+                                    $this->html->link(__('ورود'), $link):
+                                    $this->html->link(__('ورود'), ['action'=>'login']);?>
                             </div>
                         </div>
                         <?php
