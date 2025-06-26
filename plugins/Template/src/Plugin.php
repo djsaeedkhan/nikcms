@@ -166,7 +166,10 @@ class Plugin extends BasePlugin
 
     public function preload(){
         define('template_slug','tadbir');
-        FuncHelper::do_action('excplgn', ['Lms','Shop']);
+        /* FuncHelper::do_action('excplgn', [
+            //'Lms',
+            'Shop'
+        ]); */
         FuncHelper::do_action('post_type',self::post_type());
         FuncHelper::do_action('admin_sidemenu', self::posttype_adminmenu());
         FuncHelper::do_action('admin_postwidget', self::post_widget('post'));

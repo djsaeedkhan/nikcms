@@ -58,7 +58,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
         $this->addPlugin('Website');
-        //$this->addPlugin('Lms');
+        $this->addPlugin('Lms');
         $this->addPlugin('Ticketing');
         $this->addPlugin('Formbuilder');
         $this->addPlugin('Challenge');
@@ -97,7 +97,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
          * Debug Kit should not be installed on a production system
          */
         if (Configure::read('debug')) {
-            //$this->addPlugin('DebugKit');
+            $this->addPlugin('DebugKit');
         }
 
         // Load more plugins here

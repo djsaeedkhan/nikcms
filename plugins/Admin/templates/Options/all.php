@@ -4,11 +4,11 @@
     echo $this->Form->create(null, ['class'=>'col-sm-6','url'=>['action'=>'SaveSetting']]);
 
     $field = [
-        ['name'=>'st__login_background','type'=>'', 'label'=>'تصویر پس زمینه لوگین','dir'=>'l'],
-        ['name'=>'st__register_info','type'=>'textarea','label'=>'توضیحات ثبت نام','dir'=>'l'],
-        [],
+        //['name'=>'st__login_background','type'=>'', 'label'=>'تصویر پس زمینه لوگین','dir'=>'l'],
+        //['name'=>'st__register_info','type'=>'textarea','label'=>'توضیحات ثبت نام','dir'=>'l'],
+        //[],
         ['name'=>'st__plugin_avlist','type'=>'textarea','label'=>'پلاگین های فعال','dir'=>'l'],
-        ['name'=>'','type'=>'','label'=>'','dir'=>''],
+       // ['name'=>'','type'=>'','label'=>'','dir'=>''],
         //['name'=>'','type'=>'','label'=>'','dir'=>''],
     ];
 
