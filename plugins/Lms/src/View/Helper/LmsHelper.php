@@ -45,7 +45,7 @@ class LmsHelper extends Helper
         }
     }
     //-----------------------------------------------------------------------------
-    public static function Predata($input = null , $id = null){
+    public static function Predata($input = null, $id = null){
         $temp = [];
         if($input == 'enable'){
             $temp = [

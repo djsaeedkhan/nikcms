@@ -4,19 +4,19 @@ declare(strict_types=1);
 namespace Lms\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Lms\Model\Table\ProfilesTable;
+use Lms\Model\Table\LmsUsernotesTable;
 
 /**
- * Lms\Model\Table\ProfilesTable Test Case
+ * Lms\Model\Table\LmsUsernotesTable Test Case
  */
-class ProfilesTableTest extends TestCase
+class LmsUsernotesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Lms\Model\Table\ProfilesTable
+     * @var \Lms\Model\Table\LmsUsernotesTable
      */
-    protected $Profiles;
+    protected $LmsUsernotes;
 
     /**
      * Fixtures
@@ -24,8 +24,10 @@ class ProfilesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'plugin.Lms.Profiles',
+        'plugin.Lms.LmsUsernotes',
         'plugin.Lms.Users',
+        'plugin.Lms.LmsCourses',
+        'plugin.Lms.LmsCoursefiles',
     ];
 
     /**
@@ -36,8 +38,8 @@ class ProfilesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Profiles') ? [] : ['className' => ProfilesTable::class];
-        $this->Profiles = TableRegistry::getTableLocator()->get('Profiles', $config);
+        $config = $this->getTableLocator()->exists('LmsUsernotes') ? [] : ['className' => LmsUsernotesTable::class];
+        $this->LmsUsernotes = $this->getTableLocator()->get('LmsUsernotes', $config);
     }
 
     /**
@@ -47,7 +49,7 @@ class ProfilesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Profiles);
+        unset($this->LmsUsernotes);
 
         parent::tearDown();
     }
@@ -56,7 +58,7 @@ class ProfilesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Lms\Model\Table\ProfilesTable::validationDefault()
+     * @uses \Lms\Model\Table\LmsUsernotesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +69,7 @@ class ProfilesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \Lms\Model\Table\ProfilesTable::buildRules()
+     * @uses \Lms\Model\Table\LmsUsernotesTable::buildRules()
      */
     public function testBuildRules(): void
     {

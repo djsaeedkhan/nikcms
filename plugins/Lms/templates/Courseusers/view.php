@@ -1,7 +1,7 @@
 <?php
 use Lms\Predata; $pd = new Predata();
 $user = $results['user'];
-$results = $results['LmsCourses'];
+$results = $results['lms_course'];
 ?>
 
 <div class="content-header row">

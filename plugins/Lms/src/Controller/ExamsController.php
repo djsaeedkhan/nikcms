@@ -20,7 +20,7 @@ class ExamsController extends AppController
         $lmsExams = $this->paginate(
             $this->LmsExams->find('all')
                 ->contain(['Users'])
-                ->order(['id'=>'desc'])
+                ->order(['LmsExams.id'=>'desc'])
         );
         $this->set(compact('lmsExams'));
     }
@@ -74,10 +74,10 @@ class ExamsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $lmsExam = $this->LmsExams->get($id);
         if ($this->LmsExams->delete($lmsExam)) {
-            $this->getTableLocator()->get('Lms.lmsExamusers')->deleteAll(['lms_exam_id' => $id ]);
-            $this->getTableLocator()->get('Lms.lmsExamquests')->deleteAll(['lms_exam_id' => $id ]);
-            $this->getTableLocator()->get('Lms.lmsExamresults')->deleteAll(['lms_exam_id' => $id ]);
-            $this->getTableLocator()->get('Lms.lmsExamresultlists')->deleteAll(['lms_exam_id' => $id ]);
+            TableRegistry::getTableLocator()->get('Lms.LmsExamusers')->deleteAll(['lms_exam_id' => $id ]);
+            TableRegistry::getTableLocator()->get('Lms.LmsExamquests')->deleteAll(['lms_exam_id' => $id ]);
+            TableRegistry::getTableLocator()->get('Lms.LmsExamresults')->deleteAll(['lms_exam_id' => $id ]);
+            TableRegistry::getTableLocator()->get('Lms.LmsExamresultlists')->deleteAll(['lms_exam_id' => $id ]);
             $this->Flash->success(__('The lms exam has been deleted.'));
         } else {
             $this->Flash->error(__('The lms exam could not be deleted. Please, try again.'));

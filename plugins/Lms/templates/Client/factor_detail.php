@@ -54,7 +54,7 @@ $lmsFactor = $factors[0];?>
             <?php
             if($lmsFactor['lms_coupon_id'] == ""):
                 echo $this->Form->create(null,[
-                    'url'=>\Cake\Routing\Router::url("",false),
+                    //'url'=>\Cake\Routing\Router::url(true),
                     'style'=>'display: flex;align-items: flex-start;']);
                 echo '<label for="coupons" style="padding: 5px;">اعمال کد تخفیف</label>';
                 echo $this->Form->control('coupons',[
@@ -110,7 +110,8 @@ $lmsFactor = $factors[0];?>
                 <td><?= $payment->enable==0?
                             '<span class="badge badge-danger">ناموفق</span>':
                             '<span class="badge badge-success">موفق</span>'; ?></td>
-                <td><?= LmsHelper::Predata('terminal_list',$payment->terminal_ids) ?></td>
+                <td><?= $payment->terminal_ids != ""?
+                            LmsHelper::Predata('terminal_list', $payment->terminal_ids):'-' ?></td>
                 <td><?= $this->Func->date2($payment->created) ?></td>
             </tr>
             <?php endforeach; ?>

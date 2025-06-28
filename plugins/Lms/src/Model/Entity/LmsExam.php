@@ -52,9 +52,12 @@ class LmsExam extends Entity
 
     protected $_virtual = ['myoptions'];
     protected function _getmyoptions($options){
-        if($this->options != ""){
-            return json_decode($this->options,true);
+        try {
+            if( $this->options != "" ){
+                return json_decode($this->options, true);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
-
 }

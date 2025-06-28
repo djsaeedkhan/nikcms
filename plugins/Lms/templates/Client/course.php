@@ -23,15 +23,15 @@ $checker = new Checker();
 
 <?php
 foreach ($lmsCourses as $lmsCourseuser):
-    $lmsCourse = $lmsCourseuser['LmsCourses'];
-    $expire = $checker->CheckUsercourseExpire($lmsCourse,$lmsCourseuser);
-    $options = json_decode($lmsCourse['options'],true);
+    $lmsCourse = $lmsCourseuser['lms_course'];
+    $expire = $checker->CheckUsercourseExpire($lmsCourse, $lmsCourseuser);
+    $options = isset($lmsCourse['options'])?json_decode($lmsCourse['options'], true):[];
     ?>
     <div class="card caart">
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-5">
-                    <?php if($lmsCourse['image'] !=''){
+                    <?php if(isset($lmsCourse['image']) and $lmsCourse['image'] !=''){
                         $img = explode('/',$lmsCourse['image']);
                         $img = $img[count($img) - 1];
                         echo $this->html->image('/users/thumbnail/'.$img.'/500/400',
@@ -41,43 +41,47 @@ foreach ($lmsCourses as $lmsCourseuser):
                 </div>
                 <div class="col-sm-7">
                     
-                    <h5> دوره: <strong><?= h($lmsCourse['title']) ?></strong></h5>
+                    <h5> دوره: <strong><?= isset($lmsCourse['title'])?h($lmsCourse['title']):"-" ?></strong></h5>
 
-                    <div class="alert alert-secondary mb-1">
-                        <?php if($lmsCourse['date_type'] == 2):?>
-                        <div>
-                            <b>تاریخ شروع : </b>
-                            <?= $lmsCourse['date_start']!= '' ?$this->Func->date2($lmsCourse['date_start'],'Y-m-d'):' بدون محدودیت'; ?>
-                        </div>
-                        <div>
-                            <b>تاریخ پایان: </b>
-                            <?= $lmsCourse['date_end']!= '' ?$this->Func->date2($lmsCourse['date_end'],'Y-m-d'):'بدون محدودیت' ?>
-                        </div>
-                        <?php else:?>
-                            <b>مدت دوره:</b>
-                            <?php
-                            //https://www.php.net/manual/en/dateinterval.format.php
-                                $interval = date_diff(
-                                    date_create($lmsCourse['date_start']->format('Y-m-d')),
-                                    date_create($lmsCourse['date_end']->format('Y-m-d')) );
-                                
-                                echo $interval->format('%y') !=0 ? 
-                                    $interval->format('%y سال ') .( intval($interval->format('%m')) > 0?' و ':''):'';
-                                echo $interval->format('%m') !=0 ? 
-                                    $interval->format('%m ماه ') .( intval($interval->format('%d')) > 0?' و ':''):'';
-                                echo  intval($interval->format('%d')) > 0?$interval->format('%d روز'):'';
-                            ?>
-                            <hr>
-                            <b>زمان باقیمانده شما: </b>
+                    <?php if(isset($lmsCourse['date_type'])):?>
+                        <div class="alert alert-secondary mb-1">
+                            <?php if($lmsCourse['date_type'] == 2):?>
+                            <div>
+                                <b>تاریخ شروع : </b>
+                                <?= $lmsCourse['date_start']!= '' ?$this->Func->date2($lmsCourse['date_start'],'Y-m-d'):' بدون محدودیت'; ?>
+                            </div>
+                            <div>
+                                <b>تاریخ پایان: </b>
+                                <?= $lmsCourse['date_end']!= '' ?$this->Func->date2($lmsCourse['date_end'],'Y-m-d'):'بدون محدودیت' ?>
+                            </div>
+                            <?php else:?>
+                                <b>مدت دوره:</b>
+                                <?php
+                                if(isset($lmsCourse['date_start'])){
+                                    //https://www.php.net/manual/en/dateinterval.format.php
+                                    $interval = date_diff(
+                                        date_create($lmsCourse['date_start']->format('Y-m-d')),
+                                        date_create($lmsCourse['date_end']->format('Y-m-d')) );
+                                    
+                                    echo $interval->format('%y') !=0 ? 
+                                        $interval->format('%y سال ') .( intval($interval->format('%m')) > 0?' و ':''):'';
+                                    echo $interval->format('%m') !=0 ? 
+                                        $interval->format('%m ماه ') .( intval($interval->format('%d')) > 0?' و ':''):'';
+                                    echo  intval($interval->format('%d')) > 0?$interval->format('%d روز'):'';
+                                }
+                                ?>
+                                <hr>
+                                <b>زمان باقیمانده شما: </b>
 
-                            <?php 
-                            if($expire != false)
-                                echo $checker->PrintTime($expire);
-                            else
-                                echo  "منقضی شده";
-                            ?>
-                        <?php endif?>
-                    </div>
+                                <?php 
+                                if($expire != false)
+                                    echo $checker->PrintTime($expire);
+                                else
+                                    echo  "منقضی شده";
+                                ?>
+                            <?php endif?>
+                        </div>
+                    <?php endif?>
                         
                     <?php if(isset($lmsCourse['lms_courserelateds'][0]) ):?>
                         <div class="alert alert-primary">
@@ -93,13 +97,13 @@ foreach ($lmsCourses as $lmsCourseuser):
 
                     <div class="mb-1">- دوره دارای 
                         <span class="badge badge-light-primary badge-pill">
-                            <?= count($lmsCourse['lms_courseweeks'])?>
+                            <?= (isset($lmsCourse['lms_courseweeks']) and is_array($lmsCourse['lms_courseweeks']))?count($lmsCourse['lms_courseweeks']):'-'?>
                         </span> بخش
                         و
                         <span class="badge badge-light-primary badge-pill">
                             <?php
                                 $count = 0;
-                                if(is_array($lmsCourse['lms_courseweeks'])){
+                                if(isset($lmsCourse['lms_courseweeks']) and is_array($lmsCourse['lms_courseweeks'])){
                                     foreach($lmsCourse['lms_courseweeks'] as $week){
                                         if(isset($week['lms_coursefiles']) and is_array($week['lms_coursefiles']))
                                             $count += count($week['lms_coursefiles']);
@@ -111,7 +115,7 @@ foreach ($lmsCourses as $lmsCourseuser):
                     </div>
 
                     <?php
-                    $exam = isset($lmsCourseexam[$lmsCourse['id']])?count($lmsCourseexam[$lmsCourse['id']]):0;
+                    $exam = (isset($lmsCourse['id']) and isset($lmsCourseexam[$lmsCourse['id']]))?count($lmsCourseexam[$lmsCourse['id']]):0;
                     if($exam > 0):?>
                         <div class="mb-1">- در این دوره شما
                             <span class="badge badge-light-primary badge-pill">
@@ -122,17 +126,19 @@ foreach ($lmsCourses as $lmsCourseuser):
                     <?php endif?>
 
                         <!-- <br>وضعیت:  -->
-                    <?php 
-                    if(isset($lmsCoursefilecan[$lmsCourse['id']]) and count($lmsCoursefilecan[$lmsCourse['id']]) == 0)
-                        echo '<div class="mb-1"> - شما هنوز هیچ جلسه ای را مشاهده نکرده اید.</div>';
-                        
-                    if(isset($lmsCoursefilecan[$lmsCourse['id']]) and count($lmsCoursefilecan[$lmsCourse['id']]) > 0){
-                        echo '<div class="mb-1"> - شما <span class="badge badge-light-primary badge-pill">';
-                            $cnt = count($lmsCoursefilecan[$lmsCourse['id']]);
-                        if($cnt == 0) echo "0";
-                        else echo ($cnt - 1);
-                        echo '</span> گام از دوره را طی کرده اید.</div>';
-                    }
+                    <?php
+                    if(isset($lmsCourse['id'])):
+                        if(isset($lmsCoursefilecan[$lmsCourse['id']]) and count($lmsCoursefilecan[$lmsCourse['id']]) == 0)
+                            echo '<div class="mb-1"> - شما هنوز هیچ جلسه ای را مشاهده نکرده اید.</div>';
+                            
+                        if(isset($lmsCoursefilecan[$lmsCourse['id']]) and count($lmsCoursefilecan[$lmsCourse['id']]) > 0){
+                            echo '<div class="mb-1"> - شما <span class="badge badge-light-primary badge-pill">';
+                                $cnt = count($lmsCoursefilecan[$lmsCourse['id']]);
+                            if($cnt == 0) echo "0";
+                            else echo ($cnt - 1);
+                            echo '</span> گام از دوره را طی کرده اید.</div>';
+                        }
+                    endif;
                     ?>
                 </div>
             </div>
@@ -165,7 +171,7 @@ foreach ($lmsCourses as $lmsCourseuser):
                 #        'class'=>'float-left btn btn-success mx-1'] );
             endif;
 
-            if( (isset($expire) and $expire == false) and $lmsCourse['can_renew'] == 1 ){
+            if( (isset($expire) and $expire == false) and (isset($lmsCourse['can_renew']) and $lmsCourse['can_renew'] == 1) ){
                 if($lmsCourse['renew_day'] != "" and $lmsCourse['price_renew'] != ""){
                     echo $this->Html->link(__('تمدید دوره'), 
                         '/lms/client/renew/'. $lmsCourse['id'],

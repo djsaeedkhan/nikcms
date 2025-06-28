@@ -1,7 +1,7 @@
 <?php
 namespace Lms\Controller;
 
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use Lms\Checker;
 use Lms\Controller\AppController;
@@ -18,7 +18,8 @@ use SoapClient;
 
 class ClientController extends AppController
 {
-    public function initialize() {
+    public function initialize(): void
+    {
         parent::initialize();
         /* Configure::write('Session', [
             'defaults' => 'php',
@@ -29,7 +30,7 @@ class ClientController extends AppController
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
-        ini_set('session.cookie_samesite', 'None');
+        //ini_set('session.cookie_samesite', 'None');
         $this->setting =  unserialize($this->Func->OptionGet('plugin_lms'));
     }
     //----------------------------------------------------------
@@ -39,7 +40,7 @@ class ClientController extends AppController
         $id = explode(',',$id);
         Log::write('debug',$this->referer());
         if(isset($id[0]) and isset($id[1]) and $this->referer() == 'https://samaneh.tadabor.ir/lms/client/courses/36?file=292&show=1'){ //
-            $src = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')->where(['id' => $id[0]])->first();
+            $src = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles')->find('all')->where(['id' => $id[0]])->first();
             if(isset($src['filesrc_'.$id[1]]) and $src['filesrc_'.$id[1]] != ''){
                 $path = $src['filesrc_'.$id[1]];   
                 $stream = new Video();
@@ -95,7 +96,7 @@ class ClientController extends AppController
             $this->Flash->error('دوره ای با این مشخصات پیدا نشد');
             return $this->redirect($this->referer());
         }
-        $lmsCourses  = $lmsCourseuser['LmsCourses'];
+        $lmsCourses  = $lmsCourseuser['lms_course'];
 
         if($lmsCourseuser['enable'] == 1){
             $this->Flash->error('دوره شما هنوز به پایان نرسیده است. 
@@ -136,7 +137,6 @@ class ClientController extends AppController
         $stream = new VideoStream("26-shahr.mp4");
         $stream->start();
         exit(); */
-
         $lmsCourses = $this->LmsCourseusers->find('all')
             ->where(['LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id')])
             ->contain(['LmsCourses'=>['LmsCourseweeks'=>['LmsCoursefiles']]])
@@ -147,8 +147,8 @@ class ClientController extends AppController
         $lmsCoursefilecan = [];
         $lmsCourseexam = [];
 
-        foreach($lmsCourses as $lms){ 
-            $lms_id = $lms['LmsCourses']['id'];
+        foreach($lmsCourses as $lms){
+            $lms_id = $lms['lms_course']['id'];
             $lmsCoursefiles[  $lms_id ] =  $this->LmsCoursefiles
                 ->find('list',['keyField' => 'id','valueField' => 'id'])
                 ->where(['lms_course_id'=>  $lms_id ])
@@ -190,7 +190,7 @@ class ClientController extends AppController
             $this->Flash->error('دوره ای با این مشخصات پیدا نشد');
             return $this->redirect($this->referer());
         }
-        $lmsCourses = $lmsCourseuser['LmsCourses'];
+        $lmsCourses = $lmsCourseuser['lms_course'];
         $expire = $checker->CheckUsercourseExpire($lmsCourses,$lmsCourseuser); 
         if($expire === false){
 
@@ -303,7 +303,7 @@ class ClientController extends AppController
             return $this->redirect($this->referer());
         }
 
-        $lmsCourses = $lmsCourseuser['LmsCourses'];
+        $lmsCourses = $lmsCourseuser['lms_course'];
         $expire = $checker->CheckUsercourseExpire($lmsCourses,$lmsCourseuser); 
         if($expire === true){
             $this->Flash->error('دوره شما منقضی شده و امکان انجام این درخواست نمی باشد');
@@ -412,11 +412,11 @@ class ClientController extends AppController
         $lmsCoursefilecan = [];
         $lmsCourseexam = [];
 
-        foreach($lmsCourses as $lms){ 
-            $lms_id = $lms['LmsCourses']['id'];
-            $lmsCoursefiles[  $lms_id ] =  $this->LmsCoursefiles
+        foreach($lmsCourses as $lms){
+            $lms_id = $lms['lms_course']['id'];
+            $lmsCoursefiles[$lms_id] =  $this->LmsCoursefiles
                 ->find('list',['keyField' => 'id','valueField' => 'id'])
-                ->where(['lms_course_id'=>  $lms_id ])
+                ->where(['LmsCoursefiles.lms_course_id'=>  $lms_id ])
                 ->toarray();
 
             if(count($lmsCoursefiles[  $lms_id ])){
@@ -441,7 +441,7 @@ class ClientController extends AppController
         ]);
     }
     //----------------------------------------------------------------
-    public function courses($id = null , $file = null)
+    public function courses($id = null, $file = null) //course detail
     {
         $checks = new Checker();
 
@@ -465,10 +465,11 @@ class ClientController extends AppController
 
         $factor = $this->LmsUserfactors->find('all')
             ->where([
-                'enable'=>0,
+                'enable' => 0,
                 'LmsUserfactors.lms_exam_id IS NULL',
-                'LmsUserfactors.user_id'=> $this->request->getAttribute('identity')->get('id') , 
-                'lms_course_id' =>$id ] )
+                'LmsUserfactors.user_id' => $this->request->getAttribute('identity')->get('id') , 
+                'lms_course_id' => $id
+                ])
             ->contain(['LmsFactors'])
             ->first();
         if($factor){
@@ -481,10 +482,10 @@ class ClientController extends AppController
         //----------------------------------------------------------------
         if($lmsCourses['enable'] != 1){ //وقتی کاربر یکبار دوره را سپری میکند، مقدار فعال: یک می شود
             if($lmsCourses['lms_course']['date_type'] == 2){ //تاریخ شروع مشخص شده برای دوره
-                $time = new Time( $lmsCourses['lms_course']['date_start'] );
+                $time = new FrozenTime( $lmsCourses['lms_course']['date_start'] );
             }
             else{//تاریخ ثبت دوره برای کاربر
-                $time = new Time( $lmsCourses['created']);
+                $time = new FrozenTime( $lmsCourses['created']);
             }
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
             if(Time::now() < $time){
@@ -494,7 +495,7 @@ class ClientController extends AppController
             //----------------------------------------------------------------
 
             if( $lmsCourses['lms_course']['date_type'] == 2 ){ //تاریخ شروع مشخص شده برای دوره
-                $time = new Time( $lmsCourses['lms_course']['date_end']->format('Y-m-d') );
+                $time = new FrozenTime( $lmsCourses['lms_course']['date_end']->format('Y-m-d') );
             }
             else{ //تاریخ ثبت دوره برای کاربر
                 //https://www.php.net/manual/en/dateinterval.format.php
@@ -504,7 +505,7 @@ class ClientController extends AppController
                 $origin = $interval->format('%R%a');
                 $day = (intval($origin));
 
-                $time = new Time($lmsCourses['created']);
+                $time = new FrozenTime($lmsCourses['created']);
                 if($day > 0){
                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                     $time->addDays($day);
@@ -546,7 +547,9 @@ class ClientController extends AppController
                 'LmsCoursefilenotes',
                 'LmsCourseexams'=>'LmsExams',
                 'LmsCourseweeks'])
-            ->where([ 'LmsCoursefiles.id' => $file_id ])
+            ->where([
+                $file_id !=""?['LmsCoursefiles.id' => $file_id]:false
+                ])
             ->enablehydration(false)
             ->first();
         $show_current = false;
@@ -670,7 +673,7 @@ class ClientController extends AppController
                 $this->Flash->success('آزمون پایان یافته است');
                 return $this->redirect($this->referer());
             }
-            $time = new Time($temp['created']);
+            $time = new FrozenTime($temp['created']);
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
             $time->addMinutes($file['LmsExams']['timer']);
             $timer = $time->format('Y-m-d H:i:s');
@@ -831,7 +834,7 @@ class ClientController extends AppController
                 return $this->redirect($this->referer());
             }
 
-            $time = new Time($temp['created']);
+            $time = new FrozenTime($temp['created']);
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
             $time->addMinutes($file['LmsExams']['timer']);
             $timer = $time->format('Y-m-d H:i:s');
@@ -948,7 +951,7 @@ class ClientController extends AppController
             ];
         }
         
-        $time = new Time($coupons['expiry_date']);
+        $time = new FrozenTime($coupons['expiry_date']);
         $interval = date_diff( date_create($time->format('Y-m-d')), date_create( Time::now()->format('Y-m-d')) );
         if($interval->format('%R%a') > 0){
             return [
@@ -1164,7 +1167,7 @@ class ClientController extends AppController
                                 if($tmp){
                                     $checker = new Checker();
                                     $day = $checker->GetCourseuser_StartDate($factors[0]['lms_userfactors'][0]['lms_course'],$tmp); 
-                                    $time = new Time($tmp['created']);
+                                    $time = new FrozenTime($tmp['created']);
                                     $time->addDays($day);
 
                                     if($add_month > 0){
@@ -1822,7 +1825,7 @@ class zarinpal{
 		exit;
 	}
 
-	public function request($MerchantID, $Amount, $Description="", $Email="", $Mobile="", $CallbackURL, $SandBox=false, $ZarinGate=false)
+	public function request($MerchantID, $Amount, $Description="", $Email="", $Mobile="", $CallbackURL="", $SandBox=false, $ZarinGate=false)
 	{
 		$ZarinGate = ($SandBox == true) ? false : $ZarinGate;
 

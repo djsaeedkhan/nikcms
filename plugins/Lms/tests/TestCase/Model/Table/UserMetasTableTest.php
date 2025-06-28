@@ -36,8 +36,8 @@ class UserMetasTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('UserMetas') ? [] : ['className' => UserMetasTable::class];
-        $this->UserMetas = $this->getTableLocator()->get('UserMetas', $config);
+        $config = TableRegistry::getTableLocator()->exists('UserMetas') ? [] : ['className' => UserMetasTable::class];
+        $this->UserMetas = TableRegistry::getTableLocator()->get('UserMetas', $config);
     }
 
     /**

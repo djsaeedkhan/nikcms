@@ -1,18 +1,20 @@
 <?php
 namespace Lms;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;
 
 class Checker
 {
-    function __construct() {}
+    function __construct() {
+    }
     public function checkcurrent($course_id = null, $file_id = null , $user_id = null , $query = null){
         $status = "true";
-        $coursefile = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
+        $coursefile = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
             ->where(['id' => $file_id])
             ->first(); 
         
-        $courseuser = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
+        $courseuser = TableRegistry::getTableLocator()->get('Lms.LmsCourseusers')->find('all')
             ->contain(['LmsCourses'])
             ->where(['LmsCourseusers.user_id' =>  $user_id , 'lms_course_id' => $course_id])
             ->first();
@@ -22,16 +24,16 @@ class Checker
             /* pr("e1"); */
         }
         else{
-            $filecans = $this->getTableLocator()->get('Lms.LmsCoursefilecans');
+            $filecans = TableRegistry::getTableLocator()->get('Lms.LmsCoursefilecans');
             $coursefilecan = $filecans->find('all')
                 ->where(['user_id' =>  $user_id , 'lms_coursefile_id' => $file_id ])
                 ->first();
             
             //if(isset($courseuser['lms_course']['date_start']) and $courseuser['lms_course']['date_start'] !='')
             if($courseuser['lms_course']['date_type'] == 2)
-                $time = new Time( $courseuser['lms_course']['date_start'] );
+                $time = new FrozenTime( $courseuser['lms_course']['date_start'] );
             else
-                $time = new Time($courseuser['created']);
+                $time = new FrozenTime($courseuser['created']);
 
             $time->addDays($coursefile['days']);
 
@@ -42,15 +44,15 @@ class Checker
             if(! $coursefilecan ){
 
                 if(isset($query['file']) and $query['file'] == $file_id){
-                    $exam = $this->getTableLocator()->get('Lms.LmsCourseexams')->find('all')
+                    $exam = TableRegistry::getTableLocator()->get('Lms.LmsCourseexams')->find('all')
                         ->where(['lms_coursefile_id' =>  $file_id])
                         ->first();
                     if($exam){
-                        $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
+                        $result = TableRegistry::getTableLocator()->get('Lms.LmsExamresults')->find('all')
                             ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result' => 2 ])
                             ->first();
                         if($result){
-                            if(Time::now() > $time){
+                            if(FrozenTime::now() > $time){
                                 $this->enablefile($user_id , $file_id);
                                 $status = "true";
                             }
@@ -59,7 +61,7 @@ class Checker
                         else {$status = "link";/* pr("e3"); */}
                     }
                     else{
-                        if(Time::now() > $time){
+                        if(FrozenTime::now() > $time){
                             $this->enablefile($user_id , $file_id);
                             $status = "true";
                         }
@@ -75,19 +77,19 @@ class Checker
     //-------------------------------------------------------------------------------
     public function checkIS($course_id = null, $file_id = null , $user_id = null , $query = null){
         $status = true;
-        $coursefile = $this->getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
+        $coursefile = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
             ->where(['id' => $file_id])
             ->first(); 
 
         if(! $file_id)
             return false;
         
-        $courseuser = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('all')
+        $courseuser = TableRegistry::getTableLocator()->get('Lms.LmsCourseusers')->find('all')
             ->contain(['LmsCourses'])
             ->where(['LmsCourseusers.user_id' =>  $user_id , 'lms_course_id' => $course_id])
             ->first();
 
-        $fcan = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
+        $fcan = TableRegistry::getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where([
                 'LmsCoursefilecans.user_id'=>$user_id , 
@@ -106,37 +108,37 @@ class Checker
         else{
             //if(isset($courseuser['lms_course']['date_start']) and $courseuser['lms_course']['date_start'] !=''){
             if($courseuser['lms_course']['date_type'] == 2){
-                $time = new Time( $courseuser['lms_course']['date_start'] );
+                $time = new FrozenTime( $courseuser['lms_course']['date_start'] );
             }
             else{
-                $time = new Time($courseuser['created']);
+                $time = new FrozenTime($courseuser['created']);
             }
             $time->addDays($coursefile['days']);
             if(isset($query['file']) and $query['file'] == $file_id){
-                $exam = $this->getTableLocator()->get('Lms.LmsCourseexams')->find('all')
+                $exam = TableRegistry::getTableLocator()->get('Lms.LmsCourseexams')->find('all')
                     ->where(['lms_coursefile_id' =>  $file_id])
                     ->first();
                 if($exam){
 
-                    if($this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
+                    if(TableRegistry::getTableLocator()->get('Lms.LmsExamresults')->find('all')
                         ->where(['user_id' =>  $user_id ,  'lms_coursefile_id'=>$file_id,'lms_exam_id' => $exam['lms_exam_id']])->count() > 0 )
                     {
-                        $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
+                        $result = TableRegistry::getTableLocator()->get('Lms.LmsExamresults')->find('all')
                             ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result !=' => 2  ])
                             ->toarray();
 
-                        $exams = $this->getTableLocator()->get('Lms.LmsExams')->get($exam['lms_exam_id']);
+                        $exams = TableRegistry::getTableLocator()->get('Lms.LmsExams')->get($exam['lms_exam_id']);
                         if( count($result) >= $exams['reexam']){
                             $status = false; 
                         }
                         else{
                             $status = true; 
-                            /* $result = $this->getTableLocator()->get('Lms.LmsExamresults')->find('all')
+                            /* $result = TableRegistry::getTableLocator()->get('Lms.LmsExamresults')->find('all')
                                 ->where(['user_id' =>  $user_id , 'lms_coursefile_id'=>$file_id, 'lms_exam_id' => $exam['lms_exam_id'] , 'result' => 2  ])
                                 ->first();
                             if($result){
                                 $status = true;
-                                if(Time::now()->format('Y-m-d') >= $time->format('Y-m-d')){
+                                if(FrozenTime::now()->format('Y-m-d') >= $time->format('Y-m-d')){
                                     $status = true;
                                 }
                                 else{
@@ -153,7 +155,7 @@ class Checker
                     }
                 }
                 else{
-                    if(Time::now()->format('Y-m-d') >= $time->format('Y-m-d')){
+                    if(FrozenTime::now()->format('Y-m-d') >= $time->format('Y-m-d')){
                         $status = true;
                     }
                     else $status = false;
@@ -165,7 +167,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     public function find_next($file_id = null){
-        $LmsCoursefiles = $this->getTableLocator()->get('Lms.LmsCoursefiles');
+        $LmsCoursefiles = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles');
         $file = $LmsCoursefiles->find('all')
             ->where(['id' => $file_id ])
             ->first();
@@ -197,7 +199,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     public function enablefile($user_id = null, $file_id = null ){
-        $course_id = $this->getTableLocator()->get('Lms.LmsCoursefiles')
+        $course_id = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles')
             ->find('all')
             ->where(['id'=>$file_id])
             ->first();
@@ -206,7 +208,7 @@ class Checker
             return 0;
         $course_id = $course_id['lms_course_id'];
 
-        $fcan = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
+        $fcan = TableRegistry::getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where(['user_id'=>$user_id , 'lms_course_id'=> $course_id ])
             ->order(['id'=>'desc'])
@@ -214,16 +216,16 @@ class Checker
         if(! $fcan) 
             return $this->_enablefiles($user_id,$file_id,$course_id);
 
-        $fexist = $this->getTableLocator()->get('Lms.LmsCoursefilecans')
+        $fexist = TableRegistry::getTableLocator()->get('Lms.LmsCoursefilecans')
             ->find('all')
             ->where(['user_id'=>$user_id , 'lms_course_id'=> $course_id , 'lms_coursefile_id'=>$file_id ])
             ->first();
         if($fexist)
             return 1;
 
-        $time = new Time($fcan['created']);
+        $time = new FrozenTime($fcan['created']);
         $time->addMinute(1);
-        if( Time::now()->format('Y-m-d H:i') >= $time->format('Y-m-d H:i') ){
+        if( FrozenTime::now()->format('Y-m-d H:i') >= $time->format('Y-m-d H:i') ){
             return $this->_enablefiles($user_id,$file_id,$course_id);
         }
         else
@@ -231,7 +233,7 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     private function _enablefiles($user_id = null, $file_id = null, $course_id = null ){
-        $filecans = $this->getTableLocator()->get('Lms.LmsCoursefilecans');
+        $filecans = TableRegistry::getTableLocator()->get('Lms.LmsCoursefilecans');
         $lmsCoursefile = $filecans->newEmptyEntity();
         $lmsCoursefile = $filecans->patchEntity($lmsCoursefile, [
             'user_id' =>  $user_id,
@@ -249,8 +251,12 @@ class Checker
     }
     //-------------------------------------------------------------------------------
     public function CheckUsercourseExpire($lmsCourse = null ,$lmsCourseuser = null ){
+
+        if(!isset($lmsCourse['date_start']))
+            return false;
+        
         if( $lmsCourse['date_type'] == 2 ){ //تاریخ شروع مشخص شده برای دوره
-            $time = new Time( $lmsCourse['date_end']->format('Y-m-d') );
+            $time = new FrozenTime( $lmsCourse['date_end']->format('Y-m-d') );
         }
         else{ //تاریخ ثبت دوره برای کاربر
 
@@ -261,7 +267,7 @@ class Checker
             $origin = $interval->format('%R%a');
             $day = (intval($origin));
 
-            $time = new Time($lmsCourseuser['created']);
+            $time = new FrozenTime($lmsCourseuser['created']);
             if($day > 0){
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 //$day -= 1;
@@ -270,9 +276,9 @@ class Checker
             $time = $time->format('Y-m-d');
         }
 
-        if( Time::now()->format('Y-m-d') < $time){
+        if( FrozenTime::now()->format('Y-m-d') < $time){
             $interval = date_diff(
-                date_create(Time::now()->format('Y-m-d')),
+                date_create(FrozenTime::now()->format('Y-m-d')),
                 date_create($time) );
             return $interval;
         }
@@ -283,7 +289,7 @@ class Checker
     //-------------------------------------------------------------------------------
     public function GetCourseuser_StartDate($lmsCourse = null ,$lmsCourseuser = null ){
         if( $lmsCourse['date_type'] == 2 ){ //تاریخ شروع مشخص شده برای دوره
-            $time = new Time( $lmsCourse['date_end']->format('Y-m-d') );
+            $time = new FrozenTime( $lmsCourse['date_end']->format('Y-m-d') );
         }
         else{ //تاریخ ثبت دوره برای کاربر
 
@@ -294,7 +300,7 @@ class Checker
             $origin = $interval->format('%R%a');
             $day = (intval($origin));
 
-            $time = new Time($lmsCourseuser['created']);
+            $time = new FrozenTime($lmsCourseuser['created']);
             if($day > 0){
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 $day -= 2;
@@ -304,7 +310,7 @@ class Checker
         }
 
         $interval = date_diff(
-            date_create(Time::now()->format('Y-m-d')),
+            date_create(FrozenTime::now()->format('Y-m-d')),
             date_create($time) );
         return ($interval->days);
     }

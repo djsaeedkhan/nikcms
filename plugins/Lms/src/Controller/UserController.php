@@ -79,7 +79,7 @@ class UserController extends AppController
         }
 
         if($this->request->getQuery('course_id')){
-            $temp = $this->getTableLocator()->get('Lms.LmsCourseusers')->find('list',['keyField' =>'user_id','valueField'=>'user_id'])
+            $temp = TableRegistry::getTableLocator()->get('Lms.LmsCourseusers')->find('list',['keyField' =>'user_id','valueField'=>'user_id'])
                 ->where(['lms_course_id' => $this->request->getQuery('course_id')])
                 ->toarray();
             $user->where(['Users.id IN '=>  $temp]);
@@ -107,7 +107,7 @@ class UserController extends AppController
     //-----------------------------------------------------
     public function group(){
         if($this->request->getQuery('action') and $this->request->getQuery('action') == 'delete'){
-            $this->set('users',$p = $this->getTableLocator()->get('Lms.Users')->find('list',['keyField' =>'id','valueField'=>'Fname'])
+            $this->set('users',$p = TableRegistry::getTableLocator()->get('Lms.Users')->find('list',['keyField' =>'id','valueField'=>'Fname'])
                 ->where([
                     is_array($this->request->getQuery('user_id'))?
                         ['id IN' =>$this->request->getQuery('user_id')]:
@@ -120,8 +120,8 @@ class UserController extends AppController
                 $this->request->allowMethod(['post', 'delete']);
 
                 foreach($this->request->getData()['user_id'] as $user){
-                    $temp = $this->getTableLocator()->get('Lms.Users')->get($user);
-                    if($this->getTableLocator()->get('Lms.Users')->delete($temp))
+                    $temp = TableRegistry::getTableLocator()->get('Lms.Users')->get($user);
+                    if(TableRegistry::getTableLocator()->get('Lms.Users')->delete($temp))
                         $this->Flash->success(__('کاربر '.$temp['username'].'با موفقیت حذف شد'));
                     else
                         $this->Flash->success(__('متاسفانه کاربر '.$temp['family'].'حذف نشد'));
@@ -132,7 +132,7 @@ class UserController extends AppController
 
         }
         elseif($this->request->getQuery('action') and $this->request->getQuery('action') == 'disable'){
-            $this->LmsUsers = $this->getTableLocator()->get('Lms.Users');
+            $this->LmsUsers = TableRegistry::getTableLocator()->get('Lms.Users');
             foreach($this->request->getQuery('user_id') as $user){
                 $temp = $this->LmsUsers->get($user);
 
@@ -146,7 +146,7 @@ class UserController extends AppController
             $this->redirect(['action'=>'index']);
         }
         elseif($this->request->getQuery('action') and $this->request->getQuery('action') == 'enable'){
-            $this->LmsUsers = $this->getTableLocator()->get('Lms.Users');
+            $this->LmsUsers = TableRegistry::getTableLocator()->get('Lms.Users');
             foreach($this->request->getQuery('user_id') as $user){
                 $temp = $this->LmsUsers->get($user);
                 $temp->enable = true;

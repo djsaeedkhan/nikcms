@@ -47,8 +47,8 @@ class LmsCoursesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('LmsCourses') ? [] : ['className' => LmsCoursesTable::class];
-        $this->LmsCourses = $this->getTableLocator()->get('LmsCourses', $config);
+        $config = TableRegistry::getTableLocator()->exists('LmsCourses') ? [] : ['className' => LmsCoursesTable::class];
+        $this->LmsCourses = TableRegistry::getTableLocator()->get('LmsCourses', $config);
     }
 
     /**

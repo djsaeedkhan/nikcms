@@ -61,7 +61,7 @@
                 <td><?= $this->Number->format($lmsCoupon->maximum_amount)?><br><?= $predata->getvalue('discount_type',$lmsCoupon->discount_type) ?></td>
                 <td><span class="badge badge-primary"><?= count($lmsCoupon->lms_factors) ?></span></td>
                 <td>
-                    <?= $this->Func->mil_to_shm($lmsCoupon->expiry_date,'/') ?>
+                    <?= $this->Func->mil_to_shm($lmsCoupon->expiry_date->format('Y/m/d'),'/') ?>
                 </td>
                 <td>
                     <?= $this->Func->date2($lmsCoupon->created) ?>

@@ -71,7 +71,7 @@
         
         if(isset($lmsCoupon['id'])){
             try {
-                $lmsCoupon['expiry_date'] = $this->Func->mil_to_shm($lmsCoupon['expiry_date'],'/');
+                $lmsCoupon['expiry_date'] = $this->Func->mil_to_shm($lmsCoupon['expiry_date']->format('Y/m/d'),'/');
             } catch (Exception $th) {
                 throw $th;
             }

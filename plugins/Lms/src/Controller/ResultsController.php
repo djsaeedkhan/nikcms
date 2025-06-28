@@ -19,7 +19,7 @@ class ResultsController extends AppController
         ]; */
 
         $result = $this->LmsExamresults->find('all')
-            ->order(['id'=>'desc'])
+            ->order(['LmsExamresults.id'=>'desc'])
             ->contain(['Users', 'LmsExams','LmsCoursefiles'=>['LmsCourses']]);
 
         if($this->request->getQuery('exam_id')){
@@ -124,7 +124,7 @@ class ResultsController extends AppController
     public function editq($id = null){
         
         $lmsExamresultlist = $this->LmsExamresultlists->get($id, [
-            'contain' => ['lmsExamquests'],
+            'contain' => ['LmsExamquests'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $lmsExamresultlist = $this->LmsExamresultlists->patchEntity($lmsExamresultlist, $this->request->getData());
@@ -146,7 +146,7 @@ class ResultsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $lmsExamresult = $this->LmsExamresults->get($id);
         if ($this->LmsExamresults->delete($lmsExamresult)) {
-            $this->getTableLocator()->get('Lms.LmsExamresultlists')->deleteAll(['lms_examresult_id' => $id ]);
+            TableRegistry::getTableLocator()->get('Lms.LmsExamresultlists')->deleteAll(['lms_examresult_id' => $id ]);
             $this->Flash->success(__('The lms examresult has been deleted.'));
         } else {
             $this->Flash->error(__('The lms examresult could not be deleted. Please, try again.'));

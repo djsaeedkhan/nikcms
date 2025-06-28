@@ -95,7 +95,11 @@ class LmsCourse extends Entity
 
     protected $_virtual = ['slug','sprice'];
     protected function _getslug(){
-        return (Text::excerpt(preg_replace('/\s/u', '-',$this->get('title')),'',50) );
+        try {
+            return (Text::excerpt(preg_replace('/\s/u', '-',$this->get('title')),'',50) );
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return $this->get('title');
     }
     protected function _getsprice(){

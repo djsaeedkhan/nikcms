@@ -38,8 +38,8 @@ class LmsCoursefilecansTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('LmsCoursefilecans') ? [] : ['className' => LmsCoursefilecansTable::class];
-        $this->LmsCoursefilecans = $this->getTableLocator()->get('LmsCoursefilecans', $config);
+        $config = TableRegistry::getTableLocator()->exists('LmsCoursefilecans') ? [] : ['className' => LmsCoursefilecansTable::class];
+        $this->LmsCoursefilecans = TableRegistry::getTableLocator()->get('LmsCoursefilecans', $config);
     }
 
     /**
