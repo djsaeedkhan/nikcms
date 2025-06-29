@@ -6,7 +6,7 @@ $next = new Checker();
 if(isset($this->request->getQuery()['file']) and $this->request->getQuery()['file']!='')
     echo $this->cell('Lms.Cansee::checkfilecan',[$results['id'], $this->request->getQuery()['file']]);
 ?>
-
+<input type="hidden" name="_csrfToken" value="<?= h($this->request->getAttribute('csrfToken')) ?>">
 <div class="content-header row client_course_index">
     <div class="content-header-right col-md-10 col-12 mb-2">
         <div class="row breadcrumbs-top">
@@ -218,7 +218,12 @@ if(isset($this->request->getQuery()['file']) and $this->request->getQuery()['fil
                     video.addEventListener('timeupdate', function() {
                         if( (video.duration - 20) < video.currentTime){
                             if(send == true){
-                                $.ajax({type : 'POST',url : "<?= Router::url('',false) ?>",
+                                $.ajax({
+                                    type : 'POST',
+                                    url : "<?= Router::url('',false) ?>",
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
+                                    },
                                     success : function(data){
                                         nextfile = data;
                                     },
@@ -229,7 +234,12 @@ if(isset($this->request->getQuery()['file']) and $this->request->getQuery()['fil
 
                         if( 15 < video.currentTime){
                             if(visit == true){
-                                $.ajax({type : 'POST',url : "<?= Router::url('',false) ?>&visit=1",
+                                $.ajax({
+                                    type : 'POST',
+                                    url : "<?= Router::url('',false) ?>&visit=1",
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
+                                    },
                                     success : function(data){
                                         nextfile = data;
                                         //console.log(nextfile);
