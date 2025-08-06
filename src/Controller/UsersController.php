@@ -21,13 +21,12 @@ class UsersController extends AppController{
     public function initialize(): void
     {
         parent::initialize();
+        $this->Authentication->allowUnauthenticated(['login', 'register','Website.index','logout','remember','rememberToken','thumbnail']);
     }
     //----------------------------------------------------------
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        //$this->Authentication->addUnauthenticatedActions([]);
-        $this->Authentication->allowUnauthenticated(['login', 'register','Website.index','logout','remember','rememberToken','thumbnail']);
 
         // Check for remember me cookie
         $token = $this->request->getCookie('remember_me');
@@ -62,9 +61,9 @@ class UsersController extends AppController{
         }
     }
     //----------------------------------------------------------
-    public function isAuthorized($user){
+    /* public function isAuthorized($user){
         return parent::isAuthorized($user);
-    }
+    } */
     //----------------------------------------------------------
     public function profile(){
         $this->viewBuilder()->setLayout('Admin.default');

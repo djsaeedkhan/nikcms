@@ -1,2 +1,0 @@
-msgid "Test Custom"
-msgstr "Test Custom (from test plugin two)"

@@ -13,17 +13,16 @@ use function substr;
 
 /**
  * @psalm-type ParsedRangeType = array{0:string,1:int,2:int,3:'*'|int}
+ * @final
  */
 class SapiStreamEmitter implements EmitterInterface
 {
     use SapiEmitterTrait;
 
-    /** @var int Maximum output buffering size for each iteration. */
-    private int $maxBufferLength;
-
-    public function __construct(int $maxBufferLength = 8192)
-    {
-        $this->maxBufferLength = $maxBufferLength;
+    public function __construct(
+        /** @param int Maximum output buffering size for each iteration. */
+        private int $maxBufferLength = 8192
+    ) {
     }
 
     /**

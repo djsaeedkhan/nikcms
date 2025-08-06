@@ -7,13 +7,13 @@ use Ticketing\Controller\AppController;
 class TicketsController extends AppController
 {
     public function index() {
-        $this->paginate = [
+        /* $this->paginate = [
             'contain' => ['Ticketstatuses','Ticketpriorities', 'Users', 'Agents', 'Posts', 'Ticketcategories',
                 'Ticketcomments'=>function ($q) {
                     return $q->order(['id'=>'desc']);//->limit(10);
                 }],
             'order'=>['id'=>'desc']
-        ];
+        ]; */
 
         $ticket = $this->Tickets->find('all')
             ->contain(['Ticketstatuses', 'Ticketpriorities', 'Users', 'Agents', 'Posts', 'Ticketcategories',
@@ -27,7 +27,9 @@ class TicketsController extends AppController
             );
 
         if($this->request->getQuery('text')){
-            $temp = TableRegistry::getTableLocator()->get('Lms.Users')->find('list', ['keyField' =>'id','valueField'=>'id'])
+            $temp = TableRegistry::getTableLocator()
+                ->get('Lms.Users')
+                ->find('list', ['keyField' =>'id','valueField'=>'id'])
                 ->where([
                     'OR'=>[
                         'username LIKE '=>'%'.$this->request->getQuery('text').'%',
@@ -35,6 +37,12 @@ class TicketsController extends AppController
                         'family LIKE '=>'%'.$this->request->getQuery('text').'%',
                     ]
                 ])
+                ->contain([
+                    'Ticketstatuses','Ticketpriorities', 'Users', 'Agents', 'Posts', 'Ticketcategories',
+                    'Ticketcomments'=>function ($q) {
+                        return $q->order(['id'=>'desc']);//->limit(10);
+                    }])
+                ->order(['id'=>'desc'])
                 ->toarray();
             if(count($temp) > 0)
             $ticket = $ticket->where(['Tickets.user_id IN '=>  $temp]);

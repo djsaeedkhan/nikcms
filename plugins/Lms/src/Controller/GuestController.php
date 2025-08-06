@@ -16,7 +16,7 @@ use Lms\Video;
 
 class GuestController extends AppController
 {
-    public function initialize() {
+    public function initialize(): void {
         parent::initialize();
         try {
             $layout = 'Template.lms-index';
@@ -75,11 +75,20 @@ class GuestController extends AppController
                 $query = $this->LmsCoursefilecans
                     ->find('list',['keyField' => 'lms_coursefile_id','valueField' => 'count'])
                     ->select(['lms_coursefile_id','user_id'])
-                    ->where(['user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
+                    ->where([
+                        'user_id'=> $this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'):false , 
+                        'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
                     ->group(['lms_coursefile_id']);
-                $lmsCoursefilecan[  $lms_id ] =  $query->select(['count' => $query->func()->count('lms_coursefile_id') ])->toarray();
 
-                $lmsCourseexam[  $lms_id ]  = $this->LmsCourseexams
+                try {
+                    $lmsCoursefilecan[$lms_id] = $query
+                        ->select(['count' => $query->func()->count('lms_coursefile_id') ])
+                        ->toarray();
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+                
+                $lmsCourseexam[$lms_id] = $this->LmsCourseexams
                     ->find('list',['keyField' => 'id','valueField' => 'id'])
                     ->where([ 'lms_coursefile_id IN ' => $lmsCoursefiles[  $lms_id ]])
                     ->toarray();
@@ -124,16 +133,26 @@ class GuestController extends AppController
         }
 
         //--------------------------------
-        $file_id = $this->request->getQuery('file');
-        $file = $this->LmsCoursefiles->find('all')
-            ->contain(['LmsCoursefilenotes','LmsCourseweeks'])
-            ->where([ 'LmsCoursefiles.id' => $file_id,'show_in_list'=>1 ])
-            ->enablehydration(false)
-            ->first();
-        if(isset($file_id) and !$file){
-            $this->Flash->error('دسترسی به این محتوا برای شما مقدور نمی باشد');
-            return $this->redirect('/lms/');
+        $file_id = $file = null;
+        if($this->request->getQuery('file')){
+            $file_id = $this->request->getQuery('file');
+            $file = $this->LmsCoursefiles->find('all')
+                ->contain(['LmsCoursefilenotes','LmsCourseweeks'])
+                ->where([ 'LmsCoursefiles.id' => $file_id,'show_in_list'=>1 ])
+                ->enablehydration(false)
+                ->first();
+
+            if(isset($file_id) and !$file){
+                $this->Flash->error('دسترسی به این محتوا برای شما مقدور نمی باشد');
+                return $this->redirect('/lms/');
+            }
+            $this->set([
+                'file' => $file,
+                'file_id'=> $file_id
+            ]);
         }
+           
+        
         /* $show_current = false; */
         $show_current = true;
         /* if($checks->checkIS($id,$file_id , $this->request->getAttribute('identity')->get('id'),  $this->request->getQuery() )){
@@ -174,14 +193,16 @@ class GuestController extends AppController
             return $this->redirect($this->referer());
         }
 
-        if(! $this->request->getAttribute('identity')->get('id')){
+        if(! $this->request->getAttribute('identity')){
             $this->Flash->error('برای ثبت نام در دوره می بایست به حساب کاربری خود وارد شوید. اگر حساب کاربری ندارید، '
                 .'<a href="'.$this->Func->Urls('register').'">اینجا</a> را کلیک کنید.');
             return $this->redirect($this->referer());
         }
 
         if($this->LmsCourseusers->find('all')
-            ->where(['user_id'=>$this->request->getAttribute('identity')->get('id'),'lms_course_id'=>$id])
+            ->where([
+                'user_id'=>$this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'):false,
+                'lms_course_id'=>$id])
             ->count() > 0 ){
                 $this->Flash->error('دوره "'.$lmsCourses['title'].'" قبلا برای شما ثبت شده است.');
                 return $this->redirect($this->referer());
@@ -209,7 +230,7 @@ class GuestController extends AppController
                 ->order(['Created'=>'DESC'])
                 ->where([
                     'enable'=> true,
-                    'user_id' => $this->request->getAttribute('identity')->get('id'),
+                    'user_id' => $this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'):false,
                     'created >= '=> $time->format('Y-m-d H:i:s'),
                 ])
                 ->toarray();
@@ -289,7 +310,7 @@ class GuestController extends AppController
         if ($this->request->is('post')) {
             $lmsFactor = $this->LmsFactors->newEmptyEntity();
             $lmsFactor = $this->LmsFactors->patchEntity($lmsFactor,[
-                    'user_id'=>$this->request->getAttribute('identity')->get('id'),
+                    'user_id'=>$this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'):false,
                     'price'=>$lmsCourses['price'],
                     'paid'=>0,
                     'status'=>0,
@@ -298,7 +319,7 @@ class GuestController extends AppController
             if ($id = $this->LmsFactors->save($lmsFactor)) {
                 $lmsuserf = $this->LmsUserfactors->newEmptyEntity();
                 $lmsuserf = $this->LmsUserfactors->patchEntity($lmsuserf,[
-                        'user_id' => $this->request->getAttribute('identity')->get('id'),
+                        'user_id' => $this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'):false,
                         'lms_factor_id' => $lmsFactor->id,
                         'lms_course_id' => $lmsCourses['id'],
                         'enable' => 0,

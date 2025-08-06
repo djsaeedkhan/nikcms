@@ -5,6 +5,7 @@ return [
     'plugins' => [
         'Admin' => $baseDir . '/plugins/Admin/',
         'Authentication' => $baseDir . '/vendor/cakephp/authentication/',
+        'Authorization' => $baseDir . '/vendor/cakephp/authorization/',
         'Bake' => $baseDir . '/vendor/cakephp/bake/',
         'Breadcrumb' => $baseDir . '/plugins/Breadcrumb/',
         'Cake/TwigView' => $baseDir . '/vendor/cakephp/twig-view/',
@@ -14,6 +15,7 @@ return [
         'DebugKit' => $baseDir . '/vendor/cakephp/debug_kit/',
         'Elementor' => $baseDir . '/plugins/Elementor/',
         'Formbuilder' => $baseDir . '/plugins/Formbuilder/',
+        'Lms' => $baseDir . '/plugins/Lms/',
         'Migrations' => $baseDir . '/vendor/cakephp/migrations/',
         'Mpdfs' => $baseDir . '/plugins/Mpdfs/',
         'Postviews' => $baseDir . '/plugins/Postviews/',

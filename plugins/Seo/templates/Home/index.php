@@ -1,11 +1,11 @@
 <?php
 use Cake\View\Helper\FormHelper;
 use Cake\View\Helper\HtmlHelper;
-
 echo $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
+pr($result);
 if($this->Func->is_serial($result)):
     $hsite = unserialize($result);
-    $this->request = $this->request->withData('seo_plugin.setting',$hsite['setting']);
+    $this->request = $this->request->withData('seo_plugin',$hsite);
 endif;
 
 function view_form( $sm = []){
@@ -17,7 +17,7 @@ function view_form( $sm = []){
             echo '<div class="col-sm-12 p-2"><hr></div>';continue;
         }
         echo '<div class="mb-1 col-sm-'.( isset($sm['col'])?$sm['col']:'12' ).'">';
-        echo $Form->control('seo_plugin.setting.'.$sm['name'], [
+        echo $Form->control('seo_plugin.'.$sm['name'], [
             'type'=> isset($sm['type'])? $sm['type']: 'text',
             'options'=> isset($sm['data']) ?$sm['data']: false,
             'style'=>isset($sm['select_img'])?'padding-right: 30px;':false,
@@ -93,8 +93,8 @@ function view_form( $sm = []){
                             <div class="tab-pane active" id="home" role="tabpanel">
 
                                 <div class="custom-control custom-switch custom-control-inline pl-1">
-                                    <input type="checkbox" class="custom-control-input" name="seo_plugin[setting][autossl]" id="customSwitch1" value="1"
-                                        <?= (isset($hsite['setting']['autossl']) and $hsite['setting']['autossl']==1)?'checked':''?> />
+                                    <input type="checkbox" class="custom-control-input" name="seo_plugin[autossl]" id="customSwitch1" value="1"
+                                        <?= (isset($hsite['autossl']) and $hsite['autossl']==1)?'checked':''?> />
                                     <label class="custom-control-label" for="customSwitch1">Auto Http to Https</label>
                                 </div>
                                 <hr>
@@ -173,8 +173,8 @@ function view_form( $sm = []){
 
                             <div class="tab-pane col-sm-6" id="goa" role="tabpanel">
                                 <div class="custom-control custom-switch custom-control-inline pl-1">
-                                    <input type="checkbox" class="custom-control-input" name="seo_plugin[setting][ga_enable]" id="ga_enable" value="1"
-                                        <?= (isset($hsite['setting']['ga_enable']) and $hsite['setting']['ga_enable']==1)?'checked':''?> />
+                                    <input type="checkbox" class="custom-control-input" name="seo_plugin[ga_enable]" id="ga_enable" value="1"
+                                        <?= (isset($hsite['ga_enable']) and $hsite['ga_enable']==1)?'checked':''?> />
                                     <label class="custom-control-label" for="ga_enable">Enable Show Google Analytics in Dashboard</label>
                                 </div><br><br>
 

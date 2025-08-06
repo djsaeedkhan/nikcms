@@ -444,9 +444,11 @@ class ClientController extends AppController
     public function courses($id = null, $file = null) //course detail
     {
         $checks = new Checker();
-
         $lmsCourses = $this->LmsCourseusers->find('all')
-            ->where(['LmsCourseusers.user_id'=> $this->request->getAttribute('identity')->get('id') , 'lms_course_id' =>$id ] )
+            ->where([
+                'LmsCourseusers.user_id'=> $this->request->getAttribute('identity')?$this->request->getAttribute('identity')->get('id'): null , 
+                'lms_course_id' =>$id
+                ])
             ->contain(['LmsCourses'])
             ->first();
 

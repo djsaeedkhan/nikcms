@@ -11,7 +11,7 @@ class TicketcommentsController extends AppController
         $ticketcomments = $this->paginate(
             $this->Ticketcomments->find('all')
                 ->contain(['Users', 'Tickets'])
-                ->order(['created'=>'desc'])
+                ->order(['Ticketcomments.created'=>'desc'])
         );
         $this->set(compact('ticketcomments'));
     }

@@ -87,10 +87,10 @@ class UserController extends AppController
 
         //'limit'=>100
         $users = $this->paginate($user,[
-            ($this->request->getQuery('limit')?[
+            /* ($this->request->getQuery('limit')?[
                 'maxLimit' => $this->request->getQuery('limit'),
                 'limit' => $this->request->getQuery('limit')
-                ]:false),
+                ]:false), */
         ]);
         $this->set(compact('users'));
     }

@@ -15,8 +15,8 @@
 
 
 <?= $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
-if($this->Func->is_serial($result)):
-    $hsite = unserialize($result);
+if($this->Func->is_serial($result['plugin_challenge'])):
+    $hsite = unserialize($result['plugin_challenge']);
     $this->request = $this->request->withData('plugin_challenge',$hsite);
 endif;?>
 

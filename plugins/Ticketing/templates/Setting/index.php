@@ -32,10 +32,10 @@
     </div>
 </div>
 
-<?= $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
-if($this->Func->is_serial($result)):
-    $hsite = unserialize($result);
-    // $hsite = unserialize($result['plugin_ticket']);
+<?= 
+$this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
+if($this->Func->is_serial($result['plugin_ticket'])):
+    $hsite = unserialize($result['plugin_ticket']);
     $this->request = $this->request->withData('plugin_ticket',$hsite);
 endif;?>
 

@@ -18,10 +18,15 @@ use Cake\View\View;
 use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\Event\EventInterface;
+//use Authorization\AuthorizationAwareTrait; // برای استفاده از authorize()
+use Authentication\AuthenticationAwareTrait; // برای دسترسی به هویت کاربر لاگین کرده
 
 class AppController extends Controller
 {
     use CellTrait;
+    ///use AuthorizationAwareTrait;
+    //use AuthenticationAwareTrait;
+    
     public $Func;
     public $Query;
     public $upload_path = 'uploads/';
@@ -38,6 +43,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
+        //$this->loadComponent('Authorization.Authorization');
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
         
         $view = new View();
@@ -65,25 +71,35 @@ class AppController extends Controller
         $this->_security();
     }
     //----------------------------------------------------
-    public function isAuthorized($user){
-        $plg = strtolower($this->request->getParam('plugin'));
-        $cont = strtolower($this->request->getParam('controller'));
-        $act = strtolower($this->request->getParam('action'));
+    /* public function iisAuthorized(){
+        $plg = strtolower( (string) $this->request->getParam('plugin'));
+        $cont = strtolower( (string) $this->request->getParam('controller'));
+        $act = strtolower( (string) $this->request->getParam('action'));
         $role = $this->request->getAttribute('identity')->get('role_list');
         if (isset($role[$plg])) {
-            if (isset($role[$plg][$cont][$act]) and $role[$plg][$cont][$act] != "0")
+            if (isset($role[$plg][$cont][$act]) and $role[$plg][$cont][$act] != "0"){
+                $this->Flash->error("{$plg}__{$cont}__{$act}");
                 return true;
-            else{
-                Log::write('debug', ['plgin'=>$plg,'cont'=>$cont,'act'=>$act ]);
+            }else{
+                $this->Flash->error("{$plg}__{$cont}__{$act}");
+                //Log::write('debug', ['plgin'=>$plg,'cont'=>$cont,'act'=>$act ]);
                 return false;
             }
         }
         return true;
-    }
+    } */
     //----------------------------------------------------
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
+        // این خط، دسترسی کاربر را در هر درخواست چک می‌کند.
+        //$this->Authorization->authorize($this->getRequest(), 'access');
+
+
+        /* if(!$this->iisAuthorized()){
+            $this->Flash->error(__('دسترسی شما به این صفحه محدود شده است'));
+            //return $this->redirect($this->referer());
+        } */
         /* $this->Authentication->addUnauthenticatedActions([
             'login', 'registers','Website.home']); */
         //$this->Authentication->allowUnauthenticated([]);

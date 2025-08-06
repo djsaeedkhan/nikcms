@@ -27,6 +27,9 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Routing\Router;
+use Psr\Http\Message\ServerRequestInterface;
+
 
 // In src/Application.php add the following imports
 use Authentication\AuthenticationService;
@@ -34,8 +37,15 @@ use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\AbstractIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
-use Cake\Routing\Router;
-use Psr\Http\Message\ServerRequestInterface;
+
+
+// از این کلاس‌ها استفاده کنید
+/* use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
+use Phauthentic\Authorization\AuthorizationService;
+use Phauthentic\Authorization\AuthorizationServiceProviderInterface;
+use Psr\Http\Message\ResponseInterface; */
+
 
 /**
  * Application setup class.
@@ -43,7 +53,9 @@ use Psr\Http\Message\ServerRequestInterface;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+class Application extends BaseApplication 
+//implements AuthorizationServiceProviderInterface
+implements AuthenticationServiceProviderInterface 
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -55,6 +67,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Call parent to load bootstrap from files.
         parent::bootstrap();
         $this->addPlugin('Authentication');
+        $this->addPlugin('Authorization');
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
         $this->addPlugin('Website');
@@ -140,8 +153,9 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Add the AuthenticationMiddleware. It should be
             // after routing and body parser.
-            ->add(new AuthenticationMiddleware($this));
-            ;
+            ->add(new AuthenticationMiddleware($this))
+        
+        ;
 
         return $middlewareQueue;
     }
@@ -173,10 +187,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Load identifiers
         //$service->loadIdentifier('Authentication.Password', compact('fields'));
         $service->loadIdentifier('Authentication.Password', [
-            'fields' => [
-                'username' => 'username',
-                'password' => 'password',
-            ],
+            'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Users',
@@ -185,6 +196,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         return $service;
+    }
+
+    public function getAuthorizationService(ServerRequest $request): AuthorizationServiceInterface
+    {
+        //$resolver = new PermissionsResolver();
+        //return new AuthorizationService($resolver);
+        $resolver = new OrmResolver();
+        return new AuthorizationService($resolver);
     }
 
 
@@ -215,3 +234,5 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Load more plugins here
     }
 }
+
+// این کلاس PermissionsResolver را اضافه کنید. این کلاس مسئول چک کردن دیتابیس است.

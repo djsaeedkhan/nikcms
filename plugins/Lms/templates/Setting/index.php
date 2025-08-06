@@ -20,8 +20,7 @@ use Lms\View\Helper\LmsHelper;
 <?= $this->Form->create(null,['url'=>['plugin'=>'Admin','controller'=>'Options', 'action'=>'SaveSetting']]);
 if(isset($result) and $result != ""):
     $hsite = unserialize($result);
-    $this->request->withData('plugin_lms',$hsite);
-    //@$this->request->data['plugin_lms'] = $hsite;
+    $this->request = $this->request->withData('plugin_lms',$hsite);
 endif;?>
 
 <div class="card"><div class="card-body">
