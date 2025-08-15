@@ -18,15 +18,10 @@ use Cake\View\View;
 use Cake\Log\Log;
 use Cake\Routing\Router;
 use Cake\Event\EventInterface;
-//use Authorization\AuthorizationAwareTrait; // برای استفاده از authorize()
-use Authentication\AuthenticationAwareTrait; // برای دسترسی به هویت کاربر لاگین کرده
 
 class AppController extends Controller
 {
     use CellTrait;
-    ///use AuthorizationAwareTrait;
-    //use AuthenticationAwareTrait;
-    
     public $Func;
     public $Query;
     public $upload_path = 'uploads/';
@@ -43,7 +38,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-        //$this->loadComponent('Authorization.Authorization');
+        $this->loadComponent('Authorization.Authorization');
         $this->loadComponent('Captcha.Captcha'); //load on the fly!
         
         $view = new View();
@@ -93,16 +88,13 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
         // این خط، دسترسی کاربر را در هر درخواست چک می‌کند.
-        //$this->Authorization->authorize($this->getRequest(), 'access');
+        /* try {
+            $this->Authorization->authorize ($this->getRequest(), 'access');
 
-
-        /* if(!$this->iisAuthorized()){
-            $this->Flash->error(__('دسترسی شما به این صفحه محدود شده است'));
-            //return $this->redirect($this->referer());
+        } catch (ForbiddenException $ex) {
+            echo "asdads";
+            //throw $th;
         } */
-        /* $this->Authentication->addUnauthenticatedActions([
-            'login', 'registers','Website.home']); */
-        //$this->Authentication->allowUnauthenticated([]);
     }
     //----------------------------------------------------
     private function _nonce(){

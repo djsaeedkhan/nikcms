@@ -31,20 +31,28 @@ use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
 
+use Authorization\Exception\MissingIdentityException;
+use Authorization\Exception\ForbiddenException;
+
 // In src/Application.php add the following imports
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\AbstractIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
-
-
-// از این کلاس‌ها استفاده کنید
-/* use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
-use Phauthentic\Authorization\AuthorizationService;
-use Phauthentic\Authorization\AuthorizationServiceProviderInterface;
-use Psr\Http\Message\ResponseInterface; */
+use Psr\Http\Message\ResponseInterface;
+
+use App\Policy\RequestPolicy;
+use Authorization\Middleware\RequestAuthorizationMiddleware;
+use Authorization\Policy\MapResolver;
+use Cake\Http\ServerRequest;
+use Cake\Http\Response;
+
 
 
 /**
@@ -53,9 +61,9 @@ use Psr\Http\Message\ResponseInterface; */
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication 
-//implements AuthorizationServiceProviderInterface
-implements AuthenticationServiceProviderInterface 
+class Application extends BaseApplication implements
+    AuthenticationServiceProviderInterface,
+    AuthorizationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -66,8 +74,29 @@ implements AuthenticationServiceProviderInterface
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
+        
+
+        if (PHP_SAPI === 'cli') {
+            $this->bootstrapCli();
+        } else {
+            FactoryLocator::add(
+                'Table',
+                (new TableLocator())->allowFallbackClass(false)
+            );
+        }
+
+        /*
+         * Only try to load DebugKit in development mode
+         * Debug Kit should not be installed on a production system
+         */
+        /* if (Configure::read('debug')) {
+            $this->addPlugin('DebugKit');
+        } */
+
+        // Load more plugins here
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
+        
         $this->addPlugin('Predata');
         $this->addPlugin('Admin');
         $this->addPlugin('Website');
@@ -85,35 +114,14 @@ implements AuthenticationServiceProviderInterface
         $this->addPlugin('Postviews');
         $this->addPlugin('Widget');
         $this->addPlugin('Comingsoon');
-        //$this->addPlugin('Backup');
         $this->addPlugin('Elementor');
         $this->addPlugin('RegisterField');
         $this->addPlugin('Thumbnail');
         $this->addPlugin('Mpdfs');
-        //$this->addPlugin('Filemanager');
         $this->addPlugin('Scheduler');
         $this->addPlugin('Userslogs',['console' => true]);
-        //$this->addPlugin('Security',['console' => true]);
         $this->addPlugin('Template');
 
-        if (PHP_SAPI === 'cli') {
-            $this->bootstrapCli();
-        } else {
-            FactoryLocator::add(
-                'Table',
-                (new TableLocator())->allowFallbackClass(false)
-            );
-        }
-
-        /*
-         * Only try to load DebugKit in development mode
-         * Debug Kit should not be installed on a production system
-         */
-        if (Configure::read('debug')) {
-            $this->addPlugin('DebugKit');
-        }
-
-        // Load more plugins here
     }
 
     /**
@@ -154,8 +162,32 @@ implements AuthenticationServiceProviderInterface
             // Add the AuthenticationMiddleware. It should be
             // after routing and body parser.
             ->add(new AuthenticationMiddleware($this))
-        
-        ;
+
+            ->add(new AuthorizationMiddleware($this, [
+                //'requireAuthorizationCheck' => true,
+                'unauthorizedHandler' => [
+                    //'className' => 'Authorization.Redirect',
+                    'className' => 'CustomRedirect',
+                    'url' => Router::url('/users/login'),
+                    'queryParam' => 'redirectUrl',
+                    //'queryParam' => 'redirect',
+                    'exceptions' => [
+                        MissingIdentityException::class,
+                        ForbiddenException::class,
+                        OtherException::class,
+                    ],
+                    'custom_param' => true,
+
+                ],
+                /* 'skipAuthorization' => function ($request) {
+                    $path = $request->getPath();
+                    return in_array($path, ['/users/login', '/users/logout']);
+                } */
+            ]))
+            ->add(new RequestAuthorizationMiddleware([
+                //'requireAuthorizationCheck' => true, // اینجا درست است
+            ]));
+            ;
 
         return $middlewareQueue;
     }
@@ -198,12 +230,14 @@ implements AuthenticationServiceProviderInterface
         return $service;
     }
 
-    public function getAuthorizationService(ServerRequest $request): AuthorizationServiceInterface
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
-        //$resolver = new PermissionsResolver();
-        //return new AuthorizationService($resolver);
-        $resolver = new OrmResolver();
-        return new AuthorizationService($resolver);
+       /*  $resolver = new OrmResolver();
+        return new AuthorizationService($resolver); */
+
+        $mapResolver = new MapResolver();
+        $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+        return new AuthorizationService($mapResolver);
     }
 
 
@@ -234,5 +268,3 @@ implements AuthenticationServiceProviderInterface
         // Load more plugins here
     }
 }
-
-// این کلاس PermissionsResolver را اضافه کنید. این کلاس مسئول چک کردن دیتابیس است.

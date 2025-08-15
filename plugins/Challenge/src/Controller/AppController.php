@@ -12,7 +12,6 @@ class AppController extends BaseController
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('Admin.default');
-        $this->loadComponent('Authentication.Authentication');
 
         $setting = TableRegistry::getTableLocator()->get('Admin.Options')
             ->find('list',['keyField'=>'name','valueField'=>'value'])

@@ -103,6 +103,8 @@ class Plugin extends BasePlugin
     }
 
     function posttype_adminmenu(){
+        if(FuncHelper::check_role(['plugin'=>'admin','controller'=>'posts','action'=>'index']) == false)
+            return [];
         $menu = [];
         foreach($this->post_type() as $post_type => $value ){
             $data = [

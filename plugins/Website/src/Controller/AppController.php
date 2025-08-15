@@ -10,11 +10,7 @@ class AppController extends BaseController
     public function initialize(): void
     {
         parent::initialize();
-        /* $this->loadComponent('Authentication.Authentication');
-        $this->Authentication->addUnauthenticatedActions(['*']);
-        $this->Authentication->allowUnauthenticated([
-            '*' // همه اکشن‌ها
-        ]);  */
+        $this->Authorization->skipAuthorization();
     }
 
     public function beforeFilter(EventInterface $event)
@@ -24,8 +20,5 @@ class AppController extends BaseController
             'home', 'index', 'ajax','archive','category','catsingle','single','tag','search',
             'Getdata','robots','sitemap','sitemapIndex','image'
         ]);
-        /* $this->Authentication->allowUnauthenticated([
-            '*' // همه اکشن‌ها
-        ]); */
     }
 }

@@ -25,7 +25,7 @@ class ChallengesController extends AppController
         $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
         $this->Challengeuserforms = TableRegistry::getTableLocator()->get('Challenge.Challengeuserforms');
         $this->Challengeforums = TableRegistry::getTableLocator()->get('Challenge.Challengeforums');
-
+$this->Authorization->skipAuthorization();
         $this->viewBuilder()->setLayout("login");
     }
     //------------------------------------------------------------------------

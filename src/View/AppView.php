@@ -37,6 +37,8 @@ class AppView extends View
      */
     public function initialize(): void
     {
+        $this->loadHelper('Authentication.Identity');
+        $this->loadHelper('Identity');
         $this->loadHelper('Admin.Query');
         $this->loadHelper('Admin.Func');
         $this->loadHelper('Admin.Shortcode');
@@ -45,5 +47,6 @@ class AppView extends View
         $this->loadHelper('Html');
         $this->loadHelper('Form');
         $this->loadHelper('Flash');
+        
     }
 }

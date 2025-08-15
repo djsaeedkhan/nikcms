@@ -16,29 +16,23 @@ use Lms\Video;
 
 class GuestController extends AppController
 {
+    public $template;
     public function initialize(): void {
         parent::initialize();
         try {
             $layout = 'Template.lms-index';
             $this->viewBuilder()->setLayout($layout);
-        } catch (Exception $e) {
-            $layout = 'Admin.default';
+        } catch (\Throwable $th) {
+            $layout = 'Admin.login';
             $this->viewBuilder()->setLayout($layout);
         }
-        /* finally {
-            $layout = 'Admin.default';
-            $this->viewBuilder()->setLayout($layout);
-        } */
-        
-        /* if (!$this->viewBuilder()->getLayoutPath($layout)) {
-            $layout = 'Admin.default';
-        } */
-
+        $this->Authorization->skipAuthorization();
     }
     //----------------------------------------------------------
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
+        $this->Authorization->skipAuthorization();
         $this->Authentication->addUnauthenticatedActions(['index','view','detail','courses','register','subscribe']);
     }
     //----------------------------------------------------------------
@@ -101,8 +95,14 @@ class GuestController extends AppController
             'lmsCourseexam',
             'lmsCourseCategories'
         ));
-        if(is_array( $lmsCourseCategories) and count( $lmsCourseCategories) > 0 and !$this->request->getQuery('cat'))
-            $this->render('index_categories');
+        if(is_array( $lmsCourseCategories) and count( $lmsCourseCategories) > 0 and !$this->request->getQuery('cat')){
+            try {
+                $this->render('index_categories');
+            } catch (\Throwable $th) {
+                $this->AutoRender = false;
+                echo "Render Not Found";
+            }
+        }
     }
     //----------------------------------------------------------------
     public function courses($id = null , $file = null) {

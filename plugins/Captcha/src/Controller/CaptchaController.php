@@ -9,14 +9,17 @@ class CaptchaController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
     }
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
+        $this->Authorization->skipAuthorization();
         //if(isset($this->Auth) && is_object($this->Auth)) $this->Auth->allow(['create']);
         $this->Authentication->allowUnauthenticated(['create']);
     }
     function create()	{
+        $this->Authorization->skipAuthorization();
         $this->autoRender = false;
         $this->loadComponent('Captcha.Captcha'); //or load on the fly!
         $this->viewBuilder()->setLayout('ajax');

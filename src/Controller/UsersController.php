@@ -21,6 +21,7 @@ class UsersController extends AppController{
     public function initialize(): void
     {
         parent::initialize();
+        $this->Authorization->skipAuthorization();
         $this->Authentication->allowUnauthenticated(['login', 'register','Website.index','logout','remember','rememberToken','thumbnail']);
     }
     //----------------------------------------------------------
@@ -59,6 +60,7 @@ class UsersController extends AppController{
                 $this->response = $this->response->withExpiredCookie(new Cookie('remember_me'));
             }
         }
+        $this->Authorization->skipAuthorization();
     }
     //----------------------------------------------------------
     /* public function isAuthorized($user){
@@ -945,6 +947,7 @@ class UsersController extends AppController{
     }
     //----------------------------------------------------------
     public function logout(){
+        $this->Authorization->skipAuthorization();
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
             
@@ -971,7 +974,8 @@ class UsersController extends AppController{
                 $this->redirect($this->Func->OptionGet('logout_url')):
                 $this->redirect($this->Authentication->logout());
         }
-        return $this->redirect($this->referer());
+
+        return $this->redirect("/users/login");
     }
     //----------------------------------------------------------
     

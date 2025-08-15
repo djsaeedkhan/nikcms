@@ -204,6 +204,7 @@ class ModuleHelper extends Helper
     // --------------------------------
     public static $options_role = [];	
     public static function options_role($n = null){
+        //pr(static::$options_role);
         if($n != null) static::$options_role[] = $n;
         else return static::$options_role;
     }

@@ -27,15 +27,23 @@ class AuthsHelper extends Helper
 
     function check($url = []){
 
-        $role = [];
+        $identity = $this->getView()->getRequest()->getAttribute('identity');
+        if( !$identity)
+            return false;
+
+        if($identity->get('role_id') == 1)
+            return true;
+
+        $role =  $identity->get('role_list');
+
         $plg = null;
         if(is_array($url)){
             $plg = isset($url['plugin'])? strtolower($url['plugin']): strtolower($this->getView()->getRequest()->getParam('plugin'));
             $cont = isset($url['controller'])? strtolower($url['controller']): strtolower($this->getView()->getRequest()->getParam('controller'));
             $act = (isset($url['action']) and !in_array($url , ['/']))? strtolower($url['action']): strtolower($this->getView()->getRequest()->getParam('action'));
-            $role = $this->get_session();
         }
 
+        //pr($role);
         
         if(isset($role[$plg])){
             /* Log::write('debug',[

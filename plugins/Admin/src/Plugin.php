@@ -131,6 +131,8 @@ class Plugin extends BasePlugin
     }
 
     function posttype_adminmenu(){
+        $view = new View();
+        $this->FuncHelper = new FuncHelper($view);
         if($this->FuncHelper->check_role(['plugin'=>'admin','controller'=>'posts','action'=>'index']) == false)
             return [];
         
@@ -202,6 +204,9 @@ class Plugin extends BasePlugin
         ];
     }
     function sidemenu(){
+        $view = new View();
+        $this->FuncHelper = new FuncHelper($view);
+
         $list = [
             '5'=> array(
                 'title'=>__d('Admin', 'پیشخوان'),
@@ -666,13 +671,18 @@ class Plugin extends BasePlugin
         return $data;
     }
     public function preload(){
-        $this->FuncHelper->do_action('post_type', self::post_type());
-        $this->FuncHelper->do_action('admin_sidemenu', self::sidemenu() + self::posttype_adminmenu());
-        $this->FuncHelper->do_action('admin_navmenu', self::admin_navmenu());
-        $this->FuncHelper->do_action('admin_dashboard', self::post_widget('dashboard'));
-        $this->FuncHelper->do_action('options_role', self::options_role());
-        $this->FuncHelper->do_action('register_widgets', self::post_widget('widget'));
-        $this->FuncHelper->do_action('register_cronjobs', self::post_widget('cronjobs'));
+        try {
+            FuncHelper::do_action('post_type', self::post_type());
+            FuncHelper::do_action('admin_sidemenu', self::sidemenu() + self::posttype_adminmenu() );
+            FuncHelper::do_action('admin_navmenu', self::admin_navmenu());
+            FuncHelper::do_action('admin_dashboard', self::post_widget('dashboard'));
+            FuncHelper::do_action('options_role', self::options_role());
+            FuncHelper::do_action('register_widgets', self::post_widget('widget'));
+            FuncHelper::do_action('register_cronjobs', self::post_widget('cronjobs'));
+        } catch (\Throwable $th) {
+            die("Admin Plugin Errored");
+            
+        }
     }
     public function activation(){
         $conn = \Cake\Datasource\ConnectionManager::get('default');

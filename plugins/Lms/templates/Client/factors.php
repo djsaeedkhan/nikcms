@@ -31,7 +31,7 @@
                 <td>
                     <?= ($lmsFactor->id) ?>
                     <div class="hidme">
-                        <?= $this->Html->link(__('نمایش'), [$lmsFactor->id]) ?>
+                        <?= $this->Html->link(__('نمایش'), ['?'=>['id'=>$lmsFactor->id]]) ?>
                     </div>
                 </td>
                 <td>

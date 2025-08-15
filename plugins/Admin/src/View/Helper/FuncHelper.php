@@ -16,7 +16,7 @@ use Admin\Core\Resize;
  */
 class FuncHelper extends Helper
 {
-    public $helpers = ['Html','Form','Query','Url'];
+    public $helpers = ['Authentication.Identity','Html','Form','Query','Url'];
     protected $_defaultConfig = [];
     /* ------------------------ Post */
     function show_post_thumbnail($data = null, $size = 'thumbnail'){
@@ -936,15 +936,17 @@ class FuncHelper extends Helper
     }
     /* --------------------------------------  */
     //1399-4-17
+    //1404-05-23 edited to cakephp4
     public function check_role($url = null){
-        $plg = strtolower( $url['plugin'] );
-        $cont = strtolower( $url['controller'] );
-        $act = strtolower( $url['action'] );
-        $role = [];
-        
-        if($this->getView()->getRequest()->getSession()->read('Auth.User'))
-            $role = $this->getView()->getRequest()->getSession()->read('Auth.User')['role_list'];
-
+        $identity = $this->getView()->getRequest()->getSession()->read('Auth');
+        if( !$identity )
+            return false;
+        if($identity->get('role_id') == 1)
+            return true;
+        $role = $identity->get('role_list');
+        $plg = strtolower( (string) $url['plugin'] );
+        $cont = strtolower( (string) $url['controller'] );
+        $act = strtolower( (string) $url['action'] );
         if( isset($role[$plg]) ){
             if(isset($role[$plg][$cont][$act]) and $role[$plg][$cont][$act] != "0")
                 return true;
@@ -954,7 +956,6 @@ class FuncHelper extends Helper
         return true;
     }
     /* --------------------------------------  */
-    //-----------------------------------------------------------------------------------------
     public function DiffDuration($datas = null , $until = null, $current = null ){
         try{
             $end_date = '';
