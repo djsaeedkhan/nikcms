@@ -55,11 +55,11 @@ class CronjobsCell extends Cell
                                 if($day > 0){
                                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                                     $day -= 2;
-                                    $time->addDays($day);
+                                    $time = $time->addDays($day);
                                 }
                             }
-                            $time->addDays("-30");
-                            if(Time::now()->format('Y-m-d') == $time->format('Y-m-d')){
+                            $time = $time->addDays("-30");
+                            if(FrozenTime::now()->format('Y-m-d') == $time->format('Y-m-d')){
                                 //pr('ارسال پیامک اطلاع رسانی 30 روز مانده به انقضا دوره به شماره ');
                                 if(is_numeric($user['username'])){
                                     $p = $this->sms->sendsingle([
@@ -118,11 +118,11 @@ class CronjobsCell extends Cell
                                 if($day > 0){
                                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                                     $day -= 2;
-                                    $time->addDays($day);
+                                    $time = $time->addDays($day);
                                 }
                             }
-                            $time->addDays("-60");
-                            if(Time::now()->format('Y-m-d') == $time->format('Y-m-d')){
+                            $time = $time->addDays("-60");
+                            if(FrozenTime::now()->format('Y-m-d') == $time->format('Y-m-d')){
                                 //pr('ارسال پیامک اطلاع رسانی 60 روز مانده به انقضا دوره به شماره ');
                                 if(is_numeric($user['username'])){
                                     $p = $this->sms->sendsingle([
@@ -156,11 +156,11 @@ class CronjobsCell extends Cell
         try {
             if(isset($this->setting['smstext_nofactor_newuser']) and $this->setting['smstext_nofactor_newuser'] != ""):
                 $this->sms = new Sms();
-                $time = Time::now();
+                $time = FrozenTime::now();
                 $day = 10;
                 if(isset($this->setting['smstext_nofactor_newuser_day']) and intval($this->setting['smstext_nofactor_newuser_day']) > 0)
                     $day = $this->setting['smstext_nofactor_newuser_day'];
-                $time->addDays("-". $day);
+                $time = $time->addDays("-". $day);
     
                 $factors = TableRegistry::getTableLocator()
                     ->get('Lms.Users')
@@ -203,11 +203,11 @@ class CronjobsCell extends Cell
         /* try { */
             if(isset($this->setting['delete_unpaid_factor']) and $this->setting['delete_unpaid_factor'] == '1'):
 
-                $time = Time::now();
+                $time = FrozenTime::now();
                 $day = 10;
                 if(isset($this->setting['delete_unpaid_factor_day']) and $this->setting['delete_unpaid_factor_day'] > 0)
                     $day = $this->setting['delete_unpaid_factor_day'];
-                $time->addDays("-". $day);
+                $time = $time->addDays("-". $day);
     
                 $this->LmsFactors = TableRegistry::getTableLocator()->get('Lms.LmsFactors');
 
@@ -292,18 +292,18 @@ class CronjobsCell extends Cell
                                 if($day > 0){
                                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                                     $day -= 2;
-                                    $time->addDays($day);
+                                    $time = $time->addDays($day);
                                 }
                             }
 
                             //-//pr("Expired Day: ". $time->format('Y-m-d'));
-                            $time->addDays("-10");
+                            $time = $time->addDays("-10");
                             //-//pr("Alert Day: ". $time->format('Y-m-d'));
                             //-//pr("Now: ".Time::now()->format('Y-m-d'));
 
                             /* pr($time->format('Y-m-d'));pr(Time::now()->format('Y-m-d'));pr("<hr>");  */
 
-                            if(Time::now()->format('Y-m-d') == $time->format('Y-m-d')){
+                            if(FrozenTime::now()->format('Y-m-d') == $time->format('Y-m-d')){
                                 //pr('ارسال پیامک اطلاع رسانی 10 روز مانده به انقضا دوره به شماره ');
                                 if(is_numeric($user['username'])){
                                     $p = $this->sms->sendsingle([
@@ -358,11 +358,11 @@ class CronjobsCell extends Cell
                                 
                                 if($day > 0){
                                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-                                    $time->addDays($day);
+                                    $time = $time->addDays($day);
                                 }
                             }
-                            $time->addDays("+1");
-                            if(Time::now()->format('Y-m-d') == $time->format('Y-m-d')){
+                            $time = $time->addDays("+1");
+                            if(FrozenTime::now()->format('Y-m-d') == $time->format('Y-m-d')){
                                 if(is_numeric($user['username'])){
                                     $p = $this->sms->sendsingle([
                                         'mobile' => $user['username'],

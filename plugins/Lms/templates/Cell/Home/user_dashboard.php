@@ -31,7 +31,9 @@
 
 <div class="">
 	<div class="row">
-	<?php foreach ($lmsCourses as $lmsCourse):$lmsCourse = $lmsCourse['LmsCourses'];?>
+	<?php 
+	foreach ($lmsCourses as $lmsCourse):
+		$lmsCourse = $lmsCourse['lms_course'];?>
 		<div class="col-sm-12"><div class="card">
 			<div class="card-body" style="min-height: 140px;">
 				<div class="row">

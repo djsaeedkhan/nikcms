@@ -122,18 +122,20 @@ class UsersTable extends Table
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
-            ->allowEmptyString('password', null, 'update')
+            ->allowEmptyString('password', null, 'update') // اجازه خالی بودن در ویرایش
+            ->requirePresence('password', 'create') // اجباری در ایجاد کاربر جدید
+            ->notEmptyString('password', 'پسورد نمی‌تواند خالی باشد.', 'create')
             ->add('password', [
-            'minLength' => [
-                'rule' => ['minLength', 8],
-                'last' => true,
-                'message' => 'رمز عبور میبایست بیشتر از 8 کاراکتر باشد'
-            ],
-            'maxLength' => [
-                'rule' => ['maxLength', 255],
-                'message' => 'رمز عبور طولانی می باشد'
-            ]
-        ]);
+                'minLength' => [
+                    'rule' => ['minLength', 8],
+                    'last' => true,
+                    'message' => 'رمز عبور میبایست بیشتر از 8 کاراکتر باشد'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 255],
+                    'message' => 'رمز عبور طولانی می باشد'
+                ]
+            ]);
 
         /* $validator
             ->add('password', 'validFormat',[

@@ -22,7 +22,7 @@ echo $this->element('Template.header');
 
         <?php $i=1; 
         foreach($challenges as $ch):
-        $time = $this->Func->DiffDateFa("now", $ch['end_date']);
+        $time = 0;//$this->Func->DiffDateFa("now", $ch['end_date']);
         $ch['content'] = $ch['descr'];?>
 
           <article class="post-list-item" data-aos="fade-up" data-aos-duration="700">

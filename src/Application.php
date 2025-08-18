@@ -208,6 +208,7 @@ class Application extends BaseApplication implements
             AbstractIdentifier::CREDENTIAL_USERNAME => 'username',
             AbstractIdentifier::CREDENTIAL_PASSWORD => 'password'
         ];
+       
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [

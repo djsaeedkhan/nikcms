@@ -16,8 +16,10 @@ class RequestPolicy implements RequestPolicyInterface
             '',
             'website',
             'captcha',
-            //'lms'
+            'lms'
         ];
+        
+        //pr($request->getAttribute('identity'));
         //die("{$plg}__{$cont}__{$act}");
         if($request->getAttribute('identity')):
             if($request->getAttribute('identity')->get('role_id') == 1 )
@@ -27,8 +29,10 @@ class RequestPolicy implements RequestPolicyInterface
             $role = unserialize($role);
             if (isset($role[$plg])) {
                 if (isset($role[$plg][$cont][$act]) and $role[$plg][$cont][$act] != "0"){
+                    //$this->Flash->error("{$plg}__{$cont}__{$act}");
                     return true;
                 }else{
+                    //$this->Flash->error("{$plg}__{$cont}__{$act}");
                     //Log::write('debug', ['plgin'=>$plg,'cont'=>$cont,'act'=>$act ]);
                     return false;
                 }

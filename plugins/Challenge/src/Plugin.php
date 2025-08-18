@@ -154,6 +154,15 @@ class Plugin extends BasePlugin{
                         'index'=>'صفحه درخواست',
                     ]
                 ], */
+                'challenges'=>[
+                    'title' => 'اعضا (پروفایل) '.__d('Template', 'همیاری').'',
+                    'action' => [
+                        'profile'=>'پروفایل',
+                        'index'=>'لیست همه',
+                        'view'=>'نمایش جزئیات',
+                        //'delete'=>'حذف',
+                    ]
+                ],
                 'Challengecats' => [
                     'title' => 'سطوح '.__d('Template', 'همیاری').'',
                     'action' => [

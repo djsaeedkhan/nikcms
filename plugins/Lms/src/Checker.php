@@ -2,7 +2,6 @@
 namespace Lms;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\FrozenTime;
-use Cake\I18n\Time;
 
 class Checker
 {
@@ -35,7 +34,7 @@ class Checker
             else
                 $time = new FrozenTime($courseuser['created']);
 
-            $time->addDays($coursefile['days']);
+            $time = $time->addDays($coursefile['days']);
 
             $coursefilecan = $filecans->find('all')
                 ->where(['user_id' =>  $user_id , 'lms_coursefile_id' => $file_id ])
@@ -113,7 +112,7 @@ class Checker
             else{
                 $time = new FrozenTime($courseuser['created']);
             }
-            $time->addDays($coursefile['days']);
+            $time = $time->addDays($coursefile['days']);
             if(isset($query['file']) and $query['file'] == $file_id){
                 $exam = TableRegistry::getTableLocator()->get('Lms.LmsCourseexams')->find('all')
                     ->where(['lms_coursefile_id' =>  $file_id])
@@ -224,7 +223,7 @@ class Checker
             return 1;
 
         $time = new FrozenTime($fcan['created']);
-        $time->addMinute(1);
+        $time = $time->addMinutes(1);
         if( FrozenTime::now()->format('Y-m-d H:i') >= $time->format('Y-m-d H:i') ){
             return $this->_enablefiles($user_id,$file_id,$course_id);
         }
@@ -271,7 +270,7 @@ class Checker
             if($day > 0){
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 //$day -= 1;
-                $time->addDays($day);
+                $time = $time->addDays($day);
             }
             $time = $time->format('Y-m-d');
         }
@@ -304,7 +303,7 @@ class Checker
             if($day > 0){
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 $day -= 2;
-                $time->addDays($day);
+                $time = $time->addDays($day);
             }
             $time = $time->format('Y-m-d');
         }

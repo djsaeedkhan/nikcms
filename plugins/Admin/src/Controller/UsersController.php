@@ -161,7 +161,7 @@ class UsersController extends AppController
                 $user = $this->Users->newEmptyEntity();
                 $user = $this->Users->patchEntity($user,[
                     'username'=> $username,
-                    'password'=> isset($lst['password'])?$lst['password']:'',
+                    'password'=> isset($lst['password'])?(new DefaultPasswordHasher)->hash($lst['password']):'',
                     'family'=> isset($lst['family'])?$lst['family']:'',
                     'email'=> isset($lst['email'])?$lst['email']:'',
                     'phone'=> isset($lst['mobile'])?$lst['mobile']:'',
@@ -205,6 +205,7 @@ class UsersController extends AppController
     //--------------------------------------------------------------------
     public function edit($id = null){
         
+        //$this->Users = TableRegistry::getTableLocator()->get('Admin.Users');
         try{
             $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
         }
@@ -213,27 +214,36 @@ class UsersController extends AppController
             return $this->redirect($this->referer());
         }
 
-        if ($this->request->is(['patch', 'put'])) {
-            if($this->request->getData('password') == ''){
+        if ($this->request->is(['post', 'patch', 'put'])) {
+
+            $data = $this->request->getData();
+            if (empty($data['password'])) {
+                unset($data['password']);
+            }
+            else{
+                $data['password'] = (new DefaultPasswordHasher)->hash($data['password']);
+            }
+            
+           /*  if( strlen($this->request->getData()['password']) == 0){
                 $data = $this->request->getData();
                 unset($data['password']);
+                unset($data['username']);
                 $this->request = $this->request->withParsedBody($data);
             }
             else{
                 $this->Users = TableRegistry::getTableLocator()->get('Admin.Users');
-            }
+            } */
 
             if($this->request->getAttribute('identity')->get('role_id') != 1){
-                $data = $this->request->getData();
                 unset($data['username']);
                 unset($data['token']);
                 unset($data['enable']);
                 unset($data['role_id']);
                 $this->request = $this->request->withParsedBody($data);
             }
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-
+            $user = $this->Users->patchEntity($user, $data);
             if ($result = $this->Users->save($user)) {
+
                 if($this->request->getData('UserMetas') and count($this->request->getData('UserMetas'))):
                     foreach($this->request->getData('UserMetas') as $key => $val){
                         $this->Func->PostMetaSave($result->id,[
@@ -246,7 +256,7 @@ class UsersController extends AppController
                 endif;
 
                 $this->Flash->success(__d('Admin', 'کاربر با موفقیت بروزرسانی شد'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__d('Admin', 'The user could not be saved. Please, try again.'));
         }

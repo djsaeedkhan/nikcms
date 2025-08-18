@@ -170,7 +170,7 @@ class UsersController extends AppController{
                 }
             } */
 
-            if ( $session->read('show_recaptcha') == 1  and 
+            /* if ( $session->read('show_recaptcha') == 1  and 
                 !isset($this->request->getData()['securitycode']) and
                 empty($this->request->getData()['securitycode'])
             ){
@@ -186,9 +186,9 @@ class UsersController extends AppController{
                     $this->Flash->error(__('کد امنیتی به درستی وارد نشده است'));
                     return $this->redirect($this->referer());
                 }
-            }
+            } */
 
-            if (
+            /* if (
                 $session->read('show_recaptcha') == 1 
                 and
                 $this->Captcha->getCode('securitycode') != $this->request->getData()['securitycode'])
@@ -204,7 +204,8 @@ class UsersController extends AppController{
                     else {
                         return $this->Flash->error(__('کدامنیتی اشتباه هست، لطفا دوباره وارد کنید'));
                     }    
-            }
+            }*/
+            
             if (!isset($this->request->getData()['username']) or !isset($this->request->getData()['password'])) {
                 if ($this->request->is('ajax')) {
                     return $this->response->withType('application/json')->withStringBody(json_encode([
@@ -1045,9 +1046,9 @@ class UsersController extends AppController{
                 $height = ($max_width / $width) * $height;
                 $width = $max_width;
             }
-            $image_p = imagecreatetruecolor($width, $height);
+            $image_p = imagecreatetruecolor( (int) $width, (int) $height);
             $image = imagecreatefromjpeg($filename);
-            imagecopyresampled($image_p, $image, 0, 0, 0, 0,$width, $height, $orig_width, $orig_height);
+            imagecopyresampled($image_p, $image, 0, 0, 0, 0, (int) $width, (int) $height, (int) $orig_width, (int) $orig_height);
             try {
                 die(@imagejpeg($image_p, null, 100));
             } catch (\Throwable $th) {

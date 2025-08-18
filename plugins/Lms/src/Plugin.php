@@ -381,10 +381,15 @@ class Plugin extends BasePlugin
                         'course'=>'لیست دوره',
                         'courses'=>'جزئیات دوره',
                         'factors'=>'فاکتور',
+                        'factor_payment'=>'وریفای پرداخت',
                         'payments'=>'پرداخت ها',
                         'exam'=>'آزمون دوره',
                         'myexam'=>'آزمون های من',
                         'video' =>'نمایش فیلم',
+                        'renew'=>'تمدید دوره',
+                        'renewExam'=>'تمدید آزمون',
+                        'history'=>'سابقه هیستوری',
+                        '_Coupons_Check'=>'چک کردن کوپن',
                         'certificate' =>'درخواست گواهینامه',
                     ]
                 ],
@@ -395,7 +400,8 @@ class Plugin extends BasePlugin
                         'courses'=>'دوره ها',
                         'exam'=>'آزمون دوره',
                         'myexam'=>'آزمون های من',
-                        'video' =>'نمایش فیلم'
+                        'video' =>'نمایش فیلم',
+                        'subscribe'=>'ثبت نام دوره'
                     ]
                 ],
             ]

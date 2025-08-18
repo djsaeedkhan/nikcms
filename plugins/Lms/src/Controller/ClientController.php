@@ -32,6 +32,7 @@ class ClientController extends AppController
         header("Pragma: no-cache");
         //ini_set('session.cookie_samesite', 'None');
         $this->setting =  unserialize($this->Func->OptionGet('plugin_lms'));
+        $this->Authentication->allowUnauthenticated(['factors',]);
     }
     //----------------------------------------------------------
     public function video($id = null)
@@ -490,7 +491,7 @@ class ClientController extends AppController
                 $time = new FrozenTime( $lmsCourses['created']);
             }
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-            if(Time::now() < $time){
+            if(FrozenTime::now() < $time){
                 $this->Flash->success('زمان شرکت در این دوره فرا نرسیده است. لطفا تا تاریخ شروع دوره صبر کنید');
                 return $this->redirect($this->referer());
             }
@@ -510,11 +511,11 @@ class ClientController extends AppController
                 $time = new FrozenTime($lmsCourses['created']);
                 if($day > 0){
                     $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-                    $time->addDays($day);
+                    $time = $time->addDays($day);
                 }
                 $time = $time->format('Y-m-d');
             }
-            if( Time::now()->format('Y-m-d') > $time){
+            if( FrozenTime::now()->format('Y-m-d') > $time){
                 $this->Flash->success('مدت زمان دسترسی شما به این دوره به پایان رسیده است. می توانید با استفاده از دکمه «تمدید دوره» دسترسی به دروس دوره را تمدید نمایید.');
                 return $this->redirect($this->referer());
             }
@@ -594,7 +595,7 @@ class ClientController extends AppController
             }else{
 
                 //در صورتی که فایل بعدی وجود نداشت یعنی آخرین فایل می باشد
-                $this->LmsCourseusers->query()->update()
+                $this->LmsCourseusers->updateQuery()
                     ->set([
                         'enable' => 0,
                         'status'=> 1 ])
@@ -677,10 +678,10 @@ class ClientController extends AppController
             }
             $time = new FrozenTime($temp['created']);
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-            $time->addMinutes($file['LmsExams']['timer']);
+            $time = $time->addMinutes($file['LmsExams']['timer']);
             $timer = $time->format('Y-m-d H:i:s');
             
-            if(Time::now() > $time){
+            if(FrozenTime::now() > $time){
                 $this->Flash->success('مدت زمان پاسخگویی به این آزمون به پایان رسیده است. اطلاعات فرم ثبت نشد');
                 return $this->redirect('?');
             }
@@ -736,7 +737,7 @@ class ClientController extends AppController
                 $fail = 3;
             }
 
-            $this->LmsExamresults->query()->update()
+            $this->LmsExamresults->updateQuery()
                 ->set(['result' => $fail ])
                 ->where(['id' => $lmsresult->id])
                 ->execute();
@@ -753,7 +754,7 @@ class ClientController extends AppController
                 }
                 else{
                     //در صورتی که فایل بعدی وجود نداشت یعنی آخرین فایل می باشد
-                    $this->LmsCourseusers->query()->update()
+                    $this->LmsCourseusers->updateQuery()
                     ->set([
                         'enable' => 0,
                         'status'=> 1 ])
@@ -770,7 +771,7 @@ class ClientController extends AppController
             }
 
             //
-            $this->LmsUserfactors->query()->update()
+            $this->LmsUserfactors->updateQuery()
                 ->set([
                     'enable'=> 1,
                     //0: استفاده نشده
@@ -838,9 +839,9 @@ class ClientController extends AppController
 
             $time = new FrozenTime($temp['created']);
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-            $time->addMinutes($file['LmsExams']['timer']);
+            $time = $time->addMinutes($file['LmsExams']['timer']);
             $timer = $time->format('Y-m-d H:i:s');
-            if(Time::now() > $time){
+            if(FrozenTime::now() > $time){
                 $this->Flash->success('مدت زمان پاسخگویی به این آزمون به پایان رسیده است');
                 return $this->redirect('?');
             }
@@ -954,7 +955,7 @@ class ClientController extends AppController
         }
         
         $time = new FrozenTime($coupons['expiry_date']);
-        $interval = date_diff( date_create($time->format('Y-m-d')), date_create( Time::now()->format('Y-m-d')) );
+        $interval = date_diff( date_create($time->format('Y-m-d')), date_create( FrozenTime::now()->format('Y-m-d')) );
         if($interval->format('%R%a') > 0){
             return [
                 'status' => false,
@@ -1006,7 +1007,6 @@ class ClientController extends AppController
     //----------------------------------------------------------------
     public function factors($id = null)
     {
-       
         if($this->request->getQuery('id')){
             $id = $this->request->getQuery('id');
         }
@@ -1014,7 +1014,8 @@ class ClientController extends AppController
         $factors = $this->LmsFactors->find('all')
             ->where([
                 $id != null?['LmsFactors.id'=>$id]:false,
-                'LmsFactors.user_id'=> $this->request->getAttribute('identity')->get('id')
+                $this->request->getAttribute('identity')?
+                    ['LmsFactors.user_id'=> $this->request->getAttribute('identity')->get('id')]:false
                 ])
             ->contain(['LmsUserfactors'=>['LmsCourses'],'LmsPayments','LmsCoupons'])
             ->order(['LmsFactors.id'=>'desc'])
@@ -1050,8 +1051,7 @@ class ClientController extends AppController
                     break;
             }
             if($new_price >= 0){
-                $tmp = $this->LmsFactors->query()
-                    ->update()
+                $tmp = $this->LmsFactors->updateQuery()
                     ->set([
                         'old_price' => $factors[0]['price'],
                         'price' => $new_price,
@@ -1079,8 +1079,7 @@ class ClientController extends AppController
         }
 
         if($this->request->is('post') and $this->request->getQuery('coupons') == "delete"){
-            $tmp = $this->LmsFactors->query()
-                ->update()
+            $tmp = $this->LmsFactors->updateQuery()
                 ->set([
                     'old_price' => null,
                     'price' => $factors[0]['old_price'],
@@ -1097,6 +1096,7 @@ class ClientController extends AppController
         }
 
         if($this->request->getQuery('payment')){
+            
             if($this->request->getQuery('auto_success_payment'))
                 $status = true;
             else
@@ -1170,10 +1170,10 @@ class ClientController extends AppController
                                     $checker = new Checker();
                                     $day = $checker->GetCourseuser_StartDate($factors[0]['lms_userfactors'][0]['lms_course'],$tmp); 
                                     $time = new FrozenTime($tmp['created']);
-                                    $time->addDays($day);
+                                    $time = $time->addDays($day);
 
                                     if($add_month > 0){
-                                        $time = $time->addMonth($add_month);
+                                        $time = $time->addMonths($add_month);
                                     }
                                     else{
                                         $time = $time->addDays($Course_renewday);
@@ -1209,8 +1209,7 @@ class ClientController extends AppController
                             }
 
                             if($this->request->getQuery('auto_success_payment')){
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors[0]['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
@@ -1326,16 +1325,14 @@ class ClientController extends AppController
                             $p->enable = 1;
                             $p = $this->LmsPayments->save($p);
                             if($p){
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
                             }else{
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
@@ -1440,16 +1437,14 @@ class ClientController extends AppController
                             $p->enable = 1;
                             $p = $this->LmsPayments->save($p);
                             if($p){
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
                             }else{
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
@@ -1480,7 +1475,8 @@ class ClientController extends AppController
                 $Amount = $Amount * 10;
                 $Description 	= "";//strip_tags($_POST['descr']);
                 $Email 			= "";
-                $Mobile 		= $this->request->getAttribute('identity')->get('username');//strip_tags($_POST['mobile']);
+                $Mobile 		= $this->request->getAttribute('identity')?
+                    $this->request->getAttribute('identity')->get('username'):'';//strip_tags($_POST['mobile']);
                 $p = $this->LmsPayments->get($pay->id);
                 
                 if($this->request->is('post') and !isset($_POST['StateCode']) ){
@@ -1556,8 +1552,7 @@ class ClientController extends AppController
                                 }else{
                                     $this->Flash->success(__('پرداخت انجام شده ولی ثبت سیستمی نشده و فاکتور به وضعیت پرداخت انجام نشد - کد 15'));
                                 }
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
@@ -1631,16 +1626,14 @@ class ClientController extends AppController
                             $p->enable = 1;
                             $p = $this->LmsPayments->save($p);
                             if($p){
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();
                                 $this->Flash->success(__('پرداخت هزینه دوره با موفقیت انجام شد.'));
                                 return $p->id;
                             }else{
-                                $this->LmsFactors->query()
-                                    ->update()
+                                $this->LmsFactors->updateQuery()
                                     ->set(['paid' => 1,'status' => 1])
                                     ->where(['LmsFactors.id' => $factors['id'],'user_id'=>$this->request->getAttribute('identity')->get('id')])
                                     ->execute();

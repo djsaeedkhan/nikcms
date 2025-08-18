@@ -1,7 +1,7 @@
 <?php
 namespace Lms\Controller;
 
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use Lms\Checker;
 use Lms\Controller\AppController;
@@ -221,10 +221,10 @@ class GuestController extends AppController
         }
 
         // بررسی فاصله زمانی بین دو فاکتور
-        $time = Time::now();
+        $time = FrozenTime::now();
         if(isset($this->setting['course_time_between_two_factors']) and $this->setting['course_time_between_two_factors']!= ""){
             $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-            $time->addDays("-".intval($this->setting['course_time_between_two_factors']));
+            $time = $time->addDays("-".intval($this->setting['course_time_between_two_factors']));
 
             $factor = $this->LmsUserfactors->find('all')
                 ->order(['Created'=>'DESC'])
@@ -254,10 +254,10 @@ class GuestController extends AppController
             $related = true;
 
             //محاسبه میکند که چه مدت پس از گذراندن پیش نیاز ها، اجازه گرفتن درس اصلی وجود داشته باشد
-            $time = Time::now();
+            $time = FrozenTime::now();
             if(isset($this->setting['course_related_limit']) and $this->setting['course_related_limit']!= ""){
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
-                $time->addDays("-".$this->setting['course_related_limit']);
+                $time = $time->addDays("-".$this->setting['course_related_limit']);
             }
             
             foreach($lmsCourses['lms_courserelateds'] as $related){

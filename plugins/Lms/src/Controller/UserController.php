@@ -3,7 +3,7 @@ namespace Lms\Controller;
 
 use Cake\ORM\TableRegistry;
 use Lms\Controller\AppController;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use \Sms\Sms;
 
 class UserController extends AppController
@@ -21,9 +21,9 @@ class UserController extends AppController
         if ($this->request->getQuery('nofactor_newuser')){
             //try {
                 $this->sms = new Sms();
-                $time = Time::now();
+                $time = FrozenTime::now();
                 $day = is_numeric($this->request->getQuery('nofactor_newuser'))?$this->request->getQuery('nofactor_newuser'):10;
-                $time->addDays("-". $day);
+                $time = $time->addDays("-". $day);
                 $factors = TableRegistry::getTableLocator()
                     ->get('Lms.Users')
                     ->find('all')
