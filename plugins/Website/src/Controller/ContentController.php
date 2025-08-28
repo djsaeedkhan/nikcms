@@ -32,7 +32,7 @@ class ContentController extends AppController
         $this->viewBuilder()->setLayout($this->template.'.default');
 
         try {
-            $this->loadComponent('Website.Fetchs');
+           $this->loadComponent('Website.Fetchs');
         }
         catch (\Throwable $th) {}
 
@@ -366,8 +366,6 @@ class ContentController extends AppController
     //------------------------------------------------------------------
     public function single()
     {
-        //("Hello");
-        //pr("single");
         global $is_status;
         global $id;
         global $post_id;
@@ -431,7 +429,7 @@ class ContentController extends AppController
             }
             else{
                 if($post_type == null){
-                    header("HTTP/1.1 404 Not Found", true, 404);
+                    //header("HTTP/1.1 404 Not Found", true, 404);
                     try{exit($this->render($this->template.".404"));}
                     catch (\Exception $e){exit($this->render('404'));}
                 }

@@ -56,7 +56,10 @@
                     <div class="card-body">
                         <h4 class="card-title"><?= __d('Admin', 'مشخصات فنی')?></h4>
                         <div class="ppp">
-                            <?= $this->Func->create_form(Admin\View\Helper\ModuleHelper::options_profileuserfield(), $meta_list)?>
+                            <?= $this->Func->create_form(
+                                Admin\View\Helper\ModuleHelper::options_profileuserfield(), 
+                                isset($meta_list)?$meta_list:[]
+                                )?>
                         </div>
                     </div>
                 </div>

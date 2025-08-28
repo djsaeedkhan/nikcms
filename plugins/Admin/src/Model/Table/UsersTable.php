@@ -172,6 +172,13 @@ class UsersTable extends Table
         return $validator;
     }
 
+    public function findNotDeleted($query, $options)
+    {
+        return $query->where(function ($exp) {
+            return $exp->notLike('username', 'deleted_%');
+        });
+    }
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.

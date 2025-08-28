@@ -178,12 +178,17 @@
                             </div>
                             <!-- ----------------------------------------------------->
                             <div class="tab-pane col-7" id="home2-2" role="tabpanel">
-                                
-                                <div class="row alert alert-info">
+                                <div class="row alert alert-secondary">
+                                    <div class="col-12" style="font-weight: bold;">
+                                        در این بخش تنظیمات مربوط به نمایش قالب بخش مدیریت در قالب سایت را تنظیم میکنید.
+                                        بدین صورت که میتوانید مشخص کنید که صفحه ورود یا ثبت نام بجای نمایش
+                                        در قالب مدیریت، در قالب اصلی سایت نمایش داده شود
+                                        <br><br>
+                                    </div>
                                     <div class="col-sm-6">
                                         <?= $this->Form->control('template_viewin', [
                                             'type'=>'select',
-                                            'label'=>__d('Admin', 'نمایش در قالب سایت'),
+                                            'label'=>__d('Admin', 'نمایش صفحه لاگین در قالب سایت'),
                                             'class'=>'form-control mb-2',
                                             'empty'=>'-- '.__d('Admin', 'انتخاب کنید').' --',
                                             'options' => $this->Func->Predata('yesno'),
@@ -192,7 +197,7 @@
                                     <div class="col-sm-6">
                                         <?= $this->Form->control('template_layout', [
                                             'type'=>'select',
-                                            'label'=>__d('Admin', 'نمایش در قالب سایت'),
+                                            'label'=>__d('Admin', 'نمایش کل مدیریت در قالب سایت'),
                                             'class'=>'form-control mb-2',
                                             'empty'=>'-- '.__d('Admin', 'انتخاب کنید').' --',
                                             'options' => $this->Func->Predata('yesno'),

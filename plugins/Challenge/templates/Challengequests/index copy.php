@@ -5,15 +5,22 @@ use Cake\View\Helper\FormHelper;
 use Challenge\Predata;
 $predata = new Predata();
 ?>
-<!-- -------------------------------------------------------- -->
-<!-- -------------------------------------------------------- -->
-
-<h3><?=isset($challenge['title'])?
-        $this->html->link($challenge['title'],
-        ['controller'=>'admin','action'=>'view',$challenge['id']]):'';?></h3><hr>
 <div class="row">
+    <div class="col-sm-6">
+        <h3 style="font-size:22px;letter-spacing: -0.5px;">مدیریت سوالات</h3>
+        <div class="box box-primary"><div class="card-body">
+            <div id="exa" data-children=".item">
+                <?php show( $ch_id, $parentCategory); ?>
+                <div>
+                    <a href="<?= Router::url(['action' => 'add', $ch_id , 0 ])?>">
+                        + ثبت سوال
+                    </a>
+                </div>
+            </div>
+        </div></div>
+    </div>
 
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         <?= $this->Form->create(null,['type' => 'file']) ?>
             <h3 style="font-size:22px;letter-spacing: -0.5px;;">پیش نمایش</h3>
             <div class="box box-primary"><div class="card-body">
@@ -41,21 +48,31 @@ function show( $ch_id = null, $parentCategory = null){
                 <?= (isset($types[$parent->types]) and !in_array($parent->types,[]) )?
                     '<span class="badge badge-warning badge-pill">'.$types[$parent->types].'</span>':''?>
 
-                <span class="hidme">
+                <span class="hidme d-flex">
                     <?php if(in_array($parent->types,[1])):?>
                     <a href="<?= Router::url(['action' => 'add', $ch_id, $parent->id ])?>">
                         ثبت <?= ($count%2==0)?'سوال':'جواب'?>
                     </a>
                     <?php endif?>
                     <a href="<?= Router::url(['action' => 'edit', $ch_id, $parent->id ])?>">ویرایش</a>
-                    <?= $Formcsp->postlink('حذف',
+
+                    <a>
+                        <?php
+                        echo $Form->create(null,['class'=>'deletes d-flex','url'=>['plugin'=>'Challenge','controller'=>'Challengequests','action' => 'delete', $ch_id, $parent->id ]]);
+                        echo $Form->control('_method',['type'=>'hidden','default'=>'POST']);
+                        echo $Form->submit('حذف',['class'=>'text-danger bg-white py-0 btn-sm delete_button border-0','confirm'=>'برای حذف مطمئن هستید؟']);
+                        echo $Form->end();
+                        ?>
+                    </a>
+
+                    <?php /* $Form->postlink('حذف',
                         ['action' => 'delete', $ch_id, $parent->id ],
-                        ['confirm'=>'برای حذف مطمئن هستید؟'])?>
+                        ['confirm'=>'برای حذف مطمئن هستید؟']) */?>
                 </span>
             </span>
 
             <?php if(in_array($parent->types,[1,4])):?>
-            <div class="collapse show1" style="padding-right:20px;border: 1px solid #ccc;" id="exa<?= $parent->id;?>">
+            <div class="collapse show1 pr-3" style="border: 1px solid #ccc;" id="exa<?= $parent->id;?>">
                 <?php 
                 if(isset($parent['children']) and count($parent['children'])) :
                     show($ch_id , $parent['children']);
@@ -68,6 +85,36 @@ function show( $ch_id = null, $parentCategory = null){
 }
 ?>
 <script nonce="<?=get_nonce?>">
+$(function() {
+    $(document).ready(function() {
+        $(".delete_button").click(function(event) {
+            if( !confirm('Are you sure that you want to submit the form') ) 
+                event.preventDefault();
+        });
+    });
+    /* $(document).on('submit','form.deletes',function(){
+        if (confirm("آیا برای حذف مطمین هستید؟") == true) {
+            return true;
+        } else {
+            e.preventDefault();
+            return false;
+        }
+        e.preventDefault();
+        return false;
+        return false;
+    }); */
+
+    /* $(".delete_button").click(function(){
+        if (confirm("آیا برای حذف مطمین هستید؟") == true) {
+            return true
+        } else {
+            e.preventDefault();
+            return false;
+        }
+        e.preventDefault();
+        return false;
+    }); */
+});
 function get_data(parent,mclass){
     var all_data;
     $.ajax({
@@ -91,33 +138,6 @@ function get_data(parent,mclass){
     });
     createform(all_data,mclass);
 }
-function getCount(id,type=''){
-    var all_data='...';
-    $.ajax({
-        type : 'GET',
-        async: true,
-        data: 'ajax=1&q_id='+id+'&type='+type,
-        url : '<?= Router::url('/admin/challenge/challengequests/report/'.$ch_id)?>' ,
-        beforeSend: function(){
-            //$('.'+mclass).html('درحال دریافت اطلاعات');
-        },
-        complete: function(){
-            //$('.'+mclass).html('');
-        },
-        success : function(data){
-            all_data = data;
-            $('.cls'+id).html(data+' پاسخ');
-            return data;
-        },
-        error:function (XMLHttpRequest, textStatus, errorThrown) {
-            //alert("در دریافت اطلاعات خطایی رخ داده است");
-            all_data = 'خطا';
-            $('.cls'+id).html(data+' پاسخ');
-            return 'خطا';
-        }
-    });
-    return all_data;
-}
 
 function createform(data,cclass){
     if (data === false){
@@ -132,16 +152,13 @@ function createform(data,cclass){
 
             var array = $.map(value['children'], function(value1, index1) {
                 string += '<label for="fields-'+value1['id']+'" style="margin-left: 15px;">'+
-                    '<input type="radio" name="radio_'+value['id']+'" value="'+value1['id']+'" id="fields-'+value1['id']+'" nonce="<?=get_nonce?>" onclick="onclicker('+"'"+value1['id']+"'"+','+"'"+'mlist'+value['id']+"'"+')" class="putt form-control1"> '+value1['title']+
-                    `&nbsp;<span class="badge badge-secondary badge-pill cls`+value1['id']+`">`+getCount(value1['id'],'select')+` پاسخ</span></label> `;
+                    '<input type="radio" name="radio_'+value['id']+'" value="'+value1['id']+'" id="fields-'+value1['id']+'" nonce="<?=get_nonce?>" onclick="onclicker('+"'"+value1['id']+"'"+','+"'"+'mlist'+value['id']+"'"+')" class="putt form-control1"> '+value1['title']+'</label> ';
             });
-            string += '</div></div>E<div style1="padding-right:20px;" class="mlist'+(value['id'])+'"></div>';
+            string += '</div></div><div style1="padding-right:20px;" class="mlist'+(value['id'])+'"></div>';
         }
         
         else if(value['types'] == 2){
-            string += '<br><div class="input textareaa radio"><label><b>'+value['title']+`
-                &nbsp;<span class="badge badge-secondary badge-pill cls`+value['id']+`">`+getCount(value['id'])+` پاسخ</span>
-                </b></label><br>`+
+            string += '<br><div class="input textareaa radio"><label><b>'+value['title']+'</b></label><br>'+
                 '<textarea name="textarea_'+value['id']+'" class="form-control"></textarea></div>';
         }
         
@@ -158,7 +175,7 @@ function createform(data,cclass){
                 '<div class="checkbox">'+
                     '<label for="eeee-'+value1['id']+'">'+
                         '<input type="checkbox" name="check_'+value['id']+'[]" value="'+value1['id']+'" id="eeee-'+value1['id']+'"> '+value1['title']+
-                        `&nbsp;<span class="badge badge-secondary badge-pill cls`+value1['id']+`">`+getCount(value1['id'],'check')+` پاسخ</span></label> `+
+                    '</label>'+
                 '</div>';
             });
             string += '</div>';

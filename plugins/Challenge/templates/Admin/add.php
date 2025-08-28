@@ -7,23 +7,28 @@ $predata = new Predata();?>
 <div class="row">
     <div class="col-sm-6">
         <div class="row">
-            <div class="col-sm-10">
-                <?php  echo $this->Form->control('title',[
+            <div class="col-sm-12">
+                <?= $this->Form->control('title',[
                     'label'=>'عنوان',
                     'class'=>'form-control mb-2']);?>
             </div>
+
+            <div class="col-sm-10">
+                <?=  $this->Form->control('slug',[
+                    'label'=>'نامک (استفاده در URL)',
+                    'class'=>'form-control mb-2 ltr']); ?>
+            </div>
             <div class="col-sm-2">
-                <?php  echo $this->Form->control('priority',[
+                <?= $this->Form->control('priority',[
                     'label'=>'اولویت',
+                    'type'=>'number',
                     'class'=>'form-control mb-2']);?>
             </div>
         </div>
         <?php
        
 
-        echo $this->Form->control('slug',[
-            'label'=>'نامک (استفاده در URL)',
-            'class'=>'form-control mb-2 ltr']);
+        
 
         echo $this->Form->control('descr',[
             'label'=>'توضیحات مختصر (در صفحه لیست)',
@@ -55,32 +60,30 @@ $predata = new Predata();?>
         <a href="#" data-toggle="modal" data-target="#exampleModal" data-action="select_src" title="انتخاب تصویر" data-dest="poster2" style="color:#9e9e9e"><i data-feather="camera"></i></a></div>';
         ?>
 
+        
+
     </div>
     <div class="col-sm-6">
         <?php
         echo $this->Form->control('challengecats._ids', [
-            'label'=>__d('Template','سطوح همیاری'). $this->html->link('مدیریت','/admin/challenge/challengecats/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
-            'escape'=>false,
+            'label'=>"سطوح ".__d('Template','همیاری'),
             'options' => $challengecats,
             'class'=>'form-control mb-2 select2']).'<br>';
 
         echo $this->Form->control('challengetopics._ids', [
-            'label'=>'موضوع ها '. $this->html->link('مدیریت','/admin/challenge/challengetopics/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
+            'label'=>'موضوع ها',
             'options' => $challengetopics,
-            'escape'=>false,
             'class'=>'form-control select2 mb-2 mt-2'
             ]).'<br>';
 
         echo $this->Form->control('challengefields._ids', [
-            'label'=>'حوزه های ماموریتی'. $this->html->link('مدیریت','/admin/challenge/challengefields/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
-            'escape'=>false,
+            'label'=>'حوزه های ماموریتی',
             'options' => $challengefields,
             'class'=>'form-control select2 mb-2'
             ]).'<br>';
             
         echo $this->Form->control('challengetags._ids', [
-            'label'=>'برچسب ها'. $this->html->link('مدیریت','/admin/challenge/challengetags/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
-            'escape'=>false,
+            'label'=>'برچسب ها',
             'options' => $challengetags,
             'class'=>'form-control select2 mb-2'
             ]).'<br>';
@@ -90,20 +93,44 @@ $predata = new Predata();?>
             <div class="col-sm-6">
                 <?= $this->Form->control('start_date',[
                     'type'=>'text',
+                    'id'=>'pdpGregorian',
+                    'readonly'=>true,
                     'class'=>'form-control ltr mb-2',
                     'label'=> 'تاریخ شروع ('.jdate('Y').'/10/10)' ]);?>
             </div>
             <div class="col-sm-6">
                 <?=$this->Form->control('end_date',[
                     'type'=>'text',
+                    'id'=>'pdpGregorian2',
+                    'readonly'=>true,
                     'class'=>'form-control ltr',
                     'label'=> 'تاریخ پایان ('.jdate('Y').'/10/10)']);?>
             </div>
 
+            <script nonce="<?=get_nonce?>">
+                $("#pdpGregorian").persianDatepicker({ 
+                    formatDate: "YYYY/0M/0D",
+                    fontSize: 13, // by px
+                    selectableMonths: [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12],
+                    persianNumbers: !0,
+                    isRTL: !1,  //  isRTL:!0 => because of persian words direction
+                    //onSelect: function () {alert('asd')},
+                    showGregorianDate: <?=$this->Func->Optionget('admin_calender') == 1?'true':'false'?> 
+                });
+                $("#pdpGregorian2").persianDatepicker({ 
+                    formatDate: "YYYY/0M/0D",
+                    fontSize: 13, // by px
+                    selectableMonths: [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12],
+                    persianNumbers: !0,
+                    isRTL: !1,  //  isRTL:!0 => because of persian words direction
+                    //onSelect: function () {alert('asd')},
+                    showGregorianDate: <?=$this->Func->Optionget('admin_calender') == 1?'true':'false'?> 
+                });
+            </script>
+
             <div class="col-sm-6">
                 <?= $this->Form->control('challengestatus_id', [
-                    'label'=>'وضعیت '. $this->html->link('مدیریت','/admin/challenge/challengestatuses/',['target'=>'_blank', 'class'=>'badge badge-light-primary']),
-                    'escape'=>false,
+                    'label'=>'وضعیت',
                     'options' => $challengestatuses,
                     'class'=>'form-control mb-2']);?>
             </div>
@@ -114,7 +141,6 @@ $predata = new Predata();?>
                         0=>'غیرفعال / آرشیو',
                         1 =>'فعال'],
                     'label'=>'نمایش',
-                    'empty'=>false,
                     'class'=>'form-control']);?>
             </div>
 
@@ -131,7 +157,6 @@ $predata = new Predata();?>
                     'empty'=>'- نمایش به همه -',
                     'options'=> $predata->gettype('chtype'),
                     'label'=>'نمایش به',
-                    'empty'=>false,
                     'class'=>'form-control']);?>
             </div>
 

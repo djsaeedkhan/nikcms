@@ -1,6 +1,6 @@
-<h3><?= __('مدیریت برچسب ها') ?>
-    <?= $this->html->link('افزودن',['action'=>'Add'],['class'=>'btn btn-success'])?>
-</h3>
+    <h3><?= __('مدیریت برچسب ها') ?>
+        <?= $this->html->link('افزودن',['action'=>'Add'],['class'=>'btn btn-success'])?>
+    </h3>
 <div class="card"><div class="card-body">
     <div class="table-responsive"><table class="table table-striped table-bordered table-hover">
         <thead>

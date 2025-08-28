@@ -4,7 +4,7 @@ use \Sms\Sms;
 
 use Sms\Controller\AppController;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 
 class HomeController extends AppController
 {
@@ -16,7 +16,7 @@ class HomeController extends AppController
     public function index(){
 
         $date = jdate('d','','','','en');
-        $time = new Time('now');
+        $time = new FrozenTime('now');
         $time = $time->addDays("-{$date}");
 
         $this->set([

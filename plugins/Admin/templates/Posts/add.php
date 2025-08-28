@@ -391,7 +391,7 @@ $("#myform").submit(function(){
                 <script nonce="<?=get_nonce?>">
                     $("#pdpGregorian").flatpickr({enableTime: true,dateFormat: "Y/m/d H:i:s",});
                     $("#pdpGregorian2").flatpickr({enableTime: true,dateFormat: "Y/m/d H:i:s",});
-                    </script>
+                </script>
             <?php else:?>
                 <script nonce="<?=get_nonce?>">
                     //https://behzadi.github.io/persianDatepicker/

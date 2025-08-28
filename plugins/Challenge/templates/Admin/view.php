@@ -1,12 +1,35 @@
 <?php
 use Challenge\Predata;
-$predata = new Predata();?>
+use Cake\Routing\Router;
+$predata = new Predata();
+try {
+    echo $this->element('Challenge.ch_modal');
+} catch (\Throwable $th) {
+    //throw $th;
+}
+?>
+
 <div class="challenge">
     <h4>
-        <span style="letter-spacing: -0.5px;;"><?= h($challenge->title) ?></span>
+        <div class="float-right" style="display: flex;align-items: center;column-gap: 5px;">
+            <span style="letter-spacing: -0.5px;"><?= h($challenge->title) ?></span>
+
+            <?= $this->html->link('ویرایش اطلاعات پایه',
+                ['action'=>'edit', $challenge->id],
+                ['class'=>'btn btn-sm btn-dark'])?>
+
+            <?= $this->html->link('نمایش در سایت',
+                '/challenge/'.$challenge->slug,
+                ['class'=>'btn btn-sm btn-secondary','target'=>'_blank','title'=>'صفحه '.__d('Template', 'همیاری')])?>
+
+            <?= $this->Form->postlink('حذف',
+                ['action'=>'delete',$challenge->id],
+                ['class'=>'btn btn-sm btn-danger','confirm'=>'برای حذف مطمئن هستید؟'])?>
+        </div>
+
         <div class="float-left">
 
-            <div class="btn-group pull-right" style="margin-right:5px;" role="group">
+            <!-- <div class="btn-group pull-right" style="margin-right:5px;" role="group">
                 <button class="btn btn-success dropdown-toggle " style="padding: 6px !important;" id="btnGroupVerticalDrop2" type="button" 
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">دسترسی</button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop2" >
@@ -33,7 +56,7 @@ $predata = new Predata();?>
                         ['action'=>'delete',$challenge->id],
                         ['class'=>'dropdown-item','confirm'=>'برای حذف مطمئن هستید؟'])?>
                 </div>
-            </div>
+            </div> -->
 
             
 
@@ -65,7 +88,8 @@ $predata = new Predata();?>
             </div>
 
         </div>
-    </h4><br>
+        <div class="clearfix"></div>
+    </h4>
     <div class="clearfix"></div>
 
     <div class="row">
@@ -133,7 +157,7 @@ $predata = new Predata();?>
         </div>
 
         <div class="col-5">
-            <h5><?=__d('Template','سطوح همیاری')?></h5>
+            <h5>سطوح <?=__d('Template','همیاری')?></h5>
             <?php if (!empty($challenge->challengecats)): ?>
             <div class="table-responsive"><table class="table table-bordered bg-white">
                 <tr><td>
@@ -176,24 +200,32 @@ $predata = new Predata();?>
 
             <div class="related">
                 <h5><?= __('حوزه های ماموریتی') ?></h5>
-                <?php if (!empty($challenge->challengefields)): ?>
+                
                     <div class="table-responsive"><table class="table table-bordered bg-white">
-
                         <tr><td>
+                            <?php if (!empty($challenge->challengefields)): ?>
                             <?php $i=1;foreach ($challenge->challengefields as $challengefields): ?>
                                 <span class="badge badge-light-primary mb-1"><?= h($challengefields->title) ?></span>
                             <?php endforeach; ?>
+                            <?php endif; ?>
                         </td></tr>
-
                     </table></div>
-                <?php endif; ?>
+                
             </div>
 
-            <div class="related">
+            <div class="related"><br>
                 <h5><?= __d('Template', 'همیاری').' های مرتبط' ?> 
                     <?= $this->html->link('افزودن',
                         ['controller'=>'Challengerelateds','action'=>'add',$challenge->id],
-                        ['class'=>'btn btn-success btn-sm','target'=>'_blank'])?></h5>
+                        [
+                            'class'=>'btn btn-success btn-sm',
+                            'target'=>'_blank',
+                            'data-toggle'=>'modal',
+                            'data-target'=>'#exampleModalll',
+                            'data-whatever'=>Router::url(['controller'=>'Challengerelateds','action'=>'add',$challenge->id,'?'=>['nonav'=>1]])]
+                    );?>
+                    
+                    </h5>
                 <?php if (!empty($challenge->challengerelateds)): ?>
                     <div class="table-responsive"><table class="table table-bordered bg-white">
                         <tr><td>
@@ -211,16 +243,18 @@ $predata = new Predata();?>
                 <?php endif; ?>
             </div>
 
-
-
-
         </div>
     </div><Br>
     
     <ul class="nav nav-tabs" role="tablist">
-
         <li class="nav-item">
-            <a class="nav-link active show" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" 
+            <a class="nav-link active show" data-toggle="tab" href="#question" role="tab" aria-controls="question" 
+                aria-selected="true"><?= __('لیست سوالات') ?>
+                <!-- <span class="badge badge-warning badge-pill"><?=count($challenge->challengetexts)?></span> -->
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" 
                 aria-selected="true"><?= __('شرح موضوع') ?>
                 <span class="badge badge-warning badge-pill"><?=count($challenge->challengetexts)?></span>
             </a>
@@ -291,19 +325,63 @@ $predata = new Predata();?>
                 <tr>
                     <td><?= h($challengetimelines->title) ?>
                         <div class="hidme">
-                            <?= $this->Html->link(__('ویرایش'), ['controller' => 'Challengetimelines', 'action' => 'edit', $challengetimelines->id]) ?>
+                            <?= $this->Html->link(__('ویرایش'), 
+                                ['controller' => 'Challengetimelines', 'action' => 'edit', $challengetimelines->id],
+                                [
+                                    'data-toggle'=>'modal',
+                                    'data-target'=>'#exampleModalll',
+                                    'data-whatever'=>Router::url(['controller' => 'Challengetimelines', 'action' => 'edit', $challengetimelines->id, '?'=>['nonav'=>1]]),
+                                ]) ?>
                             <?= $this->Form->postlink(__('حذف'), ['controller' => 'Challengetimelines', 'action' => 'delete', $challengetimelines->id], ['confirm' => __('Are you sure you want to delete # {0}?', $challengetimelines->id)]) ?>
                         </div>
                     </td>
                     <!-- <td><?= h($challengetimelines->types) ?></td> -->
-                    <td><?= $this->Func->date2($challengetimelines->dates) ?></td>
+                    <td><?= $this->Func->date2($challengetimelines->dates,'Y-m-d') ?></td>
                 </tr>
                 <?php endforeach; ?>
             </table></div>
             <?php endif; ?>
             <?= $this->html->link('+ زمان بندی',
-                ['controller'=>'Challengetimelines','action'=>'add',$challenge->id],
+                ['controller'=>'Challengetimelines','action'=>'add',$challenge->id], [
+                    'data-toggle'=>'modal',
+                    'data-target'=>'#exampleModalll',
+                    'data-whatever'=>Router::url(['controller'=>'Challengetimelines','action'=>'add',$challenge->id,'?'=>['nonav'=>1]]),
+                    'class'=>'btn btn-success'
+                ])?>
+        </div>
+        <!-- ------------------------------------------->
+        <!-- ------------------------------------------->
+        <div class="tab-pane active show" id="question" role="tabpanel"><br>
+            
+            <div id="content-section"><?= $this->cell('Challenge.Questions',[$challenge->id]);?></div>
+
+            <script>
+            $('#exampleModalll').on('hidden.bs.modal', function () {
+                $('#content-section').css({ 'opacity' : 0.25 });
+                $.ajax({
+                    url: '<?= Router::url('/admin/challenge/challengequests/index/'.$challenge->id.'/?render=false&nonav=1')?>', // آدرس فایل یا API که اطلاعات را برمی‌گرداند
+                    method: "GET",
+                    success: function(data) {
+                        $("#content-section").html(data);
+                        $('#content-section').css({ 'opacity' :1 });
+                    },
+                    error: function() {
+                        alert("خطا در دریافت اطلاعات");
+                        $('#content-section').css({ 'opacity' :1 });
+                    }
+                });
+            });
+            /* $(document).ready(function() {
+                $(".close").on("click", function() {
+                    
+                });
+            }); */
+            </script>
+
+            <?= $this->html->link('+ مدیریت سوالات',
+                ['controller'=>'challengequests','action'=>'index',$challenge->id],
                 ['class'=>'btn btn-success'])?>
+
         </div>
         <!-- ------------------------------------------->
         <!-- ------------------------------------------->
@@ -337,6 +415,17 @@ $predata = new Predata();?>
         <!-- ------------------------------------------->
         <!-- ------------------------------------------->
         <div class="tab-pane" id="forumtitle" role="tabpanel">
+
+            <?= $this->html->link('تبادل نظر',
+                ['controller'=>'Challengeforums','action'=>'index','?'=>[
+                    'action' =>'unapproved',
+                    'challenge_id'=>$challenge->id] ],
+                ['class'=>'btn btn-success','target'=>'_blank'])?>
+
+            <?= $this->html->link('+ عناوین تبادل نظر',
+                ['controller'=>'Challengeforumtitles','action'=>'add',$challenge->id],
+                ['class'=>'btn btn-success'])?>
+            
             <?php if (!empty($challenge->challengeforumtitles)): ?>
             <div class="table-responsive"><table class="table table-striped table-bordered table-hover bg-white">
                 <tr>
@@ -358,9 +447,7 @@ $predata = new Predata();?>
                 <?php endforeach; ?>
             </table></div>
             <?php endif; ?>
-            <?= $this->html->link('+ تبادل نظر',
-                ['controller'=>'Challengeforumtitles','action'=>'add',$challenge->id],
-                ['class'=>'btn btn-success'])?>
+            
         </div>
         <!-- ------------------------------------------->
         <!-- ------------------------------------------->
@@ -467,7 +554,7 @@ $predata = new Predata();?>
         </div>
         <!-- ------------------------------------------->
         <!-- ------------------------------------------->
-        <div class="tab-pane  active show" id="overview" role="tabpanel">
+        <div class="tab-pane" id="overview" role="tabpanel">
             <?php if (!empty($challenge->challengetexts)): ?>
             <div class="table-responsive"><table class="table table-striped table-bordered bg-white">
                 <tr>

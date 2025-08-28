@@ -76,6 +76,8 @@ class Checker
     //-------------------------------------------------------------------------------
     public function checkIS($course_id = null, $file_id = null , $user_id = null , $query = null){
         $status = true;
+        if($file_id == null)
+            return false;
         $coursefile = TableRegistry::getTableLocator()->get('Lms.LmsCoursefiles')->find('all')
             ->where(['id' => $file_id])
             ->first(); 

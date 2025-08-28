@@ -21,11 +21,15 @@ class ChallengequestsController extends AppController
             7 => 'سرتیتر (H3)',
             8 => 'متنی (Text)',
         ];
+        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
         $this->set('types',$types);
     }
     //-----------------------------------------------------
     public function index($ch_id = null)
     {
+        if($this->request->getQuery('render'))
+            $this->viewBuilder()->disableAutoLayout();
+
         $challenge= TableRegistry::getTableLocator()->get('Challenge.Challenges')->find('all')->where(['id'=> $ch_id])->first();
         if(! $challenge){
             $this->Flash->error('چنین '.__d('Template', 'همیاری').' پیدا نشد');
@@ -33,7 +37,7 @@ class ChallengequestsController extends AppController
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
+        //$this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {
@@ -142,6 +146,7 @@ class ChallengequestsController extends AppController
             ->order(['priority'=>'asc'])
             ->where(['challenge_id'=> $ch_id]);
         $this->set(compact('parentCategory','ch_id'));
+        //$this->autoRender = false;
     }
 
     public function add($ch_id = null, $parent_id = null)
@@ -155,9 +160,23 @@ class ChallengequestsController extends AppController
             $this->request = $this->request->withData('challenge_id', $ch_id );
 
             $challengequest = $this->Challengequests->patchEntity($challengequest, $this->request->getData());
-            if ($this->Challengequests->save($challengequest)) {
+            if ($challengequest = $this->Challengequests->save($challengequest)) {
+                if(isset($this->request->getData()['items']) and is_array($this->request->getData()['items']) ){
+                    foreach($this->request->getData()['items'] as $itm => $v){
+                        $qansw = $this->Challengequests->patchEntity(
+                            $this->Challengequests->newEmptyEntity(), [
+                                'challenge_id'=> $ch_id,
+                                'parent_id'=> $challengequest->id,
+                                'title'=> $v,
+                                'types'=> 8,//بصورت متنی //$this->request->getData()['types'],
+                            ]);
+                        if($this->Challengequests->save($qansw))
+                            $this->Flash->success("گزینه '". $v ."' با موفقیت ثبت شد");
+                        else
+                            $this->Flash->error("متاسفانه گزینه '". $v ."' ثبت نشد");
+                    }
+                }
                 $this->Flash->success(__('The challengequest has been saved.'));
-
                 return $this->redirect(['action' => 'index',$ch_id]);
             }
             $this->Flash->error(__('The challengequest could not be saved. Please, try again.'));
@@ -217,7 +236,7 @@ class ChallengequestsController extends AppController
         }
         $this->set(['challenge'=>$challenge]);
 
-        $this->Challengeqanswers = TableRegistry::getTableLocator()->get('Challenge.Challengeqanswers');
+        
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         if ($this->request->getQuery('chid') and $this->request->getQuery('chid') !=  '') {

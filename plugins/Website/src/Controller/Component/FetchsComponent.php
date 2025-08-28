@@ -11,7 +11,7 @@ use Admin\View\Helper\FuncHelper;
 
 class FetchsComponent extends Component {
     protected $_defaultConfig = [];
-    public $components = ['Paginator','Session'];
+    public $components = ['Paginator','Session','Authentication.Identity','Identity'];
     public function initialize(array $config): void{
         //parent::initialize();
     }
@@ -192,6 +192,7 @@ class FetchsComponent extends Component {
         global $id;
         global $result;
 
+        $user = $this->getController()->getRequest()->getAttribute('identity'); 
         $param = $this->_registry->getController()->getRequest()->getQuery();
         $this->request = $this->_registry->getController()->getRequest();
 
@@ -199,22 +200,22 @@ class FetchsComponent extends Component {
             ->find('all')
             ->where([
                 $this->request->getAttribute('identity')?[]:['Posts.post_status !=' => 2],
-                'Posts.published' => 1,
+                $user?false:['Posts.published' => 1],
                 'Posts.created <=' => date('Y-m-d H:i:s')
             ])
             ->contain(['Categories','PostsI18n','PostMetas','Users','Tags']);
 
         if($this->request->getParam('slug')){
             $result = $result->where([
-                'slug' => strip_tags($this->request->getParam('slug')),
-                'Posts.published' => 1 ,
+                'Posts.slug' => strip_tags($this->request->getParam('slug')),
+                $user?false:['Posts.published' => 1],
                 $this->request->getAttribute('identity') != NULL?[]:['Posts.post_status !=' => 2],
             ]);
         }
         elseif($id != null){
             $result = $result->where([
                 'Posts.id' => intval($id),
-                'Posts.published' => 1 ,
+                $user?false:['Posts.published' => 1],
                 $this->request->getAttribute('identity')!= NULL?[]:['Posts.post_status !=' => 2],
             ]);
         }else{

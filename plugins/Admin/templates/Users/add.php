@@ -67,7 +67,10 @@
                     'autocomplete'=>'off',
                     'label'=>__d('Admin', 'تاریخ انقضای ورود') ]).'<hr>';
 
-                echo $this->Func->create_form(\Admin\View\Helper\ModuleHelper::options_registerform(), $meta_list);
+                echo $this->Func->create_form(
+                    \Admin\View\Helper\ModuleHelper::options_registerform(), 
+                    isset($meta_list)?$meta_list:[]
+                );
                 echo $this->Form->control('enable', [
                     'options' =>$this->Func->predata('enable'),
                     'empty'=>' -- '.__d('Admin', 'انتخاب').' --',
@@ -78,7 +81,10 @@
     </div>
     <div class="col-sm-6">
         <div class="card"><div class="card-body">
-            <?= $this->Func->create_form(Admin\View\Helper\ModuleHelper::options_userfield(),$meta_list)?>
+            <?= $this->Func->create_form(
+                Admin\View\Helper\ModuleHelper::options_userfield(),
+                isset($meta_list)?$meta_list:[]
+                )?>
         </div></div>
     </div>
 </div>

@@ -104,8 +104,11 @@ endif;
                                                     ($page == $temp2['id']?'crnt ':'').
                                                     ((isset($temp2['lms_courseexams']) and count($temp2['lms_courseexams']) )?'has-exam ':'').
                                                     '">';
-                                            ///echo $temp2['show_in_list'] == 1?'':'';
-                                            echo $this->cell('Lms.GuestCansee',[$results['id'], $temp2]);
+                                                try {
+                                                    echo $this->cell('Lms.GuestCansee',[$results['id'], $temp2]);
+                                                } catch (\Throwable $th) {
+                                                    //throw $th;
+                                                }
                                             echo '</div>';
                                         endforeach;
                                     endif;?>

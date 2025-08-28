@@ -9,14 +9,14 @@ class ChallengetimelinesController extends AppController
         if ($this->request->is('post')) {
             $this->request = $this->request->withData('challenge_id',$id );
             $challengetimeline = $this->Challengetimelines->patchEntity($challengetimeline, $this->request->getData());
+            
             if ($this->Challengetimelines->save($challengetimeline)) {
-                $this->Flash->success(__('The challengetimeline has been saved.'));
-
-                return $this->redirect(['controller'=>'Admin','action' => 'view',$id]);
+                $this->Flash->success(__('ثبت اطلاعات با موفقیت انجام شد'));
+                return $this->redirect(['action' => 'edit',$id]);
             }
-            $this->Flash->error(__('The challengetimeline could not be saved. Please, try again.'));
+            $this->Flash->error(__('متاسفانه ثبت اطلاعات انجام نشد. لطفا دوباره تلاش کنید'));
         }
-        $challenges = $this->Challengetimelines->Challenges->find('list', ['limit' => 200]);
+        $challenges = $this->Challengetimelines->Challenges->find('list', []);
         $this->set(compact('challengetimeline', 'challenges'));
     }
 
@@ -27,13 +27,14 @@ class ChallengetimelinesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $challengetimeline = $this->Challengetimelines->patchEntity($challengetimeline, $this->request->getData());
             if ($this->Challengetimelines->save($challengetimeline)) {
-                $this->Flash->success(__('The challengetimeline has been saved.'));
-
-                return $this->redirect(['controller'=>'Admin','action' => 'view',$challengetimeline['challenge_id']]);
+                $this->Flash->success(__('ثبت اطلاعات با موفقیت انجام شد'));
+                return $this->redirect($this->referer());
+                //return $this->redirect(['controller'=>'Admin','action' => 'view',$challengetimeline['challenge_id']]);
             }
-            $this->Flash->error(__('The challengetimeline could not be saved. Please, try again.'));
+            pr($challengetimeline);
+            $this->Flash->error(__('متاسفانه ثبت اطلاعات انجام نشد'));
         }
-        $challenges = $this->Challengetimelines->Challenges->find('list', ['limit' => 200]);
+        $challenges = $this->Challengetimelines->Challenges->find('list', []);
         $this->set(compact('challengetimeline', 'challenges'));
     }
     

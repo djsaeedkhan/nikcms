@@ -103,7 +103,7 @@
 							<?php 
 							echo $this->Form->create(null,['type'=>'get','id'=>'form1']);
 							$param = $this->request->getQuery();
-							$this->request = $this->request->withData('plugin_challenge',$param);
+							@$this->request->data = $param;
 							?>
 							<div class="widget widget_links clearfix ">
 

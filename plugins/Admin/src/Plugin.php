@@ -226,12 +226,14 @@ class Plugin extends BasePlugin
                             'action'=>'index'],
                         'has_sub'=>false, 'icon'=>true, 'show_in_menu'=>true,
                     ],
-                    [
+
+                    //removed 1404-06-03
+                    /* [
                         'title'=>__d('Admin', 'بروز رسانی'),
                         'link'=>'/admin/dashboard/update/',
                         'has_sub'=>false, 'icon'=>true, 'show_in_menu'=>true,
-                    ],
-                    /* '2'=>[
+                    ],*/
+                    /*'2'=>[
                         'title'=>'راهنمای سامانه',
                         'link'=>'/admin/Dashboard/Help/',
                         'has_sub'=>false, 'icon'=>true, 'show_in_menu'=>false,
@@ -552,7 +554,7 @@ class Plugin extends BasePlugin
                     'title'=>'پیشخوان',
                     'action'=> [
                             'index'=>'صفحه نخست',
-                            'update'=>'به روز رسانی',
+                            //'update'=>'به روز رسانی', //removed 1404-06-03
                             'help'=>'راهنمای سایت',
                             'about'=>'درباره ما',
                         ]
@@ -655,7 +657,7 @@ class Plugin extends BasePlugin
                             'profile'=>'پروفایل',
                             'add'=>'جدید',
                             'edit'=>'ویرایش',
-                            'delete'=>'حذف'
+                            'delete'=>'حذف کاربر'
                         ]
                     ], 
             ]

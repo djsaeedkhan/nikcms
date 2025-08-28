@@ -4,6 +4,10 @@ use Cake\View\Cell;
 
 class WidgetCell extends Cell
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+    }
     public function admin($field = null , $value = null){
         $this->set([
             'field' => $field ,

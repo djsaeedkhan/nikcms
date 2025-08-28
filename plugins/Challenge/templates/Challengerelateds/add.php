@@ -1,6 +1,7 @@
 <?= $this->Form->create($challengerelated,['class'=>'col-sm-7']) ?>
-<fieldset>
-    <legend class="pb-2"><?= 'افزودن '.__d('Template', 'همیاری').' های مرتبط' ?></legend>
+<fieldset class="mb-2">
+    <legend class=""><?= 'افزودن '.__d('Template', 'همیاری').' های مرتبط' ?></legend>
+    
     <?php
         echo $this->Form->control('challenge_id',[
             'default'=>$id,
@@ -10,11 +11,11 @@
         echo $this->Form->control('challenges_id', [
             'options' => $challenges,
             'id'=>'multiple1',
-            'class'=>'form-control',
+            'class'=>'form-control select2 mb-1',
             'label'=> false,
-            'style'=>'padding-right:10px;'
+            'style'=>'padding-right:10px;',
             //'multiple'
-            ]);
+        ]);
     ?>
 </fieldset>
 <?= $this->Form->button(__('ثبت اطلاعات'),['class'=>'btn btn-success']) ?>

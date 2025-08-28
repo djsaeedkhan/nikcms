@@ -1,5 +1,16 @@
-<h3><?= __d('Admin', 'Manage User');?>: <?= h($user->username) ?></h3>
+<h3>
+    <?= __d('Admin', 'نام کاربر');?>: <?= h($user->username) ?>
+    <?= $this->Form->postlink(
+        'حذف کاربر',
+        ['action'=>'delete',$user->id],
+        ['class'=>'btn btn-danger',
+        'style'=>'float: left;',
+        'confirm'=>'آیا برای حذف این کاربر مطمین هستید؟'])?>
+</h3>
+<div class="clear clearfix clearfloat"></div>
 <div class="box box-primary"><div class="card-body">
+    
+
     <div class="table-responsive"><table class="table table-striped table-bordered table-hover">
         <tr>
             <th><?= __d('Admin', 'Id') ?></th>

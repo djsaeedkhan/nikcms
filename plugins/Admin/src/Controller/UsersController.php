@@ -5,6 +5,7 @@ use Cake\Controller\Exception\SecurityException;
 use Cake\Event\EventInterface;
 use Cake\ORM\TableRegistry;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Utility\Text;
 
 class UsersController extends AppController
 {
@@ -19,7 +20,7 @@ class UsersController extends AppController
     }
     //--------------------------------------------------------------------
     public function index(){
-        $user = $this->Users->find('all')
+        $user = $this->Users->find('notDeleted')
             ->contain([
                 'Roles',
                 'Profiles',
@@ -41,7 +42,7 @@ class UsersController extends AppController
         }
 
         if($this->request->is('post')){
-            $u = $this->Users->find('all')
+            $u = $this->Users->find('notDeleted')
                 ->contain(['Roles','Profiles','UserMetas'])
                 ->order(['Users.id'=>'desc'])
                 ->toarray();
@@ -85,12 +86,17 @@ class UsersController extends AppController
     }
     //--------------------------------------------------------------------
     public function view($id = null){
-        if($id == null) $id = $this->request->getAttribute('identity')->get('id');
+        if($id == null) 
+            $id = $this->request->getAttribute('identity')->get('id');
         
         try{
-            $user = $this->Users->get($id, [
+            $this->Users->find('notDeleted')
+                ->where(['Users.id' => $id])
+                ->contain(['Posts'])
+                ->firstOrFail();
+            /* $user = $this->Users->get($id, [
                 'contain' => ['Posts']
-            ]);
+            ]); */
         }
         catch (\Exception $e) {
             $this->Flash->error(__d('Admin', 'کاربر پیدا نشد'));
@@ -111,7 +117,11 @@ class UsersController extends AppController
             $id = $this->request->getAttribute('identity')->get('id');
 
         try{
-            $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
+            $user = $this->Users->find('notDeleted')
+                ->where(['Users.id' => $id])
+                ->contain(['UserMetas'])
+                ->firstOrFail();
+            /* $user = $this->Users->get($id, ['contain' => ['UserMetas']]); */
         }
         catch (\Exception $e) {
             $this->Flash->error(__d('Admin', 'کاربر پیدا نشد'));
@@ -205,9 +215,11 @@ class UsersController extends AppController
     //--------------------------------------------------------------------
     public function edit($id = null){
         
-        //$this->Users = TableRegistry::getTableLocator()->get('Admin.Users');
         try{
-            $user = $this->Users->get($id, ['contain' => ['UserMetas']]);
+            $user = $this->Users->find('notDeleted')
+                ->where(['Users.id' => $id])
+                ->contain(['UserMetas'])
+                ->firstOrFail();
         }
         catch (\Exception $e) {
             $this->Flash->error(__d('Admin', 'کاربر پیدا نشد'));
@@ -277,14 +289,31 @@ class UsersController extends AppController
     //--------------------------------------------------------------------
     public function delete($id = null){
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            TableRegistry::getTableLocator()->get("Admin.UserMetas")->deleteAll(['user_id' => $id]);
-            $this->Flash->success(__d('Admin', 'The user has been deleted.'));
-        } else {
-            $this->Flash->error(__d('Admin', 'The user could not be deleted. Please, try again.'));
+        /* $user = $this->Users->get($id); */
+        try {
+            $user = $this->Users->find('notDeleted')
+                ->where(['Users.id' => $id])
+                ->firstOrFail();
+        } 
+        catch (\Exception $e) {
+            $this->Flash->error(__d('Admin', 'کاربر پیدا نشد'));
+            return $this->redirect($this->referer());
         }
-        return $this->redirect($this->referer());
+        
+
+        // تغییر نام کاربری و رمز عبور به چیزی غیرقابل استفاده
+        $user->username = 'deleted_' . $user->id . '_' . time();
+        $user->password = Text::uuid();
+        $user->enable = 0;
+        $user->email = "";
+
+        if ($this->Users->save($user)) {
+            $this->Flash->success(__('کاربر غیرفعال شد.'));
+        } else {
+            $this->Flash->error(__('کاربر غیرفعال نشد، دوباره تلاش کنید.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
     //--------------------------------------------------------------------
     public function add2(){

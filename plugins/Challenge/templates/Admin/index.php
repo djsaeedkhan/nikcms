@@ -58,7 +58,7 @@
                         <?= $this->html->link(__('جزئیات'), ['action' => 'view', $post->id]) ?>
                         <?= $this->html->link(__('مشارکت ها'), '/admin/challenge/challengeuserforms/index/'.$post->id) ?>
                         <?= $this->html->link(__('ویرایش'), ['action' => 'Edit', $post->id]) ?>
-                        <?= $this->html->link('سوالات',['controller'=>'challengequests','action'=>'index',$post->id],['class'=>'badge badge-info'])?>
+                        <!-- <?= $this->html->link('سوالات',['controller'=>'challengequests','action'=>'index',$post->id],['class'=>'badge badge-info'])?> -->
                         <?= $this->html->link('آمار',['controller'=>'challengequests','action'=>'report',$post->id],['class'=>''])?>
                         <?= $this->html->link('نمایش در سایت','/challenge/'.$post->slug,['target'=>'_blank'])?>
                     </div>

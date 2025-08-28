@@ -3,7 +3,7 @@ namespace Admin\View\Cell;
 
 use Cake\ORM\TableRegistry;
 use Cake\View\Cell;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use \Sms\Sms;
 /**
  * Cronjobs cell
@@ -20,9 +20,8 @@ class CronjobsCell extends Cell
                 ->find('all')
                 ->where(['expired IS NOT NULL'])
                 ->toarray();
-
             foreach($users  as $user){
-                $time = new Time( $user['expired']);
+                $time = new FrozenTime( $user['expired']);
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 $time = $time->addDays('-10');
 
@@ -56,7 +55,7 @@ class CronjobsCell extends Cell
                 ->where(['expired IS NOT NULL'])
                 ->toarray();
             foreach($users  as $user){
-                $time = new Time( $user['expired']);
+                $time = new FrozenTime( $user['expired']);
                 $time->setTimezone(new \DateTimeZone('Asia/Tehran'));
                 $time = $time->addDays('+1');
 

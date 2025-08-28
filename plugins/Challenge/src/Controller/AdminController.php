@@ -155,7 +155,9 @@ class AdminController extends AppController
         $view = 0;
         try {
             $query =  TableRegistry::getTableLocator()->get('Challenge.Challengeviews')->find('all');
-            $view = $query->select(['count' => $query->func()->sum('views'),])->toarray();
+            $view = $query
+                ->select([ 'count' => $query->func()->sum('views') ])
+                ->toarray();
         } catch (\Throwable $th) {
             $view = 0;
         }
